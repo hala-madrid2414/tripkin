@@ -1,0 +1,38 @@
+.page {
+  min-height: 100svh;
+  padding: 72px 22px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  background: var(--color-page-match);
+}
+
+.route {
+  color: var(--color-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.description {
+  color: var(--color-text);
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 20px;
+
+  a {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-heading);
+    padding: 12px 14px;
+    text-decoration: none;
+    background: var(--color-surface);
+  }
+}
