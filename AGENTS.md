@@ -39,6 +39,10 @@ Do not add uncertain product ideas, future plans, or unconfirmed technical choic
 
 Keep ordinary page-local code close to the page until reuse is clear.
 
+Prefer confirmed shared styles and shared components when they already exist.
+
+Do not create shared components for speculative reuse. Do not modify confirmed shared components or global styles for a page-local need unless explicitly requested.
+
 ## Mobile Layout Rules
 
 The layout baseline is 375px width.
@@ -52,6 +56,8 @@ Do not introduce rem/vw scaling systems, Tailwind, or mobile adaptation librarie
 ## Documentation Sync
 
 When changing project structure, scripts, routes, global styles, engineering workflow, or shared components, update the related documentation in the same change.
+
+When shared component or global style changes affect collaboration, update `docs/decision-notes/README.md`.
 
 Use these sources:
 
