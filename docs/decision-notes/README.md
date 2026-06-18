@@ -69,3 +69,11 @@
 - 决定：在 `src/styles/variables.less` 中建立 TripKin 全局视觉 token，并同步覆盖 `--adm-color-primary`、`--adm-color-success`、`--adm-color-text`、`--adm-color-weak`、`--adm-color-light`、`--adm-border-radius` 等 antd-mobile 基础 CSS 变量。
 - 影响范围：`src/styles` 全局变量、后续使用 antd-mobile 的页面，以及需要消费项目颜色、圆角、阴影和表面层级的页面样式。
 - 后续注意：页面核心视觉仍通过 CSS Modules 自定义，不要直接堆默认 antd-mobile 组件当最终视觉；旧路由占位页不是新视觉参考对象，只做构建和基础展示检查。
+
+### 2026-06-18 确认旅行地图真实地图接入方式
+
+- 类型：其他
+- 背景：`/map` 需要支持真实地图底图，同时保持当前 Demo 可运行和可截图。
+- 决定：`/map` 使用高德 Web 端 JS API 作为真实地图来源，通过本地 `.env.local` 配置 `VITE_AMAP_KEY` 和 `VITE_AMAP_SECURITY_CODE`；未配置或加载失败时使用页面内静态 SVG 地图兜底。不新增地图 npm 依赖。
+- 影响范围：`/map` 页面、本地开发环境配置、README 本地开发说明。
+- 后续注意：不要把真实 Key 或安全密钥提交到仓库；地图上的 TripKin 悬浮控件和底部卡片仍由页面 CSS Modules 自定义。

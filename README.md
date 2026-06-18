@@ -37,6 +37,15 @@ npm install
 npm run dev
 ```
 
+如果需要在 `/map` 使用真实高德地图，在本地创建 `.env.local`：
+
+```bash
+VITE_AMAP_KEY=你的高德Web端JSAPIKey
+VITE_AMAP_SECURITY_CODE=你的高德安全密钥
+```
+
+不要把真实 Key 或安全密钥提交到仓库。未配置这两个变量时，`/map` 会使用静态地图兜底。
+
 如果遇到 `vite 不是内部或外部命令`、`Cannot find module`、依赖包找不到，或 `npm run dev` 提示缺包，优先确认是否忘记执行 `npm install`。
 
 ## 常用命令
