@@ -5,42 +5,66 @@ export interface MatchModeOption {
   label: string
 }
 
+export type MatchChipIcon =
+  | 'calendar'
+  | 'car'
+  | 'camera'
+  | 'user'
+  | 'walk'
+  | 'clock'
+  | 'people'
+  | 'mountain'
+  | 'wallet'
+
 export interface MatchChip {
   id: string
   label: string
-  highlighted?: boolean
+  icon: MatchChipIcon
+  dropdown?: boolean
 }
 
 export interface PartnerMatchCardData {
   id: string
   name: string
-  avatarLabel: string
-  matchScore: string
+  mbti: string
+  avatarTone: 'sunset' | 'snow' | 'lake' | 'road'
+  avatarMark: string
+  online?: boolean
   personality: string
-  interests: string[]
+  interests: Array<{
+    icon: MatchChipIcon
+    label: string
+  }>
   destination: string
   departure: string
   summary: string
   actionLabel: string
+  profileStatus: string
+  profileQuote: string
+  matchReasons: Array<{
+    icon: MatchChipIcon | 'heart' | 'pin'
+    label: string
+  }>
 }
 
 export interface TripMatchCardData {
   id: string
   organizerName: string
-  organizerAvatar: string
   title: string
+  imageTone: 'valley' | 'ridge' | 'bridge' | 'snow'
   location: string
-  schedule: string
+  dateRange: string
+  transport: string
+  people: string
+  duration: string
   travelStyle: string
-  groupStatus: string
   summary: string
   actionLabel: string
 }
 
 export interface MatchModeContent {
   title: string
-  subtitle: string
-  helperText: string
-  resultHint: string
+  placeTitle: string
+  placeMeta: string
   chips: MatchChip[]
 }

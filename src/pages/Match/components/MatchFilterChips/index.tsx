@@ -1,5 +1,6 @@
-import styles from '../../Match.module.less'
 import type { MatchChip } from '../../types'
+import MatchIcon from '../MatchIcon'
+import styles from './MatchFilterChips.module.less'
 
 interface MatchFilterChipsProps {
   items: MatchChip[]
@@ -7,15 +8,13 @@ interface MatchFilterChipsProps {
 
 function MatchFilterChips({ items }: MatchFilterChipsProps) {
   return (
-    <section className={styles.chipsPanel} aria-label="筛选标签">
-      <div className={styles.chipsScroller}>
+    <section className={styles.panel} aria-label="筛选标签">
+      <div className={styles.scroller}>
         {items.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            className={item.highlighted ? styles.chipActive : styles.chip}
-          >
+          <button key={item.id} type="button" className={styles.chip}>
+            <MatchIcon name={item.icon} />
             {item.label}
+            {item.dropdown ? <span className={styles.chevron} /> : null}
           </button>
         ))}
       </div>

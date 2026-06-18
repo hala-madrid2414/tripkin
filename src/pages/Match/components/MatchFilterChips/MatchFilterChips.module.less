@@ -1,0 +1,60 @@
+.panel {
+  margin: 14px 0 0;
+  overflow: hidden;
+}
+
+.scroller {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 18px 4px;
+  scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid rgba(103, 110, 143, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--color-brand-primary);
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(103, 110, 143, 0.08);
+}
+
+.chip svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 2.2;
+}
+
+.chevron {
+  width: 7px;
+  height: 7px;
+  margin-left: 1px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+}
+
+@media (max-width: 360px) {
+  .scroller {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .chip {
+    min-height: 44px;
+    font-size: 15px;
+  }
+}

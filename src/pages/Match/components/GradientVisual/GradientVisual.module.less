@@ -1,0 +1,138 @@
+.visual {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 10px 24px rgba(95, 100, 132, 0.14);
+}
+
+.visual::before,
+.visual::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+
+.visual::before {
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 42%),
+    radial-gradient(
+      circle at 68% 28%,
+      rgba(255, 255, 255, 0.55),
+      transparent 0 12%,
+      transparent 13%
+    ),
+    linear-gradient(145deg, #d7ddff, #8d8cf4);
+}
+
+.visual::after {
+  left: -18%;
+  right: -12%;
+  bottom: -10%;
+  height: 42%;
+  border-radius: 999px 999px 0 0;
+  background: rgba(255, 255, 255, 0.32);
+  transform: rotate(-8deg);
+}
+
+.mark {
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.online {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  background: #42be63;
+}
+
+.sunset::before {
+  background:
+    radial-gradient(
+      circle at 68% 28%,
+      rgba(255, 245, 197, 0.95),
+      transparent 0 12%,
+      transparent 13%
+    ),
+    linear-gradient(150deg, #fed6b5 0%, #d69a78 44%, #7f8bd8 100%);
+}
+
+.snow::before {
+  background:
+    radial-gradient(
+      circle at 72% 18%,
+      rgba(255, 255, 255, 0.88),
+      transparent 0 12%,
+      transparent 13%
+    ),
+    linear-gradient(145deg, #d7e9ff 0%, #8ca9d4 46%, #394b70 100%);
+}
+
+.lake::before {
+  background:
+    radial-gradient(
+      circle at 70% 24%,
+      rgba(255, 255, 255, 0.74),
+      transparent 0 12%,
+      transparent 13%
+    ),
+    linear-gradient(145deg, #cbeafe 0%, #78b7d9 48%, #6271c7 100%);
+}
+
+.road::before {
+  background:
+    radial-gradient(
+      circle at 68% 24%,
+      rgba(255, 255, 255, 0.72),
+      transparent 0 11%,
+      transparent 12%
+    ),
+    linear-gradient(145deg, #f1c58e 0%, #7c97c6 45%, #465071 100%);
+}
+
+.valley::before {
+  background:
+    radial-gradient(
+      circle at 74% 20%,
+      rgba(255, 255, 255, 0.82),
+      transparent 0 11%,
+      transparent 12%
+    ),
+    linear-gradient(145deg, #9ad7c8 0%, #6ea9ca 50%, #405782 100%);
+}
+
+.ridge::before {
+  background:
+    radial-gradient(
+      circle at 72% 22%,
+      rgba(255, 236, 184, 0.8),
+      transparent 0 11%,
+      transparent 12%
+    ),
+    linear-gradient(145deg, #d7bc8a 0%, #7f8ca9 48%, #344461 100%);
+}
+
+.bridge::before {
+  background:
+    radial-gradient(
+      circle at 72% 24%,
+      rgba(255, 225, 166, 0.82),
+      transparent 0 11%,
+      transparent 12%
+    ),
+    linear-gradient(145deg, #f2c172 0%, #a3b2d7 45%, #5a6195 100%);
+}

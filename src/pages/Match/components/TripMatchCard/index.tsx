@@ -1,51 +1,56 @@
-import styles from '../../Match.module.less'
 import type { TripMatchCardData } from '../../types'
+import GradientVisual from '../GradientVisual'
+import MatchIcon from '../MatchIcon'
+import styles from './TripMatchCard.module.less'
 
 interface TripMatchCardProps {
   item: TripMatchCardData
+  onJoin: (item: TripMatchCardData) => void
 }
 
-function TripMatchCard({ item }: TripMatchCardProps) {
+function TripMatchCard({ item, onJoin }: TripMatchCardProps) {
   return (
-    <article className={styles.matchCard}>
-      <div className={styles.cardHeader}>
-        <div className={styles.cardIdentity}>
-          <div className={styles.avatarCircle} aria-hidden="true">
-            {item.organizerAvatar}
-          </div>
-          <div className={styles.cardIdentityCopy}>
-            <p className={styles.tripHostLabel}>发起人</p>
-            <div className={styles.cardIdentityTop}>
-              <h2 className={styles.cardTitle}>{item.title}</h2>
-              <span className={styles.tripOrganizer}>{item.organizerName}</span>
-            </div>
-          </div>
+    <article className={styles.card}>
+      <GradientVisual
+        tone={item.imageTone}
+        mark={item.organizerName}
+        online
+        className={styles.image}
+      />
+      <div className={styles.body}>
+        <div className={styles.top}>
+          <h2 className={styles.title}>{item.title}</h2>
+          <button
+            type="button"
+            className={styles.action}
+            onClick={() => onJoin(item)}
+          >
+            {item.actionLabel}
+          </button>
         </div>
-        <button type="button" className={styles.primaryAction}>
-          {item.actionLabel}
-        </button>
+
+        <div className={styles.meta}>
+          <span className={styles.metaItem}>
+            <MatchIcon name="pin" />
+            {item.location}
+          </span>
+          <span className={styles.metaItem}>
+            <MatchIcon name="calendar" />
+            {item.dateRange}
+          </span>
+          <span className={styles.metaItem}>
+            <MatchIcon name="car" />
+            {item.transport}
+          </span>
+        </div>
+
+        <p className={styles.people}>
+          <MatchIcon name="people" />
+          {item.people}
+        </p>
+
+        <p className={styles.summary}>{item.summary}</p>
       </div>
-
-      <dl className={styles.infoStack}>
-        <div className={styles.infoRow}>
-          <dt>地点</dt>
-          <dd>{item.location}</dd>
-        </div>
-        <div className={styles.infoRow}>
-          <dt>日期</dt>
-          <dd>{item.schedule}</dd>
-        </div>
-        <div className={styles.infoRow}>
-          <dt>方式</dt>
-          <dd>{item.travelStyle}</dd>
-        </div>
-        <div className={styles.infoRow}>
-          <dt>人数</dt>
-          <dd>{item.groupStatus}</dd>
-        </div>
-      </dl>
-
-      <p className={styles.cardSummary}>{item.summary}</p>
     </article>
   )
 }
