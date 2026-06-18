@@ -77,3 +77,11 @@
 - 决定：复杂页面内组件优先在页面目录下拆分，并配套 `index.tsx + ComponentName.module.less`；发现 `.local-docs/` 中有参考图时，AI 或协作者必须先确认是严格还原、风格参考还是指定部分参考；对移动端标准交互优先使用 antd-mobile，视觉由 CSS Modules 覆盖。
 - 影响范围：`docs/coding-guide.md`、`docs/collaboration-guide.md`、`docs/antd-mobile-usage-guide.md`，以及后续有参考图或复杂页面内组件的开发任务。
 - 后续注意：`.local-docs/` 仍不进入 Git；当其中的参考图或视觉结论被确认影响多人协作时，需要提炼到正式文档或本地执行计划，并写清楚还原范围、不可偏离项和可自由调整项。
+
+### 2026-06-18 确认旅行地图真实地图接入方式
+
+- 类型：其他
+- 背景：`/map` 需要支持真实地图底图，同时保持当前 Demo 可运行和可截图。
+- 决定：`/map` 使用高德 Web 端 JS API 作为真实地图来源，通过本地 `.env.local` 配置 `VITE_AMAP_KEY` 和 `VITE_AMAP_SECURITY_CODE`；未配置或加载失败时使用页面内静态 SVG 地图兜底。不新增地图 npm 依赖。
+- 影响范围：`/map` 页面、本地开发环境配置、README 本地开发说明。
+- 后续注意：不要把真实 Key 或安全密钥提交到仓库；地图上的 TripKin 悬浮控件和底部卡片仍由页面 CSS Modules 自定义。

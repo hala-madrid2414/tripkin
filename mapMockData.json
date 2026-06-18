@@ -1,0 +1,815 @@
+{
+  "_comment": "旅行灵感地图 Mock 数据 - 刷到即同行项目",
+  "_version": "1.0",
+  "_coordinateSystem": "百分比坐标 {x: 0-100, y: 0-100}，基于全国地图容器",
+  "_totalRegions": 12,
+  "_totalSpots": 47,
+  "hotSearchKeywords": [
+    "四川",
+    "川西",
+    "云南",
+    "大理",
+    "西藏",
+    "拉萨",
+    "新疆",
+    "伊犁",
+    "青海",
+    "甘肃",
+    "敦煌",
+    "三亚",
+    "北京",
+    "杭州",
+    "成都",
+    "丽江",
+    "香格里拉",
+    "九寨沟",
+    "稻城亚丁",
+    "318川藏线"
+  ],
+  "regions": [
+    {
+      "id": "sichuan",
+      "name": "四川",
+      "type": "province",
+      "position": { "x": 42, "y": 52 },
+      "bottleCount": 46,
+      "companionCount": 18,
+      "hotspotLevel": 5,
+      "tags": ["雪山", "自驾", "美食", "徒步", "藏区风情"],
+      "recommendReason": "天府之国，从雪山草甸到市井烟火，每个人都能找到属于自己的旅行节奏",
+      "suitableFor": ["吃货", "摄影爱好者", "自驾党", "徒步达人"],
+      "coverImage": "https://images.unsplash.com/photo-1518098268026-4e1e4c7b0b6c?w=800",
+      "rating": 4.8,
+      "spots": [
+        {
+          "id": "sichuan-chuanxi",
+          "name": "川西",
+          "subtitle": "318沿线 · 摄影师的天堂",
+          "parentId": "sichuan",
+          "position": { "x": 35, "y": 45 },
+          "bottleCount": 28,
+          "companionCount": 12,
+          "tags": ["318", "雪山", "日落", "慢旅行"],
+          "recommendReason": "一路向西，雪山、草原、海子同框，每一帧都是壁纸",
+          "suitableFor": ["摄影师", "自驾爱好者", "浪漫主义者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"
+          ],
+          "rating": 4.9,
+          "address": "四川省甘孜藏族自治州",
+          "bestSeason": "9月-11月",
+          "duration": "5-7天"
+        },
+        {
+          "id": "sichuan-chengdu",
+          "name": "成都",
+          "subtitle": "来了就不想走的城市",
+          "parentId": "sichuan",
+          "position": { "x": 50, "y": 55 },
+          "bottleCount": 12,
+          "companionCount": 8,
+          "tags": ["慢生活", "火锅", "熊猫", "茶馆"],
+          "recommendReason": "在宽窄巷子喝茶，在锦里夜游，在成都每一天都是慢生活",
+          "suitableFor": ["吃货", "城市漫游者", "文艺青年"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1565354785692-6d07483eb643?w=800"
+          ],
+          "rating": 4.7,
+          "address": "四川省成都市",
+          "bestSeason": "全年",
+          "duration": "3-4天"
+        },
+        {
+          "id": "sichuan-daocheng",
+          "name": "稻城亚丁",
+          "subtitle": "蓝色星球最后的净土",
+          "parentId": "sichuan",
+          "position": { "x": 32, "y": 50 },
+          "bottleCount": 15,
+          "companionCount": 6,
+          "tags": ["高原", "神山", "海子", "徒步"],
+          "recommendReason": "三座神山守护的香格里拉，牛奶海和五色海等你赴约",
+          "suitableFor": ["徒步爱好者", "户外探险者", "心灵旅人"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+          ],
+          "rating": 4.9,
+          "address": "四川省甘孜州稻城县",
+          "bestSeason": "9月-10月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "sichuan-jiuzhaigou",
+          "name": "九寨沟",
+          "subtitle": "童话世界 · 人间仙境",
+          "parentId": "sichuan",
+          "position": { "x": 48, "y": 35 },
+          "bottleCount": 8,
+          "companionCount": 4,
+          "tags": ["彩林", "碧水", "瀑布", "自然遗产"],
+          "recommendReason": "翠海、叠瀑、彩林、雪峰、藏情、蓝冰——九寨归来不看水",
+          "suitableFor": ["自然风光爱好者", "家庭出游", "摄影爱好者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1562579539-89e1f3e9b35c?w=800"
+          ],
+          "rating": 4.8,
+          "address": "四川省阿坝州九寨沟县",
+          "bestSeason": "10月-11月",
+          "duration": "2-3天"
+        },
+        {
+          "id": "sichuan-luguhu",
+          "name": "泸沽湖",
+          "subtitle": "高原明珠 · 摩梭风情",
+          "parentId": "sichuan",
+          "position": { "x": 30, "y": 58 },
+          "bottleCount": 10,
+          "companionCount": 7,
+          "tags": ["湖泊", "日出", "摩梭文化", "骑行"],
+          "recommendReason": "坐猪槽船看水性杨花，环湖骑行追日落，感受东方女儿国",
+          "suitableFor": ["情侣", "骑行爱好者", "文化探索者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800"
+          ],
+          "rating": 4.7,
+          "address": "四川省凉山州盐源县",
+          "bestSeason": "3月-11月",
+          "duration": "2-3天"
+        },
+        {
+          "id": "sichuan-leshan",
+          "name": "乐山",
+          "subtitle": "佛是一座山 · 山是一尊佛",
+          "parentId": "sichuan",
+          "position": { "x": 55, "y": 60 },
+          "bottleCount": 6,
+          "companionCount": 3,
+          "tags": ["大佛", "美食", "峨眉山", "佛教"],
+          "recommendReason": "看世界上最大的石刻大佛，吃遍乐山街头美食",
+          "suitableFor": ["佛教文化爱好者", "美食家", "历史爱好者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800"
+          ],
+          "rating": 4.6,
+          "address": "四川省乐山市",
+          "bestSeason": "4月-10月",
+          "duration": "2天"
+        }
+      ]
+    },
+    {
+      "id": "yunnan",
+      "name": "云南",
+      "type": "province",
+      "position": { "x": 38, "y": 66 },
+      "bottleCount": 52,
+      "companionCount": 24,
+      "hotspotLevel": 5,
+      "tags": ["风花雪月", "古城", "民族风", "咖啡", "慢生活"],
+      "recommendReason": "彩云之南，每一座城都有故事，每一条路都是风景",
+      "suitableFor": ["文艺青年", "数字游民", "情侣", "背包客"],
+      "coverImage": "https://images.unsplash.com/photo-1528164344705-47542687000d?w=800",
+      "rating": 4.8,
+      "spots": [
+        {
+          "id": "yunnan-dali",
+          "name": "大理",
+          "subtitle": "风花雪月 · 理想邦",
+          "parentId": "yunnan",
+          "position": { "x": 45, "y": 40 },
+          "bottleCount": 22,
+          "companionCount": 14,
+          "tags": ["洱海", "古城", "骑行", "苍山"],
+          "recommendReason": "在洱海边骑自行车，在古城里晒太阳，大理是成年人的乌托邦",
+          "suitableFor": ["数字游民", "情侣", "自由职业者", "文艺青年"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1517330357046-3ab5a5dd42a1?w=800"
+          ],
+          "rating": 4.8,
+          "address": "云南省大理白族自治州",
+          "bestSeason": "3月-5月, 9月-11月",
+          "duration": "4-5天"
+        },
+        {
+          "id": "yunnan-lijiang",
+          "name": "丽江",
+          "subtitle": "柔软时光 · 艳遇之都",
+          "parentId": "yunnan",
+          "position": { "x": 55, "y": 30 },
+          "bottleCount": 18,
+          "companionCount": 10,
+          "tags": ["古城", "玉龙雪山", "纳西文化", "酒吧"],
+          "recommendReason": "逛四方街、登玉龙雪山、听一场纳西古乐，丽江永远不缺故事",
+          "suitableFor": [" solo旅行者", "夜生活爱好者", "文化体验者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=800"
+          ],
+          "rating": 4.6,
+          "address": "云南省丽江市",
+          "bestSeason": "4月-6月, 9月-11月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "yunnan-shangrila",
+          "name": "香格里拉",
+          "subtitle": "心中的日月 · 消失的地平线",
+          "parentId": "yunnan",
+          "position": { "x": 40, "y": 20 },
+          "bottleCount": 14,
+          "companionCount": 5,
+          "tags": ["藏区", "松赞林寺", "普达措", "高原"],
+          "recommendReason": "詹姆斯·希尔顿笔下的世外桃源，藏传佛教的圣境",
+          "suitableFor": ["心灵旅人", "摄影爱好者", "藏传佛教爱好者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800"
+          ],
+          "rating": 4.7,
+          "address": "云南省迪庆藏族自治州",
+          "bestSeason": "5月-10月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "yunnan-xishuangbanna",
+          "name": "西双版纳",
+          "subtitle": "热带雨林 · 傣族风情",
+          "parentId": "yunnan",
+          "position": { "x": 60, "y": 75 },
+          "bottleCount": 8,
+          "companionCount": 6,
+          "tags": ["雨林", "傣族", "野象", "热带水果"],
+          "recommendReason": "北回归线上的绿宝石，热带雨林和傣族村寨等你探索",
+          "suitableFor": ["亲子家庭", "自然爱好者", "热带风情爱好者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800"
+          ],
+          "rating": 4.5,
+          "address": "云南省西双版纳傣族自治州",
+          "bestSeason": "11月-次年4月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "yunnan-kunming",
+          "name": "昆明",
+          "subtitle": "春城 · 花都",
+          "parentId": "yunnan",
+          "position": { "x": 50, "y": 55 },
+          "bottleCount": 6,
+          "companionCount": 4,
+          "tags": ["滇池", "石林", "鲜花", "过桥米线"],
+          "recommendReason": "四季如春的城市，一碗过桥米线开启云南之旅",
+          "suitableFor": ["城市旅行者", "美食家", "中转停留"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-158832443asci?w=800"
+          ],
+          "rating": 4.4,
+          "address": "云南省昆明市",
+          "bestSeason": "全年",
+          "duration": "2-3天"
+        }
+      ]
+    },
+    {
+      "id": "xizang",
+      "name": "西藏",
+      "type": "province",
+      "position": { "x": 22, "y": 45 },
+      "bottleCount": 38,
+      "companionCount": 15,
+      "hotspotLevel": 5,
+      "tags": ["朝圣", "雪域高原", "布达拉宫", "信仰"],
+      "recommendReason": "世界屋脊上的圣地，一辈子必须去一次的信仰之旅",
+      "suitableFor": ["心灵旅人", "探险者", "摄影师", "朝圣者"],
+      "coverImage": "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800",
+      "rating": 4.9,
+      "spots": [
+        {
+          "id": "xizang-lhasa",
+          "name": "拉萨",
+          "subtitle": "日光之城 · 信仰中心",
+          "parentId": "xizang",
+          "position": { "x": 55, "y": 55 },
+          "bottleCount": 16,
+          "companionCount": 9,
+          "tags": ["布达拉宫", "大昭寺", "八廓街", "转经"],
+          "recommendReason": "在布达拉宫前仰望，在八廓街跟随转经的人流，感受信仰的力量",
+          "suitableFor": ["文化探索者", "心灵旅人", "摄影爱好者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800"
+          ],
+          "rating": 4.9,
+          "address": "西藏自治区拉萨市",
+          "bestSeason": "5月-10月",
+          "duration": "3-5天"
+        },
+        {
+          "id": "xizang-linzhi",
+          "name": "林芝",
+          "subtitle": "西藏江南 · 桃花源",
+          "parentId": "xizang",
+          "position": { "x": 65, "y": 40 },
+          "bottleCount": 12,
+          "companionCount": 4,
+          "tags": ["桃花", "南迦巴瓦", "原始森林", "低海拔"],
+          "recommendReason": "西藏海拔最低的地方，春天桃花盛开时美得不真实",
+          "suitableFor": ["初次进藏者", "自然爱好者", "春季旅行者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=800"
+          ],
+          "rating": 4.8,
+          "address": "西藏自治区林芝市",
+          "bestSeason": "3月-4月（桃花）, 9月-10月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "xizang-everest",
+          "name": "珠峰大本营",
+          "subtitle": "世界之巅 · 8848",
+          "parentId": "xizang",
+          "position": { "x": 35, "y": 65 },
+          "bottleCount": 10,
+          "companionCount": 2,
+          "tags": ["珠峰", "星空", "大本营", "极限"],
+          "recommendReason": "在世界最高峰脚下仰望星空，这是人生最震撼的时刻之一",
+          "suitableFor": ["极限挑战者", "户外达人", "星空摄影师"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=800"
+          ],
+          "rating": 4.9,
+          "address": "西藏自治区日喀则市定日县",
+          "bestSeason": "4月-5月, 9月-10月",
+          "duration": "2-3天"
+        },
+        {
+          "id": "xizang-ali",
+          "name": "阿里",
+          "subtitle": "万山之祖 · 百川之源",
+          "parentId": "xizang",
+          "position": { "x": 15, "y": 35 },
+          "bottleCount": 5,
+          "companionCount": 1,
+          "tags": ["冈仁波齐", "玛旁雍错", "古格王朝", "无人区"],
+          "recommendReason": "西藏以西的西藏，世界屋脊的屋脊，最极致的高原风光",
+          "suitableFor": ["硬核探险者", "朝圣者", "风光摄影师"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800"
+          ],
+          "rating": 5.0,
+          "address": "西藏自治区阿里地区",
+          "bestSeason": "6月-9月",
+          "duration": "5-7天"
+        }
+      ]
+    },
+    {
+      "id": "xinjiang",
+      "name": "新疆",
+      "type": "province",
+      "position": { "x": 18, "y": 22 },
+      "bottleCount": 35,
+      "companionCount": 12,
+      "hotspotLevel": 4,
+      "tags": ["大草原", "丝路", "羊肉串", "星空", "自驾"],
+      "recommendReason": "占中国六分之一的辽阔疆域，草原、沙漠、雪山、湖泊一次看够",
+      "suitableFor": ["自驾爱好者", "风光摄影师", "美食家", "草原控"],
+      "coverImage": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800",
+      "rating": 4.8,
+      "spots": [
+        {
+          "id": "xinjiang-ili",
+          "name": "伊犁",
+          "subtitle": "塞外江南 · 薰衣草与草原",
+          "parentId": "xinjiang",
+          "position": { "x": 40, "y": 55 },
+          "bottleCount": 15,
+          "companionCount": 6,
+          "tags": ["薰衣草", "草原", "赛里木湖", "那拉提"],
+          "recommendReason": "夏天紫色的薰衣草花海和碧绿的草原，新疆最美的季节都在这里",
+          "suitableFor": ["花海爱好者", "草原控", "情侣"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=800"
+          ],
+          "rating": 4.8,
+          "address": "新疆伊犁哈萨克自治州",
+          "bestSeason": "6月-8月",
+          "duration": "4-6天"
+        },
+        {
+          "id": "xinjiang-kashgar",
+          "name": "喀什",
+          "subtitle": "丝路明珠 · 西域风情",
+          "parentId": "xinjiang",
+          "position": { "x": 25, "y": 70 },
+          "bottleCount": 12,
+          "companionCount": 4,
+          "tags": ["古城", "维吾尔", "大巴扎", "丝路"],
+          "recommendReason": "不到喀什不算到新疆，西域三十六国的繁华至今仍在",
+          "suitableFor": ["文化探索者", "历史爱好者", "人文摄影师"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800"
+          ],
+          "rating": 4.7,
+          "address": "新疆喀什地区",
+          "bestSeason": "9月-10月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "xinjiang-altay",
+          "name": "阿勒泰",
+          "subtitle": "神的自留地 · 喀纳斯",
+          "parentId": "xinjiang",
+          "position": { "x": 55, "y": 20 },
+          "bottleCount": 8,
+          "companionCount": 2,
+          "tags": ["喀纳斯", "秋色", "禾木", "滑雪"],
+          "recommendReason": "秋天的喀纳斯是上帝打翻的调色盘，冬天的禾木是童话雪乡",
+          "suitableFor": ["秋色猎人", "滑雪爱好者", "冬日旅行者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+          ],
+          "rating": 4.9,
+          "address": "新疆阿勒泰地区",
+          "bestSeason": "9月-10月（秋）, 12月-2月（冬）",
+          "duration": "3-5天"
+        }
+      ]
+    },
+    {
+      "id": "qinghai",
+      "name": "青海",
+      "type": "province",
+      "position": { "x": 32, "y": 30 },
+      "bottleCount": 28,
+      "companionCount": 10,
+      "hotspotLevel": 4,
+      "tags": ["高原", "湖泊", "盐湖", "骑行", "藏族"],
+      "recommendReason": "青海湖的蓝、茶卡的白、祁连的绿，这里是色彩的高原",
+      "suitableFor": ["骑行爱好者", "自驾党", "风光摄影师"],
+      "coverImage": "https://images.unsplash.com/photo-1508193638397-1c4234db14d9?w=800",
+      "rating": 4.7,
+      "spots": [
+        {
+          "id": "qinghai-qinghaihu",
+          "name": "青海湖",
+          "subtitle": "高原蓝宝石 · 骑行圣地",
+          "parentId": "qinghai",
+          "position": { "x": 50, "y": 55 },
+          "bottleCount": 16,
+          "companionCount": 7,
+          "tags": ["骑行", "油菜花", "日出", "环湖"],
+          "recommendReason": "360度环湖骑行，7月油菜花开时金色的海洋环绕蓝色的湖",
+          "suitableFor": ["骑行爱好者", "户外运动者", "夏日旅行者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1508193638397-1c4234db14d9?w=800"
+          ],
+          "rating": 4.7,
+          "address": "青海省海南藏族自治州",
+          "bestSeason": "7月-8月",
+          "duration": "2-3天"
+        },
+        {
+          "id": "qinghai-chaka",
+          "name": "茶卡盐湖",
+          "subtitle": "天空之镜 · 倒映天地",
+          "parentId": "qinghai",
+          "position": { "x": 45, "y": 70 },
+          "bottleCount": 12,
+          "companionCount": 3,
+          "tags": ["天空之镜", "拍照圣地", "小火车", "日落"],
+          "recommendReason": "站在湖面上，天与地没有边界，拍出人生照片",
+          "suitableFor": ["拍照达人", "情侣", "文艺青年"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1515859005217-8a1f08870f59?w=800"
+          ],
+          "rating": 4.5,
+          "address": "青海省海西蒙古族藏族自治州",
+          "bestSeason": "6月-9月",
+          "duration": "1-2天"
+        }
+      ]
+    },
+    {
+      "id": "gansu",
+      "name": "甘肃",
+      "type": "province",
+      "position": { "x": 38, "y": 28 },
+      "bottleCount": 22,
+      "companionCount": 8,
+      "hotspotLevel": 3,
+      "tags": ["丝路", "敦煌", "沙漠", "黄河", "历史"],
+      "recommendReason": "丝绸之路的黄金通道，从敦煌莫高窟到张掖丹霞，穿越千年",
+      "suitableFor": ["历史爱好者", "丝路探索者", "摄影爱好者"],
+      "coverImage": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800",
+      "rating": 4.6,
+      "spots": [
+        {
+          "id": "gansu-dunhuang",
+          "name": "敦煌",
+          "subtitle": "丝路明珠 · 千年莫高",
+          "parentId": "gansu",
+          "position": { "x": 25, "y": 45 },
+          "bottleCount": 12,
+          "companionCount": 4,
+          "tags": ["莫高窟", "鸣沙山", "月牙泉", "丝路"],
+          "recommendReason": "在莫高窟看千年壁画，在鸣沙山听沙子唱歌，月牙泉边等日落",
+          "suitableFor": ["历史文化爱好者", "艺术爱好者", "沙漠探险者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800"
+          ],
+          "rating": 4.8,
+          "address": "甘肃省敦煌市",
+          "bestSeason": "5月-10月",
+          "duration": "2-3天"
+        },
+        {
+          "id": "gansu-zhangye",
+          "name": "张掖",
+          "subtitle": "七彩丹霞 · 上帝调色盘",
+          "parentId": "gansu",
+          "position": { "x": 55, "y": 50 },
+          "bottleCount": 10,
+          "companionCount": 4,
+          "tags": ["丹霞", "彩色丘陵", "摄影", "自然奇观"],
+          "recommendReason": "七彩丹霞在日落时最美，大地的调色盘让人惊叹",
+          "suitableFor": ["风光摄影师", "自然爱好者", "日落猎人"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800"
+          ],
+          "rating": 4.7,
+          "address": "甘肃省张掖市",
+          "bestSeason": "6月-9月",
+          "duration": "2天"
+        }
+      ]
+    },
+    {
+      "id": "beijing",
+      "name": "北京",
+      "type": "province",
+      "position": { "x": 72, "y": 22 },
+      "bottleCount": 25,
+      "companionCount": 14,
+      "hotspotLevel": 4,
+      "tags": ["故宫", "长城", "胡同", "烤鸭", "历史"],
+      "recommendReason": "三千年的历史沉淀，从紫禁城到胡同口，读懂半个中国",
+      "suitableFor": ["历史爱好者", "首次旅行者", "亲子家庭", "文化探索者"],
+      "coverImage": "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800",
+      "rating": 4.6,
+      "spots": [
+        {
+          "id": "beijing-gugong",
+          "name": "故宫博物院",
+          "subtitle": "紫禁城 · 六百年皇家气象",
+          "parentId": "beijing",
+          "position": { "x": 50, "y": 50 },
+          "bottleCount": 15,
+          "companionCount": 8,
+          "tags": ["故宫", "文物", "历史", "建筑"],
+          "recommendReason": "世界最大宫殿建筑群，每一件文物都在讲一个朝代的故事",
+          "suitableFor": ["历史爱好者", "建筑爱好者", "亲子家庭"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800"
+          ],
+          "rating": 4.9,
+          "address": "北京市东城区景山前街4号",
+          "bestSeason": "全年（避开暑期）",
+          "duration": "1天"
+        },
+        {
+          "id": "beijing-changcheng",
+          "name": "万里长城",
+          "subtitle": "不到长城非好汉",
+          "parentId": "beijing",
+          "position": { "x": 55, "y": 25 },
+          "bottleCount": 10,
+          "companionCount": 6,
+          "tags": ["长城", "登山", "摄影", "历史"],
+          "recommendReason": "站在八达岭或慕田峪，感受这座人类奇迹的磅礴气势",
+          "suitableFor": ["户外爱好者", "历史爱好者", "首次旅行者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1508804052814-cd3ba865a116?w=800"
+          ],
+          "rating": 4.8,
+          "address": "北京市延庆区/怀柔区",
+          "bestSeason": "4月-6月, 9月-11月",
+          "duration": "1天"
+        }
+      ]
+    },
+    {
+      "id": "hainan",
+      "name": "海南",
+      "type": "province",
+      "position": { "x": 62, "y": 82 },
+      "bottleCount": 30,
+      "companionCount": 16,
+      "hotspotLevel": 4,
+      "tags": ["海岛", "冲浪", "椰林", "免税", "度假"],
+      "recommendReason": "冬日里的热带天堂，阳光沙滩海浪仙人掌，还有一位老船长",
+      "suitableFor": ["度假者", "冲浪爱好者", "亲子家庭", "购物达人"],
+      "coverImage": "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800",
+      "rating": 4.5,
+      "spots": [
+        {
+          "id": "hainan-sanya",
+          "name": "三亚",
+          "subtitle": "东方夏威夷 · 度假天堂",
+          "parentId": "hainan",
+          "position": { "x": 40, "y": 70 },
+          "bottleCount": 20,
+          "companionCount": 12,
+          "tags": ["海滩", "潜水", "椰梦长廊", "免税店"],
+          "recommendReason": "亚龙湾的沙滩、蜈支洲岛的潜水、天涯海角的日落",
+          "suitableFor": ["度假者", "潜水爱好者", "情侣", "亲子家庭"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800"
+          ],
+          "rating": 4.5,
+          "address": "海南省三亚市",
+          "bestSeason": "11月-次年3月",
+          "duration": "4-5天"
+        },
+        {
+          "id": "hainan-wanning",
+          "name": "万宁",
+          "subtitle": "冲浪圣地 · 比三亚更chill",
+          "parentId": "hainan",
+          "position": { "x": 60, "y": 50 },
+          "bottleCount": 10,
+          "companionCount": 4,
+          "tags": ["冲浪", "日月湾", "石梅湾", "小众"],
+          "recommendReason": "日月湾是中国冲浪第一湾，比三亚人少、更原生态",
+          "suitableFor": ["冲浪爱好者", "小众探索者", "年轻人"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800"
+          ],
+          "rating": 4.6,
+          "address": "海南省万宁市",
+          "bestSeason": "10月-次年4月",
+          "duration": "2-3天"
+        }
+      ]
+    },
+    {
+      "id": "zhejiang",
+      "name": "浙江",
+      "type": "province",
+      "position": { "x": 78, "y": 55 },
+      "bottleCount": 20,
+      "companionCount": 9,
+      "hotspotLevel": 3,
+      "tags": ["江南水乡", "古镇", "西湖", "茶文化"],
+      "recommendReason": "上有天堂下有苏杭，江南水乡的温柔和海岛的壮阔这里都有",
+      "suitableFor": ["古镇爱好者", "茶文化爱好者", "度假者"],
+      "coverImage": "https://images.unsplash.com/photo-1565354785692-6d07483eb643?w=800",
+      "rating": 4.5,
+      "spots": [
+        {
+          "id": "zhejiang-hangzhou",
+          "name": "杭州",
+          "subtitle": "人间天堂 · 西湖十景",
+          "parentId": "zhejiang",
+          "position": { "x": 45, "y": 50 },
+          "bottleCount": 12,
+          "companionCount": 6,
+          "tags": ["西湖", "龙井", "灵隐寺", "江南"],
+          "recommendReason": "西湖断桥残雪、龙井茶园清香、灵隐寺钟声悠扬",
+          "suitableFor": ["文化爱好者", "茶爱好者", "城市漫游者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1565354785692-6d07483eb643?w=800"
+          ],
+          "rating": 4.6,
+          "address": "浙江省杭州市",
+          "bestSeason": "3月-5月, 9月-11月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "zhejiang-zhoushan",
+          "name": "舟山",
+          "subtitle": "东海渔场 · 佛教圣地",
+          "parentId": "zhejiang",
+          "position": { "x": 65, "y": 35 },
+          "bottleCount": 8,
+          "companionCount": 3,
+          "tags": ["普陀山", "海鲜", "海岛", "佛教"],
+          "recommendReason": "普陀山拜佛祈福，东极岛看中国最早的日出",
+          "suitableFor": ["佛教信徒", "海岛爱好者", "海鲜控"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800"
+          ],
+          "rating": 4.4,
+          "address": "浙江省舟山市",
+          "bestSeason": "5月-10月",
+          "duration": "2-3天"
+        }
+      ]
+    },
+    {
+      "id": "guangdong",
+      "name": "广东",
+      "type": "province",
+      "position": { "x": 70, "y": 72 },
+      "bottleCount": 18,
+      "companionCount": 10,
+      "hotspotLevel": 3,
+      "tags": ["美食", "早茶", "粤语", "现代", "海滩"],
+      "recommendReason": "食在广东，从广州早茶到潮汕牛肉火锅，味蕾的极致享受",
+      "suitableFor": ["吃货", "城市探索者", "美食家"],
+      "coverImage": "https://images.unsplash.com/photo-1562579539-89e1f3e9b35c?w=800",
+      "rating": 4.4,
+      "spots": [
+        {
+          "id": "guangdong-guangzhou",
+          "name": "广州",
+          "subtitle": "食在广州 · 千年商都",
+          "parentId": "guangdong",
+          "position": { "x": 50, "y": 45 },
+          "bottleCount": 10,
+          "companionCount": 6,
+          "tags": ["早茶", "珠江夜游", "沙面", "美食"],
+          "recommendReason": "一盅两件叹早茶，夜游珠江看小蛮腰，吃遍上下九",
+          "suitableFor": ["吃货", "城市旅行者", "购物达人"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1562579539-89e1f3e9b35c?w=800"
+          ],
+          "rating": 4.4,
+          "address": "广东省广州市",
+          "bestSeason": "10月-次年3月",
+          "duration": "3-4天"
+        },
+        {
+          "id": "guangdong-shenzhen",
+          "name": "深圳",
+          "subtitle": "创新之城 · 年轻活力",
+          "parentId": "guangdong",
+          "position": { "x": 55, "y": 55 },
+          "bottleCount": 8,
+          "companionCount": 4,
+          "tags": ["科技", "海岸线", "年轻", "现代"],
+          "recommendReason": "从深圳湾看日落，在华侨城创意园喝咖啡，感受年轻城市的活力",
+          "suitableFor": ["年轻人", "科技爱好者", "创业者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800"
+          ],
+          "rating": 4.3,
+          "address": "广东省深圳市",
+          "bestSeason": "全年",
+          "duration": "2-3天"
+        }
+      ]
+    },
+    {
+      "id": "guangxi",
+      "name": "广西",
+      "type": "province",
+      "position": { "x": 58, "y": 70 },
+      "bottleCount": 16,
+      "companionCount": 7,
+      "hotspotLevel": 3,
+      "tags": ["桂林山水", "阳朔", "米粉", "喀斯特"],
+      "recommendReason": "桂林山水甲天下，阳朔山水甲桂林，这里是水墨画里的中国",
+      "suitableFor": ["自然风光爱好者", "摄影爱好者", "骑行爱好者"],
+      "coverImage": "https://images.unsplash.com/photo-1518098268026-4e1e4c7b0b6c?w=800",
+      "rating": 4.5,
+      "spots": [
+        {
+          "id": "guangxi-guilin",
+          "name": "桂林",
+          "subtitle": "山水甲天下",
+          "parentId": "guangxi",
+          "position": { "x": 50, "y": 40 },
+          "bottleCount": 10,
+          "companionCount": 5,
+          "tags": ["漓江", "象鼻山", "喀斯特", "竹筏"],
+          "recommendReason": "乘竹筏漂流漓江，两岸奇峰倒影，人在画中游",
+          "suitableFor": ["自然风光爱好者", "家庭出游", "摄影爱好者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1518098268026-4e1e4c7b0b6c?w=800"
+          ],
+          "rating": 4.5,
+          "address": "广西壮族自治区桂林市",
+          "bestSeason": "4月-10月",
+          "duration": "2-3天"
+        },
+        {
+          "id": "guangxi-yangshuo",
+          "name": "阳朔",
+          "subtitle": "西街故事 · 攀岩圣地",
+          "parentId": "guangxi",
+          "position": { "x": 55, "y": 55 },
+          "bottleCount": 6,
+          "companionCount": 2,
+          "tags": ["西街", "攀岩", "遇龙河", "啤酒鱼"],
+          "recommendReason": "在西街听流浪歌手唱歌，去遇龙河漂流，看十里画廊",
+          "suitableFor": ["年轻人", "攀岩爱好者", "夜生活爱好者"],
+          "coverImages": [
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800"
+          ],
+          "rating": 4.6,
+          "address": "广西壮族自治区阳朔县",
+          "bestSeason": "4月-10月",
+          "duration": "2-3天"
+        }
+      ]
+    }
+  ]
+}
