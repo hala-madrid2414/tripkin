@@ -10,11 +10,7 @@ interface MatchModeTabsProps {
 
 function MatchModeTabs({ activeMode, options, onChange }: MatchModeTabsProps) {
   return (
-    <section
-      className={styles.wrap}
-      data-mode={activeMode}
-      aria-label="匹配模式切换"
-    >
+    <section className={styles.wrap} aria-label="匹配模式切换">
       <Tabs
         activeKey={activeMode}
         onChange={(key) => onChange(key as MatchMode)}

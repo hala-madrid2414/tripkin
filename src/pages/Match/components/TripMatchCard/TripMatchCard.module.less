@@ -1,16 +1,18 @@
 .card {
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
-  gap: 14px;
-  padding: 16px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 14px 34px rgba(103, 110, 143, 0.1);
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 28px rgba(103, 110, 143, 0.08);
 }
 
 .image {
-  width: 64px;
-  height: 64px;
+  width: 58px;
+  height: 58px;
   border-radius: 999px;
 }
 
@@ -21,26 +23,26 @@
 .top {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
+  gap: 8px;
   align-items: start;
 }
 
 .title {
   margin: 0;
   color: #11131f;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 800;
   line-height: 1.25;
 }
 
 .action {
-  min-width: 78px;
-  min-height: 36px;
+  min-width: 70px;
+  min-height: 28px;
   border: 0;
   border-radius: 999px;
   background: rgba(109, 93, 246, 0.1);
   color: var(--color-brand-primary);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 800;
   cursor: pointer;
 }
@@ -48,10 +50,10 @@
 .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 10px;
-  margin-top: 9px;
+  gap: 6px 8px;
+  margin-top: 8px;
   color: #747987;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.5;
 }
 
@@ -62,52 +64,52 @@
 }
 
 .metaItem svg {
-  width: 16px;
-  height: 16px;
+  width: 13px;
+  height: 13px;
   color: #7f8494;
 }
 
 .people {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin: 9px 0 0;
+  gap: 5px;
+  margin: 8px 0 0;
   color: #626879;
-  font-size: 14px;
+  font-size: 11px;
   line-height: 1.4;
 }
 
 .people svg {
-  width: 18px;
-  height: 18px;
+  width: 13px;
+  height: 13px;
   color: #7f8494;
 }
 
 .summary {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   color: #626879;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.55;
 }
 
 @media (max-width: 360px) {
   .card {
-    grid-template-columns: 68px minmax(0, 1fr);
-    gap: 13px;
-    padding: 18px 14px;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 10px;
+    padding: 13px 12px;
   }
 
   .image {
-    width: 66px;
-    height: 66px;
+    width: 54px;
+    height: 54px;
   }
 
   .title {
-    font-size: 19px;
+    font-size: 14px;
   }
 
   .action {
-    min-width: 78px;
-    font-size: 14px;
+    min-width: 66px;
+    font-size: 11px;
   }
 }

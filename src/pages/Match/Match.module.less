@@ -1,27 +1,20 @@
 .page {
   min-height: 100svh;
+  overflow-x: hidden;
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.92), transparent 34%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.96), transparent 36%),
     radial-gradient(
-      circle at 82px 104px,
-      rgba(109, 93, 246, 0.1),
-      transparent 0 92px
+      circle at 296px 106px,
+      rgba(124, 98, 244, 0.12),
+      transparent 0 86px
     ),
-    linear-gradient(180deg, #fbfcff 0%, #f6f7ff 46%, #f7f8ff 100%);
-}
-
-.page[data-mode='trip'] {
-  background:
-    radial-gradient(
-      circle at 305px 104px,
-      rgba(109, 93, 246, 0.13),
-      transparent 0 84px
-    ),
-    linear-gradient(180deg, #fbfcff 0%, #f4f7ff 48%, #f7f8ff 100%);
+    linear-gradient(180deg, #fbfcff 0%, #f7f8ff 46%, #f8f9ff 100%);
 }
 
 .shell {
-  width: min(100%, 430px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 430px;
   min-height: 100svh;
   margin: 0 auto;
   padding-bottom: 26px;
@@ -29,10 +22,12 @@
 }
 
 .list {
+  box-sizing: border-box;
   display: grid;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 12px;
   padding: 0 18px;
+  width: 100%;
 }
 
 .footer {

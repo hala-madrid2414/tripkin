@@ -1,17 +1,19 @@
 .card {
   position: relative;
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
-  gap: 14px;
-  padding: 16px 16px 18px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 14px 34px rgba(103, 110, 143, 0.1);
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 14px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 28px rgba(103, 110, 143, 0.08);
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
+  width: 58px;
+  height: 58px;
   border-radius: 999px;
 }
 
@@ -22,14 +24,15 @@
 .titleRow {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
+  gap: 6px;
   align-items: center;
+  padding-right: 74px;
 }
 
 .name {
   margin: 0;
   color: #11131f;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 800;
   line-height: 1.22;
 }
@@ -37,82 +40,83 @@
 .mbti {
   display: inline-flex;
   align-items: center;
-  min-height: 24px;
-  padding: 0 7px;
-  border-radius: 9px;
+  min-height: 18px;
+  padding: 0 5px;
+  border-radius: 7px;
   background: rgba(109, 93, 246, 0.11);
   color: var(--color-brand-primary);
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 9px;
+  gap: 6px;
+  margin-top: 7px;
+  padding-right: 72px;
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  min-height: 25px;
-  padding: 0 9px;
+  gap: 4px;
+  min-height: 20px;
+  padding: 0 7px;
   border-radius: 999px;
   background: #f5f6fa;
   color: #626879;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
 }
 
 .tag svg {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   color: var(--color-brand-primary);
 }
 
 .meta {
   display: grid;
-  gap: 6px;
-  margin-top: 11px;
+  gap: 5px;
+  margin-top: 9px;
 }
 
 .metaRow {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
   color: #737886;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.45;
 }
 
 .metaRow svg {
-  width: 18px;
-  height: 18px;
+  width: 13px;
+  height: 13px;
   flex: none;
   color: #7d8394;
 }
 
 .summary {
-  margin: 11px 0 0;
+  margin: 9px 0 0;
   color: #626879;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.55;
 }
 
 .action {
   position: absolute;
-  top: 78px;
-  right: 16px;
-  min-width: 82px;
-  min-height: 38px;
-  border: 1.5px solid var(--color-brand-primary);
+  top: 65px;
+  right: 14px;
+  min-width: 68px;
+  min-height: 28px;
+  border: 1px solid var(--color-brand-primary);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.82);
   color: var(--color-brand-primary);
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 800;
   cursor: pointer;
 }
@@ -121,28 +125,28 @@
   border-color: transparent;
   background: linear-gradient(135deg, var(--color-brand-primary), #7e63ef);
   color: #fff;
-  box-shadow: 0 12px 22px rgba(109, 93, 246, 0.28);
+  box-shadow: 0 10px 18px rgba(109, 93, 246, 0.24);
 }
 
 @media (max-width: 360px) {
   .card {
-    grid-template-columns: 68px minmax(0, 1fr);
-    gap: 13px;
-    padding: 18px 14px;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 10px;
+    padding: 13px 12px 14px;
   }
 
   .avatar {
-    width: 66px;
-    height: 66px;
+    width: 54px;
+    height: 54px;
   }
 
   .name {
-    font-size: 19px;
+    font-size: 14px;
   }
 
   .action {
-    right: 14px;
-    min-width: 84px;
-    font-size: 15px;
+    right: 12px;
+    min-width: 64px;
+    font-size: 11px;
   }
 }
