@@ -1,38 +1,53 @@
 .page {
   min-height: 100svh;
-  padding: 72px 22px 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 18px;
-  background: var(--color-page-match);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.92), transparent 34%),
+    radial-gradient(
+      circle at 82px 104px,
+      rgba(109, 93, 246, 0.1),
+      transparent 0 92px
+    ),
+    linear-gradient(180deg, #fbfcff 0%, #f6f7ff 46%, #f7f8ff 100%);
 }
 
-.route {
-  color: var(--color-muted);
-  font-size: 14px;
-  margin: 0;
+.page[data-mode='trip'] {
+  background:
+    radial-gradient(
+      circle at 305px 104px,
+      rgba(109, 93, 246, 0.13),
+      transparent 0 84px
+    ),
+    linear-gradient(180deg, #fbfcff 0%, #f4f7ff 48%, #f7f8ff 100%);
 }
 
-.description {
-  color: var(--color-text);
-  font-size: 17px;
-  line-height: 1.7;
-  margin: 0;
+.shell {
+  width: min(100%, 430px);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding-bottom: 26px;
+  overflow-x: hidden;
 }
 
-.actions {
+.list {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 0 18px;
+}
 
-  a {
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    color: var(--color-heading);
-    padding: 12px 14px;
-    text-decoration: none;
-    background: var(--color-surface);
+.footer {
+  margin: 18px 0 0;
+  padding: 0 18px;
+  color: #8a90a3;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 360px) {
+  .list,
+  .footer {
+    padding-left: 14px;
+    padding-right: 14px;
   }
 }

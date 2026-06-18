@@ -1,0 +1,164 @@
+.header {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 18px 14px;
+}
+
+.mapLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.mapLineOne,
+.mapLineTwo {
+  position: absolute;
+  border: 2px solid rgba(119, 101, 246, 0.08);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 54% 46% 58% 42%;
+}
+
+.mapLineOne {
+  top: -22px;
+  right: -32px;
+  width: 260px;
+  height: 128px;
+  transform: rotate(-16deg);
+}
+
+.mapLineTwo {
+  top: 52px;
+  right: -26px;
+  width: 198px;
+  height: 92px;
+  border-style: dashed;
+  transform: rotate(-8deg);
+}
+
+.routePin {
+  position: absolute;
+  top: 66px;
+  right: 64px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50% 50% 50% 0;
+  background: linear-gradient(135deg, #c8b7ff, #745df0);
+  transform: rotate(-45deg);
+  box-shadow: 0 10px 22px rgba(109, 93, 246, 0.24);
+}
+
+.routePin::after {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  content: '';
+}
+
+.nav {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 56px 1fr 76px;
+  align-items: center;
+  min-height: 40px;
+}
+
+.backLink,
+.filterButton {
+  display: inline-flex;
+  align-items: center;
+  color: #11131f;
+  text-decoration: none;
+}
+
+.backLink {
+  justify-content: flex-start;
+  width: 44px;
+  height: 40px;
+}
+
+.backLink svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 2.5;
+}
+
+.title {
+  margin: 0;
+  color: #11131f;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.filterButton {
+  justify-content: flex-end;
+  gap: 4px;
+  min-height: 40px;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.filterIcon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
+.place {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+}
+
+.placeTitle,
+.placeMeta {
+  margin: 0;
+}
+
+.placeTitle {
+  color: #11131f;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.28;
+}
+
+.placeMeta {
+  margin-top: 4px;
+  color: #6e7280;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.header[data-mode='partner'] .title {
+  text-align: left;
+}
+
+.header[data-mode='partner'] .nav {
+  grid-template-columns: 40px 1fr 76px;
+}
+
+@media (max-width: 360px) {
+  .header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .title {
+    font-size: 23px;
+  }
+
+  .placeTitle {
+    font-size: 28px;
+  }
+}

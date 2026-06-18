@@ -14,7 +14,7 @@
 
 ### `src/pages`
 
-放带路由的大页面。当前主流程页面是 `Mbti`、`Map`、`Bottle`、`Match`。
+放带路由的大页面。页面目录通常按路由页面或业务页面命名。
 
 页面目录使用：
 
@@ -23,6 +23,21 @@ PageName/
   index.tsx
   PageName.module.less
 ```
+
+如果页面内部已经拆出复杂组件，可以继续放在当前页面目录内，例如：
+
+```txt
+PageName/
+  index.tsx
+  PageName.module.less
+  components/
+    FeatureBlock/
+      index.tsx
+      FeatureBlock.module.less
+```
+
+这类页面私有组件不等于跨页面公共组件，不需要因为拆了目录就放进 `src/components`。
+页面根 `PageName.module.less` 只负责页面壳、整体布局和少量页面级变量；复杂组件的视觉细节优先写进自己的 `ComponentName.module.less`。
 
 ### `src/modules`
 
@@ -175,11 +190,21 @@ src/pages/Map/index.less
 - 为什么不能使用现有变量
 - 影响哪些页面
 
+当前 TripKin 视觉 token 位于 `src/styles/variables.less`。后续正式页面样式优先使用这些变量，不要在页面里重复散写一套主色、卡片阴影、圆角和文字颜色。
+
+`.local-docs/` 仍是本地草稿区，不直接作为正式需求文档提交；当其中的视觉结论会影响多人协作时，需要提炼后写入正式 `docs/` 或在本地执行计划中明确边界。
+
+当 `.local-docs/` 中的参考图已经被确认是高保真目标时，正式文档或本地执行计划必须写明还原范围、不可偏离项和可以自由调整的部分。确认后的高保真参考图优先级高于旧草稿里的“氛围参考”描述。
+
+旧占位页不是视觉参考对象。不要按占位页颜色推导新页面风格，也不要为了“统一”重写无关页面。只需要保证全局变量调整后现有页面仍能正常构建和基础展示。
+
 ## 组件库
 
-组件库方案暂未确定。
+当前阶段已确认可以在需要时使用 `antd-mobile` 加速移动端 Demo 开发。
 
-未经团队确认，不要自行安装或引入组件库。
+使用时遵守 `docs/antd-mobile-usage-guide.md`：优先用它处理基础交互，不直接让默认组件视觉决定页面风格。
+
+除 `antd-mobile` 外，未经团队确认，不要自行安装或引入其他组件库。
 
 ## 当前阶段立即执行项
 
