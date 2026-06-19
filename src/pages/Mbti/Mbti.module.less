@@ -72,7 +72,7 @@
   transform: scale(0.97);
 }
 .btnPrimary {
-  color: #ffffff;
+  color: var(--color-surface-solid);
   background: linear-gradient(
     135deg,
     var(--color-brand-primary) 0%,
@@ -420,7 +420,7 @@
   font-size: 14px;
   color: var(--color-brand-primary);
   background: var(--color-brand-primary-soft);
-  border: 1px solid rgba(109, 93, 246, 0.3);
+  border: 1px solid var(--color-brand-primary-line);
 }
 .optText {
   font-size: 14.5px;
@@ -441,7 +441,7 @@
 }
 .optSelected .optBadge {
   background: var(--color-brand-primary);
-  color: #ffffff;
+  color: var(--color-surface-solid);
 }
 .tip {
   text-align: center;
@@ -506,7 +506,7 @@
     var(--accent, var(--color-brand-primary)),
     var(--color-brand-primary-strong)
   );
-  color: #ffffff;
+  color: var(--color-surface-solid);
   font-size: 17px;
   font-weight: 900;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -614,11 +614,11 @@
   border-radius: var(--radius-chip);
   color: var(--color-brand-primary);
   background: var(--color-brand-primary-soft);
-  border: 1px solid rgba(109, 93, 246, 0.25);
+  border: 1px solid var(--color-brand-primary-line);
 }
 .tag:nth-child(even) {
   background: var(--color-brand-primary-mist);
-  border-color: rgba(109, 93, 246, 0.18);
+  border-color: var(--color-brand-primary-line);
 }
 
 .idcardIntent {
@@ -860,7 +860,7 @@
   border-radius: var(--radius-chip);
   background: var(--color-brand-primary-soft);
   color: var(--color-brand-primary);
-  border: 1px solid rgba(109, 93, 246, 0.2);
+  border: 1px solid var(--color-brand-primary-line);
 }
 
 .resultFooter {
@@ -882,4 +882,15 @@
   .barFill {
     transition: none !important;
   }
+}
+
+.calculating {
+  margin: 0 0 12px;
+  border-radius: var(--radius-chip);
+  padding: 10px 12px;
+  background: var(--color-brand-primary-soft);
+  color: var(--color-brand-primary-strong);
+  font-size: var(--font-size-caption);
+  font-weight: 800;
+  text-align: center;
 }

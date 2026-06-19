@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
+import BottomNav from '@/components/BottomNav'
 import AmapCanvas from './components/AmapCanvas'
 import BottomRegionCard from './components/BottomRegionCard'
 import BottomSpotCard from './components/BottomSpotCard'
@@ -242,6 +244,7 @@ interface SheetDragState {
 type SheetDragRef = MutableRefObject<SheetDragState | null>
 
 function Map() {
+  const navigate = useNavigate()
   const [state, dispatch] = useReducer(mapPageReducer, initialState)
   const [toastMessage, setToastMessage] = useState('')
   const [amapFailed, setAmapFailed] = useState(false)
@@ -254,7 +257,6 @@ function Map() {
     () => searchMapItems(state.searchQuery),
     [state.searchQuery],
   )
-
   const showDemoToast = useCallback((content: string) => {
     setToastMessage(content)
     window.setTimeout(() => setToastMessage(''), 1800)
@@ -346,6 +348,7 @@ function Map() {
           dispatch({ type: 'setSearch', payload: keyword })
         }
         onLayerClick={() => dispatch({ type: 'openLayerSheet' })}
+        onMbtiClick={() => navigate('/mbti')}
       />
 
       {hasAmapConfig && !amapFailed ? (
@@ -384,84 +387,16 @@ function Map() {
       )}
 
       {!selectedRegion && !selectedSpot && (
-        <section
-          className={
-            state.regionSheetExpanded
-              ? styles.regionSummaryExpanded
-              : styles.regionSummary
-          }
-          aria-label="当前地图区域"
-        >
-          <button
-            type="button"
-            className={styles.sheetHandle}
-            onPointerDown={(event) =>
-              handleSheetPointerDown(regionDragRef, event)
-            }
-            onPointerMove={(event) =>
-              handleSheetPointerMove(regionDragRef, event)
-            }
-            onPointerUp={(event) =>
-              finishSheetGesture(
-                regionDragRef,
-                event,
-                () =>
-                  dispatch({
-                    type: 'setRegionSheetExpanded',
-                    payload: true,
-                  }),
-                () =>
-                  dispatch({
-                    type: 'setRegionSheetExpanded',
-                    payload: false,
-                  }),
-                () => dispatch({ type: 'toggleRegionSheet' }),
-              )
-            }
-            onPointerCancel={() => cancelSheetGesture(regionDragRef)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault()
-                dispatch({ type: 'toggleRegionSheet' })
-              }
-            }}
-            aria-label={state.regionSheetExpanded ? '收起卡片' : '展开卡片'}
-          >
-            <span />
-          </button>
+        <section className={styles.regionSummary} aria-label="当前地图区域">
           <h1>全国旅行灵感地图</h1>
-          <p>点击目的地气泡，发现漂流瓶、旅行搭子和热门目的地</p>
-          <div className={styles.summaryTags}>
-            {['漂流瓶', '搭子气泡', '热门路线'].map((tag) => (
-              <span key={tag}>#{tag}</span>
-            ))}
-          </div>
-          {state.regionSheetExpanded && (
-            <div className={styles.summaryExpandedContent}>
-              <h2>今日旅行灵感</h2>
-              <p>
-                从全国目的地气泡开始探索，先选一个省份，再进入具体城市或景点查看漂流瓶、搭子和路线标签。
-              </p>
-              <ul>
-                {mapRegions.slice(0, 4).map((item) => (
-                  <li key={item.id}>
-                    <strong>{item.name}</strong>
-                    <span>
-                      {item.bottleCount} 个漂流瓶 · {item.companionCount}{' '}
-                      人找搭子
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <p>数字表示近 30 天内，对该目的地公开找搭子的有效用户数。</p>
         </section>
       )}
 
       <MapControls
         onLocate={() => showDemoToast('当前 Demo 暂不接入真实定位')}
         onReset={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => showDemoToast('漂流瓶入口已预留')}
+        onThrowBottle={() => navigate('/bottle')}
       />
 
       <BottomRegionCard
@@ -476,7 +411,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => showDemoToast('已为该地区预留漂流瓶发布入口')}
+        onThrowBottle={() => navigate('/bottle')}
       />
 
       <BottomSpotCard
@@ -492,7 +427,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'closeSpot' })}
-        onThrowBottle={() => showDemoToast('已为该地点预留漂流瓶发布入口')}
+        onThrowBottle={() => navigate('/bottle')}
       />
 
       <LayerSheet
@@ -501,6 +436,8 @@ function Map() {
         onSelect={(layer) => dispatch({ type: 'setLayer', payload: layer })}
         onClose={() => dispatch({ type: 'closeLayerSheet' })}
       />
+
+      <BottomNav />
 
       <div className={toastMessage ? styles.toastVisible : styles.toastHidden}>
         <span role="status" aria-live="polite">

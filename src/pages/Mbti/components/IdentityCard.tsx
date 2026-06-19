@@ -39,11 +39,11 @@ export function IdentityCard({
             <div className={styles.idcardBrand}>
               <span className={styles.idcardBrandMark}>✦</span>
               <div>
-                <p className={styles.idcardBrandCn}>旅行社交身份证</p>
-                <p className={styles.idcardBrandEn}>TRAVEL SOCIAL ID</p>
+                <p className={styles.idcardBrandCn}>旅行身份卡</p>
+                <p className={styles.idcardBrandEn}>TRAVEL SOCIAL CARD</p>
               </div>
             </div>
-            <span className={styles.idcardStamp}>VERIFIED</span>
+            <span className={styles.idcardStamp}>PERSONA</span>
           </header>
 
           <div className={styles.idcardIdentity}>
@@ -71,18 +71,20 @@ export function IdentityCard({
           </div>
 
           <div className={styles.idcardIntent}>
-            <p className={styles.idcardIntentTitle}>社交意向 / SOCIAL INTENT</p>
+            <p className={styles.idcardIntentTitle}>
+              偏好摘要 / PREFERENCE SNAPSHOT
+            </p>
             <dl className={styles.idcardIntentGrid}>
               <div>
                 <dt>目的地</dt>
                 <dd>{destination}</dd>
               </div>
               <div>
-                <dt>出行风格</dt>
+                <dt>旅行方式</dt>
                 <dd>{persona.traits.style}</dd>
               </div>
               <div>
-                <dt>同行意向</dt>
+                <dt>推荐解释</dt>
                 <dd>{persona.intentLine}</dd>
               </div>
             </dl>
@@ -104,7 +106,7 @@ export function IdentityCard({
           className={styles.detailsToggle}
           onClick={() => setShowDetails(!showDetails)}
         >
-          {showDetails ? '收起详情' : '查看详情'}
+          {showDetails ? '收起旅行偏好' : '查看旅行偏好'}
           <span
             className={`${styles.detailsArrow} ${showDetails ? styles.detailsArrowUp : ''}`}
           >
@@ -116,7 +118,7 @@ export function IdentityCard({
           <div className={`${styles.glass} ${styles.idcardDetails}`}>
             {/* 人格深度解析 */}
             <div className={styles.detailSection}>
-              <h3 className={styles.detailTitle}>✨ 人格解析</h3>
+              <h3 className={styles.detailTitle}>✨ 旅行人格解析</h3>
               <div className={styles.detailGrid}>
                 <div className={styles.detailItem}>
                   <p className={styles.detailLabel}>优点</p>
@@ -139,14 +141,14 @@ export function IdentityCard({
 
             {/* 旅行风格雷达 */}
             <div className={styles.detailSection}>
-              <h3 className={styles.detailTitle}>📊 旅行风格</h3>
+              <h3 className={styles.detailTitle}>📊 结构化偏好</h3>
               <div className={styles.radarChart}>
                 {Object.entries(details.travelStyle).map(([key, value]) => {
                   const labels: Record<string, string> = {
-                    energy: '精力值',
-                    planning: '计划性',
-                    social: '社交性',
-                    adventure: '冒险度',
+                    energy: '旅行节奏',
+                    planning: '计划程度',
+                    social: '社交偏好',
+                    adventure: '探索偏好',
                   }
                   return (
                     <div key={key} className={styles.radarItem}>
@@ -191,7 +193,7 @@ export function IdentityCard({
           className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}
           onClick={onGoMap}
         >
-          <span>带上形象，去地图找搭子</span>
+          <span>去地图找旅行搭子</span>
           <span className={styles.btnArrow}>→</span>
         </button>
         <button

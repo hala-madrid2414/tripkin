@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
 import type { ChoiceLetter, PersonaId } from '@/types/mbti'
-import { PERSONALITIES, TIE_PRIORITY } from './data'
+import { PERSONALITIES } from './data'
 import { calculateResult, makeNickname, readDestParam } from './logic'
 import { Welcome } from './components/Welcome'
 import { Quiz } from './components/Quiz'
@@ -66,8 +66,7 @@ function Mbti() {
   }
 
   const handleSkip = () => {
-    const id = TIE_PRIORITY[Math.floor(Math.random() * TIE_PRIORITY.length)]
-    finalize(id, { skipped: true })
+    navigate('/map')
   }
 
   const handleGoMap = () => {

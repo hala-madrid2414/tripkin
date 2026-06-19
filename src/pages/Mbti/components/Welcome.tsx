@@ -20,13 +20,13 @@ export function Welcome({ destination, onStart, onSkip }: WelcomeProps) {
       <div className={styles.hero}>
         <p className={styles.kicker}>
           <span className={styles.kickerLine} />
-          TRAVEL&nbsp;MBTI
+          TRAVEL&nbsp;PERSONA
         </p>
         <h1 className={styles.title}>刷到即同行</h1>
         <p className={styles.subtitle}>
-          三道题，测出你的旅行人格
+          8 道题，生成你的旅行偏好画像
           <br />
-          生成一张专属的旅行社交身份卡
+          形成一张可解释的旅行身份卡
         </p>
 
         <div className={styles.orbit}>
@@ -60,9 +60,11 @@ export function Welcome({ destination, onStart, onSkip }: WelcomeProps) {
           className={`${styles.btn} ${styles.btnGhost}`}
           onClick={onSkip}
         >
-          跳过测试，直接生成形象
+          稍后再测，先浏览地图
         </button>
-        <p className={styles.hint}>预计用时 30 秒 · 仅供娱乐</p>
+        <p className={styles.hint}>
+          预计用时 1 分钟 · 结果用于解释偏好，不等同心理学 MBTI
+        </p>
       </div>
     </div>
   )

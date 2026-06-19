@@ -1,23 +1,36 @@
+import BottomNav from '@/components/BottomNav'
 import styles from './Profile.module.less'
 
 const profileStats = [
-  { label: '旅行灵感', value: '--' },
-  { label: '漂流瓶', value: '--' },
-  { label: '搭子匹配', value: '--' },
+  { label: '实名状态', value: '未认证' },
+  { label: '申请记录', value: '2' },
+  { label: '安全提醒', value: '1' },
 ]
 
 const profileSections = [
   {
-    title: '我的旅行',
-    description: '预留足迹、收藏目的地和即将出发的行程入口。',
+    title: '个人资料',
+    description: '管理头像、常驻城市、公开昵称和资料可见范围。',
   },
   {
-    title: '互动记录',
-    description: '预留漂流瓶、搭子申请和消息通知入口。',
+    title: '旅行偏好',
+    description: '查看或重新测试旅行人格，补充节奏、预算和兴趣标签。',
   },
   {
-    title: '账号设置',
-    description: '预留资料编辑、偏好设置和隐私安全入口。',
+    title: '实名 / 安全中心',
+    description: '完成手机号验证、实名状态、风险提示和安全须知。',
+  },
+  {
+    title: '我的行程与申请',
+    description: '查看已申请、待处理、已通过或已过期的同行记录。',
+  },
+  {
+    title: '黑名单与举报',
+    description: '管理已拉黑用户，查看举报入口和平台处理状态。',
+  },
+  {
+    title: '隐私设置',
+    description: '控制年龄段、性别、旅行记录和联系方式的展示范围。',
   },
 ]
 
@@ -31,7 +44,7 @@ function Profile() {
         <div className={styles.identity}>
           <p className={styles.route}>/profile</p>
           <h1 id="profile-title">个人主页</h1>
-          <p>这里承接用户资料、旅行资产和个人设置。</p>
+          <p>这里承接旅行偏好、安全信任、申请记录和隐私设置。</p>
         </div>
       </section>
 
@@ -55,6 +68,7 @@ function Profile() {
           </article>
         ))}
       </section>
+      <BottomNav />
     </main>
   )
 }

@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { getRegionLayerValue, getSpotLayerValue } from '../data/mapData'
 import type { LayerType, Point, Region, Spot, Viewport } from '../types'
 import { BottleIcon, PeopleIcon } from './MapIcons'
 import styles from '../Map.module.less'
@@ -45,27 +46,11 @@ function clamp(value: number, min: number, max: number) {
 }
 
 function getRegionValue(region: Region, layer: LayerType) {
-  if (layer === 'companion') {
-    return region.companionCount
-  }
-
-  if (layer === 'hotspot') {
-    return region.hotspotLevel
-  }
-
-  return region.bottleCount
+  return getRegionLayerValue(region, layer)
 }
 
 function getSpotValue(spot: Spot, layer: LayerType) {
-  if (layer === 'companion') {
-    return spot.companionCount
-  }
-
-  if (layer === 'hotspot') {
-    return Math.max(2, Math.round(spot.rating))
-  }
-
-  return spot.bottleCount
+  return getSpotLayerValue(spot, layer)
 }
 
 function getLayerClass(layer: LayerType) {

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
 import type { Region, Spot } from '../types'
 import { BottleIcon, CloseIcon } from './MapIcons'
+import { getSpotTripCount } from '../data/mapData'
 import styles from '../Map.module.less'
 
 interface SheetDragState {
@@ -58,6 +59,8 @@ function BottomSpotCard({
     return null
   }
 
+  const tripCount = getSpotTripCount(spot)
+
   return (
     <section
       className={expanded ? styles.bottomCardExpanded : styles.bottomCard}
@@ -106,11 +109,14 @@ function BottomSpotCard({
             <small>{spot.subtitle}</small>
           </h2>
         </div>
-        <span className={styles.ratingBadge}>{spot.rating.toFixed(1)}</span>
+        <span className={styles.ratingBadge}>
+          推荐指数 {spot.rating.toFixed(1)}/5
+        </span>
       </div>
 
       <p className={styles.cardStats}>
-        这里有 {spot.bottleCount} 个漂流瓶，{spot.companionCount} 人正在找搭子
+        这里有 {spot.bottleCount} 个漂流瓶，{spot.companionCount} 人正在找搭子，
+        {tripCount} 个可加入行程
       </p>
 
       <div className={styles.tagRow}>
@@ -135,8 +141,12 @@ function BottomSpotCard({
       </dl>
 
       <div className={styles.cardActions}>
-        <Link to="/match">查看旅行搭子</Link>
-        <Link to="/match">查看行程匹配</Link>
+        <Link to={`/match?tab=partner&regionId=${region.id}&spotId=${spot.id}`}>
+          查看旅行搭子
+        </Link>
+        <Link to={`/match?tab=trip&regionId=${region.id}&spotId=${spot.id}`}>
+          查看可加入行程
+        </Link>
       </div>
 
       <button
@@ -145,7 +155,7 @@ function BottomSpotCard({
         onClick={onThrowBottle}
       >
         <BottleIcon />
-        扔一个漂流瓶
+        发布漂流瓶
       </button>
 
       {expanded && (

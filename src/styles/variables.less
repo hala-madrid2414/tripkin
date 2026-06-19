@@ -3,7 +3,15 @@
   --color-brand-primary-strong: #5846e8;
   --color-brand-primary-soft: #f0edff;
   --color-brand-primary-mist: #f7f5ff;
+  --color-brand-primary-faint: rgba(109, 93, 246, 0.1);
+  --color-brand-primary-line: rgba(109, 93, 246, 0.2);
   --color-brand-success: #39b86a;
+  --color-brand-success-soft: rgba(57, 184, 106, 0.12);
+  --color-brand-success-strong: #249352;
+  --color-accent-companion: #df792d;
+  --color-accent-companion-soft: rgba(249, 115, 22, 0.12);
+  --color-accent-hotspot: #dd3d87;
+  --color-accent-hotspot-soft: rgba(236, 72, 153, 0.12);
 
   --color-heading: #171822;
   --color-text: #565b6b;
@@ -12,23 +20,84 @@
   --color-border: rgba(39, 42, 60, 0.1);
   --color-border-strong: rgba(39, 42, 60, 0.16);
   --color-surface: rgba(255, 255, 255, 0.86);
+  --color-surface-glass: rgba(255, 255, 255, 0.88);
+  --color-surface-glass-strong: rgba(255, 255, 255, 0.96);
   --color-surface-solid: #ffffff;
   --color-surface-tint: rgba(240, 237, 255, 0.72);
+  --color-surface-soft: #f7f8fc;
+  --color-input-bg: #f7f8fc;
+  --color-divider: rgba(118, 126, 158, 0.12);
   --color-page: #f8f8ff;
   --color-page-mbti: var(--color-brand-primary-mist);
   --color-page-map: #f2f8ff;
-  --color-page-bottle: #fff8ef;
-  --color-page-match: var(--color-page);
+  --color-page-bottle: #fffaf4;
+  --color-page-match: #f8f9ff;
+  --color-page-profile: #f6f7ff;
 
   --shadow-card: 0 14px 36px rgba(76, 77, 113, 0.1);
+  --shadow-card-soft: 0 10px 24px rgba(76, 77, 113, 0.07);
+  --shadow-floating: 0 18px 45px rgba(78, 91, 130, 0.14);
+  --shadow-primary: 0 14px 28px rgba(109, 93, 246, 0.24);
   --shadow-popup: 0 -18px 44px rgba(24, 25, 42, 0.18);
+  --shadow-inset-light: inset 0 1px 0 rgba(255, 255, 255, 0.82);
 
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-control: 16px;
   --radius-chip: 18px;
   --radius-button: 24px;
   --radius-card: 22px;
+  --radius-card-lg: 26px;
   --radius-popup: 28px;
+  --radius-pill: 999px;
   --space-page-x: 22px;
   --height-button: 48px;
+  --font-size-title-lg: 31px;
+  --font-size-title: 21px;
+  --font-size-subtitle: 16px;
+  --font-size-body: 14px;
+  --font-size-caption: 12px;
+  --line-height-body: 1.58;
+
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--color-brand-primary),
+    var(--color-brand-primary-strong)
+  );
+  --gradient-page-map: linear-gradient(
+    180deg,
+    #f8fbff 0%,
+    #eff8ff 50%,
+    #f7f4ff 100%
+  );
+  --gradient-page-bottle: linear-gradient(
+    180deg,
+    #fffaf4 0%,
+    #f8f7ff 58%,
+    #f7f8fc 100%
+  );
+  --gradient-page-profile: linear-gradient(180deg, #f7fbff 0%, #f4f1ff 100%);
+
+  --map-heat-bottle-core: 148, 126, 255;
+  --map-heat-bottle-mid: 174, 157, 255;
+  --map-heat-bottle-soft: 199, 188, 255;
+  --map-heat-companion-core: 224, 91, 28;
+  --map-heat-companion-mid: 242, 124, 50;
+  --map-heat-companion-soft: 255, 171, 104;
+  --map-heat-hotspot-core: 209, 38, 121;
+  --map-heat-hotspot-mid: 231, 75, 151;
+  --map-heat-hotspot-soft: 251, 145, 197;
+  --map-layer-bottle: #7560f6;
+  --map-layer-bottle-soft: #8d74ff;
+  --map-layer-companion: #f1863b;
+  --map-layer-companion-soft: #ff9148;
+  --map-layer-hotspot: #e94d93;
+  --map-layer-hotspot-soft: #f05e9f;
+
+  --glass-card-bg: var(--color-surface-glass);
+  --glass-card-border: rgba(255, 255, 255, 0.72);
+  --glass-card-shadow: var(--shadow-floating), var(--shadow-inset-light);
+  --handle-color: #d9d5ef;
 
   --font-sans:
     'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Segoe UI', Arial,

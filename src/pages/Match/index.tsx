@@ -1,4 +1,6 @@
+import BottomNav from '@/components/BottomNav'
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import FilterSheet from './components/FilterSheet'
 import JoinTripSheet from './components/JoinTripSheet'
 import MatchFilterChips from './components/MatchFilterChips'
@@ -16,7 +18,9 @@ import type {
 } from './types'
 
 function Match() {
-  const [activeMode, setActiveMode] = useState<MatchMode>('partner')
+  const [searchParams] = useSearchParams()
+  const initialMode = searchParams.get('tab') === 'trip' ? 'trip' : 'partner'
+  const [activeMode, setActiveMode] = useState<MatchMode>(initialMode)
   const [filterVisible, setFilterVisible] = useState(false)
   const [selectedPartner, setSelectedPartner] =
     useState<PartnerMatchCardData | null>(null)
@@ -72,6 +76,8 @@ function Match() {
           </footer>
         ) : null}
       </div>
+
+      <BottomNav />
 
       <FilterSheet
         visible={filterVisible}
