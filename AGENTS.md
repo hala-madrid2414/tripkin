@@ -12,6 +12,10 @@ Before editing code, read:
 - `docs/coding-guide.md`
 - `docs/collaboration-guide.md`
 
+If the user explicitly asks for testing, `webapp-testing`, Playwright, automated verification, screenshot verification, or repeatable browser checks, also read:
+
+- `docs/webapp-testing-guide.md`
+
 ## Local Context
 
 If `.local-docs/rules.md` exists, you may read it as workspace-local context for the current task.
@@ -39,6 +43,18 @@ Do not add these unless explicitly requested:
 - test framework
 
 Do not add uncertain product ideas, future plans, or unconfirmed technical choices to repository docs.
+
+## Webapp Testing
+
+Do not use `webapp-testing` by default.
+
+Use it only when the user explicitly asks for testing, `webapp-testing`, Playwright, automated verification, screenshot verification, or repeatable browser checks.
+
+Before using it, read `docs/webapp-testing-guide.md`.
+
+Do not copy a local AI skill directory into this repository. If `webapp-testing` is unavailable in the current AI environment, explain that and guide the user to install or enable it in their own AI tool environment.
+
+All temporary Playwright scripts, screenshots, traces, logs, and browser artifacts must stay under ignored `.venv/` paths.
 
 ## Code Placement Rules
 

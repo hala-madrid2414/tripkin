@@ -1,11 +1,11 @@
 .wrap {
   box-sizing: border-box;
-  margin: 0 18px;
+  margin: 0 var(--match-space-page-x);
   overflow: hidden;
-  border: 1px solid rgba(98, 103, 131, 0.08);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 12px 30px rgba(105, 111, 140, 0.08);
+  border: 1px solid var(--match-color-border);
+  border-radius: var(--match-radius-control);
+  background: var(--match-color-surface-soft);
+  box-shadow: var(--match-shadow-floating);
 }
 
 .wrap :global(.adm-tabs-header) {
@@ -22,30 +22,25 @@
 
 .wrap :global(.adm-tabs-tab) {
   padding: 0;
-  color: #8e94a3;
+  color: var(--match-color-text-muted);
   font-size: 14px;
   font-weight: 800;
   line-height: 42px;
 }
 
 .wrap :global(.adm-tabs-tab-active) {
-  color: var(--color-brand-primary);
+  color: var(--match-color-primary);
 }
 
 .wrap :global(.adm-tabs-tab-line) {
   bottom: 4px;
   height: 3px;
   width: 56px !important;
-  border-radius: 999px;
-  background: var(--color-brand-primary);
+  border-radius: var(--match-radius-pill);
+  background: var(--match-color-primary);
 }
 
 @media (max-width: 360px) {
-  .wrap {
-    margin-left: 14px;
-    margin-right: 14px;
-  }
-
   .wrap :global(.adm-tabs-tab) {
     font-size: 14px;
   }

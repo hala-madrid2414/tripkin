@@ -85,3 +85,11 @@
 - 决定：`/map` 使用高德 Web 端 JS API 作为真实地图来源，通过本地 `.env.local` 配置 `VITE_AMAP_KEY` 和 `VITE_AMAP_SECURITY_CODE`；未配置或加载失败时使用页面内静态 SVG 地图兜底。不新增地图 npm 依赖。
 - 影响范围：`/map` 页面、本地开发环境配置、README 本地开发说明。
 - 后续注意：不要把真实 Key 或安全密钥提交到仓库；地图上的 TripKin 悬浮控件和底部卡片仍由页面 CSS Modules 自定义。
+
+### 2026-06-19 确认本地页面验证方式
+
+- 类型：工程化 / 其他
+- 背景：当前 Demo 需要本地打开页面、截图和检查交互，但暂不引入正式测试框架、CI 或 npm 测试脚本。
+- 决定：允许按需使用 `webapp-testing` 做本地页面验证；Python 虚拟环境、临时 Playwright 脚本、截图和运行产物放在本地 `.venv/` 内，并将 `.venv/` 加入 Git 忽略。具体用法见 `docs/webapp-testing-guide.md`。
+- 影响范围：`.gitignore`、`docs/collaboration-guide.md`、`docs/webapp-testing-guide.md`，以及需要本地重复验证页面的协作流程。
+- 后续注意：`webapp-testing` 不替代 `npm run lint`、`npm run build` 或人工视觉走查；只有用户或任务明确提到测试、自动化验证或截图验证时才使用。不使用这套流程的成员不需要创建 `.venv/`；测试区和自动化产物都属于本地忽略内容。不要把个人 AI 目录里的 skill 复制进仓库；如果未来要提交长期复用的测试脚本，需要重新确认测试目录、依赖和协作边界。

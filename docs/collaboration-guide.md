@@ -115,6 +115,18 @@ npm run build
 npm run format:check
 ```
 
+## 本地页面验证
+
+当前项目没有引入正式测试框架。提交前必须检查仍然是 `npm run lint` 和 `npm run build`。
+
+这是赶时间的前端 Demo 项目，`webapp-testing` 不是必需项，也不是默认开发流程。只有当用户或任务明确提到测试、自动化验证、截图验证、Playwright、`webapp-testing` 或需要可重复验证时，AI 或协作者才使用它。
+
+如果需要可重复地验证本地页面、交互、控制台报错或截图，可以按 `docs/webapp-testing-guide.md` 中的流程执行。它只作为本地辅助验证方式，不替代人工视觉走查，也不代表产品最终验收。
+
+首次使用这套流程时，需要先引导创建本地 `.venv/`。临时 Playwright 脚本、截图、trace、log 和其他运行产物都放在 `.venv/` 内；人工整理后的测试结论或问题记录可以放在 `.local-docs/`。`.venv/` 不进入 Git；不使用这套流程的团队成员不需要创建它。
+
+不要把某个人本机 AI 目录里的 `webapp-testing` skill 复制进仓库。如果当前 AI 环境没有安装这项能力，先说明缺失情况，并引导使用者在自己的 AI 工具环境中安装或启用；不同机器可能不是 `.codex` 目录。临时无法安装时，退回 Codex 自带浏览器或人工检查。
+
 ## 提交信息
 
 推荐使用：

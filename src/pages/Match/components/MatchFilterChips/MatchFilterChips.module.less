@@ -6,9 +6,9 @@
 .scroller {
   box-sizing: border-box;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
-  padding: 0 18px 4px;
+  padding: 0 var(--match-space-page-x) 4px;
   width: 100%;
   scrollbar-width: none;
 }
@@ -23,21 +23,21 @@
   align-items: center;
   justify-content: center;
   gap: 3px;
-  min-height: 28px;
-  padding: 0 5px;
-  border: 1px solid rgba(103, 110, 143, 0.08);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.88);
-  color: var(--color-brand-primary);
-  font-size: 10px;
-  font-weight: 700;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--match-color-border);
+  border-radius: var(--match-radius-pill);
+  background: var(--match-color-surface-soft);
+  color: var(--match-color-primary);
+  font-size: var(--match-font-chip);
+  font-weight: 750;
   white-space: nowrap;
   box-shadow: 0 8px 18px rgba(103, 110, 143, 0.06);
 }
 
 .chip svg {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   stroke-width: 2.2;
 }
 
@@ -52,14 +52,11 @@
 
 @media (max-width: 360px) {
   .scroller {
-    padding-left: 14px;
-    padding-right: 14px;
-    gap: 6px;
+    gap: 7px;
   }
 
   .chip {
-    min-height: 28px;
-    padding: 0 5px;
-    font-size: 10px;
+    min-height: 30px;
+    padding: 0 10px;
   }
 }

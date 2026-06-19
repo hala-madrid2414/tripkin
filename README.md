@@ -109,4 +109,5 @@ update
 - 代码位置和样式规范：`docs/coding-guide.md`
 - antd-mobile 使用规范：`docs/antd-mobile-usage-guide.md`
 - 协作流程：`docs/collaboration-guide.md`
+- 本地页面验证说明：`docs/webapp-testing-guide.md`
 - 影响多人协作的决策记录：`docs/decision-notes/README.md`
