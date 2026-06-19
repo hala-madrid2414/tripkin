@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
-import BottomNav from '@/components/BottomNav'
 import AmapCanvas from './components/AmapCanvas'
 import BottomRegionCard from './components/BottomRegionCard'
 import BottomSpotCard from './components/BottomSpotCard'
@@ -248,6 +247,7 @@ function Map() {
   const [state, dispatch] = useReducer(mapPageReducer, initialState)
   const [toastMessage, setToastMessage] = useState('')
   const [amapFailed, setAmapFailed] = useState(false)
+  const summaryDragRef = useRef<SheetDragState | null>(null)
   const regionDragRef = useRef<SheetDragState | null>(null)
   const spotDragRef = useRef<SheetDragState | null>(null)
   const selectedRegion = getRegionById(state.selectedRegionId)
@@ -387,9 +387,60 @@ function Map() {
       )}
 
       {!selectedRegion && !selectedSpot && (
-        <section className={styles.regionSummary} aria-label="当前地图区域">
+        <section
+          className={
+            state.regionSheetExpanded
+              ? styles.regionSummaryExpanded
+              : styles.regionSummary
+          }
+          aria-label="当前地图区域"
+        >
+          <button
+            type="button"
+            className={styles.sheetHandle}
+            aria-label={
+              state.regionSheetExpanded ? '收起地图说明' : '展开地图说明'
+            }
+            onPointerDown={(event) =>
+              handleSheetPointerDown(summaryDragRef, event)
+            }
+            onPointerMove={(event) =>
+              handleSheetPointerMove(summaryDragRef, event)
+            }
+            onPointerUp={(event) =>
+              finishSheetGesture(
+                summaryDragRef,
+                event,
+                () =>
+                  dispatch({ type: 'setRegionSheetExpanded', payload: true }),
+                () =>
+                  dispatch({ type: 'setRegionSheetExpanded', payload: false }),
+                () => dispatch({ type: 'toggleRegionSheet' }),
+              )
+            }
+            onPointerCancel={() => cancelSheetGesture(summaryDragRef)}
+          >
+            <span />
+          </button>
           <h1>全国旅行灵感地图</h1>
           <p>数字表示近 30 天内，对该目的地公开找搭子的有效用户数。</p>
+
+          {state.regionSheetExpanded && (
+            <div className={styles.summaryExpandedContent}>
+              <h2>近 30 天旅行灵感</h2>
+              <ul>
+                {mapRegions.slice(0, 5).map((region) => (
+                  <li key={region.id}>
+                    <strong>{region.name}</strong>
+                    <span>
+                      {region.bottleCount} 个漂流瓶 · {region.companionCount}{' '}
+                      人正在找搭子
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       )}
 
@@ -436,8 +487,6 @@ function Map() {
         onSelect={(layer) => dispatch({ type: 'setLayer', payload: layer })}
         onClose={() => dispatch({ type: 'closeLayerSheet' })}
       />
-
-      <BottomNav />
 
       <div className={toastMessage ? styles.toastVisible : styles.toastHidden}>
         <span role="status" aria-live="polite">

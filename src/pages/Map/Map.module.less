@@ -566,19 +566,25 @@
   z-index: 190;
   left: 10px;
   right: 10px;
-  bottom: calc(64px + env(safe-area-inset-bottom));
+  bottom: 0;
   overflow: hidden;
-  border-radius: 18px;
-  padding: 18px 18px 20px;
-  pointer-events: none;
+  border-radius: 20px 20px 0 0;
+  padding: 6px 18px calc(18px + env(safe-area-inset-bottom));
+  pointer-events: auto;
+  animation: slideUp 0.28s ease-out;
+  transition:
+    height 0.26s ease,
+    max-height 0.26s ease;
 }
 
 .regionSummary {
-  min-height: 102px;
+  min-height: 120px;
 }
 
 .regionSummaryExpanded {
-  min-height: 102px;
+  height: min(72svh, 560px);
+  max-height: 72svh;
+  overflow-y: auto;
 }
 
 .sheetHandle {
@@ -633,8 +639,7 @@
   display: none;
 }
 
-.regionSummary span,
-.regionSummaryExpanded span,
+.summaryTags span,
 .tagRow span {
   flex: 0 0 auto;
   border-radius: 999px;
@@ -746,7 +751,7 @@
   position: fixed;
   z-index: 110;
   left: 14px;
-  bottom: calc(164px + env(safe-area-inset-bottom));
+  bottom: calc(132px + env(safe-area-inset-bottom));
   display: grid;
   gap: 9px;
 }
@@ -776,7 +781,7 @@
   position: fixed;
   z-index: 110;
   right: 16px;
-  bottom: calc(164px + env(safe-area-inset-bottom));
+  bottom: calc(152px + env(safe-area-inset-bottom));
   display: grid;
   place-items: center;
   width: 64px;
@@ -808,7 +813,7 @@
   z-index: 220;
   left: 0;
   right: 0;
-  bottom: calc(64px + env(safe-area-inset-bottom));
+  bottom: -7px;
   overflow: hidden;
   border-radius: 24px;
   padding: 6px 18px calc(16px + env(safe-area-inset-bottom));
