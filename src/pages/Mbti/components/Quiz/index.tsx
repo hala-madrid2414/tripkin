@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import type { ChoiceLetter } from '@/types/mbti'
-import { QUESTIONS } from '../data'
-import styles from '../Mbti.module.less'
+import { QUESTIONS } from '../../data'
+import sharedStyles from '../shared.module.less'
+import styles from './Quiz.module.less'
 
 interface QuizProps {
   onComplete: (answers: ChoiceLetter[]) => void
@@ -109,7 +110,7 @@ export function Quiz({ onComplete, onBack }: QuizProps) {
         </div>
       </div>
 
-      <article className={`${styles.glass} ${styles.card}`}>
+      <article className={`${sharedStyles.glass} ${styles.card}`}>
         {isCalculating ? (
           <p className={styles.calculating}>正在生成旅行偏好画像...</p>
         ) : null}

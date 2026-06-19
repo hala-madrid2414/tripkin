@@ -1,5 +1,6 @@
-import { PERSONALITIES, WELCOME_ORDER } from '../data'
-import styles from '../Mbti.module.less'
+import { PERSONALITIES, WELCOME_ORDER } from '../../data'
+import sharedStyles from '../shared.module.less'
+import styles from './Welcome.module.less'
 
 interface WelcomeProps {
   destination: string
@@ -50,14 +51,14 @@ export function Welcome({ destination, onStart, onSkip }: WelcomeProps) {
       <div className={styles.footer}>
         <button
           type="button"
-          className={`${styles.btn} ${styles.btnPrimary}`}
+          className={`${sharedStyles.btn} ${sharedStyles.btnPrimary}`}
           onClick={onStart}
         >
           <span>开始测试</span>
         </button>
         <button
           type="button"
-          className={`${styles.btn} ${styles.btnGhost}`}
+          className={`${sharedStyles.btn} ${sharedStyles.btnGhost}`}
           onClick={onSkip}
         >
           稍后再测，先浏览地图

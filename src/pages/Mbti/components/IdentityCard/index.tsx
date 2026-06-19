@@ -1,10 +1,12 @@
 import { useState, type CSSProperties } from 'react'
 import type { PersonaId } from '@/types/mbti'
 import { useTripStore } from '@/store/useTripStore'
-import { PERSONALITIES } from '../data'
-import { makeBarcodeBars, makeIdNum } from '../logic'
-import { PersonaAvatar } from './PersonaAvatar'
-import styles from '../Mbti.module.less'
+import { PERSONALITIES } from '../../data'
+import { makeBarcodeBars, makeIdNum } from '../../logic'
+import { IdentityDetails } from '../IdentityDetails'
+import { PersonaAvatar } from '../PersonaAvatar'
+import sharedStyles from '../shared.module.less'
+import styles from './IdentityCard.module.less'
 
 interface IdentityCardProps {
   personaId: PersonaId
@@ -26,13 +28,11 @@ export function IdentityCard({
   const [idNum] = useState(() => makeIdNum(personaId))
   const [showDetails, setShowDetails] = useState(false)
 
-  const { details } = persona
-
   return (
     <div className={styles.result}>
       <div className={styles.resultScroll}>
         <article
-          className={`${styles.glass} ${styles.idcard}`}
+          className={`${sharedStyles.glass} ${styles.idcard}`}
           style={{ '--accent': persona.accent } as CSSProperties}
         >
           <header className={styles.idcardHead}>
@@ -100,7 +100,6 @@ export function IdentityCard({
           </footer>
         </article>
 
-        {/* 详情折叠区域 */}
         <button
           type="button"
           className={styles.detailsToggle}
@@ -114,91 +113,21 @@ export function IdentityCard({
           </span>
         </button>
 
-        {showDetails && (
-          <div className={`${styles.glass} ${styles.idcardDetails}`}>
-            {/* 人格深度解析 */}
-            <div className={styles.detailSection}>
-              <h3 className={styles.detailTitle}>✨ 旅行人格解析</h3>
-              <div className={styles.detailGrid}>
-                <div className={styles.detailItem}>
-                  <p className={styles.detailLabel}>优点</p>
-                  <ul className={styles.detailList}>
-                    {details.strengths.map((s) => (
-                      <li key={s}>{s}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={styles.detailItem}>
-                  <p className={styles.detailLabel}>注意事项</p>
-                  <ul className={styles.detailList}>
-                    {details.considerations.map((c) => (
-                      <li key={c}>{c}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* 旅行风格雷达 */}
-            <div className={styles.detailSection}>
-              <h3 className={styles.detailTitle}>📊 结构化偏好</h3>
-              <div className={styles.radarChart}>
-                {Object.entries(details.travelStyle).map(([key, value]) => {
-                  const labels: Record<string, string> = {
-                    energy: '旅行节奏',
-                    planning: '计划程度',
-                    social: '社交偏好',
-                    adventure: '探索偏好',
-                  }
-                  return (
-                    <div key={key} className={styles.radarItem}>
-                      <span className={styles.radarLabel}>{labels[key]}</span>
-                      <div className={styles.radarBar}>
-                        <div
-                          className={styles.radarFill}
-                          style={{ width: `${value}%` }}
-                        />
-                      </div>
-                      <span className={styles.radarValue}>{value}</span>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* 搭子匹配建议 */}
-            <div className={styles.detailSection}>
-              <h3 className={styles.detailTitle}>🤝 搭子匹配建议</h3>
-              <p className={styles.detailText}>{details.matchAdvice}</p>
-            </div>
-
-            {/* 适合的目的地类型 */}
-            <div className={styles.detailSection}>
-              <h3 className={styles.detailTitle}>🗺️ 适合的目的地</h3>
-              <div className={styles.destTags}>
-                {details.destTypes.map((d) => (
-                  <span key={d} className={styles.destTag}>
-                    {d}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+        {showDetails && <IdentityDetails details={persona.details} />}
       </div>
 
       <footer className={styles.resultFooter}>
         <button
           type="button"
-          className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}
+          className={`${sharedStyles.btn} ${sharedStyles.btnPrimary} ${sharedStyles.btnLg}`}
           onClick={onGoMap}
         >
           <span>去地图找旅行搭子</span>
-          <span className={styles.btnArrow}>→</span>
+          <span className={sharedStyles.btnArrow}>→</span>
         </button>
         <button
           type="button"
-          className={`${styles.btn} ${styles.btnGhost}`}
+          className={`${sharedStyles.btn} ${sharedStyles.btnGhost}`}
           onClick={onRestart}
         >
           重新测试

@@ -1,0 +1,234 @@
+.quiz {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  min-height: 0;
+}
+
+.progress {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.backBtn {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 16px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.backBtn:hover:not(:disabled) {
+  background: var(--color-surface-solid);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
+}
+
+.backBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.progressContent {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bar {
+  height: 6px;
+  border-radius: var(--radius-chip);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: var(--radius-chip);
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary),
+    var(--color-brand-primary-strong)
+  );
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.step {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-muted);
+  letter-spacing: 0.1em;
+}
+
+.dots {
+  display: flex;
+  gap: 7px;
+}
+
+.dot,
+.dotCompleted,
+.dotOn {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.dot {
+  background: var(--color-border-strong);
+}
+
+.dotCompleted {
+  background: var(--color-brand-primary);
+  opacity: 0.5;
+}
+
+.dotOn {
+  background: var(--color-brand-primary);
+  transform: scale(1.25);
+}
+
+.card {
+  padding: 28px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.qIndex {
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--color-brand-primary);
+  margin: 0;
+}
+
+.qTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--color-heading);
+  margin: 0;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.opt {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 16px;
+  text-align: left;
+  background: var(--color-surface-tint);
+  border: 1px solid var(--color-border);
+  transition:
+    transform 0.18s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.opt:hover:not(:disabled),
+.opt:focus-visible {
+  background: var(--color-surface-solid);
+  border-color: rgba(109, 93, 246, 0.5);
+}
+
+.opt:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.opt:disabled {
+  cursor: default;
+}
+
+.optBadge {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-brand-primary);
+  background: var(--color-brand-primary-soft);
+  border: 1px solid var(--color-brand-primary-line);
+}
+
+.optText {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--color-text);
+  padding-top: 3px;
+}
+
+.optSelected {
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary-mist)
+  );
+  border-color: var(--color-brand-primary);
+  box-shadow:
+    0 0 0 1px var(--color-brand-primary),
+    0 12px 26px -12px rgba(109, 93, 246, 0.4);
+}
+
+.optSelected .optBadge {
+  background: var(--color-brand-primary);
+  color: var(--color-surface-solid);
+}
+
+.tip {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.calculating {
+  margin: 0 0 12px;
+  border-radius: var(--radius-chip);
+  padding: 10px 12px;
+  background: var(--color-brand-primary-soft);
+  color: var(--color-brand-primary-strong);
+  font-size: var(--font-size-caption);
+  font-weight: 800;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barFill {
+    transition: none !important;
+  }
+}
