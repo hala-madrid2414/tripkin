@@ -1,3 +1,4 @@
+import BottomNav from '@/components/BottomNav'
 import { useState, type SyntheticEvent } from 'react'
 import styles from './Bottle.module.less'
 
@@ -10,6 +11,10 @@ type BottleMessage = {
   tags: string[]
   time: string
   imageUrl?: string
+  responseCount: number
+  reviewStatus: '已发布' | '审核中'
+  expiresIn: string
+  mine?: boolean
 }
 
 const createMockImage = (primary: string, secondary: string, accent: string) =>
@@ -42,6 +47,9 @@ const defaultBottleImage = createMockImage('#f0edff', '#d9d2ff', '#6c5cf6')
 const mockBottles: BottleMessage[] = [
   {
     id: 'mock-1',
+    responseCount: 8,
+    reviewStatus: '已发布',
+    expiresIn: '7 天后过期',
     nickname: '海边的风',
     from: '重庆',
     to: '大理',
@@ -53,6 +61,9 @@ const mockBottles: BottleMessage[] = [
   },
   {
     id: 'mock-2',
+    responseCount: 5,
+    reviewStatus: '已发布',
+    expiresIn: '7 天后过期',
     nickname: '山城旅人',
     from: '成都',
     to: '川西',
@@ -64,6 +75,9 @@ const mockBottles: BottleMessage[] = [
   },
   {
     id: 'mock-3',
+    responseCount: 3,
+    reviewStatus: '已发布',
+    expiresIn: '7 天后过期',
     nickname: '拿铁加冰',
     from: '杭州',
     to: '厦门',
@@ -75,6 +89,9 @@ const mockBottles: BottleMessage[] = [
   },
   {
     id: 'mock-4',
+    responseCount: 11,
+    reviewStatus: '已发布',
+    expiresIn: '7 天后过期',
     nickname: '夜航星',
     from: '广州',
     to: '青岛',
@@ -86,6 +103,9 @@ const mockBottles: BottleMessage[] = [
   },
   {
     id: 'mock-5',
+    responseCount: 6,
+    reviewStatus: '已发布',
+    expiresIn: '7 天后过期',
     nickname: '橘子汽水',
     from: '武汉',
     to: '泉州',
@@ -125,20 +145,40 @@ function Bottle() {
 
   const handleSendBottle = () => {
     const content = wishText.trim()
+    const destination = destinationText.trim()
 
-    if (!content) {
-      setFeedbackMessage('先写下一点旅行心愿吧。')
+    if (!destination) {
+      setFeedbackMessage('请先填写目的地，漂流瓶不会默认使用精确定位。')
+      return
+    }
+
+    if (content.length < 20) {
+      setFeedbackMessage('旅行心愿至少写 20 个字，方便同路人理解你。')
+      return
+    }
+
+    if (content.length > 300) {
+      setFeedbackMessage('旅行心愿最多 300 个字，请再精简一点。')
+      return
+    }
+
+    if (/\d{5,}|微信|电话|手机|vx/i.test(content)) {
+      setFeedbackMessage('请勿直接填写联系方式，可通过平台回应继续沟通。')
       return
     }
 
     const newBottle: BottleMessage = {
       id: `user-${Date.now()}`,
       nickname: '我投出的瓶子',
-      from: '此刻',
-      to: destinationText.trim() || '还没决定',
+      from: '城市级位置',
+      to: destination,
       content,
       tags: ['我的心愿', '等待回应'],
       time: '刚刚',
+      responseCount: 0,
+      reviewStatus: '审核中',
+      expiresIn: '7 天后过期',
+      mine: true,
       imageUrl: defaultBottleImage,
     }
 
@@ -146,7 +186,7 @@ function Bottle() {
     setCurrentBottle(newBottle)
     setWishText('')
     setDestinationText('')
-    setFeedbackMessage('你的漂流瓶已经漂向远方。')
+    setFeedbackMessage('你的漂流瓶已提交审核，通过后会漂向可能同路的人。')
   }
 
   return (
@@ -156,7 +196,7 @@ function Bottle() {
           <p className={styles.route}>/bottle</p>
           <h1 id="bottle-title">旅行漂流瓶</h1>
           <p className={styles.description}>
-            在旅行地图上捡起一张纸条，也把自己的心愿扔向远方。
+            表达旅行意愿并等待同路人回应。漂流瓶不是正式行程邀约，出行前仍需确认安全信息。
           </p>
         </div>
         <div className={styles.mapBadge} aria-hidden="true">
@@ -200,7 +240,24 @@ function Bottle() {
             <span key={tag}>{tag}</span>
           ))}
         </div>
-        <p className={styles.time}>{currentBottle.time}</p>
+        <p className={styles.time}>
+          {currentBottle.time} · {currentBottle.responseCount} 个回应 ·{' '}
+          {currentBottle.expiresIn} · {currentBottle.reviewStatus}
+        </p>
+        <div className={styles.bottleActions}>
+          <button
+            type="button"
+            onClick={() => setFeedbackMessage('已打开回应入口')}
+          >
+            回应
+          </button>
+          <button
+            type="button"
+            onClick={() => setFeedbackMessage('已打开举报入口')}
+          >
+            举报
+          </button>
+        </div>
       </section>
 
       <button
@@ -215,7 +272,9 @@ function Bottle() {
         <div className={styles.sectionTitle}>
           <p className={styles.label}>扔一个漂流瓶</p>
           <h2 id="send-title">写下这次想出发的理由</h2>
-          <span>内容将关联到当前地点，漂向可能同路的人。</span>
+          <span>
+            仅使用城市级目的地，不展示实时位置；审核通过后漂向可能同路的人。
+          </span>
         </div>
 
         <div className={styles.typeOptions} aria-label="瓶子类型">
@@ -224,11 +283,11 @@ function Bottle() {
         </div>
 
         <label className={styles.field}>
-          <span>想去哪里</span>
+          <span>目的地</span>
           <input
             value={destinationText}
             onChange={(event) => setDestinationText(event.target.value)}
-            placeholder="例如：大理、泉州、还没决定"
+            placeholder="必填，例如：大理、泉州、川西"
           />
         </label>
 
@@ -237,7 +296,7 @@ function Bottle() {
           <textarea
             value={wishText}
             onChange={(event) => setWishText(event.target.value)}
-            placeholder="写下一段想被回应的旅行心愿"
+            placeholder="20-300 字，避免填写手机号、微信等联系方式"
             rows={4}
           />
         </label>
@@ -252,7 +311,7 @@ function Bottle() {
           type="button"
           onClick={handleSendBottle}
         >
-          扔出去
+          发布漂流瓶
         </button>
 
         {feedbackMessage && (
@@ -287,6 +346,37 @@ function Bottle() {
                   {bottle.from} <span>漂向</span> {bottle.to}
                 </p>
                 <p className={styles.listContent}>{bottle.content}</p>
+                <p className={styles.time}>
+                  {bottle.responseCount} 个回应 · {bottle.expiresIn} ·{' '}
+                  {bottle.reviewStatus}
+                </p>
+                <div className={styles.bottleActions}>
+                  <button
+                    type="button"
+                    onClick={() => setFeedbackMessage('已打开漂流瓶详情')}
+                  >
+                    查看详情
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFeedbackMessage('已屏蔽该发布者')}
+                  >
+                    屏蔽
+                  </button>
+                  {bottle.mine ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setBottleList((prevList) =>
+                          prevList.filter((item) => item.id !== bottle.id),
+                        )
+                        setFeedbackMessage('已删除自己的漂流瓶')
+                      }}
+                    >
+                      删除
+                    </button>
+                  ) : null}
+                </div>
                 <div className={styles.tags}>
                   {bottle.tags.map((tag) => (
                     <span key={tag}>{tag}</span>
@@ -297,6 +387,7 @@ function Bottle() {
           ))}
         </div>
       </section>
+      <BottomNav />
     </main>
   )
 }
