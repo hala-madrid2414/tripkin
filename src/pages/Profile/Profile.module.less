@@ -1,8 +1,7 @@
-﻿/* ==========================================================================
-   Lavender Travel Journal — Profile page palette
+/* ==========================================================================
+   Lavender Travel Journal - Profile page palette
    ========================================================================== */
 .page {
-  /* ----- palette ----- */
   --pf-primary: #b89cff;
   --pf-secondary: #dccfff;
   --pf-bg: #f8f5ff;
@@ -22,7 +21,7 @@
   min-height: 100svh;
   margin: 0 auto;
   padding: calc(env(safe-area-inset-top) + 18px) 18px
-    calc(env(safe-area-inset-bottom) + 28px);
+    calc(96px + env(safe-area-inset-bottom));
   background:
     radial-gradient(160% 60% at 90% 2%, #ede6ff, transparent 45%),
     radial-gradient(140% 70% at 8% 96%, #f0ecff, transparent 50%), var(--pf-bg);
@@ -33,7 +32,7 @@
 }
 
 /* ==========================================================================
-   玻璃卡片容器
+   Glass card container
    ========================================================================== */
 .glassCard {
   background: var(--pf-card);
@@ -57,7 +56,6 @@
   }
 }
 
-/* 错开入场 */
 .glassCard:nth-child(2) {
   animation-delay: 0.08s;
 }
@@ -78,7 +76,7 @@
 }
 
 /* ==========================================================================
-   引导态（无 MBTI 结果）
+   Empty state before MBTI result
    ========================================================================== */
 .emptyState {
   flex: 1 1 auto;
@@ -137,5 +135,12 @@
 @media (prefers-reduced-motion: reduce) {
   .glassCard {
     animation: none !important;
+  }
+}
+
+@media (min-width: 520px) {
+  .page {
+    max-width: 430px;
+    box-shadow: 0 0 0 1px var(--color-border);
   }
 }

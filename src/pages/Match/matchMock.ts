@@ -18,7 +18,7 @@ const partnerChips: MatchChip[] = [
   { id: 'partner-time', icon: 'calendar', label: '6 月中旬', dropdown: true },
   { id: 'partner-car', icon: 'car', label: '自驾' },
   { id: 'partner-photo', icon: 'camera', label: '摄影' },
-  { id: 'partner-mbti', icon: 'user', label: 'ENFP' },
+  { id: 'partner-persona', icon: 'user', label: '旅行人格' },
   { id: 'partner-walk', icon: 'walk', label: '轻徒步' },
 ]
 
@@ -34,13 +34,13 @@ export const matchContent: Record<MatchMode, MatchModeContent> = {
   partner: {
     title: '找旅行搭子',
     placeTitle: '川西（318沿线）',
-    placeMeta: '12 人正在找搭子',
+    placeMeta: '12 人正在找搭子 · 5 个可加入行程',
     chips: partnerChips,
   },
   trip: {
     title: '找可加入行程',
     placeTitle: '川西（318沿线）',
-    placeMeta: '12 人正在找搭子',
+    placeMeta: '5 个招募中行程 · 12 人正在找搭子',
     chips: tripChips,
   },
 }
@@ -48,6 +48,11 @@ export const matchContent: Record<MatchMode, MatchModeContent> = {
 export const partnerCards: PartnerMatchCardData[] = [
   {
     id: 'partner-01',
+    identityStatus: '已实名',
+    matchScore: 86,
+    travelWay: '慢旅行 · 摄影',
+    groupPreference: '2-4 人小团体',
+    activeTime: '10 分钟前活跃',
     name: '山间小鹿',
     mbti: 'ENFP',
     avatarUrl: shanjianxiaoluAvatar,
@@ -78,6 +83,11 @@ export const partnerCards: PartnerMatchCardData[] = [
   },
   {
     id: 'partner-02',
+    identityStatus: '已实名',
+    matchScore: 82,
+    travelWay: '自驾 · 攻略型',
+    groupPreference: '2-3 人同行',
+    activeTime: '今天活跃',
     name: '风的旅人',
     mbti: 'INTJ',
     avatarUrl: fengdelvrenAvatar,
@@ -108,6 +118,11 @@ export const partnerCards: PartnerMatchCardData[] = [
   },
   {
     id: 'partner-03',
+    identityStatus: '未实名',
+    matchScore: 78,
+    travelWay: '轻徒步 · 慢节奏',
+    groupPreference: '1-2 人安静同行',
+    activeTime: '1 小时前活跃',
     name: '云朵收集者',
     mbti: 'INFP',
     avatarUrl: shanjianxiaoluAvatar,
@@ -138,6 +153,11 @@ export const partnerCards: PartnerMatchCardData[] = [
   },
   {
     id: 'partner-04',
+    identityStatus: '已实名',
+    matchScore: 80,
+    travelWay: '自驾 · 探索型',
+    groupPreference: '2-4 人灵活同行',
+    activeTime: '刚刚活跃',
     name: '行走的地图',
     mbti: 'INTP',
     avatarUrl: fengdelvrenAvatar,
@@ -171,6 +191,9 @@ export const partnerCards: PartnerMatchCardData[] = [
 export const tripCards: TripMatchCardData[] = [
   {
     id: 'trip-01',
+    status: 'OPEN',
+    identityStatus: '发起人已实名',
+    planHighlights: ['成都集合', '稻城亚丁徒步', '预留摄影日'],
     organizerName: '阿曲',
     title: '6月中旬 · 稻城亚丁',
     imageTone: 'valley',
@@ -185,6 +208,9 @@ export const tripCards: TripMatchCardData[] = [
   },
   {
     id: 'trip-02',
+    status: 'OPEN',
+    identityStatus: '发起人已实名',
+    planHighlights: ['川西环线', '老司机带队', '露营可选'],
     organizerName: '老周',
     title: '5.25–6.5 · 川西环线',
     imageTone: 'ridge',
@@ -199,6 +225,9 @@ export const tripCards: TripMatchCardData[] = [
   },
   {
     id: 'trip-03',
+    status: 'OPEN',
+    identityStatus: '发起人未实名',
+    planHighlights: ['新都桥拍照', '慢节奏', '民宿拼住'],
     organizerName: 'Mia',
     title: '6月初 · 新都桥',
     imageTone: 'bridge',
@@ -213,6 +242,9 @@ export const tripCards: TripMatchCardData[] = [
   },
   {
     id: 'trip-04',
+    status: 'OPEN',
+    identityStatus: '发起人已实名',
+    planHighlights: ['四姑娘山轻徒步', '控制强度', '安全结伴'],
     organizerName: '初七',
     title: '6月 · 四姑娘山',
     imageTone: 'snow',

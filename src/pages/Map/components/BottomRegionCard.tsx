@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { useMatchStore, type MatchMode } from '@/store/useMatchStore'
+import { getRegionTripCount } from '../data/mapData'
 import type { Region } from '../types'
 import { BottleIcon, CloseIcon } from './MapIcons'
 import styles from '../Map.module.less'
@@ -70,6 +71,8 @@ function BottomRegionCard({
         ? styles.regionCardDetail
         : styles.regionCardCompact
   const isFull = level === 'full'
+  const tripCount = getRegionTripCount(region)
+
   const handleMatchLinkClick = (mode: MatchMode) => {
     setMode(mode)
     setEntryContext({
@@ -125,12 +128,14 @@ function BottomRegionCard({
             <small>{subtitle}</small>
           </h2>
         </div>
-        <span className={styles.ratingBadge}>{region.rating.toFixed(1)}</span>
+        <span className={styles.ratingBadge}>
+          推荐指数 {region.rating.toFixed(1)}/5
+        </span>
       </div>
 
       <p className={styles.cardStats}>
         这里有 {region.bottleCount} 个漂流瓶，{region.companionCount}{' '}
-        人正在找搭子
+        人正在找搭子，{tripCount} 个可加入行程
       </p>
 
       <div className={styles.tagRow}>
@@ -155,11 +160,17 @@ function BottomRegionCard({
       </dl>
 
       <div className={styles.cardActions}>
-        <Link to="/match" onClick={() => handleMatchLinkClick('partner')}>
+        <Link
+          to={`/match?tab=partner&regionId=${region.id}`}
+          onClick={() => handleMatchLinkClick('partner')}
+        >
           查看旅行搭子
         </Link>
-        <Link to="/match" onClick={() => handleMatchLinkClick('trip')}>
-          查看行程匹配
+        <Link
+          to={`/match?tab=trip&regionId=${region.id}`}
+          onClick={() => handleMatchLinkClick('trip')}
+        >
+          查看可加入行程
         </Link>
       </div>
 
@@ -169,7 +180,7 @@ function BottomRegionCard({
         onClick={onThrowBottle}
       >
         <BottleIcon />
-        扔一个漂流瓶
+        发布漂流瓶
       </button>
 
       {isFull && (

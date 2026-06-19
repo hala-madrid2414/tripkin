@@ -1,6 +1,6 @@
 .popupBody {
   border-radius: 28px 28px 0 0;
-  background: #fff;
+  background: var(--color-surface-solid);
 }
 
 .sheet {
@@ -12,7 +12,7 @@
   height: 6px;
   margin: 0 auto 20px;
   border-radius: 999px;
-  background: #d9d9df;
+  background: var(--handle-color);
 }
 
 .title,
@@ -22,14 +22,14 @@
 }
 
 .title {
-  color: #11131f;
+  color: var(--color-heading);
   font-size: 24px;
   font-weight: 800;
 }
 
 .subtitle {
   margin-top: 8px;
-  color: #7b8090;
+  color: var(--color-muted);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -47,9 +47,9 @@
   gap: 8px;
   min-height: 42px;
   padding: 0 14px;
-  border: 1px solid rgba(109, 93, 246, 0.12);
+  border: 1px solid var(--color-brand-primary-faint);
   border-radius: 999px;
-  background: rgba(109, 93, 246, 0.06);
+  background: var(--color-brand-primary-faint);
   color: var(--color-brand-primary);
   font-size: 15px;
   font-weight: 800;
@@ -72,13 +72,13 @@
 }
 
 .cancel {
-  border: 1px solid rgba(44, 47, 63, 0.1);
-  background: #fff;
-  color: #2e3140;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-solid);
+  color: var(--color-heading);
 }
 
 .apply {
   border: 0;
-  background: linear-gradient(135deg, var(--color-brand-primary), #745df0);
-  color: #fff;
+  background: var(--gradient-primary);
+  color: var(--color-surface-solid);
 }

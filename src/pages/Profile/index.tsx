@@ -1,4 +1,5 @@
-﻿import { useNavigate } from 'react-router-dom'
+import BottomNav from '@/components/BottomNav'
+import { useNavigate } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
 import { ProfileHeader } from './components/ProfileHeader'
 import { CompanionSection } from './components/CompanionSection'
@@ -20,7 +21,6 @@ function Profile() {
 
   const hasPersona = personaId !== null
 
-  /* ----- 无 MBTI ---- 引导态 ----- */
   if (!hasPersona) {
     return (
       <main className={styles.page}>
@@ -49,7 +49,6 @@ function Profile() {
     )
   }
 
-  /* ----- 正常个人主页 ----- */
   return (
     <main className={styles.page}>
       <div className={styles.glassCard}>
@@ -85,6 +84,8 @@ function Profile() {
       <div className={styles.glassCard}>
         <SettingSection settingsItems={mockProfileData.settingsItems} />
       </div>
+
+      <BottomNav />
     </main>
   )
 }

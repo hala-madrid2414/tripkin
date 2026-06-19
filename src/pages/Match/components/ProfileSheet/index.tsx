@@ -36,14 +36,18 @@ function ProfileSheet({ partner, visible, onClose }: ProfileSheetProps) {
           />
           <div>
             <h2 className={styles.name}>{partner.name}</h2>
-            <p className={styles.status}>{partner.profileStatus}</p>
+            <p className={styles.status}>
+              {partner.profileStatus} · {partner.identityStatus} ·{' '}
+              {partner.activeTime}
+            </p>
           </div>
         </header>
 
         <div className={styles.personality}>
           <p className={styles.personalityTitle}>
             <MatchIcon name="heart" />
-            {partner.personality}
+            {partner.travelPersona?.titleCn ?? partner.personality} · 匹配度{' '}
+            {partner.matchScore}%
           </p>
           <div className={styles.interests}>
             {partner.interests.map((interest) => (
@@ -72,16 +76,16 @@ function ProfileSheet({ partner, visible, onClose }: ProfileSheetProps) {
           <button
             type="button"
             className={styles.secondaryAction}
-            onClick={() => Toast.show({ content: '已发送好友申请' })}
+            onClick={() => Toast.show({ content: '已打开安全操作入口' })}
           >
-            加好友
+            举报/拉黑
           </button>
           <button
             type="button"
             className={styles.primaryAction}
-            onClick={() => Toast.show({ content: '已发起同行邀请' })}
+            onClick={() => Toast.show({ content: '已发起同行邀请邀请' })}
           >
-            发起同行
+            发起同行邀请
             <MatchIcon name="send" />
           </button>
         </footer>

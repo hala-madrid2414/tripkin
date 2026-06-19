@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react'
+import BottomNav from '@/components/BottomNav'
+import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useMatchStore } from '@/store/useMatchStore'
 import { useTripStore } from '@/store/useTripStore'
 import FilterSheet from './components/FilterSheet'
@@ -11,9 +13,14 @@ import ProfileSheet from './components/ProfileSheet'
 import TripMatchCard from './components/TripMatchCard'
 import { matchContent, modeOptions, partnerCards, tripCards } from './matchMock'
 import styles from './Match.module.less'
-import type { PartnerMatchCardData, TripMatchCardData } from './types'
+import type {
+  MatchMode,
+  PartnerMatchCardData,
+  TripMatchCardData,
+} from './types'
 
 function Match() {
+  const [searchParams] = useSearchParams()
   const activeMode = useMatchStore((state) => state.mode)
   const setActiveMode = useMatchStore((state) => state.setMode)
   const entryContext = useMatchStore((state) => state.entryContext)
@@ -24,6 +31,16 @@ function Match() {
   const [selectedTrip, setSelectedTrip] = useState<TripMatchCardData | null>(
     null,
   )
+
+  useEffect(() => {
+    const tab = searchParams.get('tab')
+    const queryMode: MatchMode | null =
+      tab === 'partner' || tab === 'trip' ? tab : null
+
+    if (queryMode && queryMode !== activeMode) {
+      setActiveMode(queryMode)
+    }
+  }, [activeMode, searchParams, setActiveMode])
 
   const currentContent = matchContent[activeMode]
   const placeTitle =
@@ -75,6 +92,8 @@ function Match() {
           </footer>
         ) : null}
       </div>
+
+      <BottomNav />
 
       <FilterSheet
         visible={filterVisible}

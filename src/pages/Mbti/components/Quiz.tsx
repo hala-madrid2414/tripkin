@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ChoiceLetter } from '@/types/mbti'
 import { QUESTIONS } from '../data'
 import styles from '../Mbti.module.less'
@@ -9,18 +9,36 @@ interface QuizProps {
 }
 
 const OPTION_LETTERS: ChoiceLetter[] = ['A', 'B']
+const ANSWER_CACHE_KEY = 'tripkin_persona_answers_v1'
 
 export function Quiz({ onComplete, onBack }: QuizProps) {
   const total = QUESTIONS.length
-  const [current, setCurrent] = useState(0)
-  const [answers, setAnswers] = useState<ChoiceLetter[]>([])
+  const [answers, setAnswers] = useState<ChoiceLetter[]>(() => {
+    try {
+      const cached = window.localStorage.getItem(ANSWER_CACHE_KEY)
+      const parsed = cached ? (JSON.parse(cached) as ChoiceLetter[]) : []
+      return parsed
+        .filter((item) => OPTION_LETTERS.includes(item))
+        .slice(0, QUESTIONS.length)
+    } catch {
+      return []
+    }
+  })
+  const [current, setCurrent] = useState(() =>
+    Math.min(answers.length, QUESTIONS.length - 1),
+  )
   const [selected, setSelected] = useState<ChoiceLetter | null>(null)
+  const [isCalculating, setIsCalculating] = useState(false)
 
   const question = QUESTIONS[current]
   const canGoBack = current > 0 || onBack
 
+  useEffect(() => {
+    window.localStorage.setItem(ANSWER_CACHE_KEY, JSON.stringify(answers))
+  }, [answers])
+
   const goBack = () => {
-    if (selected) return
+    if (selected || isCalculating) return
     if (current > 0) {
       setCurrent((c) => c - 1)
       setAnswers((a) => a.slice(0, -1))
@@ -31,7 +49,7 @@ export function Quiz({ onComplete, onBack }: QuizProps) {
   }
 
   const choose = (letter: ChoiceLetter) => {
-    if (selected) return
+    if (selected || isCalculating) return
     setSelected(letter)
     const nextAnswers = [...answers, letter]
     window.setTimeout(() => {
@@ -40,7 +58,12 @@ export function Quiz({ onComplete, onBack }: QuizProps) {
         setCurrent((c) => c + 1)
         setSelected(null)
       } else {
-        onComplete(nextAnswers)
+        setAnswers(nextAnswers)
+        setIsCalculating(true)
+        window.setTimeout(() => {
+          window.localStorage.removeItem(ANSWER_CACHE_KEY)
+          onComplete(nextAnswers)
+        }, 520)
       }
     }, 360)
   }
@@ -87,6 +110,9 @@ export function Quiz({ onComplete, onBack }: QuizProps) {
       </div>
 
       <article className={`${styles.glass} ${styles.card}`}>
+        {isCalculating ? (
+          <p className={styles.calculating}>正在生成旅行偏好画像...</p>
+        ) : null}
         <p className={styles.qIndex}>
           Q.{String(current + 1).padStart(2, '0')}
         </p>

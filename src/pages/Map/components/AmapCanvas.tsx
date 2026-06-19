@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { getRegionLayerValue, getSpotLayerValue } from '../data/mapData'
 import type { LayerType, LngLat, Region, Spot } from '../types'
 import styles from '../Map.module.less'
 
@@ -149,27 +150,11 @@ function loadAmap() {
 }
 
 function getRegionValue(region: Region, layer: LayerType) {
-  if (layer === 'companion') {
-    return region.companionCount
-  }
-
-  if (layer === 'hotspot') {
-    return region.hotspotLevel
-  }
-
-  return region.bottleCount
+  return getRegionLayerValue(region, layer)
 }
 
 function getSpotValue(spot: Spot, layer: LayerType) {
-  if (layer === 'companion') {
-    return spot.companionCount
-  }
-
-  if (layer === 'hotspot') {
-    return Math.max(2, Math.round(spot.rating))
-  }
-
-  return spot.bottleCount
+  return getSpotLayerValue(spot, layer)
 }
 
 function getLayerName(layer: LayerType) {
@@ -381,22 +366,8 @@ function AmapCanvas({
       ...visibleSpots.map((spot) => getSpotValue(spot, activeLayer)),
     )
 
-    const nextMarkers = selectedRegion
-      ? visibleSpots.map((spot) => {
-          const marker = new AMap.Marker({
-            position: spot.lnglat,
-            content: createSpotMarkerContent(spot, activeLayer, maxSpotValue),
-            offset: new AMap.Pixel(0, 0),
-            anchor: 'bottom-center',
-            zIndex: selectedSpot?.id === spot.id ? 120 : 90,
-          })
-
-          marker.on('click', () => onSpotClick(spot.id))
-          marker.setMap(map)
-          map.add(marker)
-
-          return marker
-        })
+    const regionMarkers = selectedRegion
+      ? []
       : regions.map((region) => {
           const marker = new AMap.Marker({
             position: region.lnglat,
@@ -417,7 +388,25 @@ function AmapCanvas({
           return marker
         })
 
-    markersRef.current = nextMarkers
+    const spotMarkers = selectedRegion
+      ? visibleSpots.map((spot) => {
+          const marker = new AMap.Marker({
+            position: spot.lnglat,
+            content: createSpotMarkerContent(spot, activeLayer, maxSpotValue),
+            offset: new AMap.Pixel(0, 0),
+            anchor: 'bottom-center',
+            zIndex: selectedSpot?.id === spot.id ? 120 : 90,
+          })
+
+          marker.on('click', () => onSpotClick(spot.id))
+          marker.setMap(map)
+          map.add(marker)
+
+          return marker
+        })
+      : []
+
+    markersRef.current = [...regionMarkers, ...spotMarkers]
   }, [
     activeLayer,
     onRegionClick,

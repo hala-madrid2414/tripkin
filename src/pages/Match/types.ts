@@ -26,7 +26,12 @@ export interface MatchChip {
 export interface PartnerMatchCardData {
   id: string
   name: string
-  mbti: string
+  mbti?: string
+  identityStatus: '已实名' | '未实名'
+  matchScore: number
+  travelWay: string
+  groupPreference: string
+  activeTime: string
   avatarUrl: string
   avatarAlt: string
   online?: boolean
@@ -65,6 +70,9 @@ export interface TripMatchCardData {
   travelStyle: string
   summary: string
   actionLabel: string
+  status: 'OPEN' | 'FULL' | 'CONFIRMED' | 'COMPLETED'
+  identityStatus: '发起人已实名' | '发起人未实名'
+  planHighlights: string[]
 }
 
 export interface MatchModeContent {

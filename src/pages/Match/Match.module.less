@@ -6,7 +6,7 @@
   min-height: 100svh;
   overflow-x: hidden;
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.96), transparent 36%),
+    linear-gradient(120deg, var(--color-surface-glass-strong), transparent 36%),
     radial-gradient(
       circle at 296px 106px,
       var(--match-color-map-ornament),
@@ -26,7 +26,7 @@
   max-width: 430px;
   min-height: 100svh;
   margin: 0 auto;
-  padding-bottom: var(--match-space-page-bottom);
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
   overflow-x: hidden;
 }
 
