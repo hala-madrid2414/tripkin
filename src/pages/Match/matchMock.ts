@@ -54,6 +54,12 @@ export const partnerCards: PartnerMatchCardData[] = [
     avatarAlt: '山间小鹿头像',
     online: true,
     personality: '慢熟拍照型 ENFP',
+    travelPersona: {
+      id: 'Romantic-Observer',
+      titleCn: '人文浪漫主义',
+      titleEn: 'ROMANTIC-OBSERVER',
+      emoji: '🌹',
+    },
     interests: [
       { icon: 'camera', label: '摄影' },
       { icon: 'walk', label: '徒步' },
@@ -78,6 +84,12 @@ export const partnerCards: PartnerMatchCardData[] = [
     avatarAlt: '风的旅人头像',
     online: true,
     personality: '攻略控 INTJ',
+    travelPersona: {
+      id: 'Budget-Architect',
+      titleCn: '精算系旅行家',
+      titleEn: 'BUDGET-ARCHITECT',
+      emoji: '🧮',
+    },
     interests: [
       { icon: 'car', label: '自驾' },
       { icon: 'camera', label: '摄影' },
@@ -102,6 +114,12 @@ export const partnerCards: PartnerMatchCardData[] = [
     avatarAlt: '云朵收集者头像',
     online: true,
     personality: '慢节奏 INFP',
+    travelPersona: {
+      id: 'Zen-Capybara',
+      titleCn: '精神卡皮巴拉',
+      titleEn: 'ZEN-CAPYBARA',
+      emoji: '🛀',
+    },
     interests: [
       { icon: 'walk', label: '轻徒步' },
       { icon: 'camera', label: '摄影' },
@@ -126,6 +144,12 @@ export const partnerCards: PartnerMatchCardData[] = [
     avatarAlt: '行走的地图头像',
     online: true,
     personality: '路线探索型 INTP',
+    travelPersona: {
+      id: 'Cyber-Raider',
+      titleCn: '赛博特种兵',
+      titleEn: 'CYBER-RAIDER',
+      emoji: '🎒',
+    },
     interests: [
       { icon: 'car', label: '自驾' },
       { icon: 'clock', label: '探索' },

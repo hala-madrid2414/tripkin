@@ -5,17 +5,30 @@ import styles from '../Mbti.module.less'
 
 interface QuizProps {
   onComplete: (answers: ChoiceLetter[]) => void
+  onBack?: () => void
 }
 
 const OPTION_LETTERS: ChoiceLetter[] = ['A', 'B']
 
-export function Quiz({ onComplete }: QuizProps) {
+export function Quiz({ onComplete, onBack }: QuizProps) {
   const total = QUESTIONS.length
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState<ChoiceLetter[]>([])
   const [selected, setSelected] = useState<ChoiceLetter | null>(null)
 
   const question = QUESTIONS[current]
+  const canGoBack = current > 0 || onBack
+
+  const goBack = () => {
+    if (selected) return
+    if (current > 0) {
+      setCurrent((c) => c - 1)
+      setAnswers((a) => a.slice(0, -1))
+      setSelected(null)
+    } else if (onBack) {
+      onBack()
+    }
+  }
 
   const choose = (letter: ChoiceLetter) => {
     if (selected) return
@@ -35,23 +48,40 @@ export function Quiz({ onComplete }: QuizProps) {
   return (
     <div className={styles.quiz}>
       <div className={styles.progress}>
-        <div className={styles.bar}>
-          <div
-            className={styles.barFill}
-            style={{ width: `${((current + 1) / total) * 100}%` }}
-          />
-        </div>
-        <div className={styles.meta}>
-          <span className={styles.step}>
-            {current + 1} / {total}
-          </span>
-          <div className={styles.dots}>
-            {Array.from({ length: total }, (_, i) => (
-              <span
-                key={i}
-                className={i <= current ? styles.dotOn : styles.dot}
-              />
-            ))}
+        <button
+          type="button"
+          className={styles.backBtn}
+          onClick={goBack}
+          disabled={!canGoBack}
+          aria-label="返回上一题"
+        >
+          ←
+        </button>
+        <div className={styles.progressContent}>
+          <div className={styles.bar}>
+            <div
+              className={styles.barFill}
+              style={{ width: `${((current + 1) / total) * 100}%` }}
+            />
+          </div>
+          <div className={styles.meta}>
+            <span className={styles.step}>
+              {current + 1} / {total}
+            </span>
+            <div className={styles.dots}>
+              {Array.from({ length: total }, (_, i) => (
+                <span
+                  key={i}
+                  className={
+                    i < current
+                      ? styles.dotCompleted
+                      : i === current
+                        ? styles.dotOn
+                        : styles.dot
+                  }
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +107,11 @@ export function Quiz({ onComplete }: QuizProps) {
         </div>
       </article>
 
-      <p className={styles.tip}>点击选项自动进入下一题</p>
+      <p className={styles.tip}>
+        {current > 0
+          ? '点击选项自动进入下一题，或点击 ← 返回修改'
+          : '点击选项自动进入下一题'}
+      </p>
     </div>
   )
 }

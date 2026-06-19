@@ -21,6 +21,20 @@ export interface PersonaTraits {
   style: string
 }
 
+/** 人格详情数据 */
+export interface PersonaDetails {
+  strengths: string[]
+  considerations: string[]
+  travelStyle: {
+    energy: number
+    planning: number
+    social: number
+    adventure: number
+  }
+  matchAdvice: string
+  destTypes: string[]
+}
+
 /** 单个人格定义 */
 export interface Persona {
   id: PersonaId
@@ -37,6 +51,7 @@ export interface Persona {
   /** 对外承诺的卡通形象资产路径（正式交付再落地真实素材） */
   avatarPath: string
   nicknamePool: string[]
+  details: PersonaDetails
 }
 
 /** 单道趣味题（二选一） */

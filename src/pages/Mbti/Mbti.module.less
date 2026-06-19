@@ -260,6 +260,37 @@
 }
 .progress {
   flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.backBtn {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 16px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.backBtn:hover:not(:disabled) {
+  background: var(--color-surface-solid);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
+}
+.backBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.progressContent {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .bar {
   height: 6px;
@@ -299,6 +330,16 @@
   height: 7px;
   border-radius: 50%;
   background: var(--color-border-strong);
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+.dotCompleted {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-brand-primary);
+  opacity: 0.5;
   transition:
     background 0.3s ease,
     transform 0.3s ease;
@@ -662,8 +703,171 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* 详情折叠区域 */
+.detailsToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-brand-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.detailsToggle:hover {
+  background: var(--color-surface-solid);
+  border-color: var(--color-brand-primary);
+}
+.detailsArrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+.detailsArrowUp {
+  transform: rotate(180deg);
+}
+
+.idcardDetails {
+  margin-top: 12px;
+  padding: 20px 18px;
+  animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.detailSection {
+  margin-bottom: 20px;
+}
+.detailSection:last-child {
+  margin-bottom: 0;
+}
+.detailTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin: 0 0 12px;
+}
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.detailItem {
+  min-width: 0;
+}
+.detailLabel {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.detailList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.detailList li {
+  font-size: 13px;
+  color: var(--color-text);
+  line-height: 1.6;
+  padding-left: 12px;
+  position: relative;
+}
+.detailList li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-brand-primary);
+  font-weight: 700;
+}
+
+.radarChart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.radarItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.radarLabel {
+  flex: 0 0 50px;
+  font-size: 12px;
+  color: var(--color-muted);
+  text-align: right;
+}
+.radarBar {
+  flex: 1 1 auto;
+  height: 8px;
+  background: var(--color-surface-tint);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.radarFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary)
+  );
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+.radarValue {
+  flex: 0 0 30px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.detailText {
+  font-size: 13px;
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0;
+  padding: 12px;
+  background: var(--color-brand-primary-mist);
+  border-radius: 12px;
+  border-left: 3px solid var(--color-brand-primary);
+}
+
+.destTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.destTag {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius-chip);
+  background: var(--color-brand-primary-soft);
+  color: var(--color-brand-primary);
+  border: 1px solid rgba(109, 93, 246, 0.2);
+}
+
 .resultFooter {
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   padding: 14px 0 calc(env(safe-area-inset-bottom) + 14px);
   background: linear-gradient(180deg, transparent, var(--color-page-mbti) 38%);
 }

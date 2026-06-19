@@ -24,6 +24,11 @@ function PartnerMatchCard({ item, onOpen }: PartnerMatchCardProps) {
         <div className={styles.titleRow}>
           <h2 className={styles.name}>{item.name}</h2>
           <span className={styles.mbti}>{item.mbti}</span>
+          {item.travelPersona && (
+            <span className={styles.persona}>
+              {item.travelPersona.emoji} {item.travelPersona.titleCn}
+            </span>
+          )}
         </div>
 
         <div className={styles.tags}>

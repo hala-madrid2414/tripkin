@@ -31,6 +31,12 @@ export interface PartnerMatchCardData {
   avatarAlt: string
   online?: boolean
   personality: string
+  travelPersona?: {
+    id: string
+    titleCn: string
+    titleEn: string
+    emoji: string
+  }
   interests: Array<{
     icon: MatchChipIcon
     label: string
