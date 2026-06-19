@@ -1,53 +1,55 @@
-.page {
-  min-height: 100svh;
-  background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.92), transparent 34%),
-    radial-gradient(
-      circle at 82px 104px,
-      rgba(109, 93, 246, 0.1),
-      transparent 0 92px
-    ),
-    linear-gradient(180deg, #fbfcff 0%, #f6f7ff 46%, #f7f8ff 100%);
-}
+@import './matchTokens.less';
 
-.page[data-mode='trip'] {
+.page {
+  .matchTokens();
+
+  min-height: 100svh;
+  overflow-x: hidden;
   background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.96), transparent 36%),
     radial-gradient(
-      circle at 305px 104px,
-      rgba(109, 93, 246, 0.13),
-      transparent 0 84px
+      circle at 296px 106px,
+      var(--match-color-map-ornament),
+      transparent 0 86px
     ),
-    linear-gradient(180deg, #fbfcff 0%, #f4f7ff 48%, #f7f8ff 100%);
+    linear-gradient(
+      180deg,
+      var(--match-color-bg-start) 0%,
+      var(--match-color-bg-mid) 46%,
+      var(--match-color-bg-end) 100%
+    );
 }
 
 .shell {
-  width: min(100%, 430px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 430px;
   min-height: 100svh;
   margin: 0 auto;
-  padding-bottom: 26px;
+  padding-bottom: var(--match-space-page-bottom);
   overflow-x: hidden;
 }
 
 .list {
+  box-sizing: border-box;
   display: grid;
-  gap: 12px;
-  margin-top: 16px;
-  padding: 0 18px;
+  gap: var(--match-space-card-gap);
+  margin-top: var(--match-space-section-gap);
+  padding: 0 var(--match-space-page-x);
+  width: 100%;
 }
 
 .footer {
   margin: 18px 0 0;
-  padding: 0 18px;
-  color: #8a90a3;
+  padding: 0 var(--match-space-page-x);
+  color: var(--match-color-text-muted);
   font-size: 14px;
   line-height: 1.5;
   text-align: center;
 }
 
 @media (max-width: 360px) {
-  .list,
-  .footer {
-    padding-left: 14px;
-    padding-right: 14px;
+  .page {
+    .matchCompactTokens();
   }
 }

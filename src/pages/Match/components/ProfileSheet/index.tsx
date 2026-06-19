@@ -1,6 +1,5 @@
 import { Popup, Toast } from 'antd-mobile'
 import type { PartnerMatchCardData } from '../../types'
-import GradientVisual from '../GradientVisual'
 import MatchIcon from '../MatchIcon'
 import styles from './ProfileSheet.module.less'
 
@@ -30,10 +29,10 @@ function ProfileSheet({ partner, visible, onClose }: ProfileSheetProps) {
         </button>
 
         <header className={styles.profileHeader}>
-          <GradientVisual
-            tone={partner.avatarTone}
-            mark={partner.avatarMark}
+          <img
             className={styles.avatar}
+            src={partner.avatarUrl}
+            alt={partner.avatarAlt}
           />
           <div>
             <h2 className={styles.name}>{partner.name}</h2>

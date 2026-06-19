@@ -1,5 +1,4 @@
 import type { PartnerMatchCardData } from '../../types'
-import GradientVisual from '../GradientVisual'
 import MatchIcon from '../MatchIcon'
 import styles from './PartnerMatchCard.module.less'
 
@@ -9,16 +8,18 @@ interface PartnerMatchCardProps {
 }
 
 function PartnerMatchCard({ item, onOpen }: PartnerMatchCardProps) {
-  const isPrimary = item.actionLabel === '加好友'
-
   return (
     <article className={styles.card} onClick={() => onOpen(item)}>
-      <GradientVisual
-        tone={item.avatarTone}
-        mark={item.avatarMark}
-        online={item.online}
-        className={styles.avatar}
-      />
+      <span className={styles.avatarWrap}>
+        <img
+          className={styles.avatar}
+          src={item.avatarUrl}
+          alt={item.avatarAlt}
+        />
+        {item.online ? (
+          <span className={styles.online} aria-hidden="true" />
+        ) : null}
+      </span>
       <div className={styles.body}>
         <div className={styles.titleRow}>
           <h2 className={styles.name}>{item.name}</h2>
@@ -50,13 +51,13 @@ function PartnerMatchCard({ item, onOpen }: PartnerMatchCardProps) {
 
       <button
         type="button"
-        className={`${styles.action} ${isPrimary ? styles.actionPrimary : ''}`}
+        className={styles.action}
         onClick={(event) => {
           event.stopPropagation()
           onOpen(item)
         }}
       >
-        {item.actionLabel}
+        看看TA
       </button>
     </article>
   )

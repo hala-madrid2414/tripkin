@@ -1,18 +1,512 @@
-import { Link } from 'react-router-dom'
+import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
+import type { MutableRefObject, PointerEvent } from 'react'
+import AmapCanvas from './components/AmapCanvas'
+import BottomRegionCard from './components/BottomRegionCard'
+import BottomSpotCard from './components/BottomSpotCard'
+import LayerSheet from './components/LayerSheet'
+import MapControls from './components/MapControls'
+import SearchBar from './components/SearchBar'
+import TravelMapCanvas from './components/TravelMapCanvas'
+import {
+  getRegionById,
+  getSpotById,
+  getSpotRegion,
+  mapRegions,
+  searchMapItems,
+} from './data/mapData'
+import type { LayerType, Viewport } from './types'
 import styles from './Map.module.less'
 
+interface MapPageState {
+  viewport: Viewport
+  activeLayer: LayerType
+  selectedRegionId: string | null
+  selectedSpotId: string | null
+  searchQuery: string
+  layerSheetOpen: boolean
+  cardExpanded: boolean
+  regionSheetExpanded: boolean
+  regionCardLevel: RegionCardLevel
+}
+
+type RegionCardLevel = 'compact' | 'detail' | 'full'
+
+type MapPageAction =
+  | { type: 'setViewport'; payload: Viewport }
+  | { type: 'selectRegion'; payload: string }
+  | { type: 'selectSpot'; payload: string }
+  | { type: 'closeSpot' }
+  | { type: 'reset' }
+  | { type: 'setLayer'; payload: LayerType }
+  | { type: 'setSearch'; payload: string }
+  | { type: 'openLayerSheet' }
+  | { type: 'closeLayerSheet' }
+  | { type: 'toggleCard' }
+  | { type: 'setCardExpanded'; payload: boolean }
+  | { type: 'toggleRegionSheet' }
+  | { type: 'setRegionSheetExpanded'; payload: boolean }
+  | { type: 'advanceRegionCard' }
+  | { type: 'retreatRegionCard' }
+  | { type: 'toggleRegionCard' }
+
+const initialState: MapPageState = {
+  viewport: { scale: 1, x: 0, y: 0 },
+  activeLayer: 'all',
+  selectedRegionId: null,
+  selectedSpotId: null,
+  searchQuery: '',
+  layerSheetOpen: false,
+  cardExpanded: false,
+  regionSheetExpanded: false,
+  regionCardLevel: 'compact',
+}
+
+const hasAmapConfig = Boolean(
+  import.meta.env.VITE_AMAP_KEY && import.meta.env.VITE_AMAP_SECURITY_CODE,
+)
+
+function focusViewport(
+  point: { x: number; y: number },
+  scale = 2.15,
+): Viewport {
+  return {
+    scale,
+    x: 50 - point.x * scale,
+    y: 50 - point.y * scale,
+  }
+}
+
+function mapPageReducer(
+  state: MapPageState,
+  action: MapPageAction,
+): MapPageState {
+  switch (action.type) {
+    case 'setViewport':
+      return {
+        ...state,
+        viewport: action.payload,
+      }
+
+    case 'selectRegion': {
+      const region = getRegionById(action.payload)
+
+      if (!region) {
+        return state
+      }
+
+      return {
+        ...state,
+        selectedRegionId: region.id,
+        selectedSpotId: null,
+        cardExpanded: false,
+        regionSheetExpanded: false,
+        regionCardLevel: 'compact',
+        searchQuery: '',
+        viewport: focusViewport(region.position),
+      }
+    }
+
+    case 'selectSpot': {
+      const spot = getSpotById(action.payload)
+      const region = getSpotRegion(spot)
+
+      if (!spot || !region) {
+        return state
+      }
+
+      return {
+        ...state,
+        selectedRegionId: region.id,
+        selectedSpotId: spot.id,
+        cardExpanded: false,
+        regionSheetExpanded: false,
+        regionCardLevel: 'compact',
+        searchQuery: '',
+        viewport: focusViewport(region.position, 2.35),
+      }
+    }
+
+    case 'closeSpot':
+      return {
+        ...state,
+        selectedSpotId: null,
+        cardExpanded: false,
+        regionSheetExpanded: false,
+        regionCardLevel: 'compact',
+      }
+
+    case 'reset':
+      return {
+        ...state,
+        selectedRegionId: null,
+        selectedSpotId: null,
+        cardExpanded: false,
+        regionSheetExpanded: false,
+        regionCardLevel: 'compact',
+        searchQuery: '',
+        viewport: { scale: 1, x: 0, y: 0 },
+      }
+
+    case 'setLayer':
+      return {
+        ...state,
+        activeLayer: action.payload,
+        layerSheetOpen: false,
+      }
+
+    case 'setSearch':
+      return {
+        ...state,
+        searchQuery: action.payload,
+      }
+
+    case 'openLayerSheet':
+      return {
+        ...state,
+        layerSheetOpen: true,
+      }
+
+    case 'closeLayerSheet':
+      return {
+        ...state,
+        layerSheetOpen: false,
+      }
+
+    case 'toggleCard':
+      return {
+        ...state,
+        cardExpanded: !state.cardExpanded,
+      }
+
+    case 'setCardExpanded':
+      return {
+        ...state,
+        cardExpanded: action.payload,
+      }
+
+    case 'toggleRegionSheet':
+      return {
+        ...state,
+        regionSheetExpanded: !state.regionSheetExpanded,
+      }
+
+    case 'setRegionSheetExpanded':
+      return {
+        ...state,
+        regionSheetExpanded: action.payload,
+      }
+
+    case 'advanceRegionCard':
+      return {
+        ...state,
+        regionCardLevel:
+          state.regionCardLevel === 'compact'
+            ? 'detail'
+            : state.regionCardLevel === 'detail'
+              ? 'full'
+              : 'full',
+      }
+
+    case 'retreatRegionCard':
+      return {
+        ...state,
+        regionCardLevel:
+          state.regionCardLevel === 'full'
+            ? 'detail'
+            : state.regionCardLevel === 'detail'
+              ? 'compact'
+              : 'compact',
+      }
+
+    case 'toggleRegionCard':
+      return {
+        ...state,
+        regionCardLevel:
+          state.regionCardLevel === 'compact'
+            ? 'detail'
+            : state.regionCardLevel === 'detail'
+              ? 'full'
+              : 'detail',
+      }
+
+    default:
+      return state
+  }
+}
+
+interface SheetDragState {
+  startY: number
+  moved: boolean
+}
+
+type SheetDragRef = MutableRefObject<SheetDragState | null>
+
 function Map() {
+  const [state, dispatch] = useReducer(mapPageReducer, initialState)
+  const [toastMessage, setToastMessage] = useState('')
+  const [amapFailed, setAmapFailed] = useState(false)
+  const regionDragRef = useRef<SheetDragState | null>(null)
+  const spotDragRef = useRef<SheetDragState | null>(null)
+  const selectedRegion = getRegionById(state.selectedRegionId)
+  const selectedSpot = getSpotById(state.selectedSpotId)
+  const selectedSpotRegion = getSpotRegion(selectedSpot)
+  const searchResults = useMemo(
+    () => searchMapItems(state.searchQuery),
+    [state.searchQuery],
+  )
+
+  const showDemoToast = useCallback((content: string) => {
+    setToastMessage(content)
+    window.setTimeout(() => setToastMessage(''), 1800)
+  }, [])
+
+  const handleBlankClick = useCallback(() => {
+    dispatch({ type: 'closeSpot' })
+  }, [])
+
+  const handleAmapFallback = useCallback(() => {
+    setAmapFailed(true)
+    showDemoToast('真实地图加载失败，已切换静态地图')
+  }, [showDemoToast])
+
+  const handleSheetPointerDown = useCallback(
+    (dragRef: SheetDragRef, event: PointerEvent<HTMLButtonElement>) => {
+      dragRef.current = {
+        startY: event.clientY,
+        moved: false,
+      }
+      event.currentTarget.setPointerCapture(event.pointerId)
+    },
+    [],
+  )
+
+  const handleSheetPointerMove = useCallback(
+    (dragRef: SheetDragRef, event: PointerEvent<HTMLButtonElement>) => {
+      const drag = dragRef.current
+
+      if (!drag) {
+        return
+      }
+
+      if (Math.abs(event.clientY - drag.startY) > 8) {
+        drag.moved = true
+      }
+    },
+    [],
+  )
+
+  const finishSheetGesture = useCallback(
+    (
+      dragRef: SheetDragRef,
+      event: PointerEvent<HTMLButtonElement>,
+      onExpand: () => void,
+      onCollapse: () => void,
+      onTap: () => void,
+    ) => {
+      const drag = dragRef.current
+
+      if (!drag) {
+        return
+      }
+
+      const deltaY = event.clientY - drag.startY
+      dragRef.current = null
+
+      if (drag.moved && deltaY < -24) {
+        onExpand()
+        return
+      }
+
+      if (drag.moved && deltaY > 24) {
+        onCollapse()
+        return
+      }
+
+      onTap()
+    },
+    [],
+  )
+
+  const cancelSheetGesture = useCallback((dragRef: SheetDragRef) => {
+    dragRef.current = null
+  }, [])
+
   return (
     <main className={styles.page}>
-      <p className={styles.route}>/map</p>
-      <h1>旅行地图</h1>
-      <p className={styles.description}>
-        后续这里放目的地地图、城市点位和进入漂流瓶的入口。
-      </p>
-      <nav className={styles.actions} aria-label="页面跳转">
-        <Link to="/mbti">上一页：旅行 MBTI</Link>
-        <Link to="/bottle">下一页：旅行漂流瓶</Link>
-      </nav>
+      <SearchBar
+        query={state.searchQuery}
+        results={searchResults}
+        onQueryChange={(query) =>
+          dispatch({ type: 'setSearch', payload: query })
+        }
+        onResultClick={(spotId) =>
+          dispatch({ type: 'selectSpot', payload: spotId })
+        }
+        onKeywordClick={(keyword) =>
+          dispatch({ type: 'setSearch', payload: keyword })
+        }
+        onLayerClick={() => dispatch({ type: 'openLayerSheet' })}
+      />
+
+      {hasAmapConfig && !amapFailed ? (
+        <AmapCanvas
+          regions={mapRegions}
+          selectedRegion={selectedRegion}
+          selectedSpot={selectedSpot}
+          activeLayer={state.activeLayer}
+          onRegionClick={(regionId) =>
+            dispatch({ type: 'selectRegion', payload: regionId })
+          }
+          onSpotClick={(spotId) =>
+            dispatch({ type: 'selectSpot', payload: spotId })
+          }
+          onBlankClick={handleBlankClick}
+          onFallback={handleAmapFallback}
+        />
+      ) : (
+        <TravelMapCanvas
+          regions={mapRegions}
+          selectedRegion={selectedRegion}
+          selectedSpot={selectedSpot}
+          activeLayer={state.activeLayer}
+          viewport={state.viewport}
+          onRegionClick={(regionId) =>
+            dispatch({ type: 'selectRegion', payload: regionId })
+          }
+          onSpotClick={(spotId) =>
+            dispatch({ type: 'selectSpot', payload: spotId })
+          }
+          onViewportChange={(viewport) =>
+            dispatch({ type: 'setViewport', payload: viewport })
+          }
+          onBlankClick={handleBlankClick}
+        />
+      )}
+
+      {!selectedRegion && !selectedSpot && (
+        <section
+          className={
+            state.regionSheetExpanded
+              ? styles.regionSummaryExpanded
+              : styles.regionSummary
+          }
+          aria-label="当前地图区域"
+        >
+          <button
+            type="button"
+            className={styles.sheetHandle}
+            onPointerDown={(event) =>
+              handleSheetPointerDown(regionDragRef, event)
+            }
+            onPointerMove={(event) =>
+              handleSheetPointerMove(regionDragRef, event)
+            }
+            onPointerUp={(event) =>
+              finishSheetGesture(
+                regionDragRef,
+                event,
+                () =>
+                  dispatch({
+                    type: 'setRegionSheetExpanded',
+                    payload: true,
+                  }),
+                () =>
+                  dispatch({
+                    type: 'setRegionSheetExpanded',
+                    payload: false,
+                  }),
+                () => dispatch({ type: 'toggleRegionSheet' }),
+              )
+            }
+            onPointerCancel={() => cancelSheetGesture(regionDragRef)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                dispatch({ type: 'toggleRegionSheet' })
+              }
+            }}
+            aria-label={state.regionSheetExpanded ? '收起卡片' : '展开卡片'}
+          >
+            <span />
+          </button>
+          <h1>全国旅行灵感地图</h1>
+          <p>点击目的地气泡，发现漂流瓶、旅行搭子和热门目的地</p>
+          <div className={styles.summaryTags}>
+            {['漂流瓶', '搭子气泡', '热门路线'].map((tag) => (
+              <span key={tag}>#{tag}</span>
+            ))}
+          </div>
+          {state.regionSheetExpanded && (
+            <div className={styles.summaryExpandedContent}>
+              <h2>今日旅行灵感</h2>
+              <p>
+                从全国目的地气泡开始探索，先选一个省份，再进入具体城市或景点查看漂流瓶、搭子和路线标签。
+              </p>
+              <ul>
+                {mapRegions.slice(0, 4).map((item) => (
+                  <li key={item.id}>
+                    <strong>{item.name}</strong>
+                    <span>
+                      {item.bottleCount} 个漂流瓶 · {item.companionCount}{' '}
+                      人找搭子
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      <MapControls
+        onLocate={() => showDemoToast('当前 Demo 暂不接入真实定位')}
+        onReset={() => dispatch({ type: 'reset' })}
+        onThrowBottle={() => showDemoToast('漂流瓶入口已预留')}
+      />
+
+      <BottomRegionCard
+        region={selectedRegion && !selectedSpot ? selectedRegion : null}
+        level={state.regionCardLevel}
+        onToggleLevel={() => dispatch({ type: 'toggleRegionCard' })}
+        onAdvanceLevel={() => dispatch({ type: 'advanceRegionCard' })}
+        onRetreatLevel={() => dispatch({ type: 'retreatRegionCard' })}
+        dragRef={regionDragRef}
+        onHandlePointerDown={handleSheetPointerDown}
+        onHandlePointerMove={handleSheetPointerMove}
+        onHandlePointerUp={finishSheetGesture}
+        onHandlePointerCancel={cancelSheetGesture}
+        onClose={() => dispatch({ type: 'reset' })}
+        onThrowBottle={() => showDemoToast('已为该地区预留漂流瓶发布入口')}
+      />
+
+      <BottomSpotCard
+        spot={selectedSpot}
+        region={selectedSpotRegion}
+        expanded={state.cardExpanded}
+        onToggleExpanded={() => dispatch({ type: 'toggleCard' })}
+        onExpand={() => dispatch({ type: 'setCardExpanded', payload: true })}
+        onCollapse={() => dispatch({ type: 'setCardExpanded', payload: false })}
+        dragRef={spotDragRef}
+        onHandlePointerDown={handleSheetPointerDown}
+        onHandlePointerMove={handleSheetPointerMove}
+        onHandlePointerUp={finishSheetGesture}
+        onHandlePointerCancel={cancelSheetGesture}
+        onClose={() => dispatch({ type: 'closeSpot' })}
+        onThrowBottle={() => showDemoToast('已为该地点预留漂流瓶发布入口')}
+      />
+
+      <LayerSheet
+        open={state.layerSheetOpen}
+        activeLayer={state.activeLayer}
+        onSelect={(layer) => dispatch({ type: 'setLayer', payload: layer })}
+        onClose={() => dispatch({ type: 'closeLayerSheet' })}
+      />
+
+      <div className={toastMessage ? styles.toastVisible : styles.toastHidden}>
+        <span role="status" aria-live="polite">
+          {toastMessage}
+        </span>
+      </div>
     </main>
   )
 }

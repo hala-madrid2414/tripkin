@@ -1,62 +1,79 @@
 .header {
   position: relative;
+  box-sizing: border-box;
   overflow: hidden;
-  padding: 18px 18px 14px;
+  padding: 10px var(--match-space-page-x) 18px;
+  width: 100%;
 }
 
 .mapLayer {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.75;
+  opacity: 0.78;
 }
 
 .mapLineOne,
 .mapLineTwo {
   position: absolute;
-  border: 2px solid rgba(119, 101, 246, 0.08);
+  border: 2px solid var(--match-color-map-line);
   border-right-color: transparent;
   border-bottom-color: transparent;
   border-radius: 54% 46% 58% 42%;
 }
 
 .mapLineOne {
-  top: -22px;
-  right: -32px;
-  width: 260px;
-  height: 128px;
-  transform: rotate(-16deg);
+  top: 36px;
+  right: -20px;
+  width: 244px;
+  height: 118px;
+  transform: rotate(-10deg);
 }
 
 .mapLineTwo {
-  top: 52px;
-  right: -26px;
-  width: 198px;
-  height: 92px;
+  top: 84px;
+  right: -22px;
+  width: 210px;
+  height: 94px;
   border-style: dashed;
-  transform: rotate(-8deg);
+  transform: rotate(-6deg);
+}
+
+.routePath {
+  position: absolute;
+  top: 88px;
+  right: 32px;
+  width: 116px;
+  height: 54px;
+  border-bottom: 3px dashed var(--match-color-map-route);
+  border-radius: 0 0 72% 42%;
+  transform: rotate(-18deg);
 }
 
 .routePin {
   position: absolute;
-  top: 66px;
-  right: 64px;
-  width: 28px;
-  height: 28px;
+  top: 62px;
+  right: 50px;
+  width: 24px;
+  height: 24px;
   border-radius: 50% 50% 50% 0;
-  background: linear-gradient(135deg, #c8b7ff, #745df0);
+  background: linear-gradient(
+    135deg,
+    var(--match-color-primary-light),
+    var(--match-color-primary)
+  );
   transform: rotate(-45deg);
-  box-shadow: 0 10px 22px rgba(109, 93, 246, 0.24);
+  box-shadow: var(--match-shadow-button);
 }
 
 .routePin::after {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 12px;
-  height: 12px;
+  top: 7px;
+  left: 7px;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--match-color-surface);
   content: '';
 }
 
@@ -64,61 +81,61 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 56px 1fr 76px;
+  grid-template-columns: 42px minmax(0, 1fr) 58px;
   align-items: center;
-  min-height: 40px;
+  min-height: 36px;
 }
 
 .backLink,
 .filterButton {
   display: inline-flex;
   align-items: center;
-  color: #11131f;
+  color: var(--match-color-text-primary);
   text-decoration: none;
 }
 
 .backLink {
   justify-content: flex-start;
-  width: 44px;
-  height: 40px;
+  width: 34px;
+  height: 36px;
 }
 
 .backLink svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   stroke-width: 2.5;
 }
 
 .title {
   margin: 0;
-  color: #11131f;
-  font-size: 22px;
+  color: var(--match-color-text-primary);
+  font-size: 16px;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
   text-align: center;
 }
 
 .filterButton {
   justify-content: flex-end;
   gap: 4px;
-  min-height: 40px;
+  min-height: 36px;
   border: 0;
   background: transparent;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 800;
   cursor: pointer;
 }
 
 .filterIcon {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   stroke-width: 2.2;
 }
 
 .place {
   position: relative;
   z-index: 1;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 .placeTitle,
@@ -127,38 +144,21 @@
 }
 
 .placeTitle {
-  color: #11131f;
-  font-size: 26px;
+  color: var(--match-color-text-primary);
+  font-size: var(--match-font-title);
   font-weight: 800;
   line-height: 1.28;
 }
 
 .placeMeta {
-  margin-top: 4px;
-  color: #6e7280;
-  font-size: 15px;
+  margin-top: 5px;
+  color: var(--match-color-text-secondary);
+  font-size: var(--match-font-caption);
   line-height: 1.4;
 }
 
-.header[data-mode='partner'] .title {
-  text-align: left;
-}
-
-.header[data-mode='partner'] .nav {
-  grid-template-columns: 40px 1fr 76px;
-}
-
 @media (max-width: 360px) {
-  .header {
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-
   .title {
-    font-size: 23px;
-  }
-
-  .placeTitle {
-    font-size: 28px;
+    font-size: 16px;
   }
 }

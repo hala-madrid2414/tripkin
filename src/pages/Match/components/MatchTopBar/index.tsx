@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom'
 import MatchIcon from '../MatchIcon'
-import type { MatchMode } from '../../types'
 import styles from './MatchTopBar.module.less'
 
 interface MatchTopBarProps {
-  mode: MatchMode
   title: string
   placeTitle: string
   placeMeta: string
@@ -12,18 +10,18 @@ interface MatchTopBarProps {
 }
 
 function MatchTopBar({
-  mode,
   title,
   placeTitle,
   placeMeta,
   onFilterClick,
 }: MatchTopBarProps) {
   return (
-    <header className={styles.header} data-mode={mode}>
+    <header className={styles.header}>
       <div className={styles.mapLayer} aria-hidden="true">
         <span className={styles.mapLineOne} />
         <span className={styles.mapLineTwo} />
-        {mode === 'trip' ? <span className={styles.routePin} /> : null}
+        <span className={styles.routePath} />
+        <span className={styles.routePin} />
       </div>
 
       <nav className={styles.nav} aria-label="匹配页导航">

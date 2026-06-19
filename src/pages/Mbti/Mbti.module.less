@@ -1,38 +1,681 @@
+/* ==========================================================================
+   旅行 MBTI 页样式（TripKin 品牌色版）
+   ----------------------------------------------------------------------------
+   全量复用 src/styles/variables.less 的全局 token（--color-brand-primary 系列、
+   --color-heading / --color-text / --color-muted / --color-surface / --color-border、
+   --shadow-card / --radius-card / --font-sans），不散写主色 / 卡片阴影 / 圆角。
+   尺寸按 375px 移动端基准，单位 px，容器宽度弹性。
+   人格 accent（var(--accent)，来自 data.ts）仅用于身份卡个性化点缀。
+   ========================================================================== */
+
 .page {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
   min-height: 100svh;
-  padding: 72px 22px 32px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top) + 14px) var(--space-page-x)
+    calc(env(safe-area-inset-bottom) + 14px);
+  background:
+    radial-gradient(
+      120% 80% at 78% 8%,
+      var(--color-brand-primary-soft),
+      transparent 55%
+    ),
+    radial-gradient(
+      120% 90% at 12% 92%,
+      var(--color-brand-primary-mist),
+      transparent 55%
+    ),
+    var(--color-page-mbti);
+  overflow: hidden;
+}
+
+/* ---------- 通用：玻璃卡片（白半透明 + 模糊，复用 token） ---------- */
+.glass {
+  background: var(--color-surface);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- 通用：按钮 ---------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: var(--height-button);
+  padding: 0 22px;
+  border-radius: var(--radius-button);
+  border: 0;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  cursor: pointer;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btnPrimary {
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary) 0%,
+    var(--color-brand-primary-strong) 100%
+  );
+  box-shadow:
+    0 12px 26px -10px rgba(109, 93, 246, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.btnGhost {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+.btnLg {
+  height: calc(var(--height-button) + 4px);
+  font-size: 17px;
+}
+.btnArrow {
+  transition: transform 0.25s ease;
+}
+
+/* ==========================================================================
+   视图一：欢迎首屏
+   ========================================================================== */
+.welcome {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  min-height: 0;
+}
+
+.topbar {
+  flex: 0 0 auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px 8px 12px;
+  border-radius: var(--radius-chip);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 12.5px;
+  color: var(--color-text);
+}
+.topbarText {
+  line-height: 1.5;
+}
+.topbar strong {
+  color: var(--color-brand-primary);
+  font-weight: 700;
+}
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-brand-primary);
+  box-shadow: 0 0 0 0 rgba(109, 93, 246, 0.6);
+  animation: pulse 1.8s ease-out infinite;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(109, 93, 246, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(109, 93, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(109, 93, 246, 0);
+  }
+}
+
+.hero {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 18px;
-  background: var(--color-page-mbti);
+  align-items: center;
+  gap: 14px;
+  padding: 24px 0;
 }
-
-.route {
-  color: var(--color-muted);
-  font-size: 14px;
-  margin: 0;
-}
-
-.description {
-  color: var(--color-text);
-  font-size: 17px;
-  line-height: 1.7;
-  margin: 0;
-}
-
-.actions {
-  display: grid;
-  grid-template-columns: 1fr;
+.kicker {
+  display: inline-flex;
+  align-items: center;
   gap: 10px;
-  margin-top: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.38em;
+  color: var(--color-brand-primary);
+  margin: 0;
+}
+.kickerLine {
+  width: 26px;
+  height: 1px;
+  background: var(--color-brand-primary);
+  opacity: 0.7;
+}
+.title {
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--color-heading);
+  font-weight: 900;
+  margin: 0;
+}
+.subtitle {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--color-muted);
+  margin: 0;
+}
+.orbit {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px 7px 8px;
+  border-radius: var(--radius-chip);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 12px;
+  color: var(--color-text);
+  animation: bob 4s ease-in-out infinite;
+}
+.chip:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.chip:nth-child(3) {
+  animation-delay: 1s;
+}
+.chip:nth-child(4) {
+  animation-delay: 1.5s;
+}
+.chipDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 
-  a {
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    color: var(--color-heading);
-    padding: 12px 14px;
-    text-decoration: none;
-    background: var(--color-surface);
+.footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.hint {
+  font-size: 11.5px;
+  color: var(--color-muted);
+  margin: 2px 0 0;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   视图二：答题屏
+   ========================================================================== */
+.quiz {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  min-height: 0;
+}
+.progress {
+  flex: 0 0 auto;
+}
+.bar {
+  height: 6px;
+  border-radius: var(--radius-chip);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.barFill {
+  height: 100%;
+  border-radius: var(--radius-chip);
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary),
+    var(--color-brand-primary-strong)
+  );
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+.step {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-muted);
+  letter-spacing: 0.1em;
+}
+.dots {
+  display: flex;
+  gap: 7px;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+.dotOn {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-brand-primary);
+  transform: scale(1.25);
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.card {
+  padding: 28px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.qIndex {
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--color-brand-primary);
+  margin: 0;
+}
+.qTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--color-heading);
+  margin: 0;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.opt {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 16px;
+  text-align: left;
+  background: var(--color-surface-tint);
+  border: 1px solid var(--color-border);
+  transition:
+    transform 0.18s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+.opt:hover:not(:disabled),
+.opt:focus-visible {
+  background: var(--color-surface-solid);
+  border-color: rgba(109, 93, 246, 0.5);
+}
+.opt:active:not(:disabled) {
+  transform: scale(0.985);
+}
+.opt:disabled {
+  cursor: default;
+}
+.optBadge {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-brand-primary);
+  background: var(--color-brand-primary-soft);
+  border: 1px solid rgba(109, 93, 246, 0.3);
+}
+.optText {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--color-text);
+  padding-top: 3px;
+}
+.optSelected {
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary-mist)
+  );
+  border-color: var(--color-brand-primary);
+  box-shadow:
+    0 0 0 1px var(--color-brand-primary),
+    0 12px 26px -12px rgba(109, 93, 246, 0.4);
+}
+.optSelected .optBadge {
+  background: var(--color-brand-primary);
+  color: #ffffff;
+}
+.tip {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   视图三：结果身份卡
+   ========================================================================== */
+.result {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.resultScroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 100px;
+}
+.resultScroll::-webkit-scrollbar {
+  width: 0;
+}
+
+.idcard {
+  position: relative;
+  padding: 22px 20px 18px;
+  animation: cardReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.idcardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.idcardBrand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.idcardBrandMark {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(
+    135deg,
+    var(--accent, var(--color-brand-primary)),
+    var(--color-brand-primary-strong)
+  );
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 900;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.idcardBrandCn {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-heading);
+  margin: 0;
+}
+.idcardBrandEn {
+  font-size: 9.5px;
+  letter-spacing: 0.28em;
+  color: var(--color-muted);
+  margin: 2px 0 0;
+}
+.idcardStamp {
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--color-brand-primary);
+  padding: 5px 9px;
+  border: 1.2px dashed var(--color-brand-primary);
+  border-radius: 6px;
+  transform: rotate(6deg);
+  opacity: 0.85;
+}
+
+.idcardIdentity {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 22px;
+}
+.idcardAvatar {
+  flex: 0 0 auto;
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--color-surface-solid),
+    var(--color-brand-primary-mist)
+  );
+  border: 1px solid var(--color-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.idcardAvatar svg {
+  width: 66px;
+  height: 66px;
+}
+.idcardMain {
+  min-width: 0;
+}
+.idcardNickname {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin: 0 0 2px;
+}
+.idcardTitleCn {
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.15;
+  color: var(--color-heading);
+  margin: 0;
+}
+.idcardTitleEn {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--accent, var(--color-brand-primary));
+  margin: 4px 0 0;
+}
+
+.idcardTagline {
+  margin-top: 18px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--color-text);
+  padding: 12px 14px;
+  background: var(--color-brand-primary-mist);
+  border-left: 2px solid var(--accent, var(--color-brand-primary));
+  border-radius: 0 10px 10px 0;
+}
+.idcardTagline strong {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent, var(--color-brand-primary));
+  margin-bottom: 5px;
+  letter-spacing: 0.02em;
+}
+
+.idcardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.tag {
+  font-size: 11.5px;
+  padding: 6px 11px;
+  border-radius: var(--radius-chip);
+  color: var(--color-brand-primary);
+  background: var(--color-brand-primary-soft);
+  border: 1px solid rgba(109, 93, 246, 0.25);
+}
+.tag:nth-child(even) {
+  background: var(--color-brand-primary-mist);
+  border-color: rgba(109, 93, 246, 0.18);
+}
+
+.idcardIntent {
+  position: relative;
+  margin-top: 22px;
+  padding: 16px 4px 6px;
+  -webkit-mask-image:
+    radial-gradient(circle 8px at 0 0, transparent 98%, #000 100%),
+    radial-gradient(circle 8px at 100% 0, transparent 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 8px at 0 0, transparent 98%, #000 100%),
+    radial-gradient(circle 8px at 100% 0, transparent 98%, #000 100%);
+}
+.idcardIntent::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-border-strong) 50%,
+    transparent 0
+  );
+  background-size: 8px 1px;
+}
+.idcardIntentTitle {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--color-muted);
+  margin: 0 0 12px;
+}
+.idcardIntentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0;
+}
+.idcardIntentGrid > div {
+  min-width: 0;
+}
+.idcardIntentGrid dt {
+  font-size: 10.5px;
+  color: var(--color-muted);
+  margin: 0 0 4px;
+}
+.idcardIntentGrid dd {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.idcardFoot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-border-strong);
+}
+.idcardBarcode {
+  flex: 1 1 auto;
+  height: 34px;
+  display: flex;
+  align-items: stretch;
+  gap: 1.5px;
+}
+.idcardBarcode span {
+  display: block;
+  background: var(--color-heading);
+  height: 100%;
+}
+.idcardIdnum {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultFooter {
+  flex: 0 0 auto;
+  padding: 14px 0 calc(env(safe-area-inset-bottom) + 14px);
+  background: linear-gradient(180deg, transparent, var(--color-page-mbti) 38%);
+}
+
+/* 无障碍：尊重「减少动态」偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .pulse,
+  .chip,
+  .idcard {
+    animation: none !important;
+  }
+  .barFill {
+    transition: none !important;
   }
 }

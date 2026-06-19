@@ -31,10 +31,9 @@ function Match() {
   )
 
   return (
-    <main className={styles.page} data-mode={activeMode}>
+    <main className={styles.page}>
       <div className={styles.shell}>
         <MatchTopBar
-          mode={activeMode}
           title={currentContent.title}
           placeTitle={currentContent.placeTitle}
           placeMeta={currentContent.placeMeta}
