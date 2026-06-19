@@ -3,6 +3,7 @@ import Bottle from '@/pages/Bottle'
 import Map from '@/pages/Map'
 import Match from '@/pages/Match'
 import Mbti from '@/pages/Mbti'
+import Profile from '@/pages/Profile'
 
 function AppRouter() {
   return (
@@ -12,6 +13,7 @@ function AppRouter() {
       <Route path="/map" element={<Map />} />
       <Route path="/bottle" element={<Bottle />} />
       <Route path="/match" element={<Match />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   )
 }
