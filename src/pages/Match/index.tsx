@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react'
+import { useMatchStore } from '@/store/useMatchStore'
+import { useTripStore } from '@/store/useTripStore'
 import FilterSheet from './components/FilterSheet'
 import JoinTripSheet from './components/JoinTripSheet'
 import MatchFilterChips from './components/MatchFilterChips'
@@ -9,14 +11,13 @@ import ProfileSheet from './components/ProfileSheet'
 import TripMatchCard from './components/TripMatchCard'
 import { matchContent, modeOptions, partnerCards, tripCards } from './matchMock'
 import styles from './Match.module.less'
-import type {
-  MatchMode,
-  PartnerMatchCardData,
-  TripMatchCardData,
-} from './types'
+import type { PartnerMatchCardData, TripMatchCardData } from './types'
 
 function Match() {
-  const [activeMode, setActiveMode] = useState<MatchMode>('partner')
+  const activeMode = useMatchStore((state) => state.mode)
+  const setActiveMode = useMatchStore((state) => state.setMode)
+  const entryContext = useMatchStore((state) => state.entryContext)
+  const destination = useTripStore((state) => state.destination)
   const [filterVisible, setFilterVisible] = useState(false)
   const [selectedPartner, setSelectedPartner] =
     useState<PartnerMatchCardData | null>(null)
@@ -25,6 +26,8 @@ function Match() {
   )
 
   const currentContent = matchContent[activeMode]
+  const placeTitle =
+    entryContext?.destinationName ?? currentContent.placeTitle ?? destination
   const cards = useMemo(
     () => (activeMode === 'partner' ? partnerCards : tripCards),
     [activeMode],
@@ -35,7 +38,7 @@ function Match() {
       <div className={styles.shell}>
         <MatchTopBar
           title={currentContent.title}
-          placeTitle={currentContent.placeTitle}
+          placeTitle={placeTitle}
           placeMeta={currentContent.placeMeta}
           onFilterClick={() => setFilterVisible(true)}
         />

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
+import { useMatchStore, type MatchMode } from '@/store/useMatchStore'
 import type { Region } from '../types'
 import { BottleIcon, CloseIcon } from './MapIcons'
 import styles from '../Map.module.less'
@@ -53,6 +54,9 @@ function BottomRegionCard({
   onClose,
   onThrowBottle,
 }: BottomRegionCardProps) {
+  const setMode = useMatchStore((state) => state.setMode)
+  const setEntryContext = useMatchStore((state) => state.setEntryContext)
+
   if (!region) {
     return null
   }
@@ -66,6 +70,15 @@ function BottomRegionCard({
         ? styles.regionCardDetail
         : styles.regionCardCompact
   const isFull = level === 'full'
+  const handleMatchLinkClick = (mode: MatchMode) => {
+    setMode(mode)
+    setEntryContext({
+      source: 'map',
+      targetType: 'region',
+      regionId: region.id,
+      destinationName: region.name,
+    })
+  }
 
   return (
     <section className={className} aria-label={`${region.name}旅行信息`}>
@@ -142,8 +155,12 @@ function BottomRegionCard({
       </dl>
 
       <div className={styles.cardActions}>
-        <Link to="/match">查看旅行搭子</Link>
-        <Link to="/match">查看行程匹配</Link>
+        <Link to="/match" onClick={() => handleMatchLinkClick('partner')}>
+          查看旅行搭子
+        </Link>
+        <Link to="/match" onClick={() => handleMatchLinkClick('trip')}>
+          查看行程匹配
+        </Link>
       </div>
 
       <button
