@@ -9,9 +9,14 @@ import styles from '../Mbti.module.less'
 interface IdentityCardProps {
   personaId: PersonaId
   onGoMap: () => void
+  onRestart: () => void
 }
 
-export function IdentityCard({ personaId, onGoMap }: IdentityCardProps) {
+export function IdentityCard({
+  personaId,
+  onGoMap,
+  onRestart,
+}: IdentityCardProps) {
   const persona = PERSONALITIES[personaId]
   const nickname = useTripStore((s) => s.nickname)
   const destination = useTripStore((s) => s.destination)
@@ -19,6 +24,9 @@ export function IdentityCard({ personaId, onGoMap }: IdentityCardProps) {
   // 条码与编号只在挂载时生成一次，避免重渲染抖动
   const [bars] = useState(() => makeBarcodeBars())
   const [idNum] = useState(() => makeIdNum(personaId))
+  const [showDetails, setShowDetails] = useState(false)
+
+  const { details } = persona
 
   return (
     <div className={styles.result}>
@@ -89,6 +97,92 @@ export function IdentityCard({ personaId, onGoMap }: IdentityCardProps) {
             <span className={styles.idcardIdnum}>{idNum}</span>
           </footer>
         </article>
+
+        {/* 详情折叠区域 */}
+        <button
+          type="button"
+          className={styles.detailsToggle}
+          onClick={() => setShowDetails(!showDetails)}
+        >
+          {showDetails ? '收起详情' : '查看详情'}
+          <span
+            className={`${styles.detailsArrow} ${showDetails ? styles.detailsArrowUp : ''}`}
+          >
+            ↓
+          </span>
+        </button>
+
+        {showDetails && (
+          <div className={`${styles.glass} ${styles.idcardDetails}`}>
+            {/* 人格深度解析 */}
+            <div className={styles.detailSection}>
+              <h3 className={styles.detailTitle}>✨ 人格解析</h3>
+              <div className={styles.detailGrid}>
+                <div className={styles.detailItem}>
+                  <p className={styles.detailLabel}>优点</p>
+                  <ul className={styles.detailList}>
+                    {details.strengths.map((s) => (
+                      <li key={s}>{s}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={styles.detailItem}>
+                  <p className={styles.detailLabel}>注意事项</p>
+                  <ul className={styles.detailList}>
+                    {details.considerations.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* 旅行风格雷达 */}
+            <div className={styles.detailSection}>
+              <h3 className={styles.detailTitle}>📊 旅行风格</h3>
+              <div className={styles.radarChart}>
+                {Object.entries(details.travelStyle).map(([key, value]) => {
+                  const labels: Record<string, string> = {
+                    energy: '精力值',
+                    planning: '计划性',
+                    social: '社交性',
+                    adventure: '冒险度',
+                  }
+                  return (
+                    <div key={key} className={styles.radarItem}>
+                      <span className={styles.radarLabel}>{labels[key]}</span>
+                      <div className={styles.radarBar}>
+                        <div
+                          className={styles.radarFill}
+                          style={{ width: `${value}%` }}
+                        />
+                      </div>
+                      <span className={styles.radarValue}>{value}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* 搭子匹配建议 */}
+            <div className={styles.detailSection}>
+              <h3 className={styles.detailTitle}>🤝 搭子匹配建议</h3>
+              <p className={styles.detailText}>{details.matchAdvice}</p>
+            </div>
+
+            {/* 适合的目的地类型 */}
+            <div className={styles.detailSection}>
+              <h3 className={styles.detailTitle}>🗺️ 适合的目的地</h3>
+              <div className={styles.destTags}>
+                {details.destTypes.map((d) => (
+                  <span key={d} className={styles.destTag}>
+                    {d}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <footer className={styles.resultFooter}>
@@ -99,6 +193,13 @@ export function IdentityCard({ personaId, onGoMap }: IdentityCardProps) {
         >
           <span>带上形象，去地图找搭子</span>
           <span className={styles.btnArrow}>→</span>
+        </button>
+        <button
+          type="button"
+          className={`${styles.btn} ${styles.btnGhost}`}
+          onClick={onRestart}
+        >
+          重新测试
         </button>
       </footer>
     </div>

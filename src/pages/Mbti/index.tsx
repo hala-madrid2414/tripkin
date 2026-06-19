@@ -61,6 +61,10 @@ function Mbti() {
     finalize(result, { skipped: false, scores })
   }
 
+  const handleQuizBack = () => {
+    setView('welcome')
+  }
+
   const handleSkip = () => {
     const id = TIE_PRIORITY[Math.floor(Math.random() * TIE_PRIORITY.length)]
     finalize(id, { skipped: true })
@@ -68,6 +72,11 @@ function Mbti() {
 
   const handleGoMap = () => {
     navigate('/map')
+  }
+
+  const handleRestart = () => {
+    setResultId(null)
+    setView('welcome')
   }
 
   return (
@@ -79,9 +88,15 @@ function Mbti() {
           onSkip={handleSkip}
         />
       )}
-      {view === 'quiz' && <Quiz onComplete={handleQuizComplete} />}
+      {view === 'quiz' && (
+        <Quiz onComplete={handleQuizComplete} onBack={handleQuizBack} />
+      )}
       {view === 'result' && resultId && (
-        <IdentityCard personaId={resultId} onGoMap={handleGoMap} />
+        <IdentityCard
+          personaId={resultId}
+          onGoMap={handleGoMap}
+          onRestart={handleRestart}
+        />
       )}
     </main>
   )
