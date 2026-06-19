@@ -1,60 +1,90 @@
+﻿import { useNavigate } from 'react-router-dom'
+import { useTripStore } from '@/store/useTripStore'
+import { ProfileHeader } from './components/ProfileHeader'
+import { CompanionSection } from './components/CompanionSection'
+import { BottleSection } from './components/BottleSection'
+import { TripSection } from './components/TripSection'
+import { FootprintSection } from './components/FootprintSection'
+import { CollectionSection } from './components/CollectionSection'
+import { SettingSection } from './components/SettingSection'
+import { mockProfileData } from './mock'
 import styles from './Profile.module.less'
 
-const profileStats = [
-  { label: '旅行灵感', value: '--' },
-  { label: '漂流瓶', value: '--' },
-  { label: '搭子匹配', value: '--' },
-]
-
-const profileSections = [
-  {
-    title: '我的旅行',
-    description: '预留足迹、收藏目的地和即将出发的行程入口。',
-  },
-  {
-    title: '互动记录',
-    description: '预留漂流瓶、搭子申请和消息通知入口。',
-  },
-  {
-    title: '账号设置',
-    description: '预留资料编辑、偏好设置和隐私安全入口。',
-  },
-]
-
 function Profile() {
+  const navigate = useNavigate()
+  const personaId = useTripStore((s) => s.personaId)
+  const nickname = useTripStore((s) => s.nickname)
+  const mbtiTypeCn = useTripStore((s) => s.mbtiTypeCn)
+  const tagline = useTripStore((s) => s.tagline)
+  const tags = useTripStore((s) => s.tags)
+
+  const hasPersona = personaId !== null
+
+  /* ----- 无 MBTI ---- 引导态 ----- */
+  if (!hasPersona) {
+    return (
+      <main className={styles.page}>
+        <section className={styles.emptyState}>
+          <span className={styles.emptyEmoji}>{'\u2728'}</span>
+          <h1 className={styles.emptyTitle}>
+            {'\u4F60\u7684\u65C5\u884C\u4EBA\u683C'}
+          </h1>
+          <p className={styles.emptyDesc}>
+            {
+              '\u5B8C\u6210\u65C5\u884C MBTI\uFF0C\u63A2\u7D22\u4F60\u7684\u65C5\u884C\u98CE\u683C\uFF0C'
+            }
+            {
+              '\u751F\u6210\u5C5E\u4E8E\u4F60\u7684\u65C5\u884C\u8EAB\u4EFD\u5361\u3002'
+            }
+          </p>
+          <button
+            type="button"
+            className={styles.goMbtiBtn}
+            onClick={() => navigate('/mbti')}
+          >
+            {'\u5F00\u59CB\u63A2\u7D22'}
+          </button>
+        </section>
+      </main>
+    )
+  }
+
+  /* ----- 正常个人主页 ----- */
   return (
     <main className={styles.page}>
-      <section className={styles.header} aria-labelledby="profile-title">
-        <div className={styles.avatar} aria-hidden="true">
-          TK
-        </div>
-        <div className={styles.identity}>
-          <p className={styles.route}>/profile</p>
-          <h1 id="profile-title">个人主页</h1>
-          <p>这里承接用户资料、旅行资产和个人设置。</p>
-        </div>
-      </section>
+      <div className={styles.glassCard}>
+        <ProfileHeader
+          personaId={personaId}
+          nickname={nickname}
+          mbtiTypeCn={mbtiTypeCn}
+          tags={tags}
+          tagline={tagline}
+        />
+      </div>
 
-      <section className={styles.stats} aria-label="个人数据概览">
-        {profileStats.map((item) => (
-          <div key={item.label}>
-            <strong>{item.value}</strong>
-            <span>{item.label}</span>
-          </div>
-        ))}
-      </section>
+      <div className={styles.glassCard}>
+        <CompanionSection companions={mockProfileData.companions} />
+      </div>
 
-      <section className={styles.content} aria-label="个人主页功能区">
-        {profileSections.map((section) => (
-          <article key={section.title} className={styles.panel}>
-            <div>
-              <h2>{section.title}</h2>
-              <p>{section.description}</p>
-            </div>
-            <span aria-hidden="true">›</span>
-          </article>
-        ))}
-      </section>
+      <div className={styles.glassCard}>
+        <BottleSection bottleStats={mockProfileData.bottleStats} />
+      </div>
+
+      <div className={styles.glassCard}>
+        <TripSection tripStats={mockProfileData.tripStats} />
+      </div>
+
+      <div className={styles.glassCard}>
+        <FootprintSection footprintStats={mockProfileData.footprintStats} />
+      </div>
+
+      <div className={styles.glassCard}>
+        <CollectionSection collectionStats={mockProfileData.collectionStats} />
+      </div>
+
+      <div className={styles.glassCard}>
+        <SettingSection settingsItems={mockProfileData.settingsItems} />
+      </div>
     </main>
   )
 }

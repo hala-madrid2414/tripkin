@@ -1,0 +1,59 @@
+﻿.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.sectionTitle {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--pf-heading, #4a3f6b);
+  margin: 0;
+}
+
+.settingList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.settingItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--pf-border, #e5dbff);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s;
+}
+.settingItem:last-child {
+  border-bottom: 0;
+}
+.settingItem:active {
+  color: var(--pf-primary, #b89cff);
+}
+.settingIcon {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  background: rgba(184, 156, 255, 0.08);
+}
+.settingLabel {
+  flex: 1 1 auto;
+  font-size: 14px;
+  color: var(--pf-text, #6b5e8a);
+  font-weight: 500;
+}
+.settingArrow {
+  flex: 0 0 auto;
+  color: var(--pf-text-muted, #9b8ec4);
+  font-size: 16px;
+}
