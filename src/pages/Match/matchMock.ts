@@ -6,6 +6,8 @@ import type {
   PartnerMatchCardData,
   TripMatchCardData,
 } from './types'
+import fengdelvrenAvatar from './assets/partner-fengdelvren.png'
+import shanjianxiaoluAvatar from './assets/partner-shanjianxiaolu.png'
 
 export const modeOptions: MatchModeOption[] = [
   { key: 'partner', label: '搭子匹配' },
@@ -48,8 +50,8 @@ export const partnerCards: PartnerMatchCardData[] = [
     id: 'partner-01',
     name: '山间小鹿',
     mbti: 'ENFP',
-    avatarTone: 'sunset',
-    avatarMark: 'sun',
+    avatarUrl: shanjianxiaoluAvatar,
+    avatarAlt: '山间小鹿头像',
     online: true,
     personality: '慢熟拍照型 ENFP',
     interests: [
@@ -60,7 +62,6 @@ export const partnerCards: PartnerMatchCardData[] = [
     destination: '稻城亚丁 · 四姑娘山',
     departure: '6月12日 - 6月20日',
     summary: '喜欢在路上捕捉光影，也热爱遇见有趣的灵魂。',
-    actionLabel: '看看TA',
     profileStatus: '想去川西 · 6 月中旬',
     profileQuote: '想找一个不赶路、愿意一起等日照金山的人',
     matchReasons: [
@@ -73,8 +74,8 @@ export const partnerCards: PartnerMatchCardData[] = [
     id: 'partner-02',
     name: '风的旅人',
     mbti: 'INTJ',
-    avatarTone: 'snow',
-    avatarMark: 'peak',
+    avatarUrl: fengdelvrenAvatar,
+    avatarAlt: '风的旅人头像',
     online: true,
     personality: '攻略控 INTJ',
     interests: [
@@ -85,7 +86,6 @@ export const partnerCards: PartnerMatchCardData[] = [
     destination: '新都桥 · 理塘 · 稻城亚丁',
     departure: '6月15日 - 6月24日',
     summary: '真正的风景，永远在下一段路上。',
-    actionLabel: '加好友',
     profileStatus: '想去川西 · 6 月中旬',
     profileQuote: '希望找时间观念强、能一起规划路线的搭子',
     matchReasons: [
@@ -98,8 +98,8 @@ export const partnerCards: PartnerMatchCardData[] = [
     id: 'partner-03',
     name: '云朵收集者',
     mbti: 'INFP',
-    avatarTone: 'lake',
-    avatarMark: 'cloud',
+    avatarUrl: shanjianxiaoluAvatar,
+    avatarAlt: '云朵收集者头像',
     online: true,
     personality: '慢节奏 INFP',
     interests: [
@@ -110,7 +110,6 @@ export const partnerCards: PartnerMatchCardData[] = [
     destination: '四姑娘山 · 丹巴藏寨',
     departure: '6月18日 - 6月23日',
     summary: '步履轻盈，热爱山野与自由。',
-    actionLabel: '看看TA',
     profileStatus: '想去川西 · 6 月中旬',
     profileQuote: '想在雪山和草甸之间慢慢散心',
     matchReasons: [
@@ -123,8 +122,8 @@ export const partnerCards: PartnerMatchCardData[] = [
     id: 'partner-04',
     name: '行走的地图',
     mbti: 'INTP',
-    avatarTone: 'road',
-    avatarMark: 'map',
+    avatarUrl: fengdelvrenAvatar,
+    avatarAlt: '行走的地图头像',
     online: true,
     personality: '路线探索型 INTP',
     interests: [
@@ -135,7 +134,6 @@ export const partnerCards: PartnerMatchCardData[] = [
     destination: '川西大环线（318沿线）',
     departure: '6月10日 - 6月22日',
     summary: '用脚步丈量世界，用好奇心探索未知。',
-    actionLabel: '加好友',
     profileStatus: '想去川西 · 6 月中旬',
     profileQuote: '想找能接受临时改线、一起看星空的人',
     matchReasons: [

@@ -27,8 +27,8 @@ export interface PartnerMatchCardData {
   id: string
   name: string
   mbti: string
-  avatarTone: 'sunset' | 'snow' | 'lake' | 'road'
-  avatarMark: string
+  avatarUrl: string
+  avatarAlt: string
   online?: boolean
   personality: string
   interests: Array<{
@@ -38,7 +38,6 @@ export interface PartnerMatchCardData {
   destination: string
   departure: string
   summary: string
-  actionLabel: string
   profileStatus: string
   profileQuote: string
   matchReasons: Array<{
