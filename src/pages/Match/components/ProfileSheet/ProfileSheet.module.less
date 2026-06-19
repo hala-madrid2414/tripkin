@@ -1,39 +1,52 @@
+@import '../../matchTokens.less';
+
 .popupBody {
-  border-radius: 28px 28px 0 0;
-  background: #fff;
+  .matchTokens();
+
+  height: 52svh;
+  min-height: 286px;
+  max-height: 430px;
+  overflow: hidden;
+  border-radius: var(--radius-popup) var(--radius-popup) 0 0;
+  background: var(--match-color-surface);
 }
 
 .sheet {
   position: relative;
-  padding: 18px 22px max(24px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 10px var(--match-space-page-x) max(14px, env(safe-area-inset-bottom));
+  overflow-y: auto;
 }
 
 .dragBar {
-  width: 48px;
-  height: 6px;
-  margin: 0 auto 22px;
-  border-radius: 999px;
+  width: 32px;
+  height: 3px;
+  margin: 0 auto 10px;
+  border-radius: var(--match-radius-pill);
   background: #d9d9df;
 }
 
 .closeButton {
   position: absolute;
-  top: 24px;
-  right: 22px;
+  top: 12px;
+  right: 12px;
   display: inline-flex;
-  width: 42px;
-  height: 42px;
+  width: 28px;
+  height: 28px;
   align-items: center;
   justify-content: center;
   border: 0;
   background: transparent;
-  color: #171822;
+  color: var(--match-color-text-primary);
   cursor: pointer;
 }
 
 .closeButton svg {
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   stroke-width: 2.4;
 }
 
@@ -48,93 +61,100 @@
 .profileHeader {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 10px;
+  padding-right: 36px;
 }
 
 .avatar {
-  width: 78px;
-  height: 78px;
-  border-radius: 999px;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: var(--match-radius-pill);
   object-fit: cover;
-  box-shadow: 0 12px 26px rgba(96, 103, 132, 0.16);
+  box-shadow: var(--match-shadow-avatar);
 }
 
 .name {
   margin: 0;
-  color: #11131f;
-  font-size: 30px;
+  color: var(--match-color-text-primary);
+  font-size: 14px;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: var(--match-line-title);
 }
 
 .status {
-  margin: 7px 0 0;
-  color: var(--color-brand-primary);
-  font-size: 20px;
+  margin: 3px 0 0;
+  color: var(--match-color-primary);
+  font-size: 11px;
   font-weight: 800;
+  line-height: var(--match-line-meta);
 }
 
 .personality {
-  margin-top: 30px;
-  padding: 22px 18px;
-  border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    rgba(109, 93, 246, 0.1),
-    rgba(255, 255, 255, 0.8)
-  );
+  margin-top: 10px;
+  padding: 10px 12px 12px;
+  border-radius: var(--match-radius-sm);
+  background: var(--match-color-primary-light);
 }
 
 .personalityTitle {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 6px;
   margin: 0;
-  color: var(--color-brand-primary);
-  font-size: 22px;
+  color: var(--match-color-primary);
+  font-size: 12px;
   font-weight: 800;
+  line-height: var(--match-line-title);
 }
 
 .personalityTitle svg {
-  width: 23px;
-  height: 23px;
+  width: 14px;
+  height: 14px;
+  flex: none;
 }
 
 .interests {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 18px;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .interest {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 42px;
-  padding: 0 15px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #626879;
-  font-size: 16px;
+  gap: 5px;
+  min-height: 24px;
+  padding: 0 9px;
+  border-radius: var(--match-radius-pill);
+  background: var(--match-color-surface-soft);
+  color: var(--match-color-text-secondary);
+  font-size: 10px;
   font-weight: 700;
-  box-shadow: 0 10px 20px rgba(105, 111, 140, 0.08);
+  box-shadow: var(--match-shadow-floating);
+}
+
+.interest svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
 }
 
 .quote {
   position: relative;
-  margin: 24px 0 0;
-  color: #171822;
-  font-size: 18px;
+  margin: 10px 0 0;
+  color: var(--match-color-text-primary);
+  font-size: 12px;
   font-weight: 800;
-  line-height: 1.55;
+  line-height: 1.45;
   text-align: center;
 }
 
 .quote::before,
 .quote::after {
-  color: var(--color-brand-primary);
-  font-size: 30px;
+  color: var(--match-color-primary);
+  font-size: 20px;
   line-height: 1;
 }
 
@@ -147,70 +167,74 @@
 }
 
 .sectionTitle {
-  margin: 28px 0 16px;
-  color: #171822;
-  font-size: 22px;
+  margin: 10px 0 8px;
+  color: var(--match-color-text-primary);
+  font-size: 13px;
   font-weight: 800;
+  line-height: var(--match-line-title);
 }
 
 .reasons {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 8px;
 }
 
 .reason {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  min-height: 48px;
-  border-radius: 13px;
-  background: rgba(109, 93, 246, 0.08);
-  color: var(--color-brand-primary);
-  font-size: 15px;
+  gap: 4px;
+  min-height: 28px;
+  padding: 0 6px;
+  border-radius: var(--match-radius-sm);
+  background: var(--match-color-primary-light);
+  color: var(--match-color-primary);
+  font-size: 10px;
   font-weight: 800;
+  line-height: 1.2;
+}
+
+.reason svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
 }
 
 .actions {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
-  gap: 18px;
-  margin-top: 28px;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 12px;
 }
 
 .secondaryAction,
 .primaryAction {
-  min-height: 58px;
-  border-radius: 18px;
-  font-size: 19px;
+  min-height: 36px;
+  border-radius: var(--match-radius-sm);
+  font-size: 13px;
   font-weight: 800;
   cursor: pointer;
 }
 
 .secondaryAction {
-  border: 1.5px solid var(--color-brand-primary);
-  background: #fff;
-  color: var(--color-brand-primary);
+  border: 1.5px solid var(--match-color-primary);
+  background: var(--match-color-surface);
+  color: var(--match-color-primary);
 }
 
 .primaryAction {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   border: 0;
-  background: linear-gradient(135deg, var(--color-brand-primary), #745df0);
+  background: linear-gradient(135deg, var(--match-color-primary), #745df0);
   color: #fff;
 }
 
-@media (max-width: 360px) {
-  .sheet {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .reasons {
-    grid-template-columns: 1fr;
-  }
+.primaryAction svg {
+  width: 13px;
+  height: 13px;
 }
