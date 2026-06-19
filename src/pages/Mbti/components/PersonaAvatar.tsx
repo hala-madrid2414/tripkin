@@ -7,8 +7,8 @@ import { PERSONALITIES } from '../data'
  * 正式交付可替换为 avatarPath 指向的真实素材文件。
  */
 
-// SVG 细节暗色：在浅色背景 + 暖色 accent 填充上保证对比
-const DARK = '#3a2a10'
+// SVG 细节暗色：深紫，与品牌紫 accent 同系，保证填充上对比
+const DARK = '#2d2459'
 
 function CyberRaider(accent: string): ReactElement {
   return (

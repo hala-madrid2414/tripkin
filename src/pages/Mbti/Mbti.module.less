@@ -1,10 +1,11 @@
 /* ==========================================================================
-   旅行 MBTI 页样式（浅色版）
+   旅行 MBTI 页样式（TripKin 品牌色版）
    ----------------------------------------------------------------------------
-   视觉迁就 TripKin 浅色系：复用 src/styles/variables.less 的全局 token
-   （--color-page-mbti / --color-heading / --color-text / --color-muted /
-    --color-surface / --color-border），仅用人格 accent 作小面积暖色点缀。
-   尺寸按 375px 移动端基准，单位用 px，容器宽度弹性（不锁死 375px）。
+   全量复用 src/styles/variables.less 的全局 token（--color-brand-primary 系列、
+   --color-heading / --color-text / --color-muted / --color-surface / --color-border、
+   --shadow-card / --radius-card / --font-sans），不散写主色 / 卡片阴影 / 圆角。
+   尺寸按 375px 移动端基准，单位 px，容器宽度弹性。
+   人格 accent（var(--accent)，来自 data.ts）仅用于身份卡个性化点缀。
    ========================================================================== */
 
 .page {
@@ -15,32 +16,32 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: calc(env(safe-area-inset-top) + 14px) 20px
+  padding: calc(env(safe-area-inset-top) + 14px) var(--space-page-x)
     calc(env(safe-area-inset-bottom) + 14px);
   background:
     radial-gradient(
       120% 80% at 78% 8%,
-      rgba(224, 160, 42, 0.14),
+      var(--color-brand-primary-soft),
       transparent 55%
     ),
     radial-gradient(
       120% 90% at 12% 92%,
-      rgba(111, 160, 95, 0.12),
+      var(--color-brand-primary-mist),
       transparent 55%
     ),
     var(--color-page-mbti);
   overflow: hidden;
 }
 
-/* ---------- 通用：玻璃卡片（浅色白半透明 + 模糊） ---------- */
+/* ---------- 通用：玻璃卡片（白半透明 + 模糊，复用 token） ---------- */
 .glass {
   background: var(--color-surface);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid var(--color-border);
-  border-radius: 22px;
+  border-radius: var(--radius-card);
   box-shadow:
-    0 18px 40px -22px rgba(23, 33, 27, 0.28),
+    var(--shadow-card),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
@@ -52,8 +53,9 @@
   justify-content: center;
   gap: 8px;
   width: 100%;
-  padding: 15px 22px;
-  border-radius: 999px;
+  height: var(--height-button);
+  padding: 0 22px;
+  border-radius: var(--radius-button);
   border: 0;
   font-weight: 700;
   font-size: 16px;
@@ -70,11 +72,15 @@
   transform: scale(0.97);
 }
 .btnPrimary {
-  color: #2a1c06;
-  background: linear-gradient(135deg, #e0a02a 0%, #c8881f 100%);
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary) 0%,
+    var(--color-brand-primary-strong) 100%
+  );
   box-shadow:
-    0 12px 26px -10px rgba(224, 160, 42, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 12px 26px -10px rgba(109, 93, 246, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .btnGhost {
   color: var(--color-text);
@@ -82,7 +88,7 @@
   border: 1px solid var(--color-border);
 }
 .btnLg {
-  padding: 17px 22px;
+  height: calc(var(--height-button) + 4px);
   font-size: 17px;
 }
 .btnArrow {
@@ -108,7 +114,7 @@
   align-items: center;
   gap: 9px;
   padding: 8px 16px 8px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-chip);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   font-size: 12.5px;
@@ -118,26 +124,26 @@
   line-height: 1.5;
 }
 .topbar strong {
-  color: #b07a12;
+  color: var(--color-brand-primary);
   font-weight: 700;
 }
 .pulse {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #6fa05f;
-  box-shadow: 0 0 0 0 rgba(111, 160, 95, 0.6);
+  background: var(--color-brand-primary);
+  box-shadow: 0 0 0 0 rgba(109, 93, 246, 0.6);
   animation: pulse 1.8s ease-out infinite;
 }
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(111, 160, 95, 0.55);
+    box-shadow: 0 0 0 0 rgba(109, 93, 246, 0.55);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(111, 160, 95, 0);
+    box-shadow: 0 0 0 10px rgba(109, 93, 246, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(111, 160, 95, 0);
+    box-shadow: 0 0 0 0 rgba(109, 93, 246, 0);
   }
 }
 
@@ -157,13 +163,13 @@
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.38em;
-  color: #b07a12;
+  color: var(--color-brand-primary);
   margin: 0;
 }
 .kickerLine {
   width: 26px;
   height: 1px;
-  background: #b07a12;
+  background: var(--color-brand-primary);
   opacity: 0.7;
 }
 .title {
@@ -192,7 +198,7 @@
   align-items: center;
   gap: 7px;
   padding: 7px 13px 7px 8px;
-  border-radius: 999px;
+  border-radius: var(--radius-chip);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   font-size: 12px;
@@ -257,15 +263,19 @@
 }
 .bar {
   height: 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-chip);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   overflow: hidden;
 }
 .barFill {
   height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #6fa05f, #e0a02a);
+  border-radius: var(--radius-chip);
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary),
+    var(--color-brand-primary-strong)
+  );
   transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .meta {
@@ -288,7 +298,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-border);
+  background: var(--color-border-strong);
   transition:
     background 0.3s ease,
     transform 0.3s ease;
@@ -297,7 +307,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #e0a02a;
+  background: var(--color-brand-primary);
   transform: scale(1.25);
   transition:
     background 0.3s ease,
@@ -314,7 +324,7 @@
   font-weight: 900;
   font-size: 13px;
   letter-spacing: 0.18em;
-  color: #b07a12;
+  color: var(--color-brand-primary);
   margin: 0;
 }
 .qTitle {
@@ -338,7 +348,7 @@
   padding: 15px 16px;
   border-radius: 16px;
   text-align: left;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--color-surface-tint);
   border: 1px solid var(--color-border);
   transition:
     transform 0.18s ease,
@@ -349,8 +359,8 @@
 }
 .opt:hover:not(:disabled),
 .opt:focus-visible {
-  background: rgba(255, 255, 255, 0.78);
-  border-color: rgba(224, 160, 42, 0.5);
+  background: var(--color-surface-solid);
+  border-color: rgba(109, 93, 246, 0.5);
 }
 .opt:active:not(:disabled) {
   transform: scale(0.985);
@@ -367,9 +377,9 @@
   place-items: center;
   font-weight: 700;
   font-size: 14px;
-  color: #b07a12;
-  background: rgba(224, 160, 42, 0.14);
-  border: 1px solid rgba(224, 160, 42, 0.32);
+  color: var(--color-brand-primary);
+  background: var(--color-brand-primary-soft);
+  border: 1px solid rgba(109, 93, 246, 0.3);
 }
 .optText {
   font-size: 14.5px;
@@ -380,17 +390,17 @@
 .optSelected {
   background: linear-gradient(
     135deg,
-    rgba(224, 160, 42, 0.22),
-    rgba(111, 160, 95, 0.16)
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary-mist)
   );
-  border-color: #e0a02a;
+  border-color: var(--color-brand-primary);
   box-shadow:
-    0 0 0 1px #e0a02a,
-    0 12px 26px -12px rgba(224, 160, 42, 0.4);
+    0 0 0 1px var(--color-brand-primary),
+    0 12px 26px -12px rgba(109, 93, 246, 0.4);
 }
 .optSelected .optBadge {
-  background: #e0a02a;
-  color: #2a1c06;
+  background: var(--color-brand-primary);
+  color: #ffffff;
 }
 .tip {
   text-align: center;
@@ -450,11 +460,15 @@
   border-radius: 9px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, var(--accent, #e0a02a), #c8881f);
-  color: #2a1c06;
+  background: linear-gradient(
+    135deg,
+    var(--accent, var(--color-brand-primary)),
+    var(--color-brand-primary-strong)
+  );
+  color: #ffffff;
   font-size: 17px;
   font-weight: 900;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .idcardBrandCn {
   font-weight: 700;
@@ -472,9 +486,9 @@
   font-weight: 700;
   font-size: 9px;
   letter-spacing: 0.15em;
-  color: #4f7a43;
+  color: var(--color-brand-primary);
   padding: 5px 9px;
-  border: 1.2px dashed #6fa05f;
+  border: 1.2px dashed var(--color-brand-primary);
   border-radius: 6px;
   transform: rotate(6deg);
   opacity: 0.85;
@@ -495,8 +509,8 @@
   place-items: center;
   background: radial-gradient(
     circle at 35% 30%,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0.3)
+    var(--color-surface-solid),
+    var(--color-brand-primary-mist)
   );
   border: 1px solid var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -524,7 +538,7 @@
   font-weight: 600;
   font-size: 11px;
   letter-spacing: 0.16em;
-  color: var(--accent, #b07a12);
+  color: var(--accent, var(--color-brand-primary));
   margin: 4px 0 0;
 }
 
@@ -534,15 +548,15 @@
   line-height: 1.65;
   color: var(--color-text);
   padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.45);
-  border-left: 2px solid var(--accent, #e0a02a);
+  background: var(--color-brand-primary-mist);
+  border-left: 2px solid var(--accent, var(--color-brand-primary));
   border-radius: 0 10px 10px 0;
 }
 .idcardTagline strong {
   display: block;
   font-weight: 700;
   font-size: 14px;
-  color: var(--accent, #b07a12);
+  color: var(--accent, var(--color-brand-primary));
   margin-bottom: 5px;
   letter-spacing: 0.02em;
 }
@@ -556,14 +570,14 @@
 .tag {
   font-size: 11.5px;
   padding: 6px 11px;
-  border-radius: 999px;
-  color: var(--color-text);
-  background: rgba(111, 160, 95, 0.14);
-  border: 1px solid rgba(111, 160, 95, 0.3);
+  border-radius: var(--radius-chip);
+  color: var(--color-brand-primary);
+  background: var(--color-brand-primary-soft);
+  border: 1px solid rgba(109, 93, 246, 0.25);
 }
 .tag:nth-child(even) {
-  background: rgba(224, 160, 42, 0.12);
-  border-color: rgba(224, 160, 42, 0.3);
+  background: var(--color-brand-primary-mist);
+  border-color: rgba(109, 93, 246, 0.18);
 }
 
 .idcardIntent {
@@ -586,7 +600,7 @@
   height: 1px;
   background-image: linear-gradient(
     90deg,
-    var(--color-border) 50%,
+    var(--color-border-strong) 50%,
     transparent 0
   );
   background-size: 8px 1px;
@@ -626,7 +640,7 @@
   gap: 14px;
   margin-top: 18px;
   padding-top: 14px;
-  border-top: 1px dashed var(--color-border);
+  border-top: 1px dashed var(--color-border-strong);
 }
 .idcardBarcode {
   flex: 1 1 auto;

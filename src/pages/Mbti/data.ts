@@ -20,7 +20,7 @@ export const WELCOME_ORDER: PersonaId[] = [
 
 /**
  * 四种旅行人格（新型旅行 MBTI）。
- * accent 为形象主色（暖色 / 大地色点缀）。
+ * accent 为形象主色（统一为品牌紫 --color-brand-primary #6d5df6）。
  */
 export const PERSONALITIES: Record<PersonaId, Persona> = {
   'Cyber-Raider': {
@@ -28,7 +28,7 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
     titleCn: '赛博特种兵',
     titleEn: 'CYBER-RAIDER',
     emoji: '🎒',
-    accent: '#e0a02a',
+    accent: '#6d5df6',
     tagline: '高能量 · 疯狂打卡 · 行程拉满',
     description:
       '行程塞满、步数拉满，打卡点一个不落。你是旅行里的行动派，效率与战绩就是最好的纪念品。',
@@ -48,7 +48,7 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
     titleCn: '精神卡皮巴拉',
     titleEn: 'ZEN-CAPYBARA',
     emoji: '🛀',
-    accent: '#6fa05f',
+    accent: '#6d5df6',
     tagline: '低能量 · 松弛感 · 摆烂度假',
     description:
       '随遇而安、不争不抢。一杯咖啡一场发呆就是完美一天，你在旅行里只做一件事——松弛。',
@@ -68,7 +68,7 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
     titleCn: '精算系旅行家',
     titleEn: 'BUDGET-ARCHITECT',
     emoji: '🧮',
-    accent: '#c2652f',
+    accent: '#6d5df6',
     tagline: '重度计划 · 高性价比 · 严丝合缝',
     description:
       '攻略背得比导游还熟，预算精确到小数点。你的旅行像精密齿轮，每一步都在计划之内、性价比之上。',
@@ -88,7 +88,7 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
     titleCn: '人文浪漫主义',
     titleEn: 'ROMANTIC-OBSERVER',
     emoji: '🌹',
-    accent: '#b08345',
+    accent: '#6d5df6',
     tagline: '注重体验 · 情绪价值 · 重度审美',
     description:
       '一座博物馆、一个故事、一束光，都值得你停留。你为情绪价值与审美而旅行，感受比打卡更重要。',
