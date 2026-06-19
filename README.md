@@ -106,8 +106,10 @@ update
 ## 文档索引
 
 - AI / agent 修改规则：`AGENTS.md`
+- 产品 PRD：`docs/tripkin-product-prd.md`
 - 代码位置和样式规范：`docs/coding-guide.md`
 - antd-mobile 使用规范：`docs/antd-mobile-usage-guide.md`
+- 静态 Demo 统一整改范围：`docs/tripkin-demo-fix-scope.md`
 - 协作流程：`docs/collaboration-guide.md`
 - 本地页面验证说明：`docs/webapp-testing-guide.md`
 - 影响多人协作的决策记录：`docs/decision-notes/README.md`

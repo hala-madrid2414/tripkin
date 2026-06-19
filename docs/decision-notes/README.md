@@ -38,6 +38,14 @@
 
 ## 已记录决策
 
+### 2026-06-19 确认 TripKin 总体 PRD 作为当前产品范围依据
+
+- 类型：其他
+- 背景：团队已有静态页面和整改计划，但缺少一份上游产品总说明。只看整改计划时，团队成员和 AI 容易不知道 TripKin 的主链路、页面职责和不做范围。
+- 决定：新增 `docs/tripkin-product-prd.md` 作为当前 TripKin Demo 的正式产品 PRD。该文档只写已确认范围，说明产品定位、主链路、页面职责、公共产品约定、验收基准和不做范围。后续整改计划以该 PRD 为产品依据。
+- 影响范围：README 文档索引、`docs/tripkin-demo-fix-scope.md`、所有主页面后续需求理解，以及 AI 协作时的需求入口。
+- 后续注意：未确认想法仍放在飞书或本地草稿中，不直接写入团队正式文档。PRD 不维护人员分工，不替代具体整改计划。
+
 ### 2026-06-17 确定移动端开发基准
 
 - 类型：全局样式
@@ -105,3 +113,16 @@
   2. **冗余字段**：`TripSession.avatarKey` 与 `personaId` 当前永远取相同值（`avatarKey: personaId`）。在确认是否需要「自定义头像覆盖」能力前，接入方应将两者视为同源派生；如计划支持自定义头像，需在本决策记录补充说明，否则建议后续合并为单一字段。
   3. **文档承诺 vs 现状**：`useTripStore.ts` 与 `types/mbti.ts` 的注释声称 Map 读 `destination`、Match 读 `personaId` 做匹配，但这属于文档约定，当前尚未落地为运行时集成。Match 当前 100% 由 `matchMock.ts` 驱动，未导入本仓库或 `@/types/mbti`；接入工作需另行排期并在落地时更新本决策。
   4. zustand 不是新依赖（项目已在用），本次新增不触发「新增依赖」决策项；触发项是跨页面共享状态目录与协作影响。
+
+### 2026-06-19 确认 TripKin 静态 Demo 统一整改范围
+
+- 类型：路由 / 共享状态 / 全局样式 / 公共组件 / 其他
+- 背景：当前 `/mbti`、`/map`、`/bottle`、`/match`、`/profile` 已有静态页面，但页面之间的跳转、目的地上下文、身份体系和视觉规则尚未统一，容易出现“多个独立页面拼在一起”的协作问题。团队需要一份正式文档确认本轮先做什么、后做什么、做到什么算过。
+- 决定：新增 `docs/tripkin-demo-fix-scope.md` 作为本轮静态 Demo 统一整改范围。主链路确认为 `MBTI -> 旅行身份卡 -> Map -> Bottle / Match -> Profile`。整改顺序为：先修跳转和目的地上下文，再补页面内部交互，最后统一视觉和状态表达。`/map` 和 `/match` 暂作为结构与信息密度参考，但不要求其他页面硬套全部视觉细节。
+- 影响范围：所有主页面目录（`src/pages/Mbti`、`src/pages/Map`、`src/pages/Bottle`、`src/pages/Match`、`src/pages/Profile`）、跨页面共享状态（`src/store/useTripStore.ts`）、共享类型（`src/types/mbti.ts`）、后续可能确认复用的公共组件（例如身份卡、标签、底部弹层）以及 375px 移动端验收流程。
+- 后续注意：
+  1. 首轮目的地上下文优先使用 URL query 或现有 Zustand store 承接，推荐路由格式为 `/bottle?dest=<目的地ID>` 和 `/match?dest=<目的地ID>`。
+  2. 首轮城市粒度只覆盖 `src/pages/Map/data/mapData.ts` 里已有的 region/spot，不额外扩展全量城市库。
+  3. TripKin 旅行人格展示以 `personaId` 为准，不要把 `mbtiTypeEn` 当作 Match 卡片里的 16 型 MBTI 字母使用。
+  4. 页面私有组件先留在各自页面目录；只有身份卡、标签、底部弹层等确认跨页复用后，再抽到 `src/components`。
+  5. 本轮仍是静态前端 Demo，不引入后端、数据库、登录、真实 AI、真实聊天、真实上传、真实匹配算法或新 UI 组件库。
