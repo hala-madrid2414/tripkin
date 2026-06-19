@@ -77,3 +77,15 @@
 - 决定：复杂页面内组件优先在页面目录下拆分，并配套 `index.tsx + ComponentName.module.less`；发现 `.local-docs/` 中有参考图时，AI 或协作者必须先确认是严格还原、风格参考还是指定部分参考；对移动端标准交互优先使用 antd-mobile，视觉由 CSS Modules 覆盖。
 - 影响范围：`docs/coding-guide.md`、`docs/collaboration-guide.md`、`docs/antd-mobile-usage-guide.md`，以及后续有参考图或复杂页面内组件的开发任务。
 - 后续注意：`.local-docs/` 仍不进入 Git；当其中的参考图或视觉结论被确认影响多人协作时，需要提炼到正式文档或本地执行计划，并写清楚还原范围、不可偏离项和可自由调整项。
+
+### 2026-06-19 引入跨页面共享会话仓库 useTripStore.ts 与类型 types/mbti.ts
+
+- 类型：目录结构 / 跨页面公共件（共享状态）
+- 背景：MBTI 测评完成后，用户的人格结果、目的地等信息需要在后续页面（Map / Match）继续消费。之前这些信息没有统一存放处，仅靠 URL 参数或页面内 `useState` 传递，无法跨页面复用。zustand 已是项目既有技术栈（`src/store` 是 `docs/coding-guide.md` 约定的共享状态目录），因此本次不新增依赖，仅在该目录下建立首个跨页面共享会话仓库。
+- 决定：在 `src/store/useTripStore.ts` 新建 Zustand 仓库 `useTripStore`，状态形状定义在 `src/types/mbti.ts` 的 `TripSession` 接口中。仓库对外暴露两个 setter：`setMbtiResult(payload)` 在 MBTI 完成（或跳过）时写入完整会话；`setDestination(destination)` 在进入 `/mbti` 时由 URL `?dest=` 触发写入。会话字段包括：`personaId`、`mbtiTypeCn/mbtiTypeEn`、`tagline`、`tags`、`nickname`、`destination`、`avatarKey`、`accent`、`socialIntent`、`moduleStatus`、`skipped`、`rawScores`。
+- 影响范围：`src/store/useTripStore.ts`、`src/types/mbti.ts`，以及 `src/pages/Mbti/`（写入方 `index.tsx`、读取方 `components/IdentityCard.tsx`）。本次合并后 Map、Match、Bottle 三个页面均为占位 stub，**尚未接入该仓库**——即「仓库目前仅由 MBTI 页写入，暂无外部运行时读者」。后续 Map / Match 接入仓库时需遵守本仓库的写/读约定。
+- 后续注意：
+  1. **字段语义陷阱（务必告知接入方）**：`TripSession.mbtiTypeEn` 存的是「人格标题」而非「MBTI 字母代码」。实际取值为 `CYBER-RAIDER` / `ZEN-CAPYBARA` / `BUDGET-ARCHITECT` / `ROMANTIC-OBSERVER`（来自 `data.ts` 的 `persona.titleEn`），写入点在 `pages/Mbti/index.tsx`。而 Match 页 `matchMock.ts` 里的 `mbti` 字段是真正的 16 类 MBTI 字母代码（`ENFP` / `INTJ` / `INFP` / `INTP`）。两套词表完全不相交，字段名不同（`mbtiTypeEn` vs `mbti`）、类型均为裸 `string`，TypeScript 不会拦截。未来 Match 接入仓库时，**禁止**将 `mbtiTypeEn` 与 Match 卡片的 `mbti` 直接做相等比较或匹配；人格匹配应使用类型安全的 `personaId: PersonaId`。
+  2. **冗余字段**：`TripSession.avatarKey` 与 `personaId` 当前永远取相同值（`avatarKey: personaId`）。在确认是否需要「自定义头像覆盖」能力前，接入方应将两者视为同源派生；如计划支持自定义头像，需在本决策记录补充说明，否则建议后续合并为单一字段。
+  3. **文档承诺 vs 现状**：`useTripStore.ts` 与 `types/mbti.ts` 的注释声称 Map 读 `destination`、Match 读 `personaId` 做匹配，但这属于文档约定，当前尚未落地为运行时集成。Match 当前 100% 由 `matchMock.ts` 驱动，未导入本仓库或 `@/types/mbti`；接入工作需另行排期并在落地时更新本决策。
+  4. zustand 不是新依赖（项目已在用），本次新增不触发「新增依赖」决策项；触发项是跨页面共享状态目录与协作影响。
