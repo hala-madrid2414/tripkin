@@ -119,6 +119,7 @@ function Bottle() {
   const addActionKey = `${currentDestination.id}:${action ?? ''}`
   const addSheetOpen =
     manualAddSheetOpen || (action === 'add' && dismissedAddKey !== addActionKey)
+  const hasOpenSheet = selectedBottle !== null || addSheetOpen
   const countText =
     typeof currentDestination.bottleCount === 'number'
       ? `${currentDestination.name} 共有 ${currentDestination.bottleCount} 个漂流瓶，精选展示 ${bottles.length} 条`
@@ -282,7 +283,7 @@ function Bottle() {
         </div>
       </section>
 
-      <BottomNav />
+      {!hasOpenSheet && <BottomNav />}
 
       {selectedBottle && (
         <div className={styles.overlay} role="presentation">

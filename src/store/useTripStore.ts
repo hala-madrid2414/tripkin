@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import type { PersonaId, TripSession } from '@/types/mbti'
 
 /**
@@ -36,8 +37,31 @@ const initialSession: TripSession = {
   rawScores: {},
 }
 
-export const useTripStore = create<TripStore>()((set) => ({
-  ...initialSession,
-  setMbtiResult: (payload) => set({ ...payload, moduleStatus: 'completed' }),
-  setDestination: (destination) => set({ destination }),
-}))
+export const useTripStore = create<TripStore>()(
+  persist(
+    (set) => ({
+      ...initialSession,
+      setMbtiResult: (payload) =>
+        set({ ...payload, moduleStatus: 'completed' }),
+      setDestination: (destination) => set({ destination }),
+    }),
+    {
+      name: 'tripkin-trip-session-v1',
+      partialize: (state) => ({
+        personaId: state.personaId,
+        mbtiTypeCn: state.mbtiTypeCn,
+        mbtiTypeEn: state.mbtiTypeEn,
+        tagline: state.tagline,
+        tags: state.tags,
+        nickname: state.nickname,
+        destination: state.destination,
+        avatarKey: state.avatarKey,
+        accent: state.accent,
+        socialIntent: state.socialIntent,
+        moduleStatus: state.moduleStatus,
+        skipped: state.skipped,
+        rawScores: state.rawScores,
+      }),
+    },
+  ),
+)

@@ -1,5 +1,5 @@
 import type { MutableRefObject, PointerEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useMatchStore, type MatchMode } from '@/store/useMatchStore'
 import { getSpotTripCount } from '../data/mapData'
 import type { Region, Spot } from '../types'
@@ -56,6 +56,7 @@ function BottomSpotCard({
   onClose,
   onThrowBottle,
 }: BottomSpotCardProps) {
+  const navigate = useNavigate()
   const setMode = useMatchStore((state) => state.setMode)
   const setEntryContext = useMatchStore((state) => state.setEntryContext)
 
@@ -75,6 +76,7 @@ function BottomSpotCard({
       spotId: spot.id,
       destinationName: spot.name,
     })
+    navigate(`/match?tab=${mode}&dest=${encodedSpotId}`)
   }
 
   return (
@@ -158,18 +160,12 @@ function BottomSpotCard({
 
       <div className={styles.cardActions}>
         <Link to={`/bottle?dest=${encodedSpotId}`}>查看漂流瓶</Link>
-        <Link
-          to={`/match?tab=partner&dest=${encodedSpotId}`}
-          onClick={() => handleMatchLinkClick('partner')}
-        >
+        <button type="button" onClick={() => handleMatchLinkClick('partner')}>
           查看旅行搭子
-        </Link>
-        <Link
-          to={`/match?tab=trip&dest=${encodedSpotId}`}
-          onClick={() => handleMatchLinkClick('trip')}
-        >
+        </button>
+        <button type="button" onClick={() => handleMatchLinkClick('trip')}>
           查看可加入行程
-        </Link>
+        </button>
       </div>
 
       <button
