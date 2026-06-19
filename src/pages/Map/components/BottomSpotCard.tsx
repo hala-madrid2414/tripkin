@@ -38,7 +38,7 @@ interface BottomSpotCardProps {
   ) => void
   onHandlePointerCancel: (dragRef: SheetDragRef) => void
   onClose: () => void
-  onThrowBottle: () => void
+  onThrowBottle: (destinationId: string) => void
 }
 
 function BottomSpotCard({
@@ -63,6 +63,7 @@ function BottomSpotCard({
     return null
   }
 
+  const encodedSpotId = encodeURIComponent(spot.id)
   const tripCount = getSpotTripCount(spot)
 
   const handleMatchLinkClick = (mode: MatchMode) => {
@@ -156,14 +157,15 @@ function BottomSpotCard({
       </dl>
 
       <div className={styles.cardActions}>
+        <Link to={`/bottle?dest=${encodedSpotId}`}>查看漂流瓶</Link>
         <Link
-          to={`/match?tab=partner&regionId=${region.id}&spotId=${spot.id}`}
+          to={`/match?tab=partner&dest=${encodedSpotId}`}
           onClick={() => handleMatchLinkClick('partner')}
         >
           查看旅行搭子
         </Link>
         <Link
-          to={`/match?tab=trip&regionId=${region.id}&spotId=${spot.id}`}
+          to={`/match?tab=trip&dest=${encodedSpotId}`}
           onClick={() => handleMatchLinkClick('trip')}
         >
           查看可加入行程
@@ -173,7 +175,7 @@ function BottomSpotCard({
       <button
         type="button"
         className={styles.cardBottleAction}
-        onClick={onThrowBottle}
+        onClick={() => onThrowBottle(spot.id)}
       >
         <BottleIcon />
         发布漂流瓶
@@ -182,7 +184,7 @@ function BottomSpotCard({
       {expanded && (
         <div className={styles.expandedPlaceholder}>
           <p>上拉内容预留区</p>
-          <span>后续可承接漂流瓶故事、路线片段和同行申请记录。</span>
+          <span>后续可承接路线片段、热度标签和同行申请记录。</span>
         </div>
       )}
     </section>

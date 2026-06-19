@@ -253,6 +253,8 @@ function Map() {
   const selectedRegion = getRegionById(state.selectedRegionId)
   const selectedSpot = getSpotById(state.selectedSpotId)
   const selectedSpotRegion = getSpotRegion(selectedSpot)
+  const activeBottleDestinationId =
+    selectedSpot?.id ?? selectedRegion?.id ?? mapRegions[0]?.id ?? 'yunnan'
   const searchResults = useMemo(
     () => searchMapItems(state.searchQuery),
     [state.searchQuery],
@@ -265,6 +267,13 @@ function Map() {
   const handleBlankClick = useCallback(() => {
     dispatch({ type: 'closeSpot' })
   }, [])
+
+  const handleThrowBottle = useCallback(
+    (destinationId = activeBottleDestinationId) => {
+      navigate(`/bottle?dest=${encodeURIComponent(destinationId)}&action=add`)
+    },
+    [activeBottleDestinationId, navigate],
+  )
 
   const handleAmapFallback = useCallback(() => {
     setAmapFailed(true)
@@ -447,7 +456,7 @@ function Map() {
       <MapControls
         onLocate={() => showDemoToast('当前 Demo 暂不接入真实定位')}
         onReset={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => navigate('/bottle')}
+        onThrowBottle={() => handleThrowBottle()}
       />
 
       <BottomRegionCard
@@ -462,7 +471,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => navigate('/bottle')}
+        onThrowBottle={handleThrowBottle}
       />
 
       <BottomSpotCard
@@ -478,7 +487,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'closeSpot' })}
-        onThrowBottle={() => navigate('/bottle')}
+        onThrowBottle={handleThrowBottle}
       />
 
       <LayerSheet

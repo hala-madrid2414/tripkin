@@ -1,6 +1,7 @@
 import BottomNav from '@/components/BottomNav'
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { allSpots, getRegionById, mapRegions } from '@/pages/Map/data/mapData'
 import { useMatchStore } from '@/store/useMatchStore'
 import { useTripStore } from '@/store/useTripStore'
 import FilterSheet from './components/FilterSheet'
@@ -18,6 +19,34 @@ import type {
   PartnerMatchCardData,
   TripMatchCardData,
 } from './types'
+
+type MatchDestination = {
+  id: string
+  name: string
+  parentName?: string
+}
+
+const matchDestinations: MatchDestination[] = [
+  ...mapRegions.map((region) => ({
+    id: region.id,
+    name: region.name,
+  })),
+  ...allSpots.map((spot) => ({
+    id: spot.id,
+    name: spot.name,
+    parentName: getRegionById(spot.parentId)?.name,
+  })),
+]
+
+function getMatchDestination(destId: string | null) {
+  if (!destId) {
+    return null
+  }
+
+  return (
+    matchDestinations.find((destination) => destination.id === destId) ?? null
+  )
+}
 
 function Match() {
   const [searchParams] = useSearchParams()
@@ -43,8 +72,22 @@ function Match() {
   }, [activeMode, searchParams, setActiveMode])
 
   const currentContent = matchContent[activeMode]
-  const placeTitle =
-    entryContext?.destinationName ?? currentContent.placeTitle ?? destination
+  const currentDestination = useMemo(
+    () => getMatchDestination(searchParams.get('dest')),
+    [searchParams],
+  )
+  const placeTitle = currentDestination
+    ? `${currentDestination.name}${
+        currentDestination.parentName
+          ? ` · ${currentDestination.parentName}`
+          : ''
+      }`
+    : (entryContext?.destinationName ??
+      currentContent.placeTitle ??
+      destination)
+  const placeMeta = currentDestination
+    ? `正在寻找同去 ${currentDestination.name} 的搭子`
+    : currentContent.placeMeta
   const cards = useMemo(
     () => (activeMode === 'partner' ? partnerCards : tripCards),
     [activeMode],
@@ -56,7 +99,7 @@ function Match() {
         <MatchTopBar
           title={currentContent.title}
           placeTitle={placeTitle}
-          placeMeta={currentContent.placeMeta}
+          placeMeta={placeMeta}
           onFilterClick={() => setFilterVisible(true)}
         />
 

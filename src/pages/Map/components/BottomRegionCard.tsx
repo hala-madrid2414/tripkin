@@ -38,7 +38,7 @@ interface BottomRegionCardProps {
   ) => void
   onHandlePointerCancel: (dragRef: SheetDragRef) => void
   onClose: () => void
-  onThrowBottle: () => void
+  onThrowBottle: (destinationId: string) => void
 }
 
 function BottomRegionCard({
@@ -64,6 +64,7 @@ function BottomRegionCard({
 
   const featuredSpots = region.spots.slice(0, 2)
   const subtitle = region.tags.slice(0, 2).join(' · ')
+  const encodedRegionId = encodeURIComponent(region.id)
   const className =
     level === 'full'
       ? styles.regionCardFull
@@ -160,14 +161,15 @@ function BottomRegionCard({
       </dl>
 
       <div className={styles.cardActions}>
+        <Link to={`/bottle?dest=${encodedRegionId}`}>查看漂流瓶</Link>
         <Link
-          to={`/match?tab=partner&regionId=${region.id}`}
+          to={`/match?tab=partner&dest=${encodedRegionId}`}
           onClick={() => handleMatchLinkClick('partner')}
         >
           查看旅行搭子
         </Link>
         <Link
-          to={`/match?tab=trip&regionId=${region.id}`}
+          to={`/match?tab=trip&dest=${encodedRegionId}`}
           onClick={() => handleMatchLinkClick('trip')}
         >
           查看可加入行程
@@ -177,7 +179,7 @@ function BottomRegionCard({
       <button
         type="button"
         className={styles.cardBottleAction}
-        onClick={onThrowBottle}
+        onClick={() => onThrowBottle(region.id)}
       >
         <BottleIcon />
         发布漂流瓶

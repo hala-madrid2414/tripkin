@@ -1,393 +1,431 @@
 import BottomNav from '@/components/BottomNav'
-import { useState, type SyntheticEvent } from 'react'
+import { useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { allSpots, getRegionById, mapRegions } from '@/pages/Map/data/mapData'
+import {
+  bottleTypeOptions,
+  defaultBottleImage,
+  getBottleListByDest,
+  type BottleMessage,
+  type BottleType,
+  typeLabels,
+} from './data/bottleMockData'
 import styles from './Bottle.module.less'
 
-type BottleMessage = {
+type Destination = {
   id: string
-  nickname: string
-  from: string
-  to: string
-  content: string
-  tags: string[]
-  time: string
-  imageUrl?: string
-  responseCount: number
-  reviewStatus: '已发布' | '审核中'
-  expiresIn: string
-  mine?: boolean
+  name: string
+  bottleCount?: number
+  parentId?: string
+  parentName?: string
 }
 
-const createMockImage = (primary: string, secondary: string, accent: string) =>
-  `data:image/svg+xml;utf8,${encodeURIComponent(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420">
-      <defs>
-        <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stop-color="${primary}" />
-          <stop offset="1" stop-color="${secondary}" />
-        </linearGradient>
-        <linearGradient id="path" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stop-color="#ffffff" stop-opacity="0.35" />
-          <stop offset="1" stop-color="#ffffff" stop-opacity="0.82" />
-        </linearGradient>
-      </defs>
-      <rect width="640" height="420" rx="34" fill="url(#bg)" />
-      <circle cx="112" cy="88" r="58" fill="#ffffff" opacity="0.2" />
-      <circle cx="540" cy="82" r="82" fill="${accent}" opacity="0.38" />
-      <path d="M72 292 C172 198 248 348 352 234 S502 168 586 248" fill="none" stroke="url(#path)" stroke-width="18" stroke-linecap="round" />
-      <path d="M0 330 C120 288 220 356 340 314 S526 284 640 328 V420 H0 Z" fill="#ffffff" opacity="0.28" />
-      <path d="M84 128 L194 106 L210 214 L102 238 Z" fill="#ffffff" opacity="0.78" />
-      <path d="M112 156 H184 M118 184 H176 M124 210 H164" stroke="${accent}" stroke-width="10" stroke-linecap="round" opacity="0.78" />
-      <circle cx="456" cy="244" r="16" fill="#ffffff" opacity="0.75" />
-      <circle cx="492" cy="218" r="9" fill="#ffffff" opacity="0.62" />
-    </svg>
-  `)}`
+const defaultDestinationId = 'yunnan'
 
-const defaultBottleImage = createMockImage('#f0edff', '#d9d2ff', '#6c5cf6')
-
-const mockBottles: BottleMessage[] = [
-  {
-    id: 'mock-1',
-    responseCount: 8,
-    reviewStatus: '已发布',
-    expiresIn: '7 天后过期',
-    nickname: '海边的风',
-    from: '重庆',
-    to: '大理',
-    content:
-      '想找一个不赶路的人，一起在洱海边慢慢等日落，把手机放进口袋，只听风和水声。',
-    tags: ['慢旅行', '看海', '日落'],
-    time: '3 分钟前',
-    imageUrl: createMockImage('#8f82ff', '#f3f0ff', '#6c5cf6'),
-  },
-  {
-    id: 'mock-2',
-    responseCount: 5,
-    reviewStatus: '已发布',
-    expiresIn: '7 天后过期',
-    nickname: '山城旅人',
-    from: '成都',
-    to: '川西',
-    content:
-      '想在雪山脚下住一晚，早上推开窗就能看到云和光，晚上围着炉子听别人讲路上的故事。',
-    tags: ['川西', '雪山', '周末出发'],
-    time: '今天下午',
-    imageUrl: createMockImage('#6e5bff', '#d9e6ff', '#5146d9'),
-  },
-  {
-    id: 'mock-3',
-    responseCount: 3,
-    reviewStatus: '已发布',
-    expiresIn: '7 天后过期',
-    nickname: '拿铁加冰',
-    from: '杭州',
-    to: '厦门',
-    content:
-      '希望下一次旅行不用排满攻略，只带一本书，坐在海边咖啡店里发呆一整个下午。',
-    tags: ['海边咖啡', '放空', '一个人也行'],
-    time: '12 分钟前',
-    imageUrl: createMockImage('#c3b8ff', '#f7f8fc', '#7d6bff'),
-  },
-  {
-    id: 'mock-4',
-    responseCount: 11,
-    reviewStatus: '已发布',
-    expiresIn: '7 天后过期',
-    nickname: '夜航星',
-    from: '广州',
-    to: '青岛',
-    content:
-      '想和同频的人一起坐一次夜车，醒来时城市已经换了颜色，然后去吃第一顿热乎乎的早餐。',
-    tags: ['城市漫游', '同频搭子', '早餐'],
-    time: '刚刚漂来',
-    imageUrl: createMockImage('#5146d9', '#a79cff', '#f0edff'),
-  },
-  {
-    id: 'mock-5',
-    responseCount: 6,
-    reviewStatus: '已发布',
-    expiresIn: '7 天后过期',
-    nickname: '橘子汽水',
-    from: '武汉',
-    to: '泉州',
-    content:
-      '想去有风、有老街、有甜汤的地方，把每一天都过得很慢，再给未来的自己寄一张明信片。',
-    tags: ['老街', '甜汤', '明信片'],
-    time: '1 小时前',
-    imageUrl: createMockImage('#7a6cff', '#fff3f7', '#6c5cf6'),
-  },
+const destinations: Destination[] = [
+  ...mapRegions.map((region) => ({
+    id: region.id,
+    name: region.name,
+    bottleCount: region.bottleCount,
+  })),
+  ...allSpots.map((spot) => ({
+    id: spot.id,
+    name: spot.name,
+    bottleCount: spot.bottleCount,
+    parentId: spot.parentId,
+    parentName: getRegionById(spot.parentId)?.name,
+  })),
 ]
 
-function Bottle() {
-  const [currentBottle, setCurrentBottle] = useState<BottleMessage>(
-    mockBottles[0],
+function getDestination(destId: string | null) {
+  return (
+    destinations.find((destination) => destination.id === destId) ??
+    destinations.find(
+      (destination) => destination.id === defaultDestinationId,
+    ) ??
+    destinations[0]
   )
-  const [bottleList, setBottleList] = useState<BottleMessage[]>(mockBottles)
-  const [wishText, setWishText] = useState('')
-  const [destinationText, setDestinationText] = useState('')
-  const [feedbackMessage, setFeedbackMessage] = useState('')
+}
 
-  const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.src = defaultBottleImage
+function getDestinationHint(rawDest: string | null, destination: Destination) {
+  if (!rawDest) {
+    return `未携带目的地，已默认展示 ${destination.name} 的漂流瓶。`
   }
 
-  const handlePickBottle = () => {
-    const candidates = bottleList.filter((item) => item.id !== currentBottle.id)
+  if (rawDest !== destination.id) {
+    return `未识别目的地 ${rawDest}，已默认展示 ${destination.name}。`
+  }
 
-    if (candidates.length === 0) {
-      setFeedbackMessage('海面很安静，暂时还是这只瓶子。')
-      return
-    }
+  return ''
+}
 
-    const nextBottle = candidates[Math.floor(Math.random() * candidates.length)]
-    setCurrentBottle(nextBottle)
-    setFeedbackMessage('海浪送来了新的漂流瓶。')
+function getSourceText(
+  source: ReturnType<typeof getBottleListByDest>['source'],
+  sourceName: string | undefined,
+  destinationName: string,
+) {
+  if (source === 'parent' && sourceName) {
+    return `当前目的地暂无专属瓶子，先展示 ${sourceName} 的同地区精选漂流瓶。`
+  }
+
+  if (source === 'fallback') {
+    return `${destinationName} 暂无专属瓶子，已展示目的地默认灵感。`
+  }
+
+  return ''
+}
+
+function Bottle() {
+  const [searchParams] = useSearchParams()
+  const rawDest = searchParams.get('dest')
+  const action = searchParams.get('action')
+  const currentDestination = useMemo(() => getDestination(rawDest), [rawDest])
+  const [userBottlesByDest, setUserBottlesByDest] = useState<
+    Record<string, BottleMessage[]>
+  >({})
+  const [selectedBottle, setSelectedBottle] = useState<BottleMessage | null>(
+    null,
+  )
+  const [manualAddSheetOpen, setManualAddSheetOpen] = useState(false)
+  const [dismissedAddKey, setDismissedAddKey] = useState<string | null>(null)
+  const [messageText, setMessageText] = useState('')
+  const [selectedType, setSelectedType] = useState<BottleType>('story')
+  const [formError, setFormError] = useState('')
+  const [feedbackMessage, setFeedbackMessage] = useState('')
+  const [collectedBottleIds, setCollectedBottleIds] = useState<string[]>([])
+  const [imageUploadHint, setImageUploadHint] = useState('')
+
+  const bottleResult = useMemo(
+    () =>
+      getBottleListByDest({
+        destId: currentDestination.id,
+        destName: currentDestination.name,
+        parentId: currentDestination.parentId,
+        parentName: currentDestination.parentName,
+      }),
+    [currentDestination],
+  )
+  const bottles = [
+    ...(userBottlesByDest[currentDestination.id] ?? []),
+    ...bottleResult.items,
+  ]
+  const sourceText = getSourceText(
+    bottleResult.source,
+    bottleResult.sourceName,
+    currentDestination.name,
+  )
+  const destinationHint = getDestinationHint(rawDest, currentDestination)
+  const matchPath = `/match?dest=${encodeURIComponent(currentDestination.id)}`
+  const addActionKey = `${currentDestination.id}:${action ?? ''}`
+  const addSheetOpen =
+    manualAddSheetOpen || (action === 'add' && dismissedAddKey !== addActionKey)
+  const countText =
+    typeof currentDestination.bottleCount === 'number'
+      ? `${currentDestination.name} 共有 ${currentDestination.bottleCount} 个漂流瓶，精选展示 ${bottles.length} 条`
+      : `${currentDestination.name} 漂流瓶精选`
+
+  const handleToggleCollect = (bottleId: string) => {
+    setCollectedBottleIds((prev) =>
+      prev.includes(bottleId)
+        ? prev.filter((collectedId) => collectedId !== bottleId)
+        : [...prev, bottleId],
+    )
+  }
+
+  const handleImagePlaceholderClick = () => {
+    setImageUploadHint('图片上传暂未接入，最多可上传 9 张。')
+  }
+
+  const handleOpenAddSheet = () => {
+    setFormError('')
+    setManualAddSheetOpen(true)
+    setDismissedAddKey(null)
+  }
+
+  const handleCloseAddSheet = () => {
+    setManualAddSheetOpen(false)
+    setDismissedAddKey(addActionKey)
+    setFormError('')
   }
 
   const handleSendBottle = () => {
-    const content = wishText.trim()
-    const destination = destinationText.trim()
+    const content = messageText.trim()
 
-    if (!destination) {
-      setFeedbackMessage('请先填写目的地，漂流瓶不会默认使用精确定位。')
+    if (!content) {
+      setFormError('先写下一点想投向这里的旅行心愿。')
       return
     }
 
-    if (content.length < 20) {
-      setFeedbackMessage('旅行心愿至少写 20 个字，方便同路人理解你。')
-      return
-    }
-
-    if (content.length > 300) {
-      setFeedbackMessage('旅行心愿最多 300 个字，请再精简一点。')
-      return
-    }
-
-    if (/\d{5,}|微信|电话|手机|vx/i.test(content)) {
-      setFeedbackMessage('请勿直接填写联系方式，可通过平台回应继续沟通。')
-      return
-    }
-
+    const typeLabel = typeLabels[selectedType]
     const newBottle: BottleMessage = {
-      id: `user-${Date.now()}`,
-      nickname: '我投出的瓶子',
-      from: '城市级位置',
-      to: destination,
+      id: `user-${currentDestination.id}-${Date.now()}`,
+      type: selectedType,
       content,
-      tags: ['我的心愿', '等待回应'],
-      time: '刚刚',
-      responseCount: 0,
-      reviewStatus: '审核中',
-      expiresIn: '7 天后过期',
-      mine: true,
+      tags: [typeLabel, currentDestination.name, '刚投出'],
+      from: '我投出的瓶子',
+      destinationName: currentDestination.name,
+      createdAt: '刚刚',
       imageUrl: defaultBottleImage,
     }
 
-    setBottleList((prevList) => [newBottle, ...prevList])
-    setCurrentBottle(newBottle)
-    setWishText('')
-    setDestinationText('')
-    setFeedbackMessage('你的漂流瓶已提交审核，通过后会漂向可能同路的人。')
+    setUserBottlesByDest((prev) => ({
+      ...prev,
+      [currentDestination.id]: [
+        newBottle,
+        ...(prev[currentDestination.id] ?? []),
+      ],
+    }))
+    setMessageText('')
+    setSelectedType('story')
+    setManualAddSheetOpen(false)
+    setDismissedAddKey(addActionKey)
+    setFeedbackMessage(`已把漂流瓶投向 ${currentDestination.name}。`)
   }
 
   return (
     <main className={styles.page}>
       <section className={styles.hero} aria-labelledby="bottle-title">
         <div>
-          <p className={styles.route}>/bottle</p>
-          <h1 id="bottle-title">旅行漂流瓶</h1>
+          <p className={styles.route}>正在漂向：{currentDestination.name}</p>
+          <h1 id="bottle-title">{currentDestination.name}的旅行漂流瓶</h1>
           <p className={styles.description}>
-            表达旅行意愿并等待同路人回应。漂流瓶不是正式行程邀约，出行前仍需确认安全信息。
+            捞起同一个目的地的旅行心意，也把自己的故事投向可能同路的人。
           </p>
+          {currentDestination.parentName && (
+            <p className={styles.parentName}>{currentDestination.parentName}</p>
+          )}
         </div>
-        <div className={styles.mapBadge} aria-hidden="true">
-          <span>✦</span>
-        </div>
+        <span className={styles.mapBadge} aria-hidden="true">
+          <svg
+            className={styles.bottleIconSvg}
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M9 3h6M10 3v4.1L6.6 14a4.8 4.8 0 0 0 4.3 7h2.2a4.8 4.8 0 0 0 4.3-7L14 7.1V3" />
+            <path d="M8 15.5c1.2-.7 2.2-.7 3.4 0 1 .6 2.1.6 3.6-.2" />
+          </svg>
+        </span>
       </section>
 
-      <section className={styles.currentBottle} aria-label="当前漂流瓶">
-        <div className={styles.cardHeader}>
-          <div>
-            <p className={styles.label}>当前漂来的瓶子</p>
-            <h2>{currentBottle.nickname}</h2>
-          </div>
-          <span className={styles.bottleIcon} aria-hidden="true">
-            🍾
-          </span>
-        </div>
+      <nav className={styles.heroActions} aria-label="漂流瓶页面导航">
+        <Link to="/map" className={styles.mapLink}>
+          返回地图
+        </Link>
+        <Link to={matchPath} className={styles.matchLink}>
+          找同目的地搭子
+        </Link>
+      </nav>
 
-        <div className={styles.flowLine}>
-          <span>{currentBottle.from}</span>
-          <i aria-hidden="true" />
-          <em>漂向</em>
-          <i aria-hidden="true" />
-          <span>{currentBottle.to}</span>
-        </div>
-
-        <div className={styles.coverImage}>
-          <img
-            src={currentBottle.imageUrl || defaultBottleImage}
-            alt={`${currentBottle.nickname} 的旅行图片`}
-            onError={handleImageError}
-          />
-        </div>
-
-        <div className={styles.message}>
-          <p>{currentBottle.content}</p>
-        </div>
-
-        <div className={styles.tags}>
-          {currentBottle.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-        <p className={styles.time}>
-          {currentBottle.time} · {currentBottle.responseCount} 个回应 ·{' '}
-          {currentBottle.expiresIn} · {currentBottle.reviewStatus}
+      {destinationHint && <p className={styles.hint}>{destinationHint}</p>}
+      {feedbackMessage && (
+        <p className={styles.feedback} role="status">
+          {feedbackMessage}
         </p>
-        <div className={styles.bottleActions}>
-          <button
-            type="button"
-            onClick={() => setFeedbackMessage('已打开回应入口')}
-          >
-            回应
-          </button>
-          <button
-            type="button"
-            onClick={() => setFeedbackMessage('已打开举报入口')}
-          >
-            举报
-          </button>
+      )}
+
+      <section className={styles.summaryCard} aria-label="目的地漂流瓶概览">
+        <div>
+          <p className={styles.label}>当前目的地</p>
+          <h2>{currentDestination.name}</h2>
+          <span>{countText}</span>
         </div>
       </section>
+
+      {sourceText && <p className={styles.sourceNote}>{sourceText}</p>}
 
       <button
-        className={styles.pickButton}
+        className={styles.primaryButton}
         type="button"
-        onClick={handlePickBottle}
+        onClick={handleOpenAddSheet}
       >
-        捡一个漂流瓶
+        扔一个漂流瓶
       </button>
-
-      <section className={styles.sendPanel} aria-labelledby="send-title">
-        <div className={styles.sectionTitle}>
-          <p className={styles.label}>扔一个漂流瓶</p>
-          <h2 id="send-title">写下这次想出发的理由</h2>
-          <span>
-            仅使用城市级目的地，不展示实时位置；审核通过后漂向可能同路的人。
-          </span>
-        </div>
-
-        <div className={styles.typeOptions} aria-label="瓶子类型">
-          <span className={styles.typeActive}>普通瓶</span>
-          <span>心情瓶</span>
-        </div>
-
-        <label className={styles.field}>
-          <span>目的地</span>
-          <input
-            value={destinationText}
-            onChange={(event) => setDestinationText(event.target.value)}
-            placeholder="必填，例如：大理、泉州、川西"
-          />
-        </label>
-
-        <label className={styles.field}>
-          <span>旅行心愿</span>
-          <textarea
-            value={wishText}
-            onChange={(event) => setWishText(event.target.value)}
-            placeholder="20-300 字，避免填写手机号、微信等联系方式"
-            rows={4}
-          />
-        </label>
-
-        <div className={styles.imagePlaceholder} aria-hidden="true">
-          <span>＋</span>
-          <p>添加图片（可选）</p>
-        </div>
-
-        <button
-          className={styles.sendButton}
-          type="button"
-          onClick={handleSendBottle}
-        >
-          发布漂流瓶
-        </button>
-
-        {feedbackMessage && (
-          <p className={styles.feedback} role="status">
-            {feedbackMessage}
-          </p>
-        )}
-      </section>
 
       <section className={styles.listSection} aria-labelledby="recent-title">
         <div className={styles.sectionTitle}>
-          <p className={styles.label}>最近漂来的瓶子</p>
-          <h2 id="recent-title">也许有人正想去同一个地方</h2>
+          <p className={styles.label}>目的地漂流瓶</p>
+          <h2 id="recent-title">只看 {currentDestination.name} 的旅行纸条</h2>
         </div>
 
         <div className={styles.bottleList}>
-          {bottleList.map((bottle) => (
-            <article className={styles.listCard} key={bottle.id}>
-              <div className={styles.listThumb}>
+          {bottles.map((bottle) => (
+            <button
+              className={styles.listCard}
+              key={bottle.id}
+              type="button"
+              onClick={() => setSelectedBottle(bottle)}
+            >
+              <span className={styles.listThumb}>
                 <img
                   src={bottle.imageUrl || defaultBottleImage}
-                  alt={`${bottle.nickname} 的旅行图片`}
-                  onError={handleImageError}
+                  alt=""
+                  aria-hidden="true"
                 />
-              </div>
-              <div className={styles.listBody}>
-                <div className={styles.listMeta}>
-                  <strong>{bottle.nickname}</strong>
-                  <span>{bottle.time}</span>
-                </div>
-                <p className={styles.routeLine}>
-                  {bottle.from} <span>漂向</span> {bottle.to}
-                </p>
-                <p className={styles.listContent}>{bottle.content}</p>
-                <p className={styles.time}>
-                  {bottle.responseCount} 个回应 · {bottle.expiresIn} ·{' '}
-                  {bottle.reviewStatus}
-                </p>
-                <div className={styles.bottleActions}>
-                  <button
-                    type="button"
-                    onClick={() => setFeedbackMessage('已打开漂流瓶详情')}
-                  >
-                    查看详情
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setFeedbackMessage('已屏蔽该发布者')}
-                  >
-                    屏蔽
-                  </button>
-                  {bottle.mine ? (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setBottleList((prevList) =>
-                          prevList.filter((item) => item.id !== bottle.id),
-                        )
-                        setFeedbackMessage('已删除自己的漂流瓶')
-                      }}
-                    >
-                      删除
-                    </button>
-                  ) : null}
-                </div>
-                <div className={styles.tags}>
+              </span>
+              <span className={styles.listBody}>
+                <span className={styles.listMeta}>
+                  <strong>{bottle.from}</strong>
+                  <em>{bottle.createdAt}</em>
+                </span>
+                <span className={styles.typePill}>
+                  {typeLabels[bottle.type]}
+                </span>
+                <span className={styles.listContent}>{bottle.content}</span>
+                <span className={styles.tags}>
                   {bottle.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
+                    <i key={tag}>#{tag}</i>
                   ))}
-                </div>
-              </div>
-            </article>
+                </span>
+              </span>
+            </button>
           ))}
         </div>
       </section>
+
       <BottomNav />
+
+      {selectedBottle && (
+        <div className={styles.overlay} role="presentation">
+          <section
+            className={styles.sheet}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="bottle-detail-title"
+          >
+            <button
+              type="button"
+              className={styles.closeButton}
+              onClick={() => setSelectedBottle(null)}
+              aria-label="关闭漂流瓶详情"
+            >
+              x
+            </button>
+            <p className={styles.label}>漂流瓶详情</p>
+            <h2 id="bottle-detail-title">{selectedBottle.destinationName}</h2>
+            <p className={styles.detailContent}>{selectedBottle.content}</p>
+            <button
+              type="button"
+              className={
+                collectedBottleIds.includes(selectedBottle.id)
+                  ? styles.collectButtonActive
+                  : styles.collectButton
+              }
+              onClick={() => handleToggleCollect(selectedBottle.id)}
+              aria-pressed={collectedBottleIds.includes(selectedBottle.id)}
+            >
+              {collectedBottleIds.includes(selectedBottle.id)
+                ? '已收藏'
+                : '收藏'}
+            </button>
+            <dl className={styles.detailMeta}>
+              <div>
+                <dt>类型</dt>
+                <dd>{typeLabels[selectedBottle.type]}</dd>
+              </div>
+              <div>
+                <dt>来自</dt>
+                <dd>{selectedBottle.from}</dd>
+              </div>
+              <div>
+                <dt>目的地</dt>
+                <dd>{currentDestination.name}</dd>
+              </div>
+              <div>
+                <dt>时间</dt>
+                <dd>{selectedBottle.createdAt}</dd>
+              </div>
+            </dl>
+            <div className={styles.tags}>
+              {selectedBottle.tags.map((tag) => (
+                <i key={tag}>#{tag}</i>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {addSheetOpen && (
+        <div className={styles.overlay} role="presentation">
+          <section
+            className={styles.sheet}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="add-bottle-title"
+          >
+            <button
+              type="button"
+              className={styles.closeButton}
+              onClick={handleCloseAddSheet}
+              aria-label="关闭添加漂流瓶"
+            >
+              x
+            </button>
+            <p className={styles.label}>投向 {currentDestination.name}</p>
+            <h2 id="add-bottle-title">扔一个漂流瓶</h2>
+            <div className={styles.typeOptions} aria-label="瓶子类型">
+              {bottleTypeOptions.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className={
+                    selectedType === option.value ? styles.typeActive : ''
+                  }
+                  onClick={() => setSelectedType(option.value)}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            <label className={styles.field}>
+              <span>漂流瓶内容</span>
+              <textarea
+                value={messageText}
+                onChange={(event) => {
+                  setMessageText(event.target.value)
+                  setFormError('')
+                }}
+                placeholder={`写下想投向 ${currentDestination.name} 的旅行故事`}
+                rows={5}
+              />
+            </label>
+            <section
+              className={styles.imageUploadBlock}
+              aria-label="图片上传占位"
+            >
+              <div className={styles.imageUploadHeader}>
+                <span>图片</span>
+                <em>0/9</em>
+              </div>
+              <button
+                type="button"
+                className={styles.imageUploadPlaceholder}
+                onClick={handleImagePlaceholderClick}
+              >
+                <strong>+ 添加图片</strong>
+                <span>最多上传 9 张</span>
+              </button>
+              <p>当前为静态演示，暂不接入真实上传。</p>
+              {imageUploadHint && (
+                <p className={styles.uploadHint} role="status">
+                  {imageUploadHint}
+                </p>
+              )}
+            </section>
+            {formError && (
+              <p className={styles.formError} role="alert">
+                {formError}
+              </p>
+            )}
+            <button
+              className={styles.primaryButton}
+              type="button"
+              onClick={handleSendBottle}
+            >
+              投出漂流瓶
+            </button>
+          </section>
+        </div>
+      )}
     </main>
   )
 }
