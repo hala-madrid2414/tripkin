@@ -12,6 +12,18 @@ Before editing code, read:
 - `docs/coding-guide.md`
 - `docs/collaboration-guide.md`
 
+## Local Context
+
+If `.local-docs/rules.md` exists, you may read it as workspace-local context for the current task.
+
+`.local-docs/rules.md` is not a formal team rule and should not be copied directly into repository docs. It cannot override `AGENTS.md` or the confirmed docs under `docs/`.
+
+If `.local-docs/` contains reference images, ask how they should be used before implementing against them:
+
+- strict recreation
+- style reference
+- specific-part reference
+
 ## Current Scope
 
 The current version focuses on frontend demo pages and route flow.

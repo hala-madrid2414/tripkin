@@ -1,0 +1,84 @@
+.popupBody {
+  border-radius: 28px 28px 0 0;
+  background: #fff;
+}
+
+.sheet {
+  padding: 18px 18px max(24px, env(safe-area-inset-bottom));
+}
+
+.dragBar {
+  width: 52px;
+  height: 6px;
+  margin: 0 auto 20px;
+  border-radius: 999px;
+  background: #d9d9df;
+}
+
+.title,
+.subtitle {
+  margin: 0;
+  text-align: center;
+}
+
+.title {
+  color: #11131f;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #7b8090;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(109, 93, 246, 0.12);
+  border-radius: 999px;
+  background: rgba(109, 93, 246, 0.06);
+  color: var(--color-brand-primary);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.cancel,
+.apply {
+  min-height: 52px;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cancel {
+  border: 1px solid rgba(44, 47, 63, 0.1);
+  background: #fff;
+  color: #2e3140;
+}
+
+.apply {
+  border: 0;
+  background: linear-gradient(135deg, var(--color-brand-primary), #745df0);
+  color: #fff;
+}
