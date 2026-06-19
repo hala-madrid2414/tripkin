@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { allSpots, getRegionById, mapRegions } from '@/pages/Map/data/mapData'
 import FilterSheet from './components/FilterSheet'
 import JoinTripSheet from './components/JoinTripSheet'
 import MatchFilterChips from './components/MatchFilterChips'
@@ -15,7 +17,36 @@ import type {
   TripMatchCardData,
 } from './types'
 
+type MatchDestination = {
+  id: string
+  name: string
+  parentName?: string
+}
+
+const matchDestinations: MatchDestination[] = [
+  ...mapRegions.map((region) => ({
+    id: region.id,
+    name: region.name,
+  })),
+  ...allSpots.map((spot) => ({
+    id: spot.id,
+    name: spot.name,
+    parentName: getRegionById(spot.parentId)?.name,
+  })),
+]
+
+function getMatchDestination(destId: string | null) {
+  if (!destId) {
+    return null
+  }
+
+  return (
+    matchDestinations.find((destination) => destination.id === destId) ?? null
+  )
+}
+
 function Match() {
+  const [searchParams] = useSearchParams()
   const [activeMode, setActiveMode] = useState<MatchMode>('partner')
   const [filterVisible, setFilterVisible] = useState(false)
   const [selectedPartner, setSelectedPartner] =
@@ -25,6 +56,16 @@ function Match() {
   )
 
   const currentContent = matchContent[activeMode]
+  const currentDestination = useMemo(
+    () => getMatchDestination(searchParams.get('dest')),
+    [searchParams],
+  )
+  const placeTitle = currentDestination
+    ? `${currentDestination.name}${currentDestination.parentName ? ` · ${currentDestination.parentName}` : ''}`
+    : currentContent.placeTitle
+  const placeMeta = currentDestination
+    ? `正在寻找同去 ${currentDestination.name} 的搭子`
+    : currentContent.placeMeta
   const cards = useMemo(
     () => (activeMode === 'partner' ? partnerCards : tripCards),
     [activeMode],
@@ -35,8 +76,8 @@ function Match() {
       <div className={styles.shell}>
         <MatchTopBar
           title={currentContent.title}
-          placeTitle={currentContent.placeTitle}
-          placeMeta={currentContent.placeMeta}
+          placeTitle={placeTitle}
+          placeMeta={placeMeta}
           onFilterClick={() => setFilterVisible(true)}
         />
 

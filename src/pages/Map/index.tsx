@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
 import type { MutableRefObject, PointerEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AmapCanvas from './components/AmapCanvas'
 import BottomRegionCard from './components/BottomRegionCard'
 import BottomSpotCard from './components/BottomSpotCard'
@@ -245,11 +246,14 @@ function Map() {
   const [state, dispatch] = useReducer(mapPageReducer, initialState)
   const [toastMessage, setToastMessage] = useState('')
   const [amapFailed, setAmapFailed] = useState(false)
+  const navigate = useNavigate()
   const regionDragRef = useRef<SheetDragState | null>(null)
   const spotDragRef = useRef<SheetDragState | null>(null)
   const selectedRegion = getRegionById(state.selectedRegionId)
   const selectedSpot = getSpotById(state.selectedSpotId)
   const selectedSpotRegion = getSpotRegion(selectedSpot)
+  const activeBottleDestinationId =
+    selectedSpot?.id ?? selectedRegion?.id ?? mapRegions[0]?.id ?? 'yunnan'
   const searchResults = useMemo(
     () => searchMapItems(state.searchQuery),
     [state.searchQuery],
@@ -263,6 +267,13 @@ function Map() {
   const handleBlankClick = useCallback(() => {
     dispatch({ type: 'closeSpot' })
   }, [])
+
+  const handleThrowBottle = useCallback(
+    (destinationId = activeBottleDestinationId) => {
+      navigate(`/bottle?dest=${encodeURIComponent(destinationId)}&action=add`)
+    },
+    [activeBottleDestinationId, navigate],
+  )
 
   const handleAmapFallback = useCallback(() => {
     setAmapFailed(true)
@@ -461,7 +472,7 @@ function Map() {
       <MapControls
         onLocate={() => showDemoToast('当前 Demo 暂不接入真实定位')}
         onReset={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => showDemoToast('漂流瓶入口已预留')}
+        onThrowBottle={() => handleThrowBottle()}
       />
 
       <BottomRegionCard
@@ -476,7 +487,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => showDemoToast('已为该地区预留漂流瓶发布入口')}
+        onThrowBottle={handleThrowBottle}
       />
 
       <BottomSpotCard
@@ -492,7 +503,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'closeSpot' })}
-        onThrowBottle={() => showDemoToast('已为该地点预留漂流瓶发布入口')}
+        onThrowBottle={handleThrowBottle}
       />
 
       <LayerSheet

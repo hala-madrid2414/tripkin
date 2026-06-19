@@ -36,7 +36,7 @@ interface BottomSpotCardProps {
   ) => void
   onHandlePointerCancel: (dragRef: SheetDragRef) => void
   onClose: () => void
-  onThrowBottle: () => void
+  onThrowBottle: (destinationId: string) => void
 }
 
 function BottomSpotCard({
@@ -135,6 +135,9 @@ function BottomSpotCard({
       </dl>
 
       <div className={styles.cardActions}>
+        <Link to={`/bottle?dest=${encodeURIComponent(spot.id)}`}>
+          查看漂流瓶
+        </Link>
         <Link to="/match">查看旅行搭子</Link>
         <Link to="/match">查看行程匹配</Link>
       </div>
@@ -142,7 +145,7 @@ function BottomSpotCard({
       <button
         type="button"
         className={styles.cardBottleAction}
-        onClick={onThrowBottle}
+        onClick={() => onThrowBottle(spot.id)}
       >
         <BottleIcon />
         扔一个漂流瓶
@@ -151,7 +154,7 @@ function BottomSpotCard({
       {expanded && (
         <div className={styles.expandedPlaceholder}>
           <p>上拉内容预留区</p>
-          <span>后续可承接漂流瓶故事、路线片段和同行申请记录。</span>
+          <span>后续可承接路线片段、热度标签和同行申请记录。</span>
         </div>
       )}
     </section>

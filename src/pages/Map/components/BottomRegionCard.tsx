@@ -36,7 +36,7 @@ interface BottomRegionCardProps {
   ) => void
   onHandlePointerCancel: (dragRef: SheetDragRef) => void
   onClose: () => void
-  onThrowBottle: () => void
+  onThrowBottle: (destinationId: string) => void
 }
 
 function BottomRegionCard({
@@ -142,6 +142,9 @@ function BottomRegionCard({
       </dl>
 
       <div className={styles.cardActions}>
+        <Link to={`/bottle?dest=${encodeURIComponent(region.id)}`}>
+          查看漂流瓶
+        </Link>
         <Link to="/match">查看旅行搭子</Link>
         <Link to="/match">查看行程匹配</Link>
       </div>
@@ -149,7 +152,7 @@ function BottomRegionCard({
       <button
         type="button"
         className={styles.cardBottleAction}
-        onClick={onThrowBottle}
+        onClick={() => onThrowBottle(region.id)}
       >
         <BottleIcon />
         扔一个漂流瓶
