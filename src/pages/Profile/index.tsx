@@ -1,6 +1,7 @@
 import BottomNav from '@/components/BottomNav'
 import { useNavigate } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
+import { resolveDestinationId } from '@/utils/destinationResolver'
 import { ProfileHeader } from './components/ProfileHeader'
 import { CompanionSection } from './components/CompanionSection'
 import { BottleSection } from './components/BottleSection'
@@ -18,8 +19,10 @@ function Profile() {
   const mbtiTypeCn = useTripStore((s) => s.mbtiTypeCn)
   const tagline = useTripStore((s) => s.tagline)
   const tags = useTripStore((s) => s.tags)
+  const destination = useTripStore((s) => s.destination)
 
   const hasPersona = personaId !== null
+  const destinationId = resolveDestinationId(destination)
 
   if (!hasPersona) {
     return (
@@ -85,7 +88,7 @@ function Profile() {
         <SettingSection settingsItems={mockProfileData.settingsItems} />
       </div>
 
-      <BottomNav />
+      <BottomNav destinationId={destinationId} />
     </main>
   )
 }

@@ -8,13 +8,28 @@ const navItems = [
   { to: '/profile', label: '我的', icon: '●' },
 ]
 
-function BottomNav() {
+interface BottomNavProps {
+  destinationId?: string
+}
+
+function getNavTo(pathname: string, destinationId?: string) {
+  if (!destinationId) {
+    return pathname
+  }
+
+  return {
+    pathname,
+    search: `?dest=${encodeURIComponent(destinationId)}`,
+  }
+}
+
+function BottomNav({ destinationId }: BottomNavProps) {
   return (
     <nav className={styles.nav} aria-label="主导航">
       {navItems.map((item) => (
         <NavLink
           key={item.to}
-          to={item.to}
+          to={getNavTo(item.to, destinationId)}
           className={({ isActive }) =>
             isActive ? `${styles.item} ${styles.itemActive}` : styles.item
           }

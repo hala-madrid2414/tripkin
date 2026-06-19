@@ -1,9 +1,12 @@
 import BottomNav from '@/components/BottomNav'
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { allSpots, getRegionById, mapRegions } from '@/pages/Map/data/mapData'
 import { useMatchStore } from '@/store/useMatchStore'
 import { useTripStore } from '@/store/useTripStore'
+import {
+  getDestinationResolveHint,
+  resolveDestination,
+} from '@/utils/destinationResolver'
 import FilterSheet from './components/FilterSheet'
 import JoinTripSheet from './components/JoinTripSheet'
 import MatchFilterChips from './components/MatchFilterChips'
@@ -19,34 +22,6 @@ import type {
   PartnerMatchCardData,
   TripMatchCardData,
 } from './types'
-
-type MatchDestination = {
-  id: string
-  name: string
-  parentName?: string
-}
-
-const matchDestinations: MatchDestination[] = [
-  ...mapRegions.map((region) => ({
-    id: region.id,
-    name: region.name,
-  })),
-  ...allSpots.map((spot) => ({
-    id: spot.id,
-    name: spot.name,
-    parentName: getRegionById(spot.parentId)?.name,
-  })),
-]
-
-function getMatchDestination(destId: string | null) {
-  if (!destId) {
-    return null
-  }
-
-  return (
-    matchDestinations.find((destination) => destination.id === destId) ?? null
-  )
-}
 
 function Match() {
   const [searchParams] = useSearchParams()
@@ -73,9 +48,15 @@ function Match() {
 
   const currentContent = matchContent[activeMode]
   const currentDestination = useMemo(
-    () => getMatchDestination(searchParams.get('dest')),
-    [searchParams],
+    () =>
+      resolveDestination({
+        queryDest: searchParams.get('dest'),
+        sessionDest: destination,
+        defaultId: 'yunnan',
+      })!,
+    [destination, searchParams],
   )
+  const destinationHint = getDestinationResolveHint(currentDestination)
   const placeTitle = currentDestination
     ? `${currentDestination.name}${
         currentDestination.parentName
@@ -88,6 +69,11 @@ function Match() {
   const placeMeta = currentDestination
     ? `正在寻找同去 ${currentDestination.name} 的搭子`
     : currentContent.placeMeta
+  const backTo = currentDestination
+    ? currentDestination.source === 'default'
+      ? '/map'
+      : `/bottle?dest=${encodeURIComponent(currentDestination.id)}`
+    : '/map'
   const cards = useMemo(
     () => (activeMode === 'partner' ? partnerCards : tripCards),
     [activeMode],
@@ -100,6 +86,7 @@ function Match() {
           title={currentContent.title}
           placeTitle={placeTitle}
           placeMeta={placeMeta}
+          backTo={backTo}
           onFilterClick={() => setFilterVisible(true)}
         />
 
@@ -110,6 +97,8 @@ function Match() {
         />
 
         <MatchFilterChips items={currentContent.chips} />
+
+        {destinationHint && <p className={styles.hint}>{destinationHint}</p>}
 
         <section className={styles.list} aria-label="匹配结果列表">
           {activeMode === 'partner'
@@ -136,7 +125,7 @@ function Match() {
         ) : null}
       </div>
 
-      <BottomNav />
+      <BottomNav destinationId={currentDestination?.id} />
 
       <FilterSheet
         visible={filterVisible}

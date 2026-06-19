@@ -1,7 +1,11 @@
 import BottomNav from '@/components/BottomNav'
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { allSpots, getRegionById, mapRegions } from '@/pages/Map/data/mapData'
+import {
+  getDestinationResolveHint,
+  resolveDestination,
+} from '@/utils/destinationResolver'
+import { useTripStore } from '@/store/useTripStore'
 import {
   bottleTypeOptions,
   defaultBottleImage,
@@ -12,52 +16,7 @@ import {
 } from './data/bottleMockData'
 import styles from './Bottle.module.less'
 
-type Destination = {
-  id: string
-  name: string
-  bottleCount?: number
-  parentId?: string
-  parentName?: string
-}
-
 const defaultDestinationId = 'yunnan'
-
-const destinations: Destination[] = [
-  ...mapRegions.map((region) => ({
-    id: region.id,
-    name: region.name,
-    bottleCount: region.bottleCount,
-  })),
-  ...allSpots.map((spot) => ({
-    id: spot.id,
-    name: spot.name,
-    bottleCount: spot.bottleCount,
-    parentId: spot.parentId,
-    parentName: getRegionById(spot.parentId)?.name,
-  })),
-]
-
-function getDestination(destId: string | null) {
-  return (
-    destinations.find((destination) => destination.id === destId) ??
-    destinations.find(
-      (destination) => destination.id === defaultDestinationId,
-    ) ??
-    destinations[0]
-  )
-}
-
-function getDestinationHint(rawDest: string | null, destination: Destination) {
-  if (!rawDest) {
-    return `未携带目的地，已默认展示 ${destination.name} 的漂流瓶。`
-  }
-
-  if (rawDest !== destination.id) {
-    return `未识别目的地 ${rawDest}，已默认展示 ${destination.name}。`
-  }
-
-  return ''
-}
 
 function getSourceText(
   source: ReturnType<typeof getBottleListByDest>['source'],
@@ -77,9 +36,18 @@ function getSourceText(
 
 function Bottle() {
   const [searchParams] = useSearchParams()
+  const sessionDestination = useTripStore((state) => state.destination)
   const rawDest = searchParams.get('dest')
   const action = searchParams.get('action')
-  const currentDestination = useMemo(() => getDestination(rawDest), [rawDest])
+  const currentDestination = useMemo(
+    () =>
+      resolveDestination({
+        queryDest: rawDest,
+        sessionDest: sessionDestination,
+        defaultId: defaultDestinationId,
+      })!,
+    [rawDest, sessionDestination],
+  )
   const [userBottlesByDest, setUserBottlesByDest] = useState<
     Record<string, BottleMessage[]>
   >({})
@@ -114,7 +82,7 @@ function Bottle() {
     bottleResult.sourceName,
     currentDestination.name,
   )
-  const destinationHint = getDestinationHint(rawDest, currentDestination)
+  const destinationHint = getDestinationResolveHint(currentDestination)
   const matchPath = `/match?dest=${encodeURIComponent(currentDestination.id)}`
   const addActionKey = `${currentDestination.id}:${action ?? ''}`
   const addSheetOpen =
@@ -283,7 +251,7 @@ function Bottle() {
         </div>
       </section>
 
-      {!hasOpenSheet && <BottomNav />}
+      {!hasOpenSheet && <BottomNav destinationId={currentDestination.id} />}
 
       {selectedBottle && (
         <div className={styles.overlay} role="presentation">

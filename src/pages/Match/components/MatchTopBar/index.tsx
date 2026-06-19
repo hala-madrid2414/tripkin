@@ -6,6 +6,7 @@ interface MatchTopBarProps {
   title: string
   placeTitle: string
   placeMeta: string
+  backTo?: string
   onFilterClick: () => void
 }
 
@@ -13,6 +14,7 @@ function MatchTopBar({
   title,
   placeTitle,
   placeMeta,
+  backTo = '/bottle',
   onFilterClick,
 }: MatchTopBarProps) {
   return (
@@ -25,7 +27,7 @@ function MatchTopBar({
       </div>
 
       <nav className={styles.nav} aria-label="匹配页导航">
-        <Link to="/bottle" className={styles.backLink} aria-label="返回">
+        <Link to={backTo} className={styles.backLink} aria-label="返回">
           <MatchIcon name="back" />
         </Link>
         <h1 className={styles.title}>{title}</h1>
