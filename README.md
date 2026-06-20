@@ -10,10 +10,14 @@ TripKin 是一个移动端 H5 旅行搭子 Demo，目前用于比赛作品原型
 
 已确定的主流程页面包括：
 
-- 旅行 MBTI：`/mbti`
+- 首页：`/`
+- 旅行 MBTI 首页：`/mbti`
+- 旅行 MBTI 测试：`/mbti/test`
+- 旅行 MBTI 结果：`/mbti/result`
 - 旅行地图：`/map`
 - 旅行漂流瓶：`/bottle`
 - 搭子 / 行程匹配：`/match`
+- 我的旅行身份：`/profile`
 
 当前阶段暂不处理真实登录、数据库、真实匹配算法和真实 AI 接口。`server/` 只用于最小 mock API 链路，不代表真实后端能力完成。
 
@@ -136,6 +140,7 @@ update
 - 代码位置和样式规范：`docs/coding-guide.md`
 - antd-mobile 使用规范：`docs/antd-mobile-usage-guide.md`
 - 静态 Demo 统一整改范围：`docs/tripkin-demo-fix-scope.md`
+- 页面协作任务清单：`docs/tripkin-page-collaboration-plan.md`
 - 协作流程：`docs/collaboration-guide.md`
 - 本地页面验证说明：`docs/webapp-testing-guide.md`
 - 影响多人协作的决策记录：`docs/decision-notes/README.md`

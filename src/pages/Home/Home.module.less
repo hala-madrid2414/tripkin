@@ -1,0 +1,118 @@
+.page {
+  min-height: 100svh;
+  padding: 22px var(--space-page-x) 96px;
+  background: var(--gradient-page-profile);
+  color: var(--color-heading);
+}
+
+.hero {
+  padding: 28px 0 18px;
+}
+
+.kicker,
+.label {
+  margin: 0;
+  color: var(--color-brand-primary-strong);
+  font-size: var(--font-size-caption);
+  font-weight: 900;
+}
+
+.hero h1 {
+  margin: 12px 0 0;
+  max-width: 280px;
+  font-size: var(--font-size-title-lg);
+  line-height: 1.18;
+}
+
+.description {
+  margin: 12px 0 0;
+  max-width: 310px;
+  color: var(--color-text);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.heroActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.primaryLink,
+.secondaryLink,
+.mbtiCard a,
+.quickGrid a {
+  display: grid;
+  place-items: center;
+  min-height: var(--height-button);
+  border-radius: var(--radius-button);
+  font-size: var(--font-size-body);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.primaryLink {
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+  color: #ffffff;
+}
+
+.secondaryLink {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-glass);
+  color: var(--color-brand-primary-strong);
+}
+
+.mbtiCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  padding: 18px;
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-glass-strong);
+  box-shadow: var(--shadow-card);
+}
+
+.mbtiCard h2 {
+  margin: 7px 0 0;
+  font-size: var(--font-size-subtitle);
+  line-height: 1.35;
+}
+
+.mbtiCard p:last-child {
+  margin: 6px 0 0;
+  color: var(--color-text);
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+}
+
+.mbtiCard a {
+  flex: 0 0 72px;
+  min-height: 38px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-primary-soft);
+  color: var(--color-brand-primary-strong);
+}
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.quickGrid a {
+  min-height: 72px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--color-heading);
+  font-size: var(--font-size-caption);
+  line-height: 1.35;
+  text-align: center;
+}

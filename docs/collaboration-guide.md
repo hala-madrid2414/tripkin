@@ -34,6 +34,34 @@ npm install
 - 不确定需求先写到飞书讨论，不直接写死到仓库。
 - 新增依赖、组件库、后端能力、真实 AI 接口前必须先确认。
 
+### 公共骨架完成后的页面协作
+
+当前首页、MBTI 三段路由、四栏 `BottomNav` 和 `MbtiEntryModal` 公共骨架已经就绪。后续页面负责人应优先在自己的页面目录内推进，不建议多人同时在各自页面里顺手修改公共文件。
+
+推荐流程：
+
+1. 先确认自己要负责的页面目录。
+2. 页面内容、页面内组件和页面样式都优先留在对应页面目录。
+3. 如果确实需要修改路由、`BottomNav` 或 `MbtiEntryModal`，先说明影响范围，再集中处理公共改动。
+
+当前公共骨架包括：
+
+- 首页路由 `/`。
+- `/mbti`、`/mbti/test`、`/mbti/result`。
+- `首页 / 地图 / MBTI / 我的` 四栏 `BottomNav`。
+- `MbtiEntryModal`，用于非 MBTI 页面点击底部 MBTI 时先弹出引导弹窗。
+
+页面负责人分工时，优先按目录拆开：
+
+- 首页：`src/pages/Home/`
+- MBTI：`src/pages/Mbti/`
+- Map：`src/pages/Map/`
+- Bottle：`src/pages/Bottle/`
+- Match：`src/pages/Match/`
+- Profile：`src/pages/Profile/`
+
+页面私有内容继续放在对应页面目录里。公共骨架后续只做必要维护，不夹带单页视觉重写。
+
 推荐：
 
 - 页面内部内容先就近写。
