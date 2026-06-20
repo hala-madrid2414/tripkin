@@ -15,6 +15,7 @@ import MatchTopBar from './components/MatchTopBar'
 import PartnerMatchCard from './components/PartnerMatchCard'
 import ProfileSheet from './components/ProfileSheet'
 import TripMatchCard from './components/TripMatchCard'
+import { getMatchViewModel } from './matchLogic'
 import { matchContent, modeOptions, partnerCards, tripCards } from './matchMock'
 import styles from './Match.module.less'
 import type {
@@ -52,9 +53,20 @@ function Match() {
       resolveDestination({
         queryDest: searchParams.get('dest'),
         sessionDest: destination,
-        defaultId: 'yunnan',
+        defaultId: 'xizang',
       })!,
     [destination, searchParams],
+  )
+  const viewModel = useMemo(
+    () =>
+      getMatchViewModel({
+        mode: activeMode,
+        destinationId: currentDestination.id,
+        destinationName: currentDestination.name,
+        partnerCards,
+        tripCards,
+      }),
+    [activeMode, currentDestination],
   )
   const destinationHint = getDestinationResolveHint(currentDestination)
   const placeTitle = currentDestination
@@ -66,18 +78,11 @@ function Match() {
     : (entryContext?.destinationName ??
       currentContent.placeTitle ??
       destination)
-  const placeMeta = currentDestination
-    ? `正在寻找同去 ${currentDestination.name} 的搭子`
-    : currentContent.placeMeta
   const backTo = currentDestination
     ? currentDestination.source === 'default'
       ? '/map'
       : `/bottle?dest=${encodeURIComponent(currentDestination.id)}`
     : '/map'
-  const cards = useMemo(
-    () => (activeMode === 'partner' ? partnerCards : tripCards),
-    [activeMode],
-  )
 
   return (
     <main className={styles.page}>
@@ -85,7 +90,7 @@ function Match() {
         <MatchTopBar
           title={currentContent.title}
           placeTitle={placeTitle}
-          placeMeta={placeMeta}
+          placeMeta={viewModel.metaText}
           backTo={backTo}
           onFilterClick={() => setFilterVisible(true)}
         />
@@ -99,28 +104,38 @@ function Match() {
         <MatchFilterChips items={currentContent.chips} />
 
         {destinationHint && <p className={styles.hint}>{destinationHint}</p>}
+        {viewModel.noteText && (
+          <p className={styles.stateNote}>{viewModel.noteText}</p>
+        )}
 
         <section className={styles.list} aria-label="匹配结果列表">
-          {activeMode === 'partner'
-            ? (cards as PartnerMatchCardData[]).map((item) => (
-                <PartnerMatchCard
-                  key={item.id}
-                  item={item}
-                  onOpen={setSelectedPartner}
-                />
-              ))
-            : (cards as TripMatchCardData[]).map((item) => (
-                <TripMatchCard
-                  key={item.id}
-                  item={item}
-                  onJoin={setSelectedTrip}
-                />
-              ))}
+          {viewModel.state === 'empty' ? (
+            <div className={styles.emptyState}>
+              <h2>{viewModel.emptyTitle}</h2>
+              <p>{viewModel.emptyDescription}</p>
+            </div>
+          ) : activeMode === 'partner' ? (
+            (viewModel.items as PartnerMatchCardData[]).map((item) => (
+              <PartnerMatchCard
+                key={item.id}
+                item={item}
+                onOpen={setSelectedPartner}
+              />
+            ))
+          ) : (
+            (viewModel.items as TripMatchCardData[]).map((item) => (
+              <TripMatchCard
+                key={item.id}
+                item={item}
+                onJoin={setSelectedTrip}
+              />
+            ))
+          )}
         </section>
 
-        {activeMode === 'partner' ? (
+        {activeMode === 'partner' && viewModel.state !== 'empty' ? (
           <footer className={styles.footer}>
-            以上为部分匹配结果，持续为你推荐中...
+            以上为当前目的地相关匹配结果，后续可由后端按目的地和人格继续推荐。
           </footer>
         ) : null}
       </div>

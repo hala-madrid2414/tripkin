@@ -25,9 +25,10 @@ function PartnerMatchCard({ item, onOpen }: PartnerMatchCardProps) {
           <h2 className={styles.name}>{item.name}</h2>
           <span className={styles.identity}>{item.identityStatus}</span>
           <span className={styles.score}>匹配度 {item.matchScore}%</span>
-          {item.travelPersona && (
+          {item.persona && (
             <span className={styles.persona}>
-              {item.travelPersona.emoji} {item.travelPersona.titleCn}
+              {item.persona.emoji} {item.persona.tripkinTitleCn} ·{' '}
+              {item.classicMbti}
             </span>
           )}
         </div>

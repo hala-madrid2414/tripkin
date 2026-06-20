@@ -1,7 +1,8 @@
-﻿import { Toast } from 'antd-mobile'
+import { Toast } from 'antd-mobile'
+import type { ReactElement } from 'react'
 import { PersonaAvatar } from '@/pages/Mbti/components/PersonaAvatar'
 import type { PersonaId } from '@/types/mbti'
-import type { ReactElement } from 'react'
+import { getPersonaPresentation } from '@/utils/personaPresentation'
 import styles from './ProfileHeader.module.less'
 
 function IconEdit(): ReactElement {
@@ -23,6 +24,7 @@ interface ProfileHeaderProps {
   personaId: PersonaId | null
   nickname: string | null
   mbtiTypeCn: string | null
+  classicMbti: string | null
   tags: string[]
   tagline: string | null
 }
@@ -31,9 +33,16 @@ export function ProfileHeader({
   personaId,
   nickname,
   mbtiTypeCn,
+  classicMbti,
   tags,
   tagline,
 }: ProfileHeaderProps) {
+  const presentation = personaId ? getPersonaPresentation(personaId) : null
+  const displayTitle = presentation?.tripkinTitleCn ?? mbtiTypeCn ?? '未知'
+  const displayMbti = presentation?.classicMbti ?? classicMbti
+  const displayTags = presentation?.tags ?? tags
+  const displayTagline = presentation?.tagline ?? tagline
+
   return (
     <section className={styles.header}>
       <button
@@ -61,20 +70,21 @@ export function ProfileHeader({
       <h1 className={styles.nickname}>{nickname ?? '\u65C5\u884C\u8005'}</h1>
 
       <span className={styles.personaBadge}>
-        {'\u2728'} {mbtiTypeCn ?? '\u672A\u77E5'}
+        {'\u2728'} {displayTitle}
+        {displayMbti ? ` · ${displayMbti}` : ''}
       </span>
 
-      {tags.length > 0 && (
+      {displayTags.length > 0 && (
         <div className={styles.tags}>
-          {tags.map((t) => (
-            <span key={t} className={styles.tag}>
-              {t}
+          {displayTags.map((tag) => (
+            <span key={tag} className={styles.tag}>
+              {tag}
             </span>
           ))}
         </div>
       )}
 
-      {tagline && <p className={styles.declaration}>{tagline}</p>}
+      {displayTagline && <p className={styles.declaration}>{displayTagline}</p>}
     </section>
   )
 }

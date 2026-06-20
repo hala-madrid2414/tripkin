@@ -76,6 +76,7 @@ export interface TripSession {
   personaId: PersonaId | null
   mbtiTypeCn: string | null
   mbtiTypeEn: string | null
+  classicMbti: string | null
   tagline: string | null
   tags: string[]
   nickname: string | null

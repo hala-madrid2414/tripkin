@@ -17,6 +17,7 @@ function Profile() {
   const personaId = useTripStore((s) => s.personaId)
   const nickname = useTripStore((s) => s.nickname)
   const mbtiTypeCn = useTripStore((s) => s.mbtiTypeCn)
+  const classicMbti = useTripStore((s) => s.classicMbti)
   const tagline = useTripStore((s) => s.tagline)
   const tags = useTripStore((s) => s.tags)
   const destination = useTripStore((s) => s.destination)
@@ -59,6 +60,7 @@ function Profile() {
           personaId={personaId}
           nickname={nickname}
           mbtiTypeCn={mbtiTypeCn}
+          classicMbti={classicMbti}
           tags={tags}
           tagline={tagline}
         />

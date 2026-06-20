@@ -14,6 +14,10 @@ function ProfileSheet({ partner, visible, onClose }: ProfileSheetProps) {
     return null
   }
 
+  const personaText = partner.persona
+    ? `${partner.persona.tripkinTitleCn} · ${partner.classicMbti}`
+    : partner.personality
+
   return (
     <Popup
       visible={visible}
@@ -46,8 +50,7 @@ function ProfileSheet({ partner, visible, onClose }: ProfileSheetProps) {
         <div className={styles.personality}>
           <p className={styles.personalityTitle}>
             <MatchIcon name="heart" />
-            {partner.travelPersona?.titleCn ?? partner.personality} · 匹配度{' '}
-            {partner.matchScore}%
+            {personaText} · 匹配度 {partner.matchScore}%
           </p>
           <div className={styles.interests}>
             {partner.interests.map((interest) => (
@@ -83,7 +86,7 @@ function ProfileSheet({ partner, visible, onClose }: ProfileSheetProps) {
           <button
             type="button"
             className={styles.primaryAction}
-            onClick={() => Toast.show({ content: '已发起同行邀请邀请' })}
+            onClick={() => Toast.show({ content: '已发起同行邀请' })}
           >
             发起同行邀请
             <MatchIcon name="send" />

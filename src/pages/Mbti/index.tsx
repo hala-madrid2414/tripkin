@@ -2,6 +2,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
 import type { ChoiceLetter, PersonaId } from '@/types/mbti'
+import { getPersonaPresentation } from '@/utils/personaPresentation'
 import { PERSONALITIES } from './data'
 import { calculateResult, makeNickname, readDestParam } from './logic'
 import { Welcome } from './components/Welcome'
@@ -31,14 +32,16 @@ function Mbti() {
     opts: { skipped: boolean; scores?: Record<PersonaId, number> },
   ) => {
     const persona = PERSONALITIES[personaId]
+    const presentation = getPersonaPresentation(personaId)
     const nickname = makeNickname(persona)
     setResultId(personaId)
     setMbtiResult({
       personaId,
-      mbtiTypeCn: persona.titleCn,
-      mbtiTypeEn: persona.titleEn,
-      tagline: persona.tagline,
-      tags: persona.tags,
+      mbtiTypeCn: presentation.tripkinTitleCn,
+      mbtiTypeEn: presentation.tripkinTitleEn,
+      classicMbti: presentation.classicMbti,
+      tagline: presentation.tagline,
+      tags: presentation.tags,
       nickname,
       destination,
       avatarKey: personaId,

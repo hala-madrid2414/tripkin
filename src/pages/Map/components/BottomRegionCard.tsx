@@ -1,5 +1,5 @@
 import type { MutableRefObject, PointerEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useMatchStore, type MatchMode } from '@/store/useMatchStore'
 import { getRegionTripCount } from '../data/mapData'
 import type { Region } from '../types'
@@ -86,6 +86,10 @@ function BottomRegionCard({
     navigate(`/match?tab=${mode}&dest=${encodedRegionId}`)
   }
 
+  const handleBottleLinkClick = () => {
+    navigate(`/bottle?dest=${encodedRegionId}`)
+  }
+
   return (
     <section className={className} aria-label={`${region.name}旅行信息`}>
       <button
@@ -163,7 +167,9 @@ function BottomRegionCard({
       </dl>
 
       <div className={styles.cardActions}>
-        <Link to={`/bottle?dest=${encodedRegionId}`}>查看漂流瓶</Link>
+        <button type="button" onClick={handleBottleLinkClick}>
+          查看漂流瓶
+        </button>
         <button type="button" onClick={() => handleMatchLinkClick('partner')}>
           查看旅行搭子
         </button>

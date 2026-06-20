@@ -1,3 +1,6 @@
+import type { PersonaId } from '@/types/mbti'
+import type { PersonaPresentation } from '@/utils/personaPresentation'
+
 export type MatchMode = 'partner' | 'trip'
 
 export interface MatchModeOption {
@@ -26,7 +29,8 @@ export interface MatchChip {
 export interface PartnerMatchCardData {
   id: string
   name: string
-  mbti?: string
+  personaId: PersonaId
+  classicMbti: string
   identityStatus: '已实名' | '未实名'
   matchScore: number
   travelWay: string
@@ -36,16 +40,13 @@ export interface PartnerMatchCardData {
   avatarAlt: string
   online?: boolean
   personality: string
-  travelPersona?: {
-    id: string
-    titleCn: string
-    titleEn: string
-    emoji: string
-  }
+  persona?: PersonaPresentation
   interests: Array<{
     icon: MatchChipIcon
     label: string
   }>
+  primaryDestinationId: string
+  destinationIds: string[]
   destination: string
   departure: string
   summary: string
@@ -60,6 +61,8 @@ export interface PartnerMatchCardData {
 export interface TripMatchCardData {
   id: string
   organizerName: string
+  primaryDestinationId: string
+  destinationIds: string[]
   title: string
   imageTone: 'valley' | 'ridge' | 'bridge' | 'snow'
   location: string
@@ -81,3 +84,16 @@ export interface MatchModeContent {
   placeMeta: string
   chips: MatchChip[]
 }
+
+export type MatchViewState = 'exact' | 'nearby' | 'empty'
+
+export interface MatchViewModel<T> {
+  state: MatchViewState
+  items: T[]
+  metaText: string
+  noteText: string
+  emptyTitle: string
+  emptyDescription: string
+}
+
+export type MatchViewItem = PartnerMatchCardData | TripMatchCardData
