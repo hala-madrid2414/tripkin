@@ -1,136 +1,120 @@
-import { useState, type CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
+import { Toast } from 'antd-mobile'
 import type { PersonaId } from '@/types/mbti'
-import { useTripStore } from '@/store/useTripStore'
 import { PERSONALITIES } from '../../data'
-import { makeBarcodeBars, makeIdNum } from '../../logic'
-import { IdentityDetails } from '../IdentityDetails'
+import { getPersonaPresentation } from '@/utils/personaPresentation'
 import { PersonaAvatar } from '../PersonaAvatar'
 import sharedStyles from '../shared.module.less'
 import styles from './IdentityCard.module.less'
 
-interface IdentityCardProps {
-  personaId: PersonaId
-  onGoMap: () => void
-  onRestart: () => void
+/** 3 字以内的通俗短名称 */
+const SHORT_NAMES: Record<PersonaId, string> = {
+  'Cyber-Raider': '特种兵',
+  'Zen-Capybara': '佛系派',
+  'Budget-Architect': '精算家',
+  'Romantic-Observer': '浪漫派',
 }
 
-export function IdentityCard({
-  personaId,
-  onGoMap,
-  onRestart,
-}: IdentityCardProps) {
-  const persona = PERSONALITIES[personaId]
-  const nickname = useTripStore((s) => s.nickname)
-  const destination = useTripStore((s) => s.destination)
+/** 与你最相配的旅行关键词 */
+const MATCH_KEYWORDS: Record<PersonaId, string[]> = {
+  'Cyber-Raider': ['极限挑战', '高效打卡', '热血冲刺', '战绩收藏'],
+  'Zen-Capybara': ['松弛疗愈', '慢节奏', '自然沉浸', '发呆时光'],
+  'Budget-Architect': ['深度溯源', '精打细算', '文化探秘', '路线规划'],
+  'Romantic-Observer': ['自由探索', '氛围感', '故事感', '即兴惊喜'],
+}
 
-  // 条码与编号只在挂载时生成一次，避免重渲染抖动
-  const [bars] = useState(() => makeBarcodeBars())
-  const [idNum] = useState(() => makeIdNum(personaId))
-  const [showDetails, setShowDetails] = useState(false)
+interface IdentityCardProps {
+  personaId: PersonaId
+  onBack: () => void
+}
+
+export function IdentityCard({ personaId, onBack }: IdentityCardProps) {
+  const persona = PERSONALITIES[personaId]
+  const { classicMbti } = getPersonaPresentation(personaId)
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      Toast.show({ content: '链接已复制，快去分享给旅伴吧' })
+    } catch {
+      Toast.show({ content: '复制失败，请手动复制地址栏链接' })
+    }
+  }
 
   return (
-    <div className={styles.result}>
-      <div className={styles.resultScroll}>
-        <article
-          className={`${sharedStyles.glass} ${styles.idcard}`}
-          style={{ '--accent': persona.accent } as CSSProperties}
-        >
-          <header className={styles.idcardHead}>
-            <div className={styles.idcardBrand}>
-              <span className={styles.idcardBrandMark}>✦</span>
-              <div>
-                <p className={styles.idcardBrandCn}>旅行身份卡</p>
-                <p className={styles.idcardBrandEn}>TRAVEL SOCIAL CARD</p>
-              </div>
-            </div>
-            <span className={styles.idcardStamp}>PERSONA</span>
-          </header>
-
-          <div className={styles.idcardIdentity}>
-            <div className={styles.idcardAvatar}>
-              <PersonaAvatar id={personaId} />
-            </div>
-            <div className={styles.idcardMain}>
-              <p className={styles.idcardNickname}>{nickname}</p>
-              <h2 className={styles.idcardTitleCn}>{persona.titleCn}</h2>
-              <p className={styles.idcardTitleEn}>{persona.titleEn}</p>
-            </div>
-          </div>
-
-          <p className={styles.idcardTagline}>
-            <strong>{persona.tagline}</strong>
-            {persona.description}
-          </p>
-
-          <div className={styles.idcardTags}>
-            {persona.tags.map((t) => (
-              <span key={t} className={styles.tag}>
-                {t}
-              </span>
-            ))}
-          </div>
-
-          <div className={styles.idcardIntent}>
-            <p className={styles.idcardIntentTitle}>
-              偏好摘要 / PREFERENCE SNAPSHOT
-            </p>
-            <dl className={styles.idcardIntentGrid}>
-              <div>
-                <dt>目的地</dt>
-                <dd>{destination}</dd>
-              </div>
-              <div>
-                <dt>旅行方式</dt>
-                <dd>{persona.traits.style}</dd>
-              </div>
-              <div>
-                <dt>推荐解释</dt>
-                <dd>{persona.intentLine}</dd>
-              </div>
-            </dl>
-          </div>
-
-          <footer className={styles.idcardFoot}>
-            <div className={styles.idcardBarcode}>
-              {bars.map((b, i) => (
-                <span key={i} style={{ width: b.width, opacity: b.opacity }} />
-              ))}
-            </div>
-            <span className={styles.idcardIdnum}>{idNum}</span>
-          </footer>
-        </article>
-
+    <div
+      className={styles.result}
+      style={{ '--accent': persona.accent } as CSSProperties}
+    >
+      {/* 顶部导航 */}
+      <div className={styles.topNav}>
         <button
           type="button"
-          className={styles.detailsToggle}
-          onClick={() => setShowDetails(!showDetails)}
+          className={styles.backBtn}
+          onClick={onBack}
+          aria-label="返回"
         >
-          {showDetails ? '收起旅行偏好' : '查看旅行偏好'}
-          <span
-            className={`${styles.detailsArrow} ${showDetails ? styles.detailsArrowUp : ''}`}
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            ↓
-          </span>
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
         </button>
-
-        {showDetails && <IdentityDetails details={persona.details} />}
+        <span className={styles.topTitle}>你的旅行MBTI是</span>
+        <button type="button" className={styles.shareBtn} onClick={handleShare}>
+          分享
+        </button>
       </div>
 
+      {/* 身份卡片：左头像 + 右信息 */}
+      <div className={styles.idCard}>
+        <div className={styles.idCardAvatar}>
+          <PersonaAvatar id={personaId} />
+        </div>
+        <div className={styles.idCardInfo}>
+          <h1 className={styles.mbtiType}>{classicMbti}</h1>
+          <p className={styles.personaName}>{persona.titleCn}</p>
+          <span className={styles.personaBadge}>{SHORT_NAMES[personaId]}</span>
+        </div>
+      </div>
+
+      {/* 人格标签 */}
+      <div className={styles.tagsRow}>
+        {persona.tags.map((t) => (
+          <span key={t} className={styles.tag}>
+            {t}
+          </span>
+        ))}
+      </div>
+
+      {/* 人格详细介绍 */}
+      <p className={styles.description}>{persona.description}</p>
+
+      {/* 与你最相配的旅行关键词 */}
+      <div className={styles.matchSection}>
+        <p className={styles.matchTitle}>与你最相配的旅行关键词</p>
+        <div className={styles.matchTags}>
+          {MATCH_KEYWORDS[personaId].map((kw) => (
+            <span key={kw} className={styles.matchTag}>
+              {kw}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* 底部按钮 */}
       <footer className={styles.resultFooter}>
         <button
           type="button"
           className={`${sharedStyles.btn} ${sharedStyles.btnPrimary} ${sharedStyles.btnLg}`}
-          onClick={onGoMap}
+          onClick={handleShare}
         >
-          <span>去地图找旅行搭子</span>
-          <span className={sharedStyles.btnArrow}>→</span>
-        </button>
-        <button
-          type="button"
-          className={`${sharedStyles.btn} ${sharedStyles.btnGhost}`}
-          onClick={onRestart}
-        >
-          重新测试
+          <span>🎯 分享我的结果</span>
         </button>
       </footer>
     </div>

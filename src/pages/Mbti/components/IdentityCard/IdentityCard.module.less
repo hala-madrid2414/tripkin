@@ -1,105 +1,89 @@
+/* ============================================
+   Result View — 匹配目标设计
+   ============================================ */
+
 .result {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   min-height: 0;
+  padding: 0 20px;
+  background: linear-gradient(
+    180deg,
+    #ede8ff 0%,
+    #e0d8ff 25%,
+    var(--color-page-mbti) 55%
+  );
 }
 
-.resultScroll {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 100px;
-}
-
-.resultScroll::-webkit-scrollbar {
-  width: 0;
-}
-
-.idcard {
-  position: relative;
-  padding: 22px 20px 18px;
-  animation: cardReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes cardReveal {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.idcardHead {
+/* ---- 顶部导航 ---- */
+.topNav {
+  flex: 0 0 auto;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.idcardBrand {
-  display: flex;
-  gap: 10px;
   align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
 }
 
-.idcardBrandMark {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
+.backBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
-  background: linear-gradient(
-    135deg,
-    var(--accent, var(--color-brand-primary)),
-    var(--color-brand-primary-strong)
-  );
-  color: var(--color-surface-solid);
-  font-size: 17px;
-  font-weight: 900;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.idcardBrandCn {
-  font-weight: 700;
-  font-size: 14px;
+.backBtn:active {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(0.92);
+}
+
+.backBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.topTitle {
+  font-size: 16px;
+  font-weight: 600;
   color: var(--color-heading);
-  margin: 0;
 }
 
-.idcardBrandEn {
-  font-size: 9.5px;
-  letter-spacing: 0.28em;
-  color: var(--color-muted);
-  margin: 2px 0 0;
-}
-
-.idcardStamp {
-  font-weight: 700;
-  font-size: 9px;
-  letter-spacing: 0.15em;
+.shareBtn {
+  font-size: 14px;
   color: var(--color-brand-primary);
-  padding: 5px 9px;
-  border: 1.2px dashed var(--color-brand-primary);
-  border-radius: 6px;
-  transform: rotate(6deg);
-  opacity: 0.85;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
 }
 
-.idcardIdentity {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  margin-top: 22px;
-}
-
-.idcardAvatar {
+/* ---- 身份卡片：左头像 + 右信息 ---- */
+.idCard {
   flex: 0 0 auto;
-  width: 88px;
-  height: 88px;
-  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 24px 20px;
+  background: var(--color-surface);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(109, 93, 246, 0.06);
+}
+
+.idCardAvatar {
+  flex: 0 0 auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
   background: radial-gradient(
@@ -107,62 +91,49 @@
     var(--color-surface-solid),
     var(--color-brand-primary-mist)
   );
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-.idcardAvatar svg {
-  width: 66px;
-  height: 66px;
+.idCardAvatar svg {
+  width: 72px;
+  height: 72px;
 }
 
-.idcardMain {
+.idCardInfo {
   min-width: 0;
 }
 
-.idcardNickname {
-  font-size: 12px;
-  color: var(--color-muted);
-  margin: 0 0 2px;
-}
-
-.idcardTitleCn {
+.mbtiType {
+  font-size: 38px;
   font-weight: 900;
-  font-size: 26px;
-  line-height: 1.15;
+  letter-spacing: 0.04em;
   color: var(--color-heading);
   margin: 0;
+  line-height: 1.1;
 }
 
-.idcardTitleEn {
+.personaName {
+  font-size: 16px;
   font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--accent, var(--color-brand-primary));
-  margin: 4px 0 0;
-}
-
-.idcardTagline {
-  margin-top: 18px;
-  font-size: 13.5px;
-  line-height: 1.65;
   color: var(--color-text);
-  padding: 12px 14px;
-  background: var(--color-brand-primary-mist);
-  border-left: 2px solid var(--accent, var(--color-brand-primary));
-  border-radius: 0 10px 10px 0;
+  margin: 4px 0 8px;
 }
 
-.idcardTagline strong {
-  display: block;
-  font-weight: 700;
-  font-size: 14px;
+.personaBadge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--color-brand-primary-soft);
   color: var(--accent, var(--color-brand-primary));
-  margin-bottom: 5px;
-  letter-spacing: 0.02em;
+  border: 1px solid var(--color-brand-primary-line);
 }
 
-.idcardTags {
+/* ---- 人格标签 ---- */
+.tagsRow {
+  flex: 0 0 auto;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -170,155 +141,64 @@
 }
 
 .tag {
-  font-size: 11.5px;
-  padding: 6px 11px;
-  border-radius: var(--radius-chip);
-  color: var(--color-brand-primary);
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
   background: var(--color-brand-primary-soft);
+  color: var(--accent, var(--color-brand-primary));
   border: 1px solid var(--color-brand-primary-line);
 }
 
 .tag:nth-child(even) {
   background: var(--color-brand-primary-mist);
-  border-color: var(--color-brand-primary-line);
 }
 
-.idcardIntent {
-  position: relative;
-  margin-top: 22px;
-  padding: 16px 4px 6px;
-  -webkit-mask-image:
-    radial-gradient(circle 8px at 0 0, transparent 98%, #000 100%),
-    radial-gradient(circle 8px at 100% 0, transparent 98%, #000 100%);
-  mask-image:
-    radial-gradient(circle 8px at 0 0, transparent 98%, #000 100%),
-    radial-gradient(circle 8px at 100% 0, transparent 98%, #000 100%);
+/* ---- 人格详细介绍 ---- */
+.description {
+  flex: 0 0 auto;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin: 16px 0 0;
 }
 
-.idcardIntent::before {
-  content: '';
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  top: 0;
-  height: 1px;
-  background-image: linear-gradient(
-    90deg,
-    var(--color-border-strong) 50%,
-    transparent 0
-  );
-  background-size: 8px 1px;
-}
-
-.idcardIntentTitle {
-  font-size: 10px;
-  letter-spacing: 0.24em;
-  color: var(--color-muted);
-  margin: 0 0 12px;
-}
-
-.idcardIntentGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 0;
-}
-
-.idcardIntentGrid > div {
-  min-width: 0;
-}
-
-.idcardIntentGrid dt {
-  font-size: 10.5px;
-  color: var(--color-muted);
-  margin: 0 0 4px;
-}
-
-.idcardIntentGrid dd {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-heading);
-  margin: 0;
-  line-height: 1.35;
-}
-
-.idcardFoot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 14px;
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px dashed var(--color-border-strong);
-}
-
-.idcardBarcode {
+/* ---- 与你最相配的旅行关键词 ---- */
+.matchSection {
   flex: 1 1 auto;
-  height: 34px;
-  display: flex;
-  align-items: stretch;
-  gap: 1.5px;
-}
-
-.idcardBarcode span {
-  display: block;
-  background: var(--color-heading);
-  height: 100%;
-}
-
-.idcardIdnum {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-.detailsToggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 14px;
-  margin-top: 16px;
+  margin-top: 24px;
+  padding: 20px;
   background: var(--color-surface);
+  border-radius: 16px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
+}
+
+.matchTitle {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-brand-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
+  color: var(--color-heading);
+  margin: 0 0 14px;
 }
 
-.detailsToggle:hover {
-  background: var(--color-surface-solid);
-  border-color: var(--color-brand-primary);
+.matchTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.detailsArrow {
-  display: inline-block;
-  transition: transform 0.3s ease;
-  font-size: 12px;
+.matchTag {
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: var(--color-brand-primary-soft);
+  color: var(--accent, var(--color-brand-primary));
+  border: 1px solid var(--color-brand-primary-line);
 }
 
-.detailsArrowUp {
-  transform: rotate(180deg);
-}
-
+/* ---- 底部按钮 ---- */
 .resultFooter {
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 14px 0 calc(env(safe-area-inset-bottom) + 14px);
-  background: linear-gradient(180deg, transparent, var(--color-page-mbti) 38%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .idcard {
-    animation: none !important;
-  }
+  padding: 20px 0 calc(env(safe-area-inset-bottom) + 14px);
 }
