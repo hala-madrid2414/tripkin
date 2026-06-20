@@ -6,7 +6,7 @@ TripKin 是一个移动端 H5 旅行搭子 Demo，目前用于比赛作品原型
 
 ## 当前目标
 
-当前阶段先完成可运行、可截图、可继续迭代的前端 Demo。
+当前阶段先完成可运行、可截图、可继续迭代的前端 Demo，并允许 `server/` 下的最小 TypeScript mock API 骨架用于后续前后端联调。
 
 已确定的主流程页面包括：
 
@@ -15,7 +15,7 @@ TripKin 是一个移动端 H5 旅行搭子 Demo，目前用于比赛作品原型
 - 旅行漂流瓶：`/bottle`
 - 搭子 / 行程匹配：`/match`
 
-当前阶段暂不处理真实登录、真实后端、真实匹配算法和真实 AI 接口。
+当前阶段暂不处理真实登录、数据库、真实匹配算法和真实 AI 接口。`server/` 只用于最小 mock API 链路，不代表真实后端能力完成。
 
 ## 环境要求
 
@@ -37,6 +37,16 @@ npm install
 npm run dev
 ```
 
+如需启动最小后端 mock API：
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+后端默认运行在 `http://localhost:3001`，健康检查地址为 `http://localhost:3001/api/health`。
+
 如果需要在 `/map` 使用真实高德地图，在本地创建 `.env.local`：
 
 ```bash
@@ -56,6 +66,14 @@ npm run lint         # 检查代码问题
 npm run build        # 检查项目能否构建
 npm run format:check # 检查格式
 npm run commit       # 按规范生成提交信息
+```
+
+后端命令在 `server/` 目录内执行：
+
+```bash
+npm run dev   # 启动最小 mock API 服务
+npm run build # 检查后端 TypeScript 构建
+npm run start # 运行构建后的后端服务
 ```
 
 ## 移动端开发基准

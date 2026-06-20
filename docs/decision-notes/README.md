@@ -38,6 +38,14 @@
 
 ## 已记录决策
 
+### 2026-06-20 引入 server 最小 TypeScript mock API 骨架
+
+- 类型：目录结构 / 依赖 / 工程化
+- 背景：前端已通过 `src/services` 收口 Match 和 Bottle 的 mock 数据入口，后续需要一个最小后端承接前后端联调，但当前仍不能引入数据库、登录、真实 AI 或真实匹配算法。
+- 决定：新增 `server/` 作为独立 TypeScript Express 后端目录，使用独立 `package.json` 和 `tsconfig.json`。当前仅提供 `/api/health` 健康检查，返回 `{ ok: true, service: 'tripkin-server' }`，用于确认后端服务可以启动和访问。
+- 影响范围：`server/` 后端目录、README 本地启动说明、`AGENTS.md` 当前范围、`docs/coding-guide.md` 目录职责和 `docs/collaboration-guide.md` 协作规则。
+- 后续注意：前端页面仍通过 `src/services` 访问数据，不直接拼后端 URL。后续 Match/Bottle 业务接口迁移需要单独确认接口契约；不要在本阶段顺手加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
+
 ### 2026-06-20 新增 MVP 四入口底部导航 BottomNav
 
 - 类型：公共组件 / 路由
@@ -133,4 +141,4 @@
   2. 首轮城市粒度只覆盖 `src/pages/Map/data/mapData.ts` 里已有的 region/spot，不额外扩展全量城市库。
   3. TripKin 旅行人格展示以 `personaId` 为准，不要把 `mbtiTypeEn` 当作 Match 卡片里的 16 型 MBTI 字母使用。
   4. 页面私有组件先留在各自页面目录；只有身份卡、标签、底部弹层等确认跨页复用后，再抽到 `src/components`。
-  5. 本轮仍是静态前端 Demo，不引入后端、数据库、登录、真实 AI、真实聊天、真实上传、真实匹配算法或新 UI 组件库。
+  5. 本轮仍以静态前端 Demo 为主，仅允许 `server/` 下的最小 mock API 骨架用于后续联调；不引入数据库、登录、真实 AI、真实聊天、真实上传、真实匹配算法或新 UI 组件库。
