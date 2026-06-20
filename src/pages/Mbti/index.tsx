@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
 import type { ChoiceLetter, PersonaId } from '@/types/mbti'
-import { PERSONALITIES, TIE_PRIORITY } from './data'
+import { getPersonaPresentation } from '@/utils/personaPresentation'
+import { PERSONALITIES } from './data'
 import { calculateResult, makeNickname, readDestParam } from './logic'
 import { Welcome } from './components/Welcome'
 import { Quiz } from './components/Quiz'
@@ -20,10 +21,8 @@ function Mbti() {
   const setMbtiResult = useTripStore((s) => s.setMbtiResult)
   const setDestination = useTripStore((s) => s.setDestination)
 
-  // 目的地：URL ?dest= 覆盖，缺省「西藏」
   const destination = readDestParam(searchParams.get('dest'))
 
-  // 进入页面时把目的地同步进跨页面 store，供 /map 消费
   useEffect(() => {
     setDestination(destination)
   }, [destination, setDestination])
@@ -33,14 +32,16 @@ function Mbti() {
     opts: { skipped: boolean; scores?: Record<PersonaId, number> },
   ) => {
     const persona = PERSONALITIES[personaId]
+    const presentation = getPersonaPresentation(personaId)
     const nickname = makeNickname(persona)
     setResultId(personaId)
     setMbtiResult({
       personaId,
-      mbtiTypeCn: persona.titleCn,
-      mbtiTypeEn: persona.titleEn,
-      tagline: persona.tagline,
-      tags: persona.tags,
+      mbtiTypeCn: presentation.tripkinTitleCn,
+      mbtiTypeEn: presentation.tripkinTitleEn,
+      classicMbti: presentation.classicMbti,
+      tagline: presentation.tagline,
+      tags: presentation.tags,
       nickname,
       destination,
       avatarKey: personaId,
@@ -61,13 +62,21 @@ function Mbti() {
     finalize(result, { skipped: false, scores })
   }
 
+  const handleQuizBack = () => {
+    setView('welcome')
+  }
+
   const handleSkip = () => {
-    const id = TIE_PRIORITY[Math.floor(Math.random() * TIE_PRIORITY.length)]
-    finalize(id, { skipped: true })
+    navigate('/map')
   }
 
   const handleGoMap = () => {
     navigate('/map')
+  }
+
+  const handleRestart = () => {
+    setResultId(null)
+    setView('welcome')
   }
 
   return (
@@ -79,10 +88,35 @@ function Mbti() {
           onSkip={handleSkip}
         />
       )}
-      {view === 'quiz' && <Quiz onComplete={handleQuizComplete} />}
-      {view === 'result' && resultId && (
-        <IdentityCard personaId={resultId} onGoMap={handleGoMap} />
+      {view === 'quiz' && (
+        <Quiz onComplete={handleQuizComplete} onBack={handleQuizBack} />
       )}
+      {view === 'result' && resultId && (
+        <IdentityCard
+          personaId={resultId}
+          onGoMap={handleGoMap}
+          onRestart={handleRestart}
+        />
+      )}
+
+      <button
+        type="button"
+        className={styles.profileEntry}
+        onClick={() => navigate('/profile')}
+        aria-label="个人主页"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </button>
     </main>
   )
 }

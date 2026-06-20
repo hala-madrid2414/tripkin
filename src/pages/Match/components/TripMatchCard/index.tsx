@@ -24,8 +24,9 @@ function TripMatchCard({ item, onJoin }: TripMatchCardProps) {
             type="button"
             className={styles.action}
             onClick={() => onJoin(item)}
+            disabled={item.status !== 'OPEN'}
           >
-            {item.actionLabel}
+            {item.status === 'OPEN' ? item.actionLabel : '暂不可申请'}
           </button>
         </div>
 
@@ -46,9 +47,14 @@ function TripMatchCard({ item, onJoin }: TripMatchCardProps) {
 
         <p className={styles.people}>
           <MatchIcon name="people" />
-          {item.people}
+          {item.people} · {item.identityStatus} · 招募中
         </p>
 
+        <div className={styles.planList} aria-label="主要计划">
+          {item.planHighlights.slice(0, 3).map((plan) => (
+            <span key={plan}>#{plan}</span>
+          ))}
+        </div>
         <p className={styles.summary}>{item.summary}</p>
       </div>
     </article>

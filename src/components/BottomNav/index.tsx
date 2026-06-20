@@ -1,0 +1,45 @@
+import { NavLink } from 'react-router-dom'
+import styles from './BottomNav.module.less'
+
+const navItems = [
+  { to: '/map', label: '地图', icon: '⌖' },
+  { to: '/match', label: '匹配', icon: '≋' },
+  { to: '/bottle', label: '漂流瓶', icon: '✦' },
+  { to: '/profile', label: '我的', icon: '●' },
+]
+
+interface BottomNavProps {
+  destinationId?: string
+}
+
+function getNavTo(pathname: string, destinationId?: string) {
+  if (!destinationId) {
+    return pathname
+  }
+
+  return {
+    pathname,
+    search: `?dest=${encodeURIComponent(destinationId)}`,
+  }
+}
+
+function BottomNav({ destinationId }: BottomNavProps) {
+  return (
+    <nav className={styles.nav} aria-label="主导航">
+      {navItems.map((item) => (
+        <NavLink
+          key={item.to}
+          to={getNavTo(item.to, destinationId)}
+          className={({ isActive }) =>
+            isActive ? `${styles.item} ${styles.itemActive}` : styles.item
+          }
+        >
+          <span aria-hidden="true">{item.icon}</span>
+          <strong>{item.label}</strong>
+        </NavLink>
+      ))}
+    </nav>
+  )
+}
+
+export default BottomNav

@@ -1,25 +1,27 @@
-import type { LayerOption, Region, Spot } from '../types'
+import type { LayerOption, LayerType, Region, Spot } from '../types'
+
+export const MAP_DATA_UPDATED_AT = '2026-06-20 09:30'
 
 export const layerOptions: LayerOption[] = [
   {
     key: 'all',
     label: '全部',
-    description: '显示漂流瓶、找搭子、热门目的地',
+    description: '综合热度分：搭子、行程、漂流瓶加权',
   },
   {
     key: 'bottle',
     label: '漂流瓶',
-    description: '只显示漂流瓶相关内容',
+    description: '当前有效公开漂流瓶数',
   },
   {
     key: 'companion',
     label: '找搭子',
-    description: '只显示找搭子相关内容',
+    description: '近 30 天公开找搭子的有效用户数',
   },
   {
     key: 'hotspot',
     label: '热门目的地',
-    description: '只显示热门目的地',
+    description: '运营热度与用户行为综合分',
   },
 ]
 
@@ -561,6 +563,67 @@ export function getSpotRegion(spot: Spot | null) {
   }
 
   return getRegionById(spot.parentId)
+}
+
+export function getRegionTripCount(region: Region) {
+  return Math.max(
+    1,
+    Math.round(region.companionCount * 0.45 + region.hotspotLevel),
+  )
+}
+
+export function getSpotTripCount(spot: Spot) {
+  return Math.max(1, Math.round(spot.companionCount * 0.5 + spot.rating))
+}
+
+export function getRegionHeatScore(region: Region) {
+  return Math.round(
+    region.companionCount * 1.8 +
+      getRegionTripCount(region) * 2.2 +
+      region.bottleCount * 0.8 +
+      region.hotspotLevel * 6,
+  )
+}
+
+export function getSpotHeatScore(spot: Spot) {
+  return Math.round(
+    spot.companionCount * 1.8 +
+      getSpotTripCount(spot) * 2.2 +
+      spot.bottleCount * 0.8 +
+      spot.rating * 6,
+  )
+}
+
+export function getRegionLayerValue(region: Region, layer: LayerType) {
+  if (layer === 'bottle') {
+    return region.bottleCount
+  }
+
+  if (layer === 'companion') {
+    return region.companionCount
+  }
+
+  if (layer === 'hotspot') {
+    return getRegionHeatScore(region)
+  }
+
+  return getRegionHeatScore(region)
+}
+
+export function getSpotLayerValue(spot: Spot, layer: LayerType) {
+  if (layer === 'bottle') {
+    return spot.bottleCount
+  }
+
+  if (layer === 'companion') {
+    return spot.companionCount
+  }
+
+  if (layer === 'hotspot') {
+    return getSpotHeatScore(spot)
+  }
+
+  return getSpotHeatScore(spot)
 }
 
 export function searchMapItems(query: string) {

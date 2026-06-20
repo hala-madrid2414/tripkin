@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import type { PersonaId } from '@/types/mbti'
-import { PERSONALITIES } from '../data'
+import { PERSONALITIES } from '../../data'
 
 /**
  * 四种旅行人格的内联 SVG 形象（Demo 即时渲染）。

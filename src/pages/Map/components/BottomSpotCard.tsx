@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useMatchStore, type MatchMode } from '@/store/useMatchStore'
+import { getSpotTripCount } from '../data/mapData'
 import type { Region, Spot } from '../types'
 import { BottleIcon, CloseIcon } from './MapIcons'
 import styles from '../Map.module.less'
@@ -36,7 +38,7 @@ interface BottomSpotCardProps {
   ) => void
   onHandlePointerCancel: (dragRef: SheetDragRef) => void
   onClose: () => void
-  onThrowBottle: () => void
+  onThrowBottle: (destinationId: string) => void
 }
 
 function BottomSpotCard({
@@ -54,8 +56,31 @@ function BottomSpotCard({
   onClose,
   onThrowBottle,
 }: BottomSpotCardProps) {
+  const navigate = useNavigate()
+  const setMode = useMatchStore((state) => state.setMode)
+  const setEntryContext = useMatchStore((state) => state.setEntryContext)
+
   if (!spot || !region) {
     return null
+  }
+
+  const encodedSpotId = encodeURIComponent(spot.id)
+  const tripCount = getSpotTripCount(spot)
+
+  const handleMatchLinkClick = (mode: MatchMode) => {
+    setMode(mode)
+    setEntryContext({
+      source: 'map',
+      targetType: 'spot',
+      regionId: region.id,
+      spotId: spot.id,
+      destinationName: spot.name,
+    })
+    navigate(`/match?tab=${mode}&dest=${encodedSpotId}`)
+  }
+
+  const handleBottleLinkClick = () => {
+    navigate(`/bottle?dest=${encodedSpotId}`)
   }
 
   return (
@@ -106,11 +131,14 @@ function BottomSpotCard({
             <small>{spot.subtitle}</small>
           </h2>
         </div>
-        <span className={styles.ratingBadge}>{spot.rating.toFixed(1)}</span>
+        <span className={styles.ratingBadge}>
+          推荐指数 {spot.rating.toFixed(1)}/5
+        </span>
       </div>
 
       <p className={styles.cardStats}>
-        这里有 {spot.bottleCount} 个漂流瓶，{spot.companionCount} 人正在找搭子
+        这里有 {spot.bottleCount} 个漂流瓶，{spot.companionCount} 人正在找搭子，
+        {tripCount} 个可加入行程
       </p>
 
       <div className={styles.tagRow}>
@@ -135,23 +163,30 @@ function BottomSpotCard({
       </dl>
 
       <div className={styles.cardActions}>
-        <Link to="/match">查看旅行搭子</Link>
-        <Link to="/match">查看行程匹配</Link>
+        <button type="button" onClick={handleBottleLinkClick}>
+          查看漂流瓶
+        </button>
+        <button type="button" onClick={() => handleMatchLinkClick('partner')}>
+          查看旅行搭子
+        </button>
+        <button type="button" onClick={() => handleMatchLinkClick('trip')}>
+          查看可加入行程
+        </button>
       </div>
 
       <button
         type="button"
         className={styles.cardBottleAction}
-        onClick={onThrowBottle}
+        onClick={() => onThrowBottle(spot.id)}
       >
         <BottleIcon />
-        扔一个漂流瓶
+        发布漂流瓶
       </button>
 
       {expanded && (
         <div className={styles.expandedPlaceholder}>
           <p>上拉内容预留区</p>
-          <span>后续可承接漂流瓶故事、路线片段和同行申请记录。</span>
+          <span>后续可承接路线片段、热度标签和同行申请记录。</span>
         </div>
       )}
     </section>

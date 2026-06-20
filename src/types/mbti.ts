@@ -1,11 +1,11 @@
 /**
- * 旅行 MBTI 跨页面共享类型。
+ * 旅行人格 跨页面共享类型。
  *
- * 放在 src/types 是因为 Map / Match 等页面也需要消费 MBTI 结果
+ * 放在 src/types 是因为 Map / Match 等页面也需要消费 旅行人格 结果
  * （见 docs/coding-guide.md：跨页面复用的 TypeScript 类型放 src/types）。
  */
 
-/** 四种旅行人格 ID（新型旅行 MBTI） */
+/** 四种旅行人格 ID（新型旅行人格） */
 export type PersonaId =
   | 'Cyber-Raider'
   | 'Zen-Capybara'
@@ -19,6 +19,20 @@ export interface PersonaTraits {
   energy: string
   plan: string
   style: string
+}
+
+/** 人格详情数据 */
+export interface PersonaDetails {
+  strengths: string[]
+  considerations: string[]
+  travelStyle: {
+    energy: number
+    planning: number
+    social: number
+    adventure: number
+  }
+  matchAdvice: string
+  destTypes: string[]
 }
 
 /** 单个人格定义 */
@@ -37,6 +51,7 @@ export interface Persona {
   /** 对外承诺的卡通形象资产路径（正式交付再落地真实素材） */
   avatarPath: string
   nicknamePool: string[]
+  details: PersonaDetails
 }
 
 /** 单道趣味题（二选一） */
@@ -47,7 +62,7 @@ export interface Question {
   scores: Record<ChoiceLetter, PersonaId[]>
 }
 
-/** MBTI 计分结果 */
+/** 旅行人格 计分结果 */
 export interface ScoreResult {
   result: PersonaId
   scores: Record<PersonaId, number>
@@ -55,12 +70,13 @@ export interface ScoreResult {
 
 /**
  * 跨页面共享的旅行会话状态。
- * MBTI 完成后写入，供 /map（读 destination）、/match（读 personaId 做匹配）消费。
+ * 旅行人格 完成后写入，供 /map（读 destination）、/match（读 personaId 做匹配）消费。
  */
 export interface TripSession {
   personaId: PersonaId | null
   mbtiTypeCn: string | null
   mbtiTypeEn: string | null
+  classicMbti: string | null
   tagline: string | null
   tags: string[]
   nickname: string | null

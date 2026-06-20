@@ -42,6 +42,22 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '卡点狂魔',
       '火力全开的探索者',
     ],
+    details: {
+      strengths: [
+        '执行力超强',
+        '时间利用率高',
+        '善于发现隐藏打卡点',
+        '社交活跃',
+      ],
+      considerations: [
+        '容易忽略休息',
+        '可能错过慢节奏的美好',
+        '需注意行程不要太赶',
+      ],
+      travelStyle: { energy: 90, planning: 60, social: 75, adventure: 85 },
+      matchAdvice: '寻找同样高能量、能跟上节奏的搭子，或者互补型的摄影搭子',
+      destTypes: ['热门打卡地', '网红景点', '徒步线路', '极限运动目的地'],
+    },
   },
   'Zen-Capybara': {
     id: 'Zen-Capybara',
@@ -62,6 +78,13 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '发呆冠军',
       '情绪稳定的泡汤家',
     ],
+    details: {
+      strengths: ['情绪稳定', '善于发现生活小确幸', '适应力强', '善于倾听'],
+      considerations: ['可能错过预订', '需注意时间安排', '偶尔需要推一把'],
+      travelStyle: { energy: 30, planning: 20, social: 50, adventure: 40 },
+      matchAdvice: '寻找同样松弛、不赶时间的搭子，或互补型的规划搭子',
+      destTypes: ['温泉小镇', '咖啡之城', '海边民宿', '古镇村落'],
+    },
   },
   'Budget-Architect': {
     id: 'Budget-Architect',
@@ -82,6 +105,18 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '预算掌控者',
       '严丝合缝的规划师',
     ],
+    details: {
+      strengths: [
+        '预算控制精准',
+        '行程安排合理',
+        '善于发现优惠',
+        '风险预判能力强',
+      ],
+      considerations: ['可能过于紧张', '需留出弹性空间', '偶尔也要随性一次'],
+      travelStyle: { energy: 60, planning: 95, social: 55, adventure: 50 },
+      matchAdvice: '寻找同样有规划意识的搭子，或互补型的体验派搭子',
+      destTypes: ['文化遗产', '美食之都', '博物馆之城', '历史古迹'],
+    },
   },
   'Romantic-Observer': {
     id: 'Romantic-Observer',
@@ -102,11 +137,22 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '审美在线的漫游者',
       '情绪价值型旅人',
     ],
+    details: {
+      strengths: ['审美敏锐', '善于发现细节之美', '情感丰富', '善于记录和分享'],
+      considerations: [
+        '可能忽略实用性',
+        '需注意时间管理',
+        '偶尔也要照顾同行者',
+      ],
+      travelStyle: { energy: 50, planning: 45, social: 65, adventure: 55 },
+      matchAdvice: '寻找同样注重体验、愿意慢慢逛的搭子，或互补型的行动派搭子',
+      destTypes: ['艺术之都', '小众秘境', '古镇村落', '自然光影圣地'],
+    },
   },
 }
 
 /**
- * 极简趣味题库（共 3 题，二选一）。
+ * 趣味题库（共 8 题，二选一）。
  */
 export const QUESTIONS: Question[] = [
   {
@@ -140,6 +186,61 @@ export const QUESTIONS: Question[] = [
     scores: {
       A: ['Cyber-Raider', 'Zen-Capybara'],
       B: ['Budget-Architect', 'Romantic-Observer'],
+    },
+  },
+  {
+    title: '旅行住宿你更看重什么？',
+    options: {
+      A: '位置便利、交通方便的酒店，行程效率最重要。',
+      B: '有特色、有氛围的民宿，住宿本身也是体验。',
+    },
+    scores: {
+      A: ['Cyber-Raider', 'Budget-Architect'],
+      B: ['Zen-Capybara', 'Romantic-Observer'],
+    },
+  },
+  {
+    title: '一天的行程结束后，你会？',
+    options: {
+      A: '整理照片、更新社交媒体，分享今天的精彩瞬间。',
+      B: '安静休息，或者随意逛逛，享受夜晚的宁静。',
+    },
+    scores: {
+      A: ['Cyber-Raider', 'Budget-Architect'],
+      B: ['Zen-Capybara', 'Romantic-Observer'],
+    },
+  },
+  {
+    title: '面对当地美食，你会？',
+    options: {
+      A: '提前做好攻略，打卡评分最高的餐厅。',
+      B: '随缘遇到什么吃什么，街边小摊也有惊喜。',
+    },
+    scores: {
+      A: ['Budget-Architect', 'Cyber-Raider'],
+      B: ['Zen-Capybara', 'Romantic-Observer'],
+    },
+  },
+  {
+    title: '旅行中拍照，你更倾向于？',
+    options: {
+      A: '记录风景和地标，留下「到此一游」的证明。',
+      B: '捕捉光影、细节和情绪，每张照片都要有故事。',
+    },
+    scores: {
+      A: ['Cyber-Raider', 'Budget-Architect'],
+      B: ['Romantic-Observer', 'Zen-Capybara'],
+    },
+  },
+  {
+    title: '如果可以选择搭子，你更希望对方？',
+    options: {
+      A: '和我节奏一致，能一起冲、一起打卡。',
+      B: '和我兴趣相投，能一起慢慢感受、深入体验。',
+    },
+    scores: {
+      A: ['Cyber-Raider', 'Budget-Architect'],
+      B: ['Zen-Capybara', 'Romantic-Observer'],
     },
   },
 ]

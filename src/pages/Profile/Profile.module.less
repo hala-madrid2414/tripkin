@@ -1,148 +1,146 @@
+/* ==========================================================================
+   Lavender Travel Journal - Profile page palette
+   ========================================================================== */
 .page {
+  --pf-primary: #b89cff;
+  --pf-secondary: #dccfff;
+  --pf-bg: #f8f5ff;
+  --pf-card: rgba(255, 255, 255, 0.8);
+  --pf-border: #e5dbff;
+  --pf-heading: #4a3f6b;
+  --pf-text: #6b5e8a;
+  --pf-text-muted: #9b8ec4;
+
+  --pf-shadow: 0 4px 20px rgba(184, 156, 255, 0.08);
+  --pf-shadow-card: 0 8px 32px rgba(184, 156, 255, 0.1);
+  --pf-radius: 20px;
+
+  position: relative;
+  width: 100%;
+  max-width: 480px;
   min-height: 100svh;
-  padding: 18px 16px 28px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 18px) 18px
+    calc(96px + env(safe-area-inset-bottom));
   background:
-    radial-gradient(
-      circle at 18% 8%,
-      rgba(255, 255, 255, 0.96),
-      transparent 26%
-    ),
-    linear-gradient(180deg, #f7fbff 0%, #f4f1ff 100%);
-  color: var(--color-heading);
+    radial-gradient(160% 60% at 90% 2%, #ede6ff, transparent 45%),
+    radial-gradient(140% 70% at 8% 96%, #f0ecff, transparent 50%), var(--pf-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-x: hidden;
 }
 
-.header {
-  display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
-  gap: 14px;
+/* ==========================================================================
+   Glass card container
+   ========================================================================== */
+.glassCard {
+  background: var(--pf-card);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
+  border: 1px solid var(--pf-border);
+  border-radius: var(--pf-radius);
+  box-shadow: var(--pf-shadow-card);
+  padding: 20px 18px;
+  animation: cardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.glassCard:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.glassCard:nth-child(3) {
+  animation-delay: 0.14s;
+}
+.glassCard:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.glassCard:nth-child(5) {
+  animation-delay: 0.26s;
+}
+.glassCard:nth-child(6) {
+  animation-delay: 0.32s;
+}
+.glassCard:nth-child(7) {
+  animation-delay: 0.38s;
+}
+
+/* ==========================================================================
+   Empty state before MBTI result
+   ========================================================================== */
+.emptyState {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.76);
-  border-radius: 20px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow:
-    0 18px 42px rgba(78, 91, 130, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-}
-
-.avatar {
-  display: grid;
-  place-items: center;
-  width: 68px;
-  height: 68px;
-  border-radius: 24px;
-  background: linear-gradient(145deg, #8d7cff, #5d4cf0);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 900;
-  box-shadow: 0 16px 28px rgba(93, 76, 240, 0.28);
-}
-
-.identity {
-  min-width: 0;
-}
-
-.route {
-  margin: 0 0 4px;
-  color: var(--color-brand-primary);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.identity h1 {
-  margin: 0;
-  font-size: 26px;
-  line-height: 1.15;
-}
-
-.identity p:not(.route) {
-  margin: 8px 0 0;
-  color: var(--color-text);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.stats div,
-.panel {
-  border: 1px solid rgba(255, 255, 255, 0.74);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 12px 32px rgba(78, 91, 130, 0.1);
-  backdrop-filter: blur(14px);
-}
-
-.stats div {
-  border-radius: 16px;
-  padding: 13px 8px;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 18px;
   text-align: center;
 }
-
-.stats strong,
-.stats span {
-  display: block;
-}
-
-.stats strong {
-  color: var(--color-heading);
-  font-size: 18px;
-  line-height: 1.2;
-}
-
-.stats span {
-  margin-top: 4px;
-  color: var(--color-muted);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.content {
-  display: grid;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.panel {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 78px;
-  border-radius: 18px;
-  padding: 14px 16px;
-}
-
-.panel h2 {
-  margin: 0;
-  color: var(--color-heading);
-  font-size: 16px;
-  line-height: 1.35;
-}
-
-.panel p {
-  margin: 5px 0 0;
-  color: var(--color-text);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.panel span {
-  flex: 0 0 auto;
-  color: var(--color-muted);
-  font-size: 24px;
+.emptyEmoji {
+  font-size: 56px;
   line-height: 1;
+}
+.emptyTitle {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--pf-heading);
+  margin: 0;
+}
+.emptyDesc {
+  font-size: 14px;
+  color: var(--pf-text-muted);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 260px;
+}
+
+.goMbtiBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 240px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 24px;
+  border: 0;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, #cbb8ff, #b89cff);
+  box-shadow: 0 12px 28px -8px rgba(184, 156, 255, 0.5);
+  cursor: pointer;
+  transition:
+    transform 0.18s,
+    box-shadow 0.25s;
+  -webkit-tap-highlight-color: transparent;
+}
+.goMbtiBtn:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glassCard {
+    animation: none !important;
+  }
 }
 
 @media (min-width: 520px) {
   .page {
     max-width: 430px;
-    margin: 0 auto;
-    box-shadow: 0 0 0 1px rgba(39, 42, 60, 0.06);
+    box-shadow: 0 0 0 1px var(--color-border);
   }
 }

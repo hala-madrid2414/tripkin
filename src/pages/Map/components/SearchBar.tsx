@@ -10,6 +10,7 @@ interface SearchBarProps {
   onResultClick: (spotId: string) => void
   onKeywordClick: (keyword: string) => void
   onLayerClick: () => void
+  onMbtiClick: () => void
 }
 
 function SearchBar({
@@ -19,6 +20,7 @@ function SearchBar({
   onResultClick,
   onKeywordClick,
   onLayerClick,
+  onMbtiClick,
 }: SearchBarProps) {
   const hasQuery = query.trim().length > 0
 
@@ -54,6 +56,15 @@ function SearchBar({
       >
         <LayersIcon />
         <span>图层</span>
+      </button>
+
+      <button
+        type="button"
+        className={styles.mbtiShortcut}
+        onClick={onMbtiClick}
+        aria-label="返回旅行 MBTI 测试页面"
+      >
+        重测旅行 MBTI
       </button>
 
       {(hasQuery || results.length > 0) && (

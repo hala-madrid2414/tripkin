@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
 import AmapCanvas from './components/AmapCanvas'
 import BottomRegionCard from './components/BottomRegionCard'
@@ -242,19 +243,22 @@ interface SheetDragState {
 type SheetDragRef = MutableRefObject<SheetDragState | null>
 
 function Map() {
+  const navigate = useNavigate()
   const [state, dispatch] = useReducer(mapPageReducer, initialState)
   const [toastMessage, setToastMessage] = useState('')
   const [amapFailed, setAmapFailed] = useState(false)
+  const summaryDragRef = useRef<SheetDragState | null>(null)
   const regionDragRef = useRef<SheetDragState | null>(null)
   const spotDragRef = useRef<SheetDragState | null>(null)
   const selectedRegion = getRegionById(state.selectedRegionId)
   const selectedSpot = getSpotById(state.selectedSpotId)
   const selectedSpotRegion = getSpotRegion(selectedSpot)
+  const activeBottleDestinationId =
+    selectedSpot?.id ?? selectedRegion?.id ?? mapRegions[0]?.id ?? 'yunnan'
   const searchResults = useMemo(
     () => searchMapItems(state.searchQuery),
     [state.searchQuery],
   )
-
   const showDemoToast = useCallback((content: string) => {
     setToastMessage(content)
     window.setTimeout(() => setToastMessage(''), 1800)
@@ -263,6 +267,13 @@ function Map() {
   const handleBlankClick = useCallback(() => {
     dispatch({ type: 'closeSpot' })
   }, [])
+
+  const handleThrowBottle = useCallback(
+    (destinationId = activeBottleDestinationId) => {
+      navigate(`/bottle?dest=${encodeURIComponent(destinationId)}&action=add`)
+    },
+    [activeBottleDestinationId, navigate],
+  )
 
   const handleAmapFallback = useCallback(() => {
     setAmapFailed(true)
@@ -346,6 +357,7 @@ function Map() {
           dispatch({ type: 'setSearch', payload: keyword })
         }
         onLayerClick={() => dispatch({ type: 'openLayerSheet' })}
+        onMbtiClick={() => navigate('/mbti')}
       />
 
       {hasAmapConfig && !amapFailed ? (
@@ -395,60 +407,43 @@ function Map() {
           <button
             type="button"
             className={styles.sheetHandle}
+            aria-label={
+              state.regionSheetExpanded ? '收起地图说明' : '展开地图说明'
+            }
             onPointerDown={(event) =>
-              handleSheetPointerDown(regionDragRef, event)
+              handleSheetPointerDown(summaryDragRef, event)
             }
             onPointerMove={(event) =>
-              handleSheetPointerMove(regionDragRef, event)
+              handleSheetPointerMove(summaryDragRef, event)
             }
             onPointerUp={(event) =>
               finishSheetGesture(
-                regionDragRef,
+                summaryDragRef,
                 event,
                 () =>
-                  dispatch({
-                    type: 'setRegionSheetExpanded',
-                    payload: true,
-                  }),
+                  dispatch({ type: 'setRegionSheetExpanded', payload: true }),
                 () =>
-                  dispatch({
-                    type: 'setRegionSheetExpanded',
-                    payload: false,
-                  }),
+                  dispatch({ type: 'setRegionSheetExpanded', payload: false }),
                 () => dispatch({ type: 'toggleRegionSheet' }),
               )
             }
-            onPointerCancel={() => cancelSheetGesture(regionDragRef)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault()
-                dispatch({ type: 'toggleRegionSheet' })
-              }
-            }}
-            aria-label={state.regionSheetExpanded ? '收起卡片' : '展开卡片'}
+            onPointerCancel={() => cancelSheetGesture(summaryDragRef)}
           >
             <span />
           </button>
           <h1>全国旅行灵感地图</h1>
-          <p>点击目的地气泡，发现漂流瓶、旅行搭子和热门目的地</p>
-          <div className={styles.summaryTags}>
-            {['漂流瓶', '搭子气泡', '热门路线'].map((tag) => (
-              <span key={tag}>#{tag}</span>
-            ))}
-          </div>
+          <p>数字表示近 30 天内，对该目的地公开找搭子的有效用户数。</p>
+
           {state.regionSheetExpanded && (
             <div className={styles.summaryExpandedContent}>
-              <h2>今日旅行灵感</h2>
-              <p>
-                从全国目的地气泡开始探索，先选一个省份，再进入具体城市或景点查看漂流瓶、搭子和路线标签。
-              </p>
+              <h2>近 30 天旅行灵感</h2>
               <ul>
-                {mapRegions.slice(0, 4).map((item) => (
-                  <li key={item.id}>
-                    <strong>{item.name}</strong>
+                {mapRegions.slice(0, 5).map((region) => (
+                  <li key={region.id}>
+                    <strong>{region.name}</strong>
                     <span>
-                      {item.bottleCount} 个漂流瓶 · {item.companionCount}{' '}
-                      人找搭子
+                      {region.bottleCount} 个漂流瓶 · {region.companionCount}{' '}
+                      人正在找搭子
                     </span>
                   </li>
                 ))}
@@ -461,7 +456,7 @@ function Map() {
       <MapControls
         onLocate={() => showDemoToast('当前 Demo 暂不接入真实定位')}
         onReset={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => showDemoToast('漂流瓶入口已预留')}
+        onThrowBottle={() => handleThrowBottle()}
       />
 
       <BottomRegionCard
@@ -476,7 +471,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'reset' })}
-        onThrowBottle={() => showDemoToast('已为该地区预留漂流瓶发布入口')}
+        onThrowBottle={handleThrowBottle}
       />
 
       <BottomSpotCard
@@ -492,7 +487,7 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'closeSpot' })}
-        onThrowBottle={() => showDemoToast('已为该地点预留漂流瓶发布入口')}
+        onThrowBottle={handleThrowBottle}
       />
 
       <LayerSheet

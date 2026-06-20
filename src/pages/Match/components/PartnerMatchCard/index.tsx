@@ -23,7 +23,14 @@ function PartnerMatchCard({ item, onOpen }: PartnerMatchCardProps) {
       <div className={styles.body}>
         <div className={styles.titleRow}>
           <h2 className={styles.name}>{item.name}</h2>
-          <span className={styles.mbti}>{item.mbti}</span>
+          <span className={styles.identity}>{item.identityStatus}</span>
+          <span className={styles.score}>匹配度 {item.matchScore}%</span>
+          {item.persona && (
+            <span className={styles.persona}>
+              {item.persona.emoji} {item.persona.tripkinTitleCn} ·{' '}
+              {item.classicMbti}
+            </span>
+          )}
         </div>
 
         <div className={styles.tags}>
@@ -44,9 +51,23 @@ function PartnerMatchCard({ item, onOpen }: PartnerMatchCardProps) {
             <MatchIcon name="calendar" />
             <span>出发时间：{item.departure}</span>
           </p>
+          <p className={styles.metaRow}>
+            <MatchIcon name="car" />
+            <span>旅行方式：{item.travelWay}</span>
+          </p>
+          <p className={styles.metaRow}>
+            <MatchIcon name="people" />
+            <span>同行偏好：{item.groupPreference}</span>
+          </p>
         </div>
 
+        <div className={styles.reasonList} aria-label="匹配理由">
+          {item.matchReasons.slice(0, 3).map((reason) => (
+            <span key={reason.label}>· {reason.label}</span>
+          ))}
+        </div>
         <p className={styles.summary}>{item.summary}</p>
+        <p className={styles.activeTime}>{item.activeTime}</p>
       </div>
 
       <button
@@ -57,7 +78,7 @@ function PartnerMatchCard({ item, onOpen }: PartnerMatchCardProps) {
           onOpen(item)
         }}
       >
-        看看TA
+        查看资料
       </button>
     </article>
   )

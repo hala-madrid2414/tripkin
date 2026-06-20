@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useMatchStore, type MatchMode } from '@/store/useMatchStore'
+import { getRegionTripCount } from '../data/mapData'
 import type { Region } from '../types'
 import { BottleIcon, CloseIcon } from './MapIcons'
 import styles from '../Map.module.less'
@@ -36,7 +38,7 @@ interface BottomRegionCardProps {
   ) => void
   onHandlePointerCancel: (dragRef: SheetDragRef) => void
   onClose: () => void
-  onThrowBottle: () => void
+  onThrowBottle: (destinationId: string) => void
 }
 
 function BottomRegionCard({
@@ -53,12 +55,17 @@ function BottomRegionCard({
   onClose,
   onThrowBottle,
 }: BottomRegionCardProps) {
+  const navigate = useNavigate()
+  const setMode = useMatchStore((state) => state.setMode)
+  const setEntryContext = useMatchStore((state) => state.setEntryContext)
+
   if (!region) {
     return null
   }
 
   const featuredSpots = region.spots.slice(0, 2)
   const subtitle = region.tags.slice(0, 2).join(' · ')
+  const encodedRegionId = encodeURIComponent(region.id)
   const className =
     level === 'full'
       ? styles.regionCardFull
@@ -66,6 +73,22 @@ function BottomRegionCard({
         ? styles.regionCardDetail
         : styles.regionCardCompact
   const isFull = level === 'full'
+  const tripCount = getRegionTripCount(region)
+
+  const handleMatchLinkClick = (mode: MatchMode) => {
+    setMode(mode)
+    setEntryContext({
+      source: 'map',
+      targetType: 'region',
+      regionId: region.id,
+      destinationName: region.name,
+    })
+    navigate(`/match?tab=${mode}&dest=${encodedRegionId}`)
+  }
+
+  const handleBottleLinkClick = () => {
+    navigate(`/bottle?dest=${encodedRegionId}`)
+  }
 
   return (
     <section className={className} aria-label={`${region.name}旅行信息`}>
@@ -112,12 +135,14 @@ function BottomRegionCard({
             <small>{subtitle}</small>
           </h2>
         </div>
-        <span className={styles.ratingBadge}>{region.rating.toFixed(1)}</span>
+        <span className={styles.ratingBadge}>
+          推荐指数 {region.rating.toFixed(1)}/5
+        </span>
       </div>
 
       <p className={styles.cardStats}>
         这里有 {region.bottleCount} 个漂流瓶，{region.companionCount}{' '}
-        人正在找搭子
+        人正在找搭子，{tripCount} 个可加入行程
       </p>
 
       <div className={styles.tagRow}>
@@ -142,17 +167,24 @@ function BottomRegionCard({
       </dl>
 
       <div className={styles.cardActions}>
-        <Link to="/match">查看旅行搭子</Link>
-        <Link to="/match">查看行程匹配</Link>
+        <button type="button" onClick={handleBottleLinkClick}>
+          查看漂流瓶
+        </button>
+        <button type="button" onClick={() => handleMatchLinkClick('partner')}>
+          查看旅行搭子
+        </button>
+        <button type="button" onClick={() => handleMatchLinkClick('trip')}>
+          查看可加入行程
+        </button>
       </div>
 
       <button
         type="button"
         className={styles.cardBottleAction}
-        onClick={onThrowBottle}
+        onClick={() => onThrowBottle(region.id)}
       >
         <BottleIcon />
-        扔一个漂流瓶
+        发布漂流瓶
       </button>
 
       {isFull && (

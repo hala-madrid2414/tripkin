@@ -43,16 +43,18 @@ function JoinTripSheet({ trip, visible, onClose }: JoinTripSheetProps) {
           <div>
             <h3 className={styles.tripTitle}>{trip.title}</h3>
             <div className={styles.badges}>
-              <span>自驾</span>
+              <span>{trip.status === 'OPEN' ? '招募中' : '暂不可申请'}</span>
               <span>{trip.people.replace('人 / ', '/')}</span>
               <span>{trip.duration}</span>
             </div>
-            <p className={styles.tripSummary}>{trip.summary}</p>
+            <p className={styles.tripSummary}>
+              {trip.identityStatus} · {trip.summary}
+            </p>
           </div>
         </article>
 
         <label className={styles.label} htmlFor="join-trip-message">
-          补充说明（选填）
+          申请说明（建议填写）
         </label>
         <div className={styles.textAreaWrap}>
           <TextArea
@@ -61,7 +63,7 @@ function JoinTripSheet({ trip, visible, onClose }: JoinTripSheetProps) {
             onChange={setMessage}
             maxLength={200}
             showCount
-            placeholder="简单说说你的出行时间、偏好或想加入的原因..."
+            placeholder="简单说说你的出行时间、旅行偏好和想加入的原因..."
             rows={5}
           />
         </div>
@@ -73,7 +75,7 @@ function JoinTripSheet({ trip, visible, onClose }: JoinTripSheetProps) {
           </span>
           <span>
             <MatchIcon name="people" />
-            可先进入同行队列
+            通过后开放更多资料
           </span>
         </div>
 
@@ -85,11 +87,11 @@ function JoinTripSheet({ trip, visible, onClose }: JoinTripSheetProps) {
             type="button"
             className={styles.confirm}
             onClick={() => {
-              Toast.show({ content: '申请已提交' })
+              Toast.show({ content: '申请已提交，状态：待处理' })
               onClose()
             }}
           >
-            确认申请
+            提交申请
           </button>
         </footer>
       </section>
