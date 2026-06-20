@@ -20,39 +20,59 @@
 .sectionIcon {
   font-size: 18px;
 }
+.badgeCount {
+  font-size: 12px;
+  color: var(--lv-text-muted);
+  font-weight: 600;
+}
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-.card {
+.item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 18px 6px;
+  gap: 4px;
+  padding: 14px 6px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
+  text-align: center;
   cursor: pointer;
-  transition: transform 0.18s;
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s;
 }
-.card:active {
+.item:active {
   transform: scale(0.97);
 }
-.cardIcon {
-  font-size: 24px;
+.itemUnlocked {
+  background: var(--lv-card);
+  border: 1px solid var(--lv-border);
 }
-.cardValue {
-  font-weight: 800;
-  font-size: 20px;
+.itemLocked {
+  background: rgba(200, 200, 210, 0.15);
+  border: 1px dashed rgba(184, 156, 255, 0.2);
+  opacity: 0.55;
+}
+.itemIcon {
+  font-size: 28px;
   line-height: 1;
+}
+.itemTitle {
+  font-weight: 600;
+  font-size: 12px;
   color: var(--lv-heading);
 }
-.cardLabel {
-  font-size: 10.5px;
+.itemSubtitle {
+  font-size: 10px;
   color: var(--lv-text-muted);
-  font-weight: 500;
+}
+.lockIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 12px;
+  opacity: 0.6;
 }

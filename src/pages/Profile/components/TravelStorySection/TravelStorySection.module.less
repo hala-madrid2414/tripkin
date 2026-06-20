@@ -1,7 +1,7 @@
 ﻿.section {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 .sectionHeader {
   display: flex;
@@ -17,116 +17,92 @@
   color: var(--lv-heading);
   margin: 0;
 }
+.sectionIcon {
+  font-size: 18px;
+}
 .viewAll {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  border: 0;
-  background: transparent;
   font-size: 12px;
-  font-weight: 500;
-  color: var(--lv-primary);
-  font-family: inherit;
+  color: var(--lv-text-muted);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  padding: 4px 8px;
-  margin: -4px -4px;
-  border-radius: 10px;
-  transition:
-    color 0.15s,
-    background 0.15s,
-    transform 0.12s;
+  transition: color 0.2s;
 }
 .viewAll:active {
-  color: var(--lv-primary-strong);
-  background: var(--lv-primary-soft);
-  transform: scale(0.96);
+  color: var(--lv-primary);
 }
 
-.summaryGrid {
+.statsRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-.summaryCard {
+.statCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 16px 6px;
+  padding: 14px 6px;
   border-radius: 16px;
   background: var(--lv-card);
   border: 1px solid var(--lv-border);
 }
-.summaryValue {
+.statValue {
   font-weight: 800;
   font-size: 20px;
   line-height: 1;
   color: var(--lv-heading);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
 }
-.summaryLabel {
+.statLabel {
   font-size: 10.5px;
   color: var(--lv-text-muted);
   font-weight: 500;
 }
 
-.tripList {
+.storyList {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.tripCard {
+.storyCard {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 4px;
   padding: 14px;
   border-radius: 16px;
   background: var(--lv-card);
   border: 1px solid var(--lv-border);
-  box-shadow: var(--lv-shadow-soft);
-  transition: transform 0.18s;
   cursor: pointer;
+  transition: transform 0.18s;
   -webkit-tap-highlight-color: transparent;
 }
-.tripCard:active {
+.storyCard:active {
   transform: scale(0.985);
 }
-
-.tripStatus {
-  flex: 0 0 auto;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.storyMeta {
+  display: flex;
+  gap: 6px;
 }
-.tripStatusProgress {
-  background: var(--lv-primary);
-  box-shadow: 0 0 8px rgba(184, 156, 255, 0.5);
+.storyDest {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--lv-primary);
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(184, 156, 255, 0.12);
 }
-.tripStatusDone {
-  background: var(--lv-text-muted);
-}
-.tripInfo {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-.tripTitle {
+.storyTitle {
   font-weight: 600;
   font-size: 14px;
   color: var(--lv-heading);
   margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
-.tripMeta {
+.storySnippet {
   font-size: 11px;
   color: var(--lv-text-muted);
-  margin: 2px 0 0;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

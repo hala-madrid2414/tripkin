@@ -1,12 +1,14 @@
-import BottomNav from '@/components/BottomNav'
+﻿import BottomNav from '@/components/BottomNav'
 import { useNavigate } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
 import { resolveDestinationId } from '@/utils/destinationResolver'
-import { ProfileHeader } from './components/ProfileHeader'
-import { CompanionSection } from './components/CompanionSection'
-import { BottleSection } from './components/BottleSection'
+import { TravelIdentityCard } from './components/TravelIdentityCard'
+import { TravelPersonaSection } from './components/TravelPersonaSection'
+import { MatchingProfileSection } from './components/MatchingProfileSection'
+import { TravelStorySection } from './components/TravelStorySection'
 import { TripSection } from './components/TripSection'
 import { FootprintSection } from './components/FootprintSection'
+import { TravelAchievementSection } from './components/TravelAchievementSection'
 import { CollectionSection } from './components/CollectionSection'
 import { SettingSection } from './components/SettingSection'
 import { mockProfileData } from './mock'
@@ -29,24 +31,18 @@ function Profile() {
     return (
       <main className={styles.page}>
         <section className={styles.emptyState}>
-          <span className={styles.emptyEmoji}>{'\u2728'}</span>
-          <h1 className={styles.emptyTitle}>
-            {'\u4F60\u7684\u65C5\u884C\u4EBA\u683C'}
-          </h1>
+          <span className={styles.emptyEmoji}>{'&#x2728;'}</span>
+          <h1 className={styles.emptyTitle}>{'你的旅行人格'}</h1>
           <p className={styles.emptyDesc}>
-            {
-              '\u5B8C\u6210\u65C5\u884C MBTI\uFF0C\u63A2\u7D22\u4F60\u7684\u65C5\u884C\u98CE\u683C\uFF0C'
-            }
-            {
-              '\u751F\u6210\u5C5E\u4E8E\u4F60\u7684\u65C5\u884C\u8EAB\u4EFD\u5361\u3002'
-            }
+            {'完成旅行 MBTI，探索你的旅行风格，'}
+            {'生成属于你的旅行身份卡。'}
           </p>
           <button
             type="button"
             className={styles.goMbtiBtn}
             onClick={() => navigate('/mbti')}
           >
-            {'\u5F00\u59CB\u63A2\u7D22'}
+            {'开始探索'}
           </button>
         </section>
       </main>
@@ -55,37 +51,63 @@ function Profile() {
 
   return (
     <main className={styles.page}>
+      {/* 1. Travel Identity Card */}
       <div className={styles.glassCard}>
-        <ProfileHeader
+        <TravelIdentityCard
           personaId={personaId}
           nickname={nickname}
           mbtiTypeCn={mbtiTypeCn}
           classicMbti={classicMbti}
           tags={tags}
           tagline={tagline}
+          travelLevel={mockProfileData.travelLevel}
         />
       </div>
 
+      {/* 2. Travel Persona */}
       <div className={styles.glassCard}>
-        <CompanionSection companions={mockProfileData.companions} />
+        <TravelPersonaSection
+          personaId={personaId}
+          travelIndices={mockProfileData.travelIndices}
+        />
       </div>
 
+      {/* 3. Matching Profile */}
       <div className={styles.glassCard}>
-        <BottleSection bottleStats={mockProfileData.bottleStats} />
+        <MatchingProfileSection
+          matchingProfile={mockProfileData.matchingProfile}
+        />
       </div>
 
+      {/* 4. Travel Stories */}
+      <div className={styles.glassCard}>
+        <TravelStorySection
+          bottleStats={mockProfileData.bottleStats}
+          featuredStories={mockProfileData.featuredStories}
+        />
+      </div>
+
+      {/* 5. My Trips */}
       <div className={styles.glassCard}>
         <TripSection tripStats={mockProfileData.tripStats} />
       </div>
 
+      {/* 6. Footprints */}
       <div className={styles.glassCard}>
         <FootprintSection footprintStats={mockProfileData.footprintStats} />
       </div>
 
+      {/* 7. Achievements */}
+      <div className={styles.glassCard}>
+        <TravelAchievementSection achievements={mockProfileData.achievements} />
+      </div>
+
+      {/* 8. Collections */}
       <div className={styles.glassCard}>
         <CollectionSection collectionStats={mockProfileData.collectionStats} />
       </div>
 
+      {/* 9. Settings */}
       <div className={styles.glassCard}>
         <SettingSection settingsItems={mockProfileData.settingsItems} />
       </div>

@@ -1,0 +1,178 @@
+﻿.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--lv-heading);
+  margin: 0;
+}
+.sectionIcon {
+  font-size: 18px;
+}
+
+/* ---- stats (2-column) ---- */
+.statsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 16px 8px;
+  border-radius: 16px;
+  background: var(--lv-card);
+  border: 1px solid var(--lv-border);
+}
+.statCardClickable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.15s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+  position: relative;
+}
+.statCardClickable:active {
+  transform: scale(0.97);
+  border-color: var(--lv-primary);
+  box-shadow: 0 0 0 2px rgba(184, 156, 255, 0.12);
+}
+.statValue {
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--lv-heading);
+}
+.statLabel {
+  font-size: 11px;
+  color: var(--lv-text-muted);
+  font-weight: 500;
+}
+.statHint {
+  font-size: 10px;
+  color: var(--lv-primary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--lv-border);
+}
+
+.subtitle {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--lv-text);
+  margin: 0;
+}
+
+/* ---- bar chart ---- */
+.barList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.barItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.barEmoji {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 156, 255, 0.1),
+    rgba(220, 207, 255, 0.2)
+  );
+}
+.barBody {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.barLabel {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.barName {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lv-text);
+}
+.barMbti {
+  font-size: 10px;
+  color: var(--lv-text-muted);
+}
+.barTrack {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(184, 156, 255, 0.1);
+  overflow: hidden;
+}
+.barFill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #cbb8ff, #b89cff);
+  transition: width 0.5s ease;
+}
+.barCount {
+  flex: 0 0 auto;
+  width: 28px;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--lv-primary);
+}
+
+/* ---- cta ---- */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 42px;
+  margin-top: 2px;
+  border-radius: 14px;
+  border: 1px solid rgba(184, 156, 255, 0.28);
+  background: rgba(220, 207, 255, 0.22);
+  color: var(--lv-primary);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+.cta:active {
+  background: rgba(220, 207, 255, 0.42);
+  transform: scale(0.985);
+}
