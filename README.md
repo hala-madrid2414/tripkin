@@ -6,7 +6,7 @@ TripKin 是一个移动端 H5 旅行搭子 Demo，目前用于比赛作品原型
 
 ## 当前目标
 
-当前阶段先完成可运行、可截图、可继续迭代的前端 Demo，并允许 `server/` 下的最小 TypeScript mock API 骨架用于后续前后端联调。
+当前阶段先完成可运行、可截图、可继续迭代的前端 Demo，并允许 `server/` 下的最小 TypeScript mock API 链路用于后续前后端联调。
 
 已确定的主流程页面包括：
 
@@ -46,6 +46,14 @@ npm run dev
 ```
 
 后端默认运行在 `http://localhost:3001`，健康检查地址为 `http://localhost:3001/api/health`。
+
+Match 和 Bottle 仍默认支持纯前端 demo。只有在前端 `.env.local` 中配置后端地址时，`src/services` 才会请求本地 mock API：
+
+```bash
+VITE_API_BASE_URL=http://localhost:3001
+```
+
+不配置 `VITE_API_BASE_URL` 时，页面继续读取前端本地 mock 数据，不需要启动后端。
 
 如果需要在 `/map` 使用真实高德地图，在本地创建 `.env.local`：
 

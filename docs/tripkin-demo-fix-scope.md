@@ -24,7 +24,7 @@ MBTI -> 旅行身份卡 -> Map -> Bottle / Match -> Profile
 
 ## 不做范围
 
-本轮仍以静态前端 Demo 为主，允许 `server/` 下的最小 mock API 骨架用于后续联调，但不代表真实后端能力完成。本轮仍不做：
+本轮仍以静态前端 Demo 为主，允许 `server/` 下的最小 mock API 链路用于 Match/Bottle 联调，但不代表真实后端能力完成。未配置 `VITE_API_BASE_URL` 时，页面继续走前端本地 mock。本轮仍不做：
 
 - 数据库。
 - 登录系统。

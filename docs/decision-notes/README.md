@@ -38,13 +38,21 @@
 
 ## 已记录决策
 
+### 2026-06-20 Match/Bottle 进入 server mock API 双通道
+
+- 类型：目录结构 / 工程化 / 其他
+- 背景：Match 和 Bottle 已先通过 `src/services` 收口数据访问。为了继续向后端迁移，但不打断纯前端 demo，需要让页面在本地 mock 和后端 mock API 之间可切换。
+- 决定：`server/` 提供 Match/Bottle 的最小 mock API，并保留 `src/services` 作为唯一前端访问入口。未配置 `VITE_API_BASE_URL` 时，service 继续读取前端本地 mock；配置后，service 请求 `server/` mock API。当前只做轻量 mock API 跑通，不建立后端单元测试或契约测试体系。
+- 影响范围：`server/src` mock API、`src/services/matchService.ts`、`src/services/bottleService.ts`、Match/Bottle 页面数据加载方式、README 环境变量说明和后端验证命令。
+- 后续注意：server mock data 与 frontend mock data 当前存在重复，短期用于隔离后端边界；后续若继续扩接口，再讨论共享契约、统一 seed 或正式测试策略。当前仍不引入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式前端测试框架。`.trae/specs` 属于本地执行记录，不进入常规提交；若要纳入仓库需另行确认。
+
 ### 2026-06-20 引入 server 最小 TypeScript mock API 骨架
 
 - 类型：目录结构 / 依赖 / 工程化
 - 背景：前端已通过 `src/services` 收口 Match 和 Bottle 的 mock 数据入口，后续需要一个最小后端承接前后端联调，但当前仍不能引入数据库、登录、真实 AI 或真实匹配算法。
-- 决定：新增 `server/` 作为独立 TypeScript Express 后端目录，使用独立 `package.json` 和 `tsconfig.json`。当前仅提供 `/api/health` 健康检查，返回 `{ ok: true, service: 'tripkin-server' }`，用于确认后端服务可以启动和访问。
+- 决定：新增 `server/` 作为独立 TypeScript Express 后端目录，使用独立 `package.json` 和 `tsconfig.json`。初始阶段仅提供 `/api/health` 健康检查，返回 `{ ok: true, service: 'tripkin-server' }`，用于确认后端服务可以启动和访问。
 - 影响范围：`server/` 后端目录、README 本地启动说明、`AGENTS.md` 当前范围、`docs/coding-guide.md` 目录职责和 `docs/collaboration-guide.md` 协作规则。
-- 后续注意：前端页面仍通过 `src/services` 访问数据，不直接拼后端 URL。后续 Match/Bottle 业务接口迁移需要单独确认接口契约；不要在本阶段顺手加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
+- 后续注意：前端页面仍通过 `src/services` 访问数据，不直接拼后端 URL。Match/Bottle 业务接口迁移需要单独确认接口契约；不要在本阶段顺手加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
 
 ### 2026-06-20 新增 MVP 四入口底部导航 BottomNav
 

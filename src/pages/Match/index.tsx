@@ -23,6 +23,8 @@ import TripMatchCard from './components/TripMatchCard'
 import styles from './Match.module.less'
 import type {
   MatchMode,
+  MatchViewItem,
+  MatchViewModel,
   PartnerMatchCardData,
   TripMatchCardData,
 } from './types'
@@ -39,6 +41,15 @@ function Match() {
   const [selectedTrip, setSelectedTrip] = useState<TripMatchCardData | null>(
     null,
   )
+  const [matchRequest, setMatchRequest] = useState<{
+    requestKey: string
+    viewModel: MatchViewModel<MatchViewItem> | null
+    error: string
+  }>({
+    requestKey: '',
+    viewModel: null,
+    error: '',
+  })
 
   useEffect(() => {
     const tab = searchParams.get('tab')
@@ -61,15 +72,6 @@ function Match() {
       })!,
     [destination, searchParams],
   )
-  const viewModel = useMemo(
-    () =>
-      getMatchResults({
-        mode: activeMode,
-        destinationId: currentDestination.id,
-        destinationName: currentDestination.name,
-      }),
-    [activeMode, currentDestination],
-  )
   const destinationHint = getDestinationResolveHint(currentDestination)
   const placeTitle = currentDestination
     ? `${currentDestination.name}${
@@ -85,6 +87,51 @@ function Match() {
       ? '/map'
       : `/bottle?dest=${encodeURIComponent(currentDestination.id)}`
     : '/map'
+  const requestKey = `${activeMode}:${currentDestination.id}`
+  const loading = matchRequest.requestKey !== requestKey
+  const viewModel = loading ? null : matchRequest.viewModel
+  const loadError = loading ? '' : matchRequest.error
+  const placeMeta = viewModel?.metaText ?? currentContent.placeMeta
+  const stateNote = loadError || viewModel?.noteText || ''
+
+  useEffect(() => {
+    let cancelled = false
+
+    getMatchResults({
+      mode: activeMode,
+      destinationId: currentDestination.id,
+      destinationName: currentDestination.name,
+    })
+      .then((result) => {
+        if (cancelled) {
+          return
+        }
+
+        setMatchRequest({
+          requestKey,
+          viewModel: result,
+          error: '',
+        })
+      })
+      .catch((error: unknown) => {
+        if (cancelled) {
+          return
+        }
+
+        setMatchRequest({
+          requestKey,
+          viewModel: null,
+          error:
+            error instanceof Error
+              ? error.message
+              : '匹配结果加载失败，请稍后重试。',
+        })
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [activeMode, currentDestination.id, currentDestination.name, requestKey])
 
   return (
     <main className={styles.page}>
@@ -92,7 +139,7 @@ function Match() {
         <MatchTopBar
           title={currentContent.title}
           placeTitle={placeTitle}
-          placeMeta={viewModel.metaText}
+          placeMeta={placeMeta}
           backTo={backTo}
           onFilterClick={() => setFilterVisible(true)}
         />
@@ -106,18 +153,26 @@ function Match() {
         <MatchFilterChips items={currentContent.chips} />
 
         {destinationHint && <p className={styles.hint}>{destinationHint}</p>}
-        {viewModel.noteText && (
-          <p className={styles.stateNote}>{viewModel.noteText}</p>
-        )}
+        {stateNote && <p className={styles.stateNote}>{stateNote}</p>}
 
         <section className={styles.list} aria-label="匹配结果列表">
-          {viewModel.state === 'empty' ? (
+          {loading ? (
+            <div className={styles.emptyState}>
+              <h2>匹配结果加载中</h2>
+              <p>正在同步当前目的地的匹配结果，请稍候。</p>
+            </div>
+          ) : loadError ? (
+            <div className={styles.emptyState}>
+              <h2>匹配结果暂不可用</h2>
+              <p>{loadError}</p>
+            </div>
+          ) : viewModel?.state === 'empty' ? (
             <div className={styles.emptyState}>
               <h2>{viewModel.emptyTitle}</h2>
               <p>{viewModel.emptyDescription}</p>
             </div>
           ) : activeMode === 'partner' ? (
-            (viewModel.items as PartnerMatchCardData[]).map((item) => (
+            ((viewModel?.items ?? []) as PartnerMatchCardData[]).map((item) => (
               <PartnerMatchCard
                 key={item.id}
                 item={item}
@@ -125,7 +180,7 @@ function Match() {
               />
             ))
           ) : (
-            (viewModel.items as TripMatchCardData[]).map((item) => (
+            ((viewModel?.items ?? []) as TripMatchCardData[]).map((item) => (
               <TripMatchCard
                 key={item.id}
                 item={item}
@@ -135,7 +190,10 @@ function Match() {
           )}
         </section>
 
-        {activeMode === 'partner' && viewModel.state !== 'empty' ? (
+        {activeMode === 'partner' &&
+        !loading &&
+        !loadError &&
+        viewModel?.state !== 'empty' ? (
           <footer className={styles.footer}>
             以上为当前目的地相关匹配结果，后续可由后端按目的地和人格继续推荐。
           </footer>

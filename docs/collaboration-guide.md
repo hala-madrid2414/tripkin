@@ -57,6 +57,8 @@ npm install
 - `server/` 只放已确认的最小 TypeScript mock API 后端代码。
 - 后端接口字段变化时，必须说明影响哪些前端 `src/services` 文件和页面。
 - 前端页面不要直接请求后端 URL，应通过 `src/services` 统一访问。
+- Match/Bottle 页面默认仍可纯前端运行；只有配置 `VITE_API_BASE_URL` 时，service 才请求 `server/` mock API。
+- 改动后端 mock API 时，优先确认后端能启动、目标接口能返回 JSON；必要时运行 `server/` 下的 `npm run build`。
 - 当前不要在 `server/` 中加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
 
 ## 本地开发资料与草稿区

@@ -61,13 +61,17 @@ PageName/
 
 后续出现真实请求时，页面里不要散写请求逻辑，应通过 `services` 收口。前端页面不要直接拼后端 URL。
 
+Match 和 Bottle 当前已经支持双通道：未配置 `VITE_API_BASE_URL` 时继续读取前端本地 mock；配置后由 `src/services` 请求 `server/` 的 mock API。页面只关心 service 返回的数据结构，不关心数据来自本地 mock 还是后端 mock API。
+
 ### `server`
 
 放最小 TypeScript Express 后端代码，用于 mock API 和后续前后端联调。
 
 后端目录使用独立 `package.json` 和 `tsconfig.json`。路由、后端 mock 数据、后端类型和服务逻辑都放在 `server/src` 下，不要直接引用前端页面目录里的 UI mock 文件。
 
-当前 `server/` 只承接已确认的最小 mock API；不要自行加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
+当前 `server/` 只承接已确认的最小 mock API，包括 `/api/health`、Match 和 Bottle 的 mock API；以快速跑通和便于前后端联调为主，不要自行加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
+
+当前阶段不建立后端单元测试或契约测试体系。修改 mock API 后，优先确认后端能启动、目标接口能返回 JSON，必要时运行 `server/` 下的 `npm run build`。
 
 ### `src/store`
 

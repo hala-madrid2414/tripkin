@@ -1,5 +1,5 @@
 import BottomNav from '@/components/BottomNav'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
   getDestinationResolveHint,
@@ -8,12 +8,13 @@ import {
 import { useTripStore } from '@/store/useTripStore'
 import {
   bottleTypeOptions,
+  createBottleMessage,
   defaultBottleImage,
   getBottleListForDestination,
   type BottleMessage,
   type BottleType,
-  typeLabels,
   type BottleServiceListResult,
+  typeLabels,
 } from '@/services/bottleService'
 import styles from './Bottle.module.less'
 
@@ -49,40 +50,41 @@ function Bottle() {
       })!,
     [rawDest, sessionDestination],
   )
-  const [userBottlesByDest, setUserBottlesByDest] = useState<
-    Record<string, BottleMessage[]>
-  >({})
   const [selectedBottle, setSelectedBottle] = useState<BottleMessage | null>(
     null,
   )
+  const [bottleRequest, setBottleRequest] = useState<{
+    requestKey: string
+    result: BottleServiceListResult | null
+    error: string
+  }>({
+    requestKey: '',
+    result: null,
+    error: '',
+  })
   const [manualAddSheetOpen, setManualAddSheetOpen] = useState(false)
   const [dismissedAddKey, setDismissedAddKey] = useState<string | null>(null)
   const [messageText, setMessageText] = useState('')
   const [selectedType, setSelectedType] = useState<BottleType>('story')
   const [formError, setFormError] = useState('')
   const [feedbackMessage, setFeedbackMessage] = useState('')
+  const [refreshSeed, setRefreshSeed] = useState(0)
+  const [submitting, setSubmitting] = useState(false)
   const [collectedBottleIds, setCollectedBottleIds] = useState<string[]>([])
   const [imageUploadHint, setImageUploadHint] = useState('')
 
-  const bottleResult = useMemo(
-    () =>
-      getBottleListForDestination({
-        destId: currentDestination.id,
-        destName: currentDestination.name,
-        parentId: currentDestination.parentId,
-        parentName: currentDestination.parentName,
-      }),
-    [currentDestination],
-  )
-  const bottles = [
-    ...(userBottlesByDest[currentDestination.id] ?? []),
-    ...bottleResult.items,
-  ]
-  const sourceText = getSourceText(
-    bottleResult.source,
-    bottleResult.sourceName,
-    currentDestination.name,
-  )
+  const requestKey = `${currentDestination.id}:${refreshSeed}`
+  const loading = bottleRequest.requestKey !== requestKey
+  const bottleResult = loading ? null : bottleRequest.result
+  const loadError = loading ? '' : bottleRequest.error
+  const bottles = bottleResult?.items ?? []
+  const sourceText = bottleResult
+    ? getSourceText(
+        bottleResult.source,
+        bottleResult.sourceName,
+        currentDestination.name,
+      )
+    : ''
   const destinationHint = getDestinationResolveHint(currentDestination)
   const matchPath = `/match?dest=${encodeURIComponent(currentDestination.id)}`
   const addActionKey = `${currentDestination.id}:${action ?? ''}`
@@ -93,6 +95,52 @@ function Bottle() {
     typeof currentDestination.bottleCount === 'number'
       ? `${currentDestination.name} 共有 ${currentDestination.bottleCount} 个漂流瓶，精选展示 ${bottles.length} 条`
       : `${currentDestination.name} 漂流瓶精选`
+
+  useEffect(() => {
+    let cancelled = false
+
+    getBottleListForDestination({
+      destId: currentDestination.id,
+      destName: currentDestination.name,
+      parentId: currentDestination.parentId,
+      parentName: currentDestination.parentName,
+    })
+      .then((result) => {
+        if (cancelled) {
+          return
+        }
+
+        setBottleRequest({
+          requestKey,
+          result,
+          error: '',
+        })
+      })
+      .catch((error: unknown) => {
+        if (cancelled) {
+          return
+        }
+
+        setBottleRequest({
+          requestKey,
+          result: null,
+          error:
+            error instanceof Error
+              ? error.message
+              : '漂流瓶列表加载失败，请稍后重试。',
+        })
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [
+    currentDestination.id,
+    currentDestination.name,
+    currentDestination.parentId,
+    currentDestination.parentName,
+    requestKey,
+  ])
 
   const handleToggleCollect = (bottleId: string) => {
     setCollectedBottleIds((prev) =>
@@ -126,30 +174,32 @@ function Bottle() {
       return
     }
 
-    const typeLabel = typeLabels[selectedType]
-    const newBottle: BottleMessage = {
-      id: `user-${currentDestination.id}-${Date.now()}`,
+    setSubmitting(true)
+
+    createBottleMessage({
+      destId: currentDestination.id,
+      destName: currentDestination.name,
       type: selectedType,
       content,
-      tags: [typeLabel, currentDestination.name, '刚投出'],
-      from: '我投出的瓶子',
-      destinationName: currentDestination.name,
-      createdAt: '刚刚',
-      imageUrl: defaultBottleImage,
-    }
-
-    setUserBottlesByDest((prev) => ({
-      ...prev,
-      [currentDestination.id]: [
-        newBottle,
-        ...(prev[currentDestination.id] ?? []),
-      ],
-    }))
-    setMessageText('')
-    setSelectedType('story')
-    setManualAddSheetOpen(false)
-    setDismissedAddKey(addActionKey)
-    setFeedbackMessage(`已把漂流瓶投向 ${currentDestination.name}。`)
+    })
+      .then(() => {
+        setMessageText('')
+        setSelectedType('story')
+        setManualAddSheetOpen(false)
+        setDismissedAddKey(addActionKey)
+        setFeedbackMessage(`已把漂流瓶投向 ${currentDestination.name}。`)
+        setRefreshSeed((prev) => prev + 1)
+      })
+      .catch((error: unknown) => {
+        setFormError(
+          error instanceof Error
+            ? error.message
+            : '投出漂流瓶失败，请稍后重试。',
+        )
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
   }
 
   return (
@@ -187,6 +237,11 @@ function Bottle() {
       </nav>
 
       {destinationHint && <p className={styles.hint}>{destinationHint}</p>}
+      {loadError && (
+        <p className={styles.feedback} role="alert">
+          {loadError}
+        </p>
+      )}
       {feedbackMessage && (
         <p className={styles.feedback} role="status">
           {feedbackMessage}
@@ -218,37 +273,45 @@ function Bottle() {
         </div>
 
         <div className={styles.bottleList}>
-          {bottles.map((bottle) => (
-            <button
-              className={styles.listCard}
-              key={bottle.id}
-              type="button"
-              onClick={() => setSelectedBottle(bottle)}
-            >
-              <span className={styles.listThumb}>
-                <img
-                  src={bottle.imageUrl || defaultBottleImage}
-                  alt=""
-                  aria-hidden="true"
-                />
-              </span>
-              <span className={styles.listBody}>
-                <span className={styles.listMeta}>
-                  <strong>{bottle.from}</strong>
-                  <em>{bottle.createdAt}</em>
+          {loading ? (
+            <p className={styles.sourceNote}>正在同步当前目的地的漂流瓶...</p>
+          ) : bottles.length === 0 ? (
+            <p className={styles.sourceNote}>
+              当前目的地还没有可展示的漂流瓶，先投出第一条吧。
+            </p>
+          ) : (
+            bottles.map((bottle) => (
+              <button
+                className={styles.listCard}
+                key={bottle.id}
+                type="button"
+                onClick={() => setSelectedBottle(bottle)}
+              >
+                <span className={styles.listThumb}>
+                  <img
+                    src={bottle.imageUrl || defaultBottleImage}
+                    alt=""
+                    aria-hidden="true"
+                  />
                 </span>
-                <span className={styles.typePill}>
-                  {typeLabels[bottle.type]}
+                <span className={styles.listBody}>
+                  <span className={styles.listMeta}>
+                    <strong>{bottle.from}</strong>
+                    <em>{bottle.createdAt}</em>
+                  </span>
+                  <span className={styles.typePill}>
+                    {typeLabels[bottle.type]}
+                  </span>
+                  <span className={styles.listContent}>{bottle.content}</span>
+                  <span className={styles.tags}>
+                    {bottle.tags.map((tag) => (
+                      <i key={tag}>#{tag}</i>
+                    ))}
+                  </span>
                 </span>
-                <span className={styles.listContent}>{bottle.content}</span>
-                <span className={styles.tags}>
-                  {bottle.tags.map((tag) => (
-                    <i key={tag}>#{tag}</i>
-                  ))}
-                </span>
-              </span>
-            </button>
-          ))}
+              </button>
+            ))
+          )}
         </div>
       </section>
 
@@ -390,8 +453,9 @@ function Bottle() {
               className={styles.primaryButton}
               type="button"
               onClick={handleSendBottle}
+              disabled={submitting}
             >
-              投出漂流瓶
+              {submitting ? '投递中...' : '投出漂流瓶'}
             </button>
           </section>
         </div>

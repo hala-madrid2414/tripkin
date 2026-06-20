@@ -30,7 +30,7 @@ If `.local-docs/` contains reference images, ask how they should be used before 
 
 ## Current Scope
 
-The current version focuses on frontend demo pages and route flow, plus a minimal `server/` TypeScript mock API skeleton when explicitly requested.
+The current version focuses on frontend demo pages and route flow, plus a minimal `server/` TypeScript mock API chain when explicitly requested.
 
 Do not add these unless explicitly requested:
 
