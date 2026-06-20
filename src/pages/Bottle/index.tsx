@@ -9,17 +9,18 @@ import { useTripStore } from '@/store/useTripStore'
 import {
   bottleTypeOptions,
   defaultBottleImage,
-  getBottleListByDest,
+  getBottleListForDestination,
   type BottleMessage,
   type BottleType,
   typeLabels,
-} from './data/bottleMockData'
+  type BottleServiceListResult,
+} from '@/services/bottleService'
 import styles from './Bottle.module.less'
 
 const defaultDestinationId = 'yunnan'
 
 function getSourceText(
-  source: ReturnType<typeof getBottleListByDest>['source'],
+  source: BottleServiceListResult['source'],
   sourceName: string | undefined,
   destinationName: string,
 ) {
@@ -65,7 +66,7 @@ function Bottle() {
 
   const bottleResult = useMemo(
     () =>
-      getBottleListByDest({
+      getBottleListForDestination({
         destId: currentDestination.id,
         destName: currentDestination.name,
         parentId: currentDestination.parentId,

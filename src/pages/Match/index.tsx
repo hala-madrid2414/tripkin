@@ -7,6 +7,11 @@ import {
   getDestinationResolveHint,
   resolveDestination,
 } from '@/utils/destinationResolver'
+import {
+  getMatchContent,
+  getMatchModes,
+  getMatchResults,
+} from '@/services/matchService'
 import FilterSheet from './components/FilterSheet'
 import JoinTripSheet from './components/JoinTripSheet'
 import MatchFilterChips from './components/MatchFilterChips'
@@ -15,8 +20,6 @@ import MatchTopBar from './components/MatchTopBar'
 import PartnerMatchCard from './components/PartnerMatchCard'
 import ProfileSheet from './components/ProfileSheet'
 import TripMatchCard from './components/TripMatchCard'
-import { getMatchViewModel } from './matchLogic'
-import { matchContent, modeOptions, partnerCards, tripCards } from './matchMock'
 import styles from './Match.module.less'
 import type {
   MatchMode,
@@ -47,7 +50,8 @@ function Match() {
     }
   }, [activeMode, searchParams, setActiveMode])
 
-  const currentContent = matchContent[activeMode]
+  const currentContent = getMatchContent(activeMode)
+  const modeOptions = getMatchModes()
   const currentDestination = useMemo(
     () =>
       resolveDestination({
@@ -59,12 +63,10 @@ function Match() {
   )
   const viewModel = useMemo(
     () =>
-      getMatchViewModel({
+      getMatchResults({
         mode: activeMode,
         destinationId: currentDestination.id,
         destinationName: currentDestination.name,
-        partnerCards,
-        tripCards,
       }),
     [activeMode, currentDestination],
   )

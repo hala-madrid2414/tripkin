@@ -2,7 +2,7 @@
 
 ## Project
 
-TripKin is a mobile H5 travel companion demo built with React, Vite, TypeScript, React Router, Less, and CSS Modules.
+TripKin is a mobile H5 travel companion demo built with React, Vite, TypeScript, React Router, Less, and CSS Modules. The repository also has a minimal TypeScript Express backend under `server/` for mock API handoff work.
 
 ## Read First
 
@@ -30,11 +30,10 @@ If `.local-docs/` contains reference images, ask how they should be used before 
 
 ## Current Scope
 
-The current version focuses on frontend demo pages and route flow.
+The current version focuses on frontend demo pages and route flow, plus a minimal `server/` TypeScript mock API skeleton when explicitly requested.
 
 Do not add these unless explicitly requested:
 
-- backend
 - database
 - login system
 - real AI API
@@ -64,6 +63,7 @@ All temporary Playwright scripts, screenshots, traces, logs, and browser artifac
 - Request and data-access code goes in `src/services`.
 - Shared Zustand state goes in `src/store`.
 - Pure helpers go in `src/utils`.
+- Minimal backend code goes in `server`.
 
 Keep ordinary page-local code close to the page until reuse is clear.
 
