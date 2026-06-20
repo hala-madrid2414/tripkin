@@ -1,4 +1,4 @@
-﻿export interface MockCompanion {
+export interface MockCompanion {
   name: string
   mbti: string
   avatarEmoji: string
@@ -71,16 +71,34 @@ export const mockProfileData: MockProfileData = {
       avatarEmoji: '☁️',
       lastInteraction: '2天前',
     },
+    {
+      name: '海盐入梦',
+      mbti: 'INFP',
+      avatarEmoji: '🌊',
+      lastInteraction: '5小时前',
+    },
+    {
+      name: '宫墙研究员',
+      mbti: 'INTJ',
+      avatarEmoji: '🏮',
+      lastInteraction: '上周',
+    },
+    {
+      name: '紫色风路',
+      mbti: 'ENFP',
+      avatarEmoji: '🪻',
+      lastInteraction: '刚刚',
+    },
   ],
   bottleStats: {
-    sent: 12,
-    replies: 8,
-    saved: 5,
+    sent: 21,
+    replies: 16,
+    saved: 12,
   },
   tripStats: {
-    inProgress: 2,
-    completed: 7,
-    nextDeparture: '6月28日',
+    inProgress: 4,
+    completed: 11,
+    nextDeparture: '7月3日',
     recentTrips: [
       {
         title: '川西环线自驾',
@@ -100,22 +118,46 @@ export const mockProfileData: MockProfileData = {
         dateRange: '4.10 - 4.15',
         status: 'done',
       },
+      {
+        title: '杭州周末 citywalk',
+        destination: '杭州',
+        dateRange: '3.22 - 3.23',
+        status: 'done',
+      },
+      {
+        title: '哈尔滨亮灯夜游',
+        destination: '哈尔滨',
+        dateRange: '1.12 - 1.16',
+        status: 'done',
+      },
     ],
   },
   footprintStats: {
-    cities: ['大理', '稻城', '四姑娘山', '新都桥', '理塘', '康定'],
-    cityCount: 14,
-    travelDays: 68,
+    cities: [
+      '大理',
+      '稻城',
+      '四姑娘山',
+      '新都桥',
+      '理塘',
+      '康定',
+      '杭州',
+      '哈尔滨',
+      '三亚',
+    ],
+    cityCount: 21,
+    travelDays: 104,
   },
   collectionStats: {
-    destinations: 9,
-    bottles: 5,
-    companions: 3,
+    destinations: 16,
+    bottles: 14,
+    companions: 6,
   },
   settingsItems: [
     { icon: '👤', title: '账号设置' },
     { icon: '🔒', title: '隐私设置' },
     { icon: '🔔', title: '通知设置' },
+    { icon: '🧭', title: '旅行偏好管理' },
+    { icon: '🪪', title: '身份卡展示设置' },
     { icon: 'ℹ️', title: '关于我们' },
   ],
 }
