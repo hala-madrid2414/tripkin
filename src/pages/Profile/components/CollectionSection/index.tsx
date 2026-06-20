@@ -1,12 +1,39 @@
-﻿import { Toast } from 'antd-mobile'
+import { useState } from 'react'
 import type { MockCollectionStats } from '../../mock'
+import { FavoriteDestinationsPage } from '../FavoriteDestinationsPage'
+import { FavoriteBottlesPage } from '../FavoriteBottlesPage'
+import { FavoriteCompanionsPage } from '../FavoriteCompanionsPage'
+import {
+  favoriteDestinations,
+  favoriteBottles,
+  favoriteCompanions,
+} from '../../mockFavorites'
 import styles from './CollectionSection.module.less'
 
 interface CollectionSectionProps {
   collectionStats: MockCollectionStats
 }
 
+const PAGE_MAP: Record<string, string> = {
+  目的地: 'destinations',
+  漂流瓶: 'bottles',
+  搭子: 'companions',
+}
+
 export function CollectionSection({ collectionStats }: CollectionSectionProps) {
+  const [openPage, setOpenPage] = useState<string | null>(null)
+
+  const handleClick = (label: string) => {
+    const key = PAGE_MAP[label]
+    if (key) setOpenPage(key)
+  }
+
+  const cards = [
+    { icon: '🗺️', value: collectionStats.destinations, label: '目的地' },
+    { icon: '🌊', value: collectionStats.bottles, label: '漂流瓶' },
+    { icon: '🤝', value: collectionStats.companions, label: '搭子' },
+  ]
+
   return (
     <section className={styles.section}>
       <header className={styles.sectionHeader}>
@@ -17,43 +44,34 @@ export function CollectionSection({ collectionStats }: CollectionSectionProps) {
       </header>
 
       <div className={styles.grid}>
-        <div
-          className={styles.card}
-          onClick={() =>
-            Toast.show({ content: '查看收藏的目的地', duration: 1500 })
-          }
-        >
-          <span className={styles.cardIcon}>🗺️</span>
-          <strong className={styles.cardValue}>
-            {collectionStats.destinations}
-          </strong>
-          <span className={styles.cardLabel}>目的地</span>
-        </div>
-        <div
-          className={styles.card}
-          onClick={() =>
-            Toast.show({ content: '查看收藏的漂流瓶', duration: 1500 })
-          }
-        >
-          <span className={styles.cardIcon}>🌊</span>
-          <strong className={styles.cardValue}>
-            {collectionStats.bottles}
-          </strong>
-          <span className={styles.cardLabel}>漂流瓶</span>
-        </div>
-        <div
-          className={styles.card}
-          onClick={() =>
-            Toast.show({ content: '查看收藏的搭子', duration: 1500 })
-          }
-        >
-          <span className={styles.cardIcon}>🤝</span>
-          <strong className={styles.cardValue}>
-            {collectionStats.companions}
-          </strong>
-          <span className={styles.cardLabel}>搭子</span>
-        </div>
+        {cards.map((c) => (
+          <div
+            key={c.label}
+            className={styles.card}
+            onClick={() => handleClick(c.label)}
+          >
+            <span className={styles.cardIcon}>{c.icon}</span>
+            <strong className={styles.cardValue}>{c.value}</strong>
+            <span className={styles.cardLabel}>{c.label}</span>
+          </div>
+        ))}
       </div>
+
+      <FavoriteDestinationsPage
+        visible={openPage === 'destinations'}
+        items={favoriteDestinations}
+        onClose={() => setOpenPage(null)}
+      />
+      <FavoriteBottlesPage
+        visible={openPage === 'bottles'}
+        items={favoriteBottles}
+        onClose={() => setOpenPage(null)}
+      />
+      <FavoriteCompanionsPage
+        visible={openPage === 'companions'}
+        items={favoriteCompanions}
+        onClose={() => setOpenPage(null)}
+      />
     </section>
   )
 }

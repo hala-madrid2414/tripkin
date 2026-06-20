@@ -26,6 +26,9 @@ function Profile() {
 
   const hasPersona = personaId !== null
   const destinationId = resolveDestinationId(destination)
+  const handleSaveAccount = (newNickname: string, newTagline: string) => {
+    useTripStore.setState({ nickname: newNickname, tagline: newTagline })
+  }
 
   if (!hasPersona) {
     return (
@@ -113,6 +116,7 @@ function Profile() {
           settingsItems={mockProfileData.settingsItems}
           nickname={nickname ?? '旅行者'}
           tagline={tagline ?? ''}
+          onSaveAccount={handleSaveAccount}
         />
       </div>
 

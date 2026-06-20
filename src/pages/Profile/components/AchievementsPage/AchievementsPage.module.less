@@ -1,4 +1,4 @@
-﻿.overlay {
+.overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
@@ -39,7 +39,6 @@
     opacity: 1;
   }
 }
-
 .topBar {
   display: flex;
   align-items: center;
@@ -50,7 +49,7 @@
 .topTitle {
   font-size: 16px;
   font-weight: 700;
-  color: var(--lv-heading);
+  color: #4a3f6b;
 }
 .topSpacer {
   width: 56px;
@@ -63,7 +62,7 @@
   border-radius: 50%;
   border: 0;
   background: transparent;
-  color: var(--lv-text-muted);
+  color: #9b8ec4;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.15s;
@@ -72,75 +71,106 @@
   flex-shrink: 0;
 }
 .backBtn:active {
-  color: var(--lv-primary);
+  color: #b89cff;
 }
-
 .body {
   flex: 1 1 auto;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 12px 18px calc(env(safe-area-inset-bottom) + 20px);
+  padding: 16px 18px calc(env(safe-area-inset-bottom) + 20px);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
 }
 
-.toggleRow {
+/* ---- progress header ---- */
+.progressHeader {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px 14px;
+  gap: 10px;
+  padding: 14px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(220, 207, 255, 0.5);
 }
-.toggleInfo {
+.progressIcon {
+  font-size: 28px;
+  line-height: 1;
+}
+.progressText {
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b5e8a;
+}
+.progressCount {
+  font-weight: 800;
+  font-size: 20px;
+  color: #7c5ce7;
+}
+
+/* ---- list ---- */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card,
+.cardLocked {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(220, 207, 255, 0.5);
+}
+.cardLocked {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(220, 207, 255, 0.3);
+}
+.cardIcon,
+.cardIconLocked {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  background: linear-gradient(135deg, #f0ebff, #e0d6ff);
+  border: 1px solid rgba(220, 207, 255, 0.5);
+  flex-shrink: 0;
+}
+.cardIconLocked {
+  background: rgba(240, 240, 245, 0.7);
+  border-color: rgba(200, 200, 215, 0.4);
+  font-size: 16px;
+}
+.cardInfo {
   flex: 1 1 auto;
   min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
-.toggleLabel {
+.cardTitle,
+.cardTitleLocked {
+  font-weight: 700;
   font-size: 14px;
-  font-weight: 600;
-  color: var(--lv-heading);
+  color: #4a3f6b;
 }
-.toggleDesc {
+.cardTitleLocked {
+  color: #b5b0c4;
+}
+.cardSubtitle {
   font-size: 11px;
-  color: var(--lv-text-muted);
-  line-height: 1.4;
+  color: #9b8ec4;
 }
-
-.switch {
-  flex: 0 0 auto;
-  width: 48px;
-  height: 28px;
-  border-radius: 14px;
-  cursor: pointer;
-  position: relative;
-  transition: background 0.25s;
-  -webkit-tap-highlight-color: transparent;
-}
-.switchOn {
-  background: #7c5ce7;
-}
-.switchOff {
-  background: rgba(140, 142, 165, 0.35);
-}
-.switchKnob {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #fff;
-  position: absolute;
-  top: 3px;
-  transition: left 0.25s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-.switchKnobOn {
-  left: 23px;
-}
-.switchKnobOff {
-  left: 3px;
+.unlockedBadge {
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #7c5ce7;
+  background: rgba(124, 92, 231, 0.08);
+  flex-shrink: 0;
 }

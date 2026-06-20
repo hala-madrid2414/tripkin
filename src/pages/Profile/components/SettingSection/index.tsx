@@ -10,6 +10,7 @@ interface SettingSectionProps {
   settingsItems: MockSettingsItem[]
   nickname: string
   tagline: string
+  onSaveAccount: (nickname: string, tagline: string) => void
 }
 
 const PAGE_MAP: Record<string, string> = {
@@ -23,6 +24,7 @@ export function SettingSection({
   settingsItems,
   nickname,
   tagline,
+  onSaveAccount,
 }: SettingSectionProps) {
   const [openPage, setOpenPage] = useState<string | null>(null)
 
@@ -55,6 +57,7 @@ export function SettingSection({
         visible={openPage === 'account'}
         nickname={nickname}
         tagline={tagline}
+        onSave={onSaveAccount}
         onClose={() => setOpenPage(null)}
       />
       <PrivacySettingsPage

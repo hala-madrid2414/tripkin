@@ -1,23 +1,7 @@
 ﻿import { createPortal } from 'react-dom'
-import type { ReactElement } from 'react'
+import { Toast } from 'antd-mobile'
+import { IconBack } from '../IconBack'
 import styles from './AboutPage.module.less'
-
-function IconBack(): ReactElement {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      width="20"
-      height="20"
-    >
-      <polyline points="15 18 9 12 15 6" />
-    </svg>
-  )
-}
 
 interface AboutPageProps {
   visible: boolean
@@ -61,19 +45,34 @@ export function AboutPage({ visible, onClose }: AboutPageProps) {
           </div>
 
           {/* contact */}
-          <div className={styles.linkRow}>
+          <div
+            className={styles.linkRow}
+            onClick={() =>
+              Toast.show({ content: '功能尚未开放', duration: 1200 })
+            }
+          >
             <span>{'联系我们'}</span>
             <span className={styles.linkArrow}>{'›'}</span>
           </div>
 
           {/* terms */}
-          <div className={styles.linkRow}>
+          <div
+            className={styles.linkRow}
+            onClick={() =>
+              Toast.show({ content: '功能尚未开放', duration: 1200 })
+            }
+          >
             <span>{'用户协议'}</span>
             <span className={styles.linkArrow}>{'›'}</span>
           </div>
 
           {/* privacy policy */}
-          <div className={styles.linkRow}>
+          <div
+            className={styles.linkRow}
+            onClick={() =>
+              Toast.show({ content: '功能尚未开放', duration: 1200 })
+            }
+          >
             <span>{'隐私政策'}</span>
             <span className={styles.linkArrow}>{'›'}</span>
           </div>

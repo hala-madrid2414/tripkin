@@ -1,25 +1,8 @@
 ﻿import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Toast } from 'antd-mobile'
-import type { ReactElement } from 'react'
+import { IconBack } from '../IconBack'
 import styles from './AccountSettingsPage.module.less'
-
-function IconBack(): ReactElement {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      width="20"
-      height="20"
-    >
-      <polyline points="15 18 9 12 15 6" />
-    </svg>
-  )
-}
 
 const MOCK_ACCOUNT = {
   phone: '138****5678',
@@ -30,6 +13,7 @@ interface AccountSettingsPageProps {
   visible: boolean
   nickname: string
   tagline: string
+  onSave: (nickname: string, tagline: string) => void
   onClose: () => void
 }
 
@@ -37,6 +21,7 @@ export function AccountSettingsPage({
   visible,
   nickname,
   tagline,
+  onSave,
   onClose,
 }: AccountSettingsPageProps) {
   const [showNickname, setShowNickname] = useState(nickname)
@@ -111,7 +96,8 @@ export function AccountSettingsPage({
             type="button"
             className={styles.saveBtn}
             onClick={() => {
-              Toast.show({ content: '保存成功', duration: 1200 })
+              onSave(showNickname, showTagline)
+              Toast.show({ content: '已保存', duration: 1200 })
               onClose()
             }}
           >
