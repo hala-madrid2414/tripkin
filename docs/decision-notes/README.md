@@ -38,13 +38,29 @@
 
 ## 已记录决策
 
+### 2026-06-20 落地首页与全局 MBTI 入口公共骨架
+
+- 类型：路由 / 公共组件 / 其他
+- 背景：飞书草稿确认后续产品闭环需要首页、四栏底部导航和全局 MBTI 入口。该调整会影响路由结构、`BottomNav`、MBTI 模块入口和各页面并行开发方式，如果每个页面负责人各自顺手改公共文件，容易造成冲突。
+- 决定：已完成公共骨架小改动，再进入分页面并行开发。公共骨架包括：首页路由 `/` 的轻量首页；`/mbti`、`/mbti/test`、`/mbti/result` 路由入口；`首页 / 地图 / MBTI / 我的` 四栏 `BottomNav`；`MbtiEntryModal`，用于非 MBTI 页面点击底部 MBTI 时先弹出引导弹窗。MBTI 模块内部点击底部 MBTI 不重复弹窗。
+- 影响范围：`src/router`、`src/components/BottomNav`、`src/components/MbtiEntryModal`、`src/pages/Home`、`src/pages/Mbti`，以及所有接入底部导航的页面。
+- 后续注意：公共骨架只做到能挂载、能跳转、不会挡住页面负责人工作；不要在骨架维护任务里夹带完整首页运营内容或单页视觉重写。外部短视频入口、消息页、维度分析页、深度推荐算法、真实分享和原型图严格复刻仍未确认，不进入正式执行范围。
+
+### 2026-06-20 Match/Bottle 进入 server mock API 双通道
+
+- 类型：目录结构 / 工程化 / 其他
+- 背景：Match 和 Bottle 已先通过 `src/services` 收口数据访问。为了继续向后端迁移，但不打断纯前端 demo，需要让页面在本地 mock 和后端 mock API 之间可切换。
+- 决定：`server/` 提供 Match/Bottle 的最小 mock API，并保留 `src/services` 作为唯一前端访问入口。未配置 `VITE_API_BASE_URL` 时，service 继续读取前端本地 mock；配置后，service 请求 `server/` mock API。当前只做轻量 mock API 跑通，不建立后端单元测试或契约测试体系。
+- 影响范围：`server/src` mock API、`src/services/matchService.ts`、`src/services/bottleService.ts`、Match/Bottle 页面数据加载方式、README 环境变量说明和后端验证命令。
+- 后续注意：server mock data 与 frontend mock data 当前存在重复，短期用于隔离后端边界；后续若继续扩接口，再讨论共享契约、统一 seed 或正式测试策略。当前仍不引入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式前端测试框架。`.trae/specs` 属于本地执行记录，不进入常规提交；若要纳入仓库需另行确认。
+
 ### 2026-06-20 引入 server 最小 TypeScript mock API 骨架
 
 - 类型：目录结构 / 依赖 / 工程化
 - 背景：前端已通过 `src/services` 收口 Match 和 Bottle 的 mock 数据入口，后续需要一个最小后端承接前后端联调，但当前仍不能引入数据库、登录、真实 AI 或真实匹配算法。
-- 决定：新增 `server/` 作为独立 TypeScript Express 后端目录，使用独立 `package.json` 和 `tsconfig.json`。当前仅提供 `/api/health` 健康检查，返回 `{ ok: true, service: 'tripkin-server' }`，用于确认后端服务可以启动和访问。
+- 决定：新增 `server/` 作为独立 TypeScript Express 后端目录，使用独立 `package.json` 和 `tsconfig.json`。初始阶段仅提供 `/api/health` 健康检查，返回 `{ ok: true, service: 'tripkin-server' }`，用于确认后端服务可以启动和访问。
 - 影响范围：`server/` 后端目录、README 本地启动说明、`AGENTS.md` 当前范围、`docs/coding-guide.md` 目录职责和 `docs/collaboration-guide.md` 协作规则。
-- 后续注意：前端页面仍通过 `src/services` 访问数据，不直接拼后端 URL。后续 Match/Bottle 业务接口迁移需要单独确认接口契约；不要在本阶段顺手加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
+- 后续注意：前端页面仍通过 `src/services` 访问数据，不直接拼后端 URL。Match/Bottle 业务接口迁移需要单独确认接口契约；不要在本阶段顺手加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
 
 ### 2026-06-20 新增 MVP 四入口底部导航 BottomNav
 
@@ -52,7 +68,7 @@
 - 背景：最新 MVP 方案确认一级入口为地图、匹配、漂流瓶、我的；旅行测试仅作为新用户或偏好更新入口，不再长期占用底部导航。
 - 决定：在 `src/components/BottomNav` 新增跨页面底部导航组件，当前接入 `/map`、`/match`、`/bottle`、`/profile`，不接入 `/mbti`。
 - 影响范围：主流程四个页面、移动端底部安全区、后续页面新增一级入口时的导航维护。
-- 后续注意：不要为单个页面私自改公共导航结构；如新增或移除一级入口，需要同步更新本决策记录和相关页面验收。
+- 后续注意：该决策已被“2026-06-20 落地首页与全局 MBTI 入口公共骨架”更新。当前 `BottomNav` 以 `首页 / 地图 / MBTI / 我的` 为准，不再以地图、匹配、漂流瓶、我的为准。不要为单个页面私自改公共导航结构；如新增或移除一级入口，需要同步更新本决策记录和相关页面验收。
 
 ### 2026-06-19 确认 TripKin 总体 PRD 作为当前产品范围依据
 

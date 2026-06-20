@@ -34,6 +34,34 @@ npm install
 - 不确定需求先写到飞书讨论，不直接写死到仓库。
 - 新增依赖、组件库、后端能力、真实 AI 接口前必须先确认。
 
+### 公共骨架完成后的页面协作
+
+当前首页、MBTI 三段路由、四栏 `BottomNav` 和 `MbtiEntryModal` 公共骨架已经就绪。后续页面负责人应优先在自己的页面目录内推进，不建议多人同时在各自页面里顺手修改公共文件。
+
+推荐流程：
+
+1. 先确认自己要负责的页面目录。
+2. 页面内容、页面内组件和页面样式都优先留在对应页面目录。
+3. 如果确实需要修改路由、`BottomNav` 或 `MbtiEntryModal`，先说明影响范围，再集中处理公共改动。
+
+当前公共骨架包括：
+
+- 首页路由 `/`。
+- `/mbti`、`/mbti/test`、`/mbti/result`。
+- `首页 / 地图 / MBTI / 我的` 四栏 `BottomNav`。
+- `MbtiEntryModal`，用于非 MBTI 页面点击底部 MBTI 时先弹出引导弹窗。
+
+页面负责人分工时，优先按目录拆开：
+
+- 首页：`src/pages/Home/`
+- MBTI：`src/pages/Mbti/`
+- Map：`src/pages/Map/`
+- Bottle：`src/pages/Bottle/`
+- Match：`src/pages/Match/`
+- Profile：`src/pages/Profile/`
+
+页面私有内容继续放在对应页面目录里。公共骨架后续只做必要维护，不夹带单页视觉重写。
+
 推荐：
 
 - 页面内部内容先就近写。
@@ -57,6 +85,8 @@ npm install
 - `server/` 只放已确认的最小 TypeScript mock API 后端代码。
 - 后端接口字段变化时，必须说明影响哪些前端 `src/services` 文件和页面。
 - 前端页面不要直接请求后端 URL，应通过 `src/services` 统一访问。
+- Match/Bottle 页面默认仍可纯前端运行；只有配置 `VITE_API_BASE_URL` 时，service 才请求 `server/` mock API。
+- 改动后端 mock API 时，优先确认后端能启动、目标接口能返回 JSON；必要时运行 `server/` 下的 `npm run build`。
 - 当前不要在 `server/` 中加入数据库、登录、真实 AI、真实匹配算法、复杂 CI 或正式测试框架。
 
 ## 本地开发资料与草稿区

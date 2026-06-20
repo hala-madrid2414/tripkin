@@ -6,14 +6,18 @@ TripKin 是一个移动端 H5 旅行搭子 Demo，目前用于比赛作品原型
 
 ## 当前目标
 
-当前阶段先完成可运行、可截图、可继续迭代的前端 Demo，并允许 `server/` 下的最小 TypeScript mock API 骨架用于后续前后端联调。
+当前阶段先完成可运行、可截图、可继续迭代的前端 Demo，并允许 `server/` 下的最小 TypeScript mock API 链路用于后续前后端联调。
 
 已确定的主流程页面包括：
 
-- 旅行 MBTI：`/mbti`
+- 首页：`/`
+- 旅行 MBTI 首页：`/mbti`
+- 旅行 MBTI 测试：`/mbti/test`
+- 旅行 MBTI 结果：`/mbti/result`
 - 旅行地图：`/map`
 - 旅行漂流瓶：`/bottle`
 - 搭子 / 行程匹配：`/match`
+- 我的旅行身份：`/profile`
 
 当前阶段暂不处理真实登录、数据库、真实匹配算法和真实 AI 接口。`server/` 只用于最小 mock API 链路，不代表真实后端能力完成。
 
@@ -46,6 +50,14 @@ npm run dev
 ```
 
 后端默认运行在 `http://localhost:3001`，健康检查地址为 `http://localhost:3001/api/health`。
+
+Match 和 Bottle 仍默认支持纯前端 demo。只有在前端 `.env.local` 中配置后端地址时，`src/services` 才会请求本地 mock API：
+
+```bash
+VITE_API_BASE_URL=http://localhost:3001
+```
+
+不配置 `VITE_API_BASE_URL` 时，页面继续读取前端本地 mock 数据，不需要启动后端。
 
 如果需要在 `/map` 使用真实高德地图，在本地创建 `.env.local`：
 
@@ -128,6 +140,7 @@ update
 - 代码位置和样式规范：`docs/coding-guide.md`
 - antd-mobile 使用规范：`docs/antd-mobile-usage-guide.md`
 - 静态 Demo 统一整改范围：`docs/tripkin-demo-fix-scope.md`
+- 页面协作任务清单：`docs/tripkin-page-collaboration-plan.md`
 - 协作流程：`docs/collaboration-guide.md`
 - 本地页面验证说明：`docs/webapp-testing-guide.md`
 - 影响多人协作的决策记录：`docs/decision-notes/README.md`

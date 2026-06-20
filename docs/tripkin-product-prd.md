@@ -4,19 +4,22 @@
 
 ## 产品定位
 
-TripKin 是一个移动端 H5 旅行搭子 Demo，用 MBTI / 旅行人格、地图、漂流瓶、搭子匹配和个人身份页串成一条旅行探索体验。
+TripKin 是一个移动端 H5 旅行搭子 Demo，用首页、MBTI / 旅行人格、地图、漂流瓶、搭子匹配和个人身份页串成一条旅行探索体验。
 
 当前目标是做可演示、可截图、可走通的静态前端 Demo，不是生产级完整 App。
 
 ## 主链路
 
 ```txt
-MBTI -> 旅行身份卡 -> Map -> Bottle / Match -> Profile
+Home -> MBTI 入口弹窗 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match -> Profile
 ```
 
 页面路由：
 
-- `/mbti`：旅行 MBTI。
+- `/`：首页，承接常规进入和旅行探索入口。
+- `/mbti`：旅行 MBTI 首页。
+- `/mbti/test`：旅行 MBTI 测试页。
+- `/mbti/result`：旅行 MBTI 结果页。
 - `/map`：旅行地图。
 - `/bottle`：旅行漂流瓶。
 - `/match`：搭子 / 行程匹配。
@@ -24,17 +27,31 @@ MBTI -> 旅行身份卡 -> Map -> Bottle / Match -> Profile
 
 ## 页面职责
 
+### Home
+
+作为 Demo 常规入口，负责展示 TripKin 的旅行探索入口，并承接全局 MBTI 入口。
+
+必须包含：
+
+- 旅行探索入口。
+- 进入 Map 的入口。
+- 触发 MBTI 引导弹窗的入口。
+- 已有 MBTI 结果摘要或进入 MBTI 的提示。
+- 底部四栏导航。
+
 ### MBTI
 
 作为 Demo 起点，负责完成测试并生成用户的旅行身份。
 
 必须包含：
 
-- 测试入口。
-- 答题流程。
-- 测试结果。
+- `/mbti` 首页，用于介绍旅行 MBTI 并提供“开始测试”和“查看我的结果”入口。
+- `/mbti/test` 测试流程。
+- `/mbti/result` 测试结果。
 - 旅行身份卡。
 - 进入地图的入口。
+
+MBTI 是底部导航里的全局特殊入口，不是普通页面跳转按钮。非 MBTI 页面点击底部 MBTI 时，先打开半透明引导弹窗；点击“进入 MBTI 首页”后再进入 `/mbti`。如果已经在 `/mbti`、`/mbti/test` 或 `/mbti/result` 内，再点击底部 MBTI 不重复弹窗。
 
 ### Map
 
@@ -140,7 +157,7 @@ Match 页面需要同时展示：
 
 ### 视觉统一
 
-五个页面必须像同一个 TripKin 产品。
+首页、MBTI、Map、Bottle、Match、Profile 必须像同一个 TripKin 产品。
 
 需要统一：
 
@@ -156,9 +173,19 @@ Match 页面需要同时展示：
 
 `/map` 和 `/match` 可以作为结构和信息密度参考，但不要硬套所有视觉细节。
 
+### 底部导航
+
+当前公共骨架中的底部导航为四栏：
+
+```txt
+首页 / 地图 / MBTI / 我的
+```
+
+其中 MBTI 是居中的全局特殊入口。它在非 MBTI 页面触发 `MbtiEntryModal`，不直接跳转；在 MBTI 模块内部不重复弹窗。
+
 ## 不做范围
 
-当前阶段允许 `server/` 下的最小 mock API 骨架用于后续联调，但不代表真实后端能力完成。当前阶段仍不做：
+当前阶段允许 `server/` 下的最小 mock API 链路用于 Match/Bottle 联调，但不代表真实后端能力完成。未配置 `VITE_API_BASE_URL` 时，页面继续走前端本地 mock。当前阶段仍不做：
 
 - 数据库。
 - 登录系统。
@@ -167,16 +194,22 @@ Match 页面需要同时展示：
 - 真实图片上传。
 - 真实匹配算法。
 - 新 UI 组件库。
+- 消息页。
+- 外部短视频入口。
+- 维度分析页。
+- 深度推荐算法。
+- 真实分享。
 
 ## 验收基准
 
 最小验收标准：
 
-- 主链路能从 `/mbti` 走到 `/map`，再进入 `/bottle` 或 `/match`。
+- 主链路能从 `/` 进入 MBTI 弹窗，再走到 `/mbti`、`/mbti/test`、`/mbti/result`。
+- MBTI 结果页能进入 `/map`，再进入 `/bottle` 或 `/match`。
 - Bottle 和 Match 能展示从 Map 带入的目的地。
 - Profile 首屏能看出用户的旅行身份。
 - 375px 下没有横向滚动、关键内容遮挡或不可点击主按钮。
-- 五个页面并排看，不像多个独立项目拼在一起。
+- 首页、MBTI、Map、Bottle、Match、Profile 并排看，不像多个独立项目拼在一起。
 
 ## 本地验证说明
 

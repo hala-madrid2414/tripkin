@@ -1,0 +1,121 @@
+.overlay {
+  position: fixed;
+  z-index: 900;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 24px 20px calc(28px + env(safe-area-inset-bottom));
+  background: rgba(22, 23, 38, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.modal {
+  position: relative;
+  width: min(100%, 360px);
+  padding: 24px 22px 20px;
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-popup);
+  background:
+    radial-gradient(
+      circle at 18% 10%,
+      rgba(255, 255, 255, 0.92),
+      transparent 32%
+    ),
+    linear-gradient(180deg, #ffffff 0%, var(--color-brand-primary-mist) 100%);
+  box-shadow: var(--shadow-popup), var(--shadow-inset-light);
+  color: var(--color-heading);
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(109, 93, 246, 0.1);
+  color: var(--color-brand-primary-strong);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 116px;
+  height: 86px;
+  margin: 0 auto 10px;
+}
+
+.orb {
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  border-radius: 34px;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+  transform: rotate(-8deg);
+}
+
+.marker {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-brand-primary-strong);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--color-brand-primary-strong);
+  font-size: var(--font-size-caption);
+  font-weight: 900;
+  text-align: center;
+}
+
+.modal h2 {
+  margin: 8px 0 0;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.description {
+  margin: 10px auto 18px;
+  max-width: 260px;
+  color: var(--color-text);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  text-align: center;
+}
+
+.primaryButton,
+.secondaryButton {
+  width: 100%;
+  height: var(--height-button);
+  border-radius: var(--radius-button);
+  font-size: var(--font-size-body);
+  font-weight: 900;
+}
+
+.primaryButton {
+  border: 0;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+  color: #ffffff;
+}
+
+.secondaryButton {
+  margin-top: 10px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--color-text);
+}

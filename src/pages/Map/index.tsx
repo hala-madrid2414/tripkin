@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
+import MbtiEntryModal from '@/components/MbtiEntryModal'
 import AmapCanvas from './components/AmapCanvas'
 import BottomRegionCard from './components/BottomRegionCard'
 import BottomSpotCard from './components/BottomSpotCard'
@@ -247,6 +248,7 @@ function Map() {
   const [state, dispatch] = useReducer(mapPageReducer, initialState)
   const [toastMessage, setToastMessage] = useState('')
   const [amapFailed, setAmapFailed] = useState(false)
+  const [mbtiModalOpen, setMbtiModalOpen] = useState(false)
   const summaryDragRef = useRef<SheetDragState | null>(null)
   const regionDragRef = useRef<SheetDragState | null>(null)
   const spotDragRef = useRef<SheetDragState | null>(null)
@@ -357,7 +359,7 @@ function Map() {
           dispatch({ type: 'setSearch', payload: keyword })
         }
         onLayerClick={() => dispatch({ type: 'openLayerSheet' })}
-        onMbtiClick={() => navigate('/mbti')}
+        onMbtiClick={() => setMbtiModalOpen(true)}
       />
 
       {hasAmapConfig && !amapFailed ? (
@@ -502,6 +504,14 @@ function Map() {
           {toastMessage}
         </span>
       </div>
+      <MbtiEntryModal
+        open={mbtiModalOpen}
+        onEnter={() => {
+          setMbtiModalOpen(false)
+          navigate('/mbti')
+        }}
+        onClose={() => setMbtiModalOpen(false)}
+      />
     </main>
   )
 }
