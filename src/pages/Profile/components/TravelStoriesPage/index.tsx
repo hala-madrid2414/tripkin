@@ -131,7 +131,6 @@ export function TravelStoriesPage({
         <div className={styles.topBar}>
           <button type="button" className={styles.backBtn} onClick={onClose}>
             <IconBack />
-            <span>{'返回'}</span>
           </button>
           <div className={styles.topCenter}>
             <span className={styles.topTitle}>{'旅行故事'}</span>

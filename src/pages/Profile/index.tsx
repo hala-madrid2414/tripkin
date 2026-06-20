@@ -109,7 +109,11 @@ function Profile() {
 
       {/* 9. Settings */}
       <div className={styles.glassCard}>
-        <SettingSection settingsItems={mockProfileData.settingsItems} />
+        <SettingSection
+          settingsItems={mockProfileData.settingsItems}
+          nickname={nickname ?? '旅行者'}
+          tagline={tagline ?? ''}
+        />
       </div>
 
       <BottomNav destinationId={destinationId} />

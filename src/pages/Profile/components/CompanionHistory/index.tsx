@@ -129,7 +129,6 @@ export function CompanionHistory({ visible, onClose }: CompanionHistoryProps) {
         <div className={styles.topBar}>
           <button type="button" className={styles.backBtn} onClick={onClose}>
             <IconBack />
-            <span>{'返回'}</span>
           </button>
           <span className={styles.topTitle}>{'同行记录'}</span>
           <div className={styles.topSpacer} />

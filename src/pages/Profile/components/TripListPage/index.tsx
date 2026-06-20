@@ -105,7 +105,6 @@ export function TripListPage({ visible, onClose }: TripListPageProps) {
         <div className={styles.topBar}>
           <button type="button" className={styles.backBtn} onClick={onClose}>
             <IconBack />
-            <span>{'返回'}</span>
           </button>
           <span className={styles.topTitle}>{'我的行程'}</span>
           <div className={styles.topSpacer} />
