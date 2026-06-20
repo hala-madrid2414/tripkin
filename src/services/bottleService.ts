@@ -5,11 +5,13 @@ import {
   type BottleListResult,
   type BottleMessage,
   type BottleType,
+  type BottleVisibilityType,
   typeLabels,
+  visibilityLabels,
 } from '@/pages/Bottle/data/bottleMockData'
 
-export { bottleTypeOptions, defaultBottleImage, typeLabels }
-export type { BottleMessage, BottleType }
+export { bottleTypeOptions, defaultBottleImage, typeLabels, visibilityLabels }
+export type { BottleMessage, BottleType, BottleVisibilityType }
 
 export type BottleServiceListSource = 'direct' | 'parent' | 'fallback'
 
