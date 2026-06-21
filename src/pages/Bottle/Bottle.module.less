@@ -185,15 +185,10 @@
 
 .filterChips {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  margin: 14px -16px 0;
-  padding: 0 16px 2px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.filterChips::-webkit-scrollbar {
-  display: none;
+  margin: 14px 0 0;
+  padding: 0 0 2px;
 }
 
 .filterChip,
@@ -870,10 +865,7 @@
   }
 
   .filterChips {
-    margin-right: -14px;
-    margin-left: -14px;
-    padding-right: 14px;
-    padding-left: 14px;
+    gap: 8px;
   }
 
   .destinationHeader {

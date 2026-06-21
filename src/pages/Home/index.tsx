@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import MbtiEntryModal from '@/components/MbtiEntryModal'
 import styles from './Home.module.less'
 
 type RoutePath = '/' | '/map' | '/mbti' | '/bottle' | '/match' | '/profile'
@@ -431,41 +432,11 @@ function Home() {
         </div>
       </div>
 
-      {isMbtiModalOpen ? (
-        <div
-          className={styles.modalMask}
-          role="presentation"
-          onClick={closeMbtiModal}
-        >
-          <section
-            className={styles.mbtiModal}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="mbti-modal-title"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className={styles.modalIcon} aria-hidden="true">
-              ✦
-            </div>
-            <h2 id="mbti-modal-title">开启你的旅行 MBTI</h2>
-            <p>用几个问题找到你的旅行人格、适合目的地和同行搭子。</p>
-            <button
-              className={styles.modalPrimary}
-              type="button"
-              onClick={enterMbti}
-            >
-              进入 MBTI 首页
-            </button>
-            <button
-              className={styles.modalSecondary}
-              type="button"
-              onClick={closeMbtiModal}
-            >
-              稍后再说
-            </button>
-          </section>
-        </div>
-      ) : null}
+      <MbtiEntryModal
+        open={isMbtiModalOpen}
+        onEnter={enterMbti}
+        onClose={closeMbtiModal}
+      />
     </main>
   )
 }

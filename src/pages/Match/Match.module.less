@@ -5,6 +5,7 @@
 
   min-height: 100svh;
   overflow-x: hidden;
+  isolation: isolate;
   background:
     linear-gradient(120deg, var(--color-surface-glass-strong), transparent 36%),
     radial-gradient(
@@ -26,7 +27,7 @@
   max-width: 430px;
   min-height: 100svh;
   margin: 0 auto;
-  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  padding-bottom: calc(120px + env(safe-area-inset-bottom));
   overflow-x: hidden;
 }
 
@@ -85,7 +86,7 @@
 
 .footer {
   margin: 18px 0 0;
-  padding: 0 var(--match-space-page-x);
+  padding: 0 var(--match-space-page-x) 8px;
   color: var(--match-color-text-muted);
   font-size: 14px;
   line-height: 1.5;
