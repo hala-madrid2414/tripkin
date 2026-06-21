@@ -19,6 +19,14 @@ TripKin 是一个移动端 H5 旅行搭子 Demo，目前用于比赛作品原型
 - 搭子 / 行程匹配：`/match`
 - 我的旅行身份：`/profile`
 
+底部主导航入口只包括：
+
+```txt
+首页 / 地图 / 匹配 / 我的
+```
+
+对应路由为 `/`、`/map`、`/match`、`/profile`。MBTI 和 Bottle 属于主链路页面或内容分支，但不是底部主导航入口。
+
 当前阶段暂不处理真实登录、数据库、真实匹配算法和真实 AI 接口。`server/` 只用于最小 mock API 链路，不代表真实后端能力完成。
 
 ## 环境要求
@@ -142,5 +150,6 @@ update
 - 静态 Demo 统一整改范围：`docs/tripkin-demo-fix-scope.md`
 - 页面协作任务清单：`docs/tripkin-page-collaboration-plan.md`
 - 协作流程：`docs/collaboration-guide.md`
+- 底部导航 Layout 迁移说明：`docs/navigation-layout-migration.md`
 - 本地页面验证说明：`docs/webapp-testing-guide.md`
 - 影响多人协作的决策记录：`docs/decision-notes/README.md`

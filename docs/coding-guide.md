@@ -45,6 +45,14 @@ PageName/
 
 如果只是页面内部的小片段，先就近写在页面目录内，不需要提前抽模块。
 
+### `src/layouts`
+
+放应用级页面外壳，例如后续的 `src/layouts/AppLayout/`。
+
+Layout 负责跨路由的页面框架规则，例如是否显示底部导航、主 Tab 安全区、全局页面壳宽度和导航上下文传递。它不是普通可复用 UI，也不放页面业务内容。
+
+后续底部导航迁移后，只有 layout 能决定 `BottomNav` 是否出现；页面不直接 `import BottomNav`。`src/router` 只负责路由表，`src/components/BottomNav` 只负责导航 UI，`src/pages` 只负责具体页面内容。
+
 ### `src/components`
 
 放跨页面复用的 UI 组件。

@@ -49,6 +49,7 @@ Home -> MBTI 页面入口 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 - 底部导航为四栏：`首页 / 地图 / 匹配 / 我的`。
 - Match 是底部主导航里的核心产品闭环入口。
 - MBTI 是旅行人格生成 / 更新入口，不再作为底部导航 tab。
+- 只有 `/`、`/map`、`/match`、`/profile` 是底部导航主 Tab；`/mbti`、`/mbti/test`、`/mbti/result`、`/bottle` 不显示底部导航。
 - Home、Profile 和必要页面内 CTA 可以承接 MBTI 引导或进入 `/mbti`。
 - MBTI 模块目标流程为 `/mbti -> /mbti/test -> /mbti/result`。
 - 不确定的远期能力不写入正式范围，先保留在飞书或 `.local-docs/`。
@@ -63,7 +64,7 @@ Home -> MBTI 页面入口 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 - Bottle 负责人继续改 `src/pages/Bottle/`。
 - Match 负责人继续改 `src/pages/Match/`。
 - Profile 负责人继续改 `src/pages/Profile/`。
-- 需要改路由、`BottomNav`、`MbtiEntryModal` 时，先说明影响范围，不夹带单页重写。
+- 需要改路由、`AppLayout`、底部导航显示规则、`BottomNav`、`MbtiEntryModal` 时，先说明影响范围，不夹带单页重写。
 
 ### P2：页面并行补齐和统一
 
@@ -204,6 +205,8 @@ Home -> MBTI 页面入口 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 
 - 全局入口关系统一：底部导航固定为 `首页 / 地图 / 匹配 / 我的`。
 - MBTI 入口由 Home、Profile 和必要页面内 CTA 承接；不再由 BottomNav 承接。
+- 底部导航由后续 `src/layouts/AppLayout/` 统一控制；页面不直接挂载全局底栏。
+- 只有 `/`、`/map`、`/match`、`/profile` 有底栏，Bottle 和 MBTI 三段路由无底栏。
 - 公共路由骨架已完成，后续让各页面负责人并行开发。
 - 统一字体层级、主色、辅助色、背景逻辑。
 - 统一卡片圆角、阴影、内边距和信息密度。
@@ -214,6 +217,7 @@ Home -> MBTI 页面入口 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 验收标准：
 
 - `/`、`/mbti`、`/map`、`/bottle`、`/match`、`/profile` 截图并排看，不像不同项目拼在一起。
+- `/`、`/map`、`/match`、`/profile` 截图中有底部导航，`/mbti`、`/mbti/test`、`/mbti/result`、`/bottle` 截图中没有底部导航。
 - 375px 下没有横向滚动或关键内容遮挡。
 - 每个主页面都有清楚的下一步入口。
 
@@ -226,7 +230,7 @@ Home -> MBTI 页面入口 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 3. `首页 / 地图 / 匹配 / 我的` 四栏 `BottomNav`。
 4. `MbtiEntryModal` 页面内 MBTI 引导弹窗，可被明确的 MBTI CTA 使用。
 
-后续不建议多人同时修改路由、底部导航和全局入口。各页面负责人应按 `src/pages/<PageName>/` 分目录推进；确实需要修改公共骨架时，先说明影响范围。
+后续不建议多人同时修改路由、`AppLayout`、底部导航和全局入口。各页面负责人应按 `src/pages/<PageName>/` 分目录推进；确实需要修改公共骨架时，先说明影响范围。
 
 ## 公共约定
 
@@ -278,7 +282,7 @@ Romantic-Observer
 3. 再做跨页面跳转、目的地上下文和返回逻辑联调。
 4. 最后统一视觉样式和可复用组件。
 5. 不先做大规模重构，不先抽象不确定复用的组件。
-6. 需要改路由、`BottomNav`、全局入口组件时，先说明影响范围，不夹带单页视觉重写。
+6. 需要改路由、`AppLayout`、底部导航显示规则、`BottomNav`、全局入口组件时，先说明影响范围，不夹带单页视觉重写。
 
 多人协作时，优先保持页面内改动就近落在对应 `src/pages/<PageName>/` 目录。涉及共享状态、路由、全局样式或公共组件时，需要先说明影响范围。
 
