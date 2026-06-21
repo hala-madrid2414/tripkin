@@ -1,7 +1,12 @@
 import AppRouter from '@/router'
+import AppLayout from '@/layouts/AppLayout'
 
 function App() {
-  return <AppRouter />
+  return (
+    <AppLayout>
+      <AppRouter />
+    </AppLayout>
+  )
 }
 
 export default App

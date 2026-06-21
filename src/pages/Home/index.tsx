@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import BottomNav from '@/components/BottomNav'
 import styles from './Home.module.less'
 
 type RoutePath = '/' | '/map' | '/mbti' | '/bottle' | '/match' | '/profile'
@@ -430,8 +429,6 @@ function Home() {
             </button>
           </section>
         </div>
-
-        <BottomNav />
       </div>
 
       {isMbtiModalOpen ? (

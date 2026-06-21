@@ -1,7 +1,5 @@
-﻿import BottomNav from '@/components/BottomNav'
 import { useNavigate } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
-import { resolveDestinationId } from '@/utils/destinationResolver'
 import { TravelIdentityCard } from './components/TravelIdentityCard'
 import { TravelPersonaSection } from './components/TravelPersonaSection'
 import { MatchingProfileSection } from './components/MatchingProfileSection'
@@ -22,10 +20,8 @@ function Profile() {
   const classicMbti = useTripStore((s) => s.classicMbti)
   const tagline = useTripStore((s) => s.tagline)
   const tags = useTripStore((s) => s.tags)
-  const destination = useTripStore((s) => s.destination)
 
   const hasPersona = personaId !== null
-  const destinationId = resolveDestinationId(destination)
   const handleSaveAccount = (newNickname: string, newTagline: string) => {
     useTripStore.setState({ nickname: newNickname, tagline: newTagline })
   }
@@ -48,7 +44,6 @@ function Profile() {
             {'开始探索'}
           </button>
         </section>
-        <BottomNav destinationId={destinationId} />
       </main>
     )
   }
@@ -120,8 +115,6 @@ function Profile() {
           onSaveAccount={handleSaveAccount}
         />
       </div>
-
-      <BottomNav destinationId={destinationId} />
     </main>
   )
 }
