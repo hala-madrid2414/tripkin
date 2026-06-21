@@ -115,14 +115,16 @@ Allowed types are defined in `commitlint.config.cjs`.
 
 ## Verification
 
-Before claiming completion, run:
+Before claiming completion for changes that include source code, styles, routes, scripts, dependencies, engineering configuration, backend code, or behavior that affects the running app, run:
 
 ```bash
 npm run lint
 npm run build
 ```
 
-If documentation formatting changed, also run:
+For documentation-only changes, such as Markdown explanations, collaboration notes, requirement整理, or decision records, these commands are not required as long as the change does not alter code, configuration, scripts, executable commands, or runtime behavior.
+
+If documentation formatting changed and formatting verification is relevant to the task, optionally run:
 
 ```bash
 npm run format:check
