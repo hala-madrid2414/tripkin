@@ -1,0 +1,197 @@
+﻿/* ==========================================================================
+   TravelIdentityCard — Lavender soft UI
+   375px iPhone SE baseline
+   ========================================================================== */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding-top: 0;
+}
+
+/* ---- top strip: level badge left / edit btn right ---- */
+.topStrip {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.levelBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 156, 255, 0.22),
+    rgba(220, 207, 255, 0.38)
+  );
+  border: 1px solid rgba(184, 156, 255, 0.28);
+  color: var(--lv-primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.levelBadge svg {
+  flex-shrink: 0;
+}
+
+.editBtn {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--lv-border);
+  background: var(--lv-card);
+  color: var(--lv-text-muted);
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.editBtn svg {
+  width: 14px;
+  height: 14px;
+}
+.editBtn:active {
+  color: var(--lv-primary);
+  border-color: var(--lv-primary);
+}
+
+/* ---- avatar ---- */
+.avatarWrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #f0ebff, #e8e0ff);
+  border: 2px solid var(--lv-border);
+  box-shadow: 0 10px 28px rgba(184, 156, 255, 0.2);
+  overflow: hidden;
+}
+.avatarWrap svg {
+  width: 52px;
+  height: 52px;
+}
+.avatarPlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #cbb8ff, #b89cff);
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
+  box-shadow: 0 10px 28px rgba(184, 156, 255, 0.2);
+}
+
+/* ---- nickname ---- */
+.nickname {
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--lv-heading);
+  margin: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- persona badge ---- */
+.personaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 14px;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 156, 255, 0.16),
+    rgba(220, 207, 255, 0.28)
+  );
+  border: 1px solid rgba(184, 156, 255, 0.25);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--lv-primary);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ---- exp bar ---- */
+.expWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.expHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.expLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--lv-primary);
+  letter-spacing: 0.04em;
+}
+.expValue {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--lv-text-muted);
+}
+.expTrack {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(184, 156, 255, 0.12);
+  overflow: hidden;
+}
+.expFill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #dccfff, #b89cff, #9b7fff);
+  transition: width 0.5s ease;
+}
+
+/* ---- slogan ---- */
+.slogan {
+  width: 100%;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--lv-text);
+  margin: 0;
+  font-style: italic;
+  opacity: 0.88;
+}
+
+/* ---- tags ---- */
+.tags {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.tag {
+  padding: 4px 13px;
+  border-radius: 13px;
+  background: rgba(220, 207, 255, 0.32);
+  border: 1px solid rgba(220, 207, 255, 0.5);
+  font-size: 11px;
+  color: var(--lv-text);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}

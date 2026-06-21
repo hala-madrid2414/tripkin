@@ -27,60 +27,59 @@
 .sectionIcon {
   font-size: 18px;
 }
+.badgeCount {
+  font-size: 12px;
+  color: var(--lv-text-muted);
+  font-weight: 600;
+}
 
-.statsRow {
+.grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-.statCard {
+.item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 16px 6px;
+  padding: 14px 6px;
   border-radius: 16px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s;
+}
+.item:active {
+  transform: scale(0.97);
+}
+.itemUnlocked {
   background: var(--lv-card);
   border: 1px solid var(--lv-border);
 }
-.statValue {
-  font-weight: 800;
-  font-size: 20px;
+.itemLocked {
+  background: rgba(200, 200, 210, 0.15);
+  border: 1px dashed rgba(184, 156, 255, 0.2);
+  opacity: 0.55;
+}
+.itemIcon {
+  font-size: 28px;
   line-height: 1;
+}
+.itemTitle {
+  font-weight: 600;
+  font-size: 12px;
   color: var(--lv-heading);
 }
-.statLabel {
-  font-size: 10.5px;
+.itemSubtitle {
+  font-size: 10px;
   color: var(--lv-text-muted);
-  font-weight: 500;
 }
-
-.divider {
-  height: 1px;
-  background: var(--lv-border);
-}
-
-.cityRow {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.cityLabel {
-  font-size: 11px;
-  color: var(--lv-text-muted);
-  font-weight: 500;
-}
-.cityCloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.cityChip {
-  padding: 5px 12px;
-  border-radius: 14px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
-  font-size: 11px;
-  color: var(--lv-text);
-  font-weight: 500;
+.lockIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 12px;
+  opacity: 0.6;
 }

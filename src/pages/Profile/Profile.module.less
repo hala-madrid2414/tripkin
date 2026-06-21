@@ -1,33 +1,37 @@
-/* ==========================================================================
-   Lavender Travel Journal - Profile page palette
+﻿/* ==========================================================================
+   Lavender Travel Journal — Profile
+   Travel Identity Center
    ========================================================================== */
-.page {
-  --pf-primary: #b89cff;
-  --pf-secondary: #dccfff;
-  --pf-bg: #f8f5ff;
-  --pf-card: rgba(255, 255, 255, 0.8);
-  --pf-border: #e5dbff;
-  --pf-heading: #4a3f6b;
-  --pf-text: #6b5e8a;
-  --pf-text-muted: #9b8ec4;
 
-  --pf-shadow: 0 4px 20px rgba(184, 156, 255, 0.08);
-  --pf-shadow-card: 0 8px 32px rgba(184, 156, 255, 0.1);
-  --pf-radius: 20px;
+.page {
+  /* ---- Lavender palette ---- */
+  --lv-primary: #b89cff;
+  --lv-primary-strong: #9b7fff;
+  --lv-primary-soft: rgba(184, 156, 255, 0.12);
+  --lv-primary-line: rgba(184, 156, 255, 0.25);
+  --lv-card: rgba(255, 255, 255, 0.78);
+  --lv-card-hover: rgba(255, 255, 255, 0.92);
+  --lv-border: rgba(220, 207, 255, 0.5);
+  --lv-heading: #4a3f6b;
+  --lv-text: #6b5e8a;
+  --lv-text-muted: #9b8ec4;
+
+  --lv-shadow: 0 8px 32px rgba(184, 156, 255, 0.1);
+  --lv-shadow-soft: 0 4px 18px rgba(184, 156, 255, 0.06);
 
   position: relative;
   width: 100%;
   max-width: 480px;
   min-height: 100svh;
   margin: 0 auto;
-  padding: calc(env(safe-area-inset-top) + 18px) 18px
+  padding: calc(env(safe-area-inset-top) + 20px) 18px
     calc(96px + env(safe-area-inset-bottom));
   background:
     radial-gradient(160% 60% at 90% 2%, #ede6ff, transparent 45%),
-    radial-gradient(140% 70% at 8% 96%, #f0ecff, transparent 50%), var(--pf-bg);
+    radial-gradient(140% 70% at 8% 96%, #f0ecff, transparent 50%), #f8f5ff;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   overflow-x: hidden;
 }
 
@@ -35,14 +39,14 @@
    Glass card container
    ========================================================================== */
 .glassCard {
-  background: var(--pf-card);
-  -webkit-backdrop-filter: blur(18px) saturate(130%);
-  backdrop-filter: blur(18px) saturate(130%);
-  border: 1px solid var(--pf-border);
-  border-radius: var(--pf-radius);
-  box-shadow: var(--pf-shadow-card);
-  padding: 20px 18px;
-  animation: cardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  background: var(--lv-card);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--lv-border);
+  border-radius: 22px;
+  box-shadow: var(--lv-shadow);
+  padding: 22px 18px;
+  animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes cardIn {
@@ -55,24 +59,29 @@
     transform: none;
   }
 }
-
 .glassCard:nth-child(2) {
-  animation-delay: 0.08s;
+  animation-delay: 0.06s;
 }
 .glassCard:nth-child(3) {
-  animation-delay: 0.14s;
+  animation-delay: 0.1s;
 }
 .glassCard:nth-child(4) {
-  animation-delay: 0.2s;
+  animation-delay: 0.14s;
 }
 .glassCard:nth-child(5) {
-  animation-delay: 0.26s;
+  animation-delay: 0.18s;
 }
 .glassCard:nth-child(6) {
-  animation-delay: 0.32s;
+  animation-delay: 0.22s;
 }
 .glassCard:nth-child(7) {
-  animation-delay: 0.38s;
+  animation-delay: 0.26s;
+}
+.glassCard:nth-child(8) {
+  animation-delay: 0.3s;
+}
+.glassCard:nth-child(9) {
+  animation-delay: 0.34s;
 }
 
 /* ==========================================================================
@@ -84,8 +93,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 40px 18px;
+  gap: 18px;
+  padding: 48px 18px;
   text-align: center;
 }
 .emptyEmoji {
@@ -95,12 +104,12 @@
 .emptyTitle {
   font-weight: 700;
   font-size: 20px;
-  color: var(--pf-heading);
+  color: var(--lv-heading);
   margin: 0;
 }
 .emptyDesc {
   font-size: 14px;
-  color: var(--pf-text-muted);
+  color: var(--lv-text-muted);
   line-height: 1.65;
   margin: 0;
   max-width: 260px;
@@ -132,12 +141,14 @@
   transform: scale(0.97);
 }
 
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .glassCard {
     animation: none !important;
   }
 }
-
 @media (min-width: 520px) {
   .page {
     max-width: 430px;
