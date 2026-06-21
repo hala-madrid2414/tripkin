@@ -1,12 +1,12 @@
-import BottomNav from '@/components/BottomNav'
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   getDestinationResolveHint,
   resolveDestination,
 } from '@/utils/destinationResolver'
 import { getRegionById, getSpotById } from '@/pages/Map/data/mapData'
 import { useTripStore } from '@/store/useTripStore'
+import { navigateBackOr } from '@/utils/navigation'
 import {
   bottleTypeOptions,
   createBottleMessage,
@@ -176,7 +176,9 @@ function sortBottles(items: BottleMessage[], sortBy: SortBy) {
 
 function Bottle() {
   const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
   const sessionDestination = useTripStore((state) => state.destination)
+  const setDestination = useTripStore((state) => state.setDestination)
   const action = searchParams.get('action')
   const queryDestination = getQueryDestination(searchParams)
   const currentDestination = useMemo(
@@ -218,6 +220,10 @@ function Bottle() {
   const loading = bottleRequest.requestKey !== requestKey
   const bottleResult = loading ? null : bottleRequest.result
   const loadError = loading ? '' : bottleRequest.error
+
+  useEffect(() => {
+    setDestination(currentDestination.id)
+  }, [currentDestination.id, setDestination])
 
   useEffect(() => {
     let cancelled = false
@@ -405,9 +411,14 @@ function Bottle() {
   return (
     <main className={styles.page}>
       <header className={styles.topBar}>
-        <Link to="/map" className={styles.backButton} aria-label="返回地图">
+        <button
+          type="button"
+          className={styles.backButton}
+          onClick={() => navigateBackOr(navigate, '/map')}
+          aria-label="返回"
+        >
           ‹
-        </Link>
+        </button>
         <div className={styles.topTitle}>旅行漂流瓶</div>
         <button
           type="button"
@@ -576,9 +587,6 @@ function Bottle() {
           </div>
         )}
       </section>
-
-      <BottomNav destinationId={currentDestination.id} />
-
       {toastMessage && (
         <div className={styles.toast} role="status" aria-live="polite">
           {toastMessage}

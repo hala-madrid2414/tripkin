@@ -62,7 +62,7 @@ function SearchBar({
         type="button"
         className={styles.mbtiShortcut}
         onClick={onMbtiClick}
-        aria-label="返回旅行 MBTI 测试页面"
+        aria-label="重测旅行 MBTI"
       >
         重测旅行 MBTI
       </button>

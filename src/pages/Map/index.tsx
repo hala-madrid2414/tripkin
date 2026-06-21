@@ -1,8 +1,15 @@
-import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
-import BottomNav from '@/components/BottomNav'
 import MbtiEntryModal from '@/components/MbtiEntryModal'
+import { useTripStore } from '@/store/useTripStore'
 import AmapCanvas from './components/AmapCanvas'
 import BottomRegionCard from './components/BottomRegionCard'
 import BottomSpotCard from './components/BottomSpotCard'
@@ -247,6 +254,7 @@ type SheetDragRef = MutableRefObject<SheetDragState | null>
 function Map() {
   const navigate = useNavigate()
   const [state, dispatch] = useReducer(mapPageReducer, initialState)
+  const setDestination = useTripStore((store) => store.setDestination)
   const [toastMessage, setToastMessage] = useState('')
   const [amapFailed, setAmapFailed] = useState(false)
   const [mbtiModalOpen, setMbtiModalOpen] = useState(false)
@@ -258,6 +266,11 @@ function Map() {
   const selectedSpotRegion = getSpotRegion(selectedSpot)
   const activeBottleDestinationId =
     selectedSpot?.id ?? selectedRegion?.id ?? mapRegions[0]?.id ?? 'yunnan'
+
+  useEffect(() => {
+    setDestination(activeBottleDestinationId)
+  }, [activeBottleDestinationId, setDestination])
+
   const searchResults = useMemo(
     () => searchMapItems(state.searchQuery),
     [state.searchQuery],
@@ -513,7 +526,6 @@ function Map() {
         }}
         onClose={() => setMbtiModalOpen(false)}
       />
-      <BottomNav destinationId={activeBottleDestinationId} />
     </main>
   )
 }

@@ -1,12 +1,12 @@
-import BottomNav from '@/components/BottomNav'
 import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useMatchStore } from '@/store/useMatchStore'
 import { useTripStore } from '@/store/useTripStore'
 import {
   getDestinationResolveHint,
   resolveDestination,
 } from '@/utils/destinationResolver'
+import { navigateBackOr } from '@/utils/navigation'
 import {
   getMatchContent,
   getMatchModes,
@@ -30,11 +30,13 @@ import type {
 } from './types'
 
 function Match() {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const activeMode = useMatchStore((state) => state.mode)
   const setActiveMode = useMatchStore((state) => state.setMode)
   const entryContext = useMatchStore((state) => state.entryContext)
   const destination = useTripStore((state) => state.destination)
+  const setDestination = useTripStore((state) => state.setDestination)
   const [filterVisible, setFilterVisible] = useState(false)
   const [selectedPartner, setSelectedPartner] =
     useState<PartnerMatchCardData | null>(null)
@@ -82,17 +84,16 @@ function Match() {
     : (entryContext?.destinationName ??
       currentContent.placeTitle ??
       destination)
-  const backTo = currentDestination
-    ? currentDestination.source === 'default'
-      ? '/map'
-      : `/bottle?dest=${encodeURIComponent(currentDestination.id)}`
-    : '/map'
   const requestKey = `${activeMode}:${currentDestination.id}`
   const loading = matchRequest.requestKey !== requestKey
   const viewModel = loading ? null : matchRequest.viewModel
   const loadError = loading ? '' : matchRequest.error
   const placeMeta = viewModel?.metaText ?? currentContent.placeMeta
   const stateNote = loadError || viewModel?.noteText || ''
+
+  useEffect(() => {
+    setDestination(currentDestination.id)
+  }, [currentDestination.id, setDestination])
 
   useEffect(() => {
     let cancelled = false
@@ -140,7 +141,7 @@ function Match() {
           title={currentContent.title}
           placeTitle={placeTitle}
           placeMeta={placeMeta}
-          backTo={backTo}
+          onBack={() => navigateBackOr(navigate, '/map')}
           onFilterClick={() => setFilterVisible(true)}
         />
 
@@ -199,8 +200,6 @@ function Match() {
           </footer>
         ) : null}
       </div>
-
-      <BottomNav destinationId={currentDestination?.id} />
 
       <FilterSheet
         visible={filterVisible}

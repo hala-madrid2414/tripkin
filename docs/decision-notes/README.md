@@ -38,6 +38,14 @@
 
 ## 已记录决策
 
+### 2026-06-21 采用 AppLayout 统一控制底部导航
+
+- 类型：目录结构 / 路由 / 公共组件
+- 背景：当前 `BottomNav` 由页面各自挂载，导致 MBTI 和 Bottle 这类完整页面也带上底栏。它们不在 `首页 / 地图 / 匹配 / 我的` 四栏中，没有正确 active tab，也会干扰流程页和目的地内容分支页。
+- 决定：后续新增 `src/layouts/AppLayout/` 统一控制底部导航显示。底部主 Tab 白名单固定为 `/`、`/map`、`/match`、`/profile`。MBTI 三段路由和 `/bottle` 不显示底部导航。页面不直接 `import BottomNav`，`BottomNav` 继续作为 `src/components` 下的导航 UI。
+- 影响范围：`src/layouts/AppLayout`、`src/router`、`src/components/BottomNav`、Home、Map、Match、Profile、MBTI、Bottle，以及底部安全区、目的地导航上下文和相关团队文档。
+- 后续注意：迁移说明见 `docs/navigation-layout-migration.md`。迁移代码时要同步移除 MBTI/Bottle 为底栏预留的底部空白，保留 Map fixed 浮层的底栏让位逻辑，并让 Profile 宽度与底栏宽度对齐。如未来将 Bottle 改为底栏一级入口，必须先更新本决策、PRD、整改范围和主 Tab 白名单。
+
 ### 2026-06-21 明确纯文档变更的验证边界
 
 - 类型：工程化 / 协作规则

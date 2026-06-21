@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import BottomNav from '@/components/BottomNav'
 import styles from './Home.module.less'
 
 type RoutePath = '/' | '/map' | '/mbti' | '/bottle' | '/match' | '/profile'
@@ -192,22 +191,6 @@ function Home() {
   return (
     <main className={styles.page}>
       <div className={styles.homePage}>
-        <section className={styles.statusBar} aria-label="手机状态栏">
-          <span className={styles.statusTime}>9:41</span>
-          <span className={styles.statusIcons} aria-hidden="true">
-            <span className={styles.signal}>
-              <span />
-              <span />
-              <span />
-              <span />
-            </span>
-            <span className={styles.wifi} />
-            <span className={styles.battery}>
-              <span />
-            </span>
-          </span>
-        </section>
-
         <div className={styles.content}>
           <section className={styles.header}>
             <div>
@@ -446,8 +429,6 @@ function Home() {
             </button>
           </section>
         </div>
-
-        <BottomNav />
       </div>
 
       {isMbtiModalOpen ? (

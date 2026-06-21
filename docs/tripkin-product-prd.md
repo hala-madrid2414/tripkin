@@ -183,6 +183,8 @@ Match 页面需要同时展示：
 
 其中 Match 是核心产品闭环入口，进入搭子 / 行程匹配。MBTI 不再是底部全局特殊入口，改由 Home、Profile 和页面内 CTA 承接。
 
+底部导航只服务一级主入口，对应路由为 `/`、`/map`、`/match`、`/profile`。MBTI 三段路由和 Bottle 仍属于 Demo 主链路页面，但它们是流程页或目的地内容分支，不作为底栏 Tab 展示。
+
 ## 不做范围
 
 当前阶段允许 `server/` 下的最小 mock API 链路用于 Match/Bottle 联调，但不代表真实后端能力完成。未配置 `VITE_API_BASE_URL` 时，页面继续走前端本地 mock。当前阶段仍不做：
@@ -207,6 +209,7 @@ Match 页面需要同时展示：
 - 主链路能从 `/` 的 MBTI 页面内入口进入 `/mbti`、`/mbti/test`、`/mbti/result`。
 - MBTI 结果页能进入 `/map`，再进入 `/bottle` 或 `/match`。
 - 底部导航以 `首页 / 地图 / 匹配 / 我的` 为准，Match 可从底栏直达。
+- 只有 `/`、`/map`、`/match`、`/profile` 显示底部导航；`/mbti`、`/mbti/test`、`/mbti/result`、`/bottle` 不显示底部导航。
 - Bottle 和 Match 能展示从 Map 带入的目的地。
 - Profile 首屏能看出用户的旅行身份。
 - 375px 下没有横向滚动、关键内容遮挡或不可点击主按钮。

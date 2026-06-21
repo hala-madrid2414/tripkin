@@ -1,9 +1,8 @@
-import BottomNav from '@/components/BottomNav'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTripStore } from '@/store/useTripStore'
 import type { ChoiceLetter, PersonaId } from '@/types/mbti'
-import { resolveDestinationId } from '@/utils/destinationResolver'
+import { navigateBackOr } from '@/utils/navigation'
 import { getPersonaPresentation } from '@/utils/personaPresentation'
 import { IdentityCard } from './components/IdentityCard'
 import { Quiz } from './components/Quiz'
@@ -29,7 +28,6 @@ function Mbti({ view }: MbtiProps) {
 
   const queryDest = searchParams.get('dest')
   const destination = readDestParam(queryDest ?? sessionDestination)
-  const destinationId = resolveDestinationId(sessionDestination)
 
   useEffect(() => {
     setDestination(destination)
@@ -73,6 +71,10 @@ function Mbti({ view }: MbtiProps) {
     navigate('/map')
   }
 
+  const handleBackToMbti = () => {
+    navigateBackOr(navigate, '/mbti')
+  }
+
   return (
     <main className={styles.page}>
       {view === 'welcome' && (
@@ -83,13 +85,10 @@ function Mbti({ view }: MbtiProps) {
         />
       )}
       {view === 'quiz' && (
-        <Quiz
-          onComplete={handleQuizComplete}
-          onBack={() => navigate('/mbti')}
-        />
+        <Quiz onComplete={handleQuizComplete} onBack={handleBackToMbti} />
       )}
       {view === 'result' && resultId && (
-        <IdentityCard personaId={resultId} onBack={() => navigate('/mbti')} />
+        <IdentityCard personaId={resultId} onBack={handleBackToMbti} />
       )}
       {view === 'result' && !resultId && (
         <section className={styles.emptyResult}>
@@ -99,8 +98,6 @@ function Mbti({ view }: MbtiProps) {
           </button>
         </section>
       )}
-
-      <BottomNav destinationId={destinationId} />
     </main>
   )
 }
