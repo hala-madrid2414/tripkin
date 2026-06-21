@@ -30,7 +30,9 @@ function Profile() {
     return (
       <main className={styles.page}>
         <section className={styles.emptyState}>
-          <span className={styles.emptyEmoji}>{'&#x2728;'}</span>
+          <span className={styles.emptyEmoji} aria-hidden="true">
+            ✨
+          </span>
           <h1 className={styles.emptyTitle}>{'你的旅行人格'}</h1>
           <p className={styles.emptyDesc}>
             {'完成旅行 MBTI，探索你的旅行风格，'}

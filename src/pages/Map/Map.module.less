@@ -45,9 +45,9 @@
 .regionCardDetail,
 .regionCardFull,
 .layerSheet {
-  border: 1px solid var(--glass-card-border);
-  background: var(--glass-card-bg);
-  box-shadow: var(--glass-card-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: var(--color-surface-glass);
+  box-shadow: var(--shadow-floating), var(--shadow-inset-light);
   backdrop-filter: blur(16px);
 }
 
@@ -539,7 +539,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  border: 0.6px solid var(--glass-card-border);
+  border: 0.6px solid rgba(255, 255, 255, 0.72);
   border-radius: 50%;
   color: var(--color-surface-solid);
   box-shadow: var(--shadow-card-soft);
@@ -604,7 +604,7 @@
     width: 38px;
     height: 4px;
     border-radius: 999px;
-    background: var(--handle-color);
+    background: #d9d5ef;
   }
 }
 
@@ -659,7 +659,7 @@
   display: grid;
   gap: 4px;
   margin-top: 10px;
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-lg);
   padding: 10px 12px;
   background: var(--color-surface-soft);
 }
@@ -876,7 +876,7 @@
     width: 40px;
     height: 4px;
     border-radius: 999px;
-    background: var(--handle-color);
+    background: #d9d5ef;
   }
 }
 
@@ -1140,7 +1140,7 @@
   height: 4px;
   margin: 4px auto 14px;
   border-radius: 999px;
-  background: var(--handle-color);
+  background: #d9d5ef;
 }
 
 .sheetHeader {

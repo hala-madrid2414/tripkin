@@ -1,4 +1,4 @@
-﻿.section {
+.section {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -14,7 +14,7 @@
   gap: 6px;
   font-weight: 700;
   font-size: 16px;
-  color: var(--lv-heading);
+  color: var(--color-heading);
   margin: 0;
 }
 .viewAll {
@@ -25,7 +25,7 @@
   background: transparent;
   font-size: 12px;
   font-weight: 500;
-  color: var(--lv-primary);
+  color: var(--color-brand-primary);
   font-family: inherit;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -38,8 +38,8 @@
     transform 0.12s;
 }
 .viewAll:active {
-  color: var(--lv-primary-strong);
-  background: var(--lv-primary-soft);
+  color: var(--color-brand-primary-strong);
+  background: var(--color-brand-primary-faint);
   transform: scale(0.96);
 }
 
@@ -55,14 +55,14 @@
   gap: 4px;
   padding: 16px 6px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border);
 }
 .summaryValue {
   font-weight: 800;
   font-size: 20px;
   line-height: 1;
-  color: var(--lv-heading);
+  color: var(--color-heading);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -70,7 +70,7 @@
 }
 .summaryLabel {
   font-size: 10.5px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   font-weight: 500;
 }
 
@@ -85,9 +85,9 @@
   gap: 12px;
   padding: 14px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
-  box-shadow: var(--lv-shadow-soft);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card-soft);
   transition: transform 0.18s;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -103,11 +103,11 @@
   border-radius: 50%;
 }
 .tripStatusProgress {
-  background: var(--lv-primary);
+  background: var(--color-brand-primary);
   box-shadow: 0 0 8px rgba(184, 156, 255, 0.5);
 }
 .tripStatusDone {
-  background: var(--lv-text-muted);
+  background: var(--color-muted);
 }
 .tripInfo {
   flex: 1 1 auto;
@@ -116,7 +116,7 @@
 .tripTitle {
   font-weight: 600;
   font-size: 14px;
-  color: var(--lv-heading);
+  color: var(--color-heading);
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,7 +124,7 @@
 }
 .tripMeta {
   font-size: 11px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   margin: 2px 0 0;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -6,15 +6,11 @@
 .scroller {
   box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  overflow-x: auto;
+  overflow: visible;
   padding: 0 var(--match-space-page-x) 4px;
   width: 100%;
-  scrollbar-width: none;
-}
-
-.scroller::-webkit-scrollbar {
-  display: none;
 }
 
 .chip {

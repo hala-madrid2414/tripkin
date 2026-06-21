@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    TravelStoriesPage — right-edge slide-in panel
    Timeline + card layout
    Lavender Travel Journal
@@ -64,11 +64,11 @@
 .topTitle {
   font-size: 16px;
   font-weight: 700;
-  color: var(--lv-heading);
+  color: var(--color-heading);
 }
 .topSubtitle {
   font-size: 10.5px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   font-weight: 400;
 }
 .topSpacer {
@@ -83,7 +83,7 @@
   border-radius: 17px;
   border: 0;
   background: transparent;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   font-size: 13px;
   font-weight: 500;
   font-family: inherit;
@@ -95,7 +95,7 @@
   flex-shrink: 0;
 }
 .backBtn:active {
-  color: var(--lv-primary);
+  color: var(--color-brand-primary);
 }
 
 /* ---- tabs ---- */
@@ -118,7 +118,7 @@
   background: transparent;
   font-size: 12px;
   font-weight: 500;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   font-family: inherit;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -128,8 +128,8 @@
   white-space: nowrap;
 }
 .tabActive {
-  background: var(--lv-primary-soft);
-  color: var(--lv-primary);
+  background: var(--color-brand-primary-faint);
+  color: var(--color-brand-primary);
   font-weight: 600;
 }
 
@@ -174,7 +174,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--lv-primary);
+  background: var(--color-brand-primary);
   box-shadow: 0 0 0 3px rgba(184, 156, 255, 0.15);
 }
 .timelineContent {
@@ -185,8 +185,8 @@
 .card {
   padding: 14px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition:
@@ -198,7 +198,7 @@
 }
 .card:active {
   transform: scale(0.985);
-  border-color: var(--lv-primary);
+  border-color: var(--color-brand-primary);
 }
 .cardHead {
   display: flex;
@@ -208,25 +208,25 @@
 .cardCity {
   padding: 2px 8px;
   border-radius: 8px;
-  background: var(--lv-primary-soft);
+  background: var(--color-brand-primary-faint);
   font-size: 10px;
   font-weight: 600;
-  color: var(--lv-primary);
+  color: var(--color-brand-primary);
 }
 .cardDate {
   font-size: 10px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
 }
 .cardTitle {
   font-weight: 600;
   font-size: 14px;
-  color: var(--lv-heading);
+  color: var(--color-heading);
   margin: 0;
 }
 .cardSummary {
   font-size: 12px;
   line-height: 1.6;
-  color: var(--lv-text);
+  color: var(--color-text);
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -243,7 +243,7 @@
   align-items: center;
   gap: 3px;
   font-size: 11px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
 }
 .cardStat svg {
   flex-shrink: 0;
@@ -266,7 +266,7 @@
 .emptyText {
   font-size: 13px;
   line-height: 1.7;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   margin: 0;
   white-space: pre-line;
 }

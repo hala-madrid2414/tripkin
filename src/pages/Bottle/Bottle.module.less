@@ -157,7 +157,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;
   margin-top: 24px;
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   padding: 5px;
   background: var(--color-surface-glass);
@@ -185,15 +185,10 @@
 
 .filterChips {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  margin: 14px -16px 0;
-  padding: 0 16px 2px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.filterChips::-webkit-scrollbar {
-  display: none;
+  margin: 14px 0 0;
+  padding: 0 0 2px;
 }
 
 .filterChip,
@@ -204,7 +199,7 @@
   gap: 5px;
   min-width: max-content;
   min-height: 38px;
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   padding: 0 14px;
   background: var(--color-surface-glass);
@@ -247,7 +242,7 @@
   gap: 12px;
   width: 100%;
   min-width: 0;
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: 22px;
   padding: 16px;
   background: var(--color-surface-solid);
@@ -503,7 +498,7 @@
   height: 4px;
   margin: 0 auto 14px;
   border-radius: var(--radius-pill);
-  background: var(--handle-color);
+  background: #d9d5ef;
 }
 
 .closeButton {
@@ -682,7 +677,7 @@
   padding: 16px 14px 30px;
   outline: none;
   resize: vertical;
-  background: var(--color-input-bg);
+  background: var(--color-surface-soft);
   color: var(--color-heading);
   font: inherit;
   font-size: 14px;
@@ -870,10 +865,7 @@
   }
 
   .filterChips {
-    margin-right: -14px;
-    margin-left: -14px;
-    padding-right: 14px;
-    padding-left: 14px;
+    gap: 8px;
   }
 
   .destinationHeader {

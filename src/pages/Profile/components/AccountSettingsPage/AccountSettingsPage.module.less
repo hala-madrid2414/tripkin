@@ -1,4 +1,4 @@
-﻿.overlay {
+.overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
@@ -50,7 +50,7 @@
 .topTitle {
   font-size: 16px;
   font-weight: 700;
-  color: var(--lv-heading);
+  color: var(--color-heading);
 }
 .topSpacer {
   width: 56px;
@@ -63,7 +63,7 @@
   border-radius: 50%;
   border: 0;
   background: transparent;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.15s;
@@ -72,7 +72,7 @@
   flex-shrink: 0;
 }
 .backBtn:active {
-  color: var(--lv-primary);
+  color: var(--color-brand-primary);
 }
 
 .body {
@@ -91,8 +91,8 @@
   gap: 14px;
   padding: 14px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.15s;
@@ -108,7 +108,7 @@
   place-items: center;
   font-size: 24px;
   background: linear-gradient(135deg, #f0ebff, #e0d6ff);
-  border: 1px solid var(--lv-border);
+  border: 1px solid var(--color-border);
 }
 .avatarText {
   display: flex;
@@ -117,16 +117,16 @@
 .avatarLabel {
   font-size: 14px;
   font-weight: 600;
-  color: var(--lv-heading);
+  color: var(--color-heading);
 }
 .avatarHint {
   font-size: 11px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
 }
 .rowArrow {
   margin-left: auto;
   font-size: 18px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
 }
 
 .fieldRow {
@@ -135,8 +135,8 @@
   gap: 12px;
   padding: 14px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border);
 }
 .infoRow {
   display: flex;
@@ -144,15 +144,15 @@
   gap: 12px;
   padding: 14px;
   border-radius: 16px;
-  background: var(--lv-card);
-  border: 1px solid var(--lv-border);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border);
 }
 .fieldLabel {
   flex: 0 0 auto;
   width: 64px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--lv-text);
+  color: var(--color-text);
 }
 .fieldInput {
   flex: 1 1 auto;
@@ -160,23 +160,23 @@
   height: 36px;
   padding: 0 10px;
   border-radius: 10px;
-  border: 1px solid var(--lv-border);
+  border: 1px solid var(--color-border);
   background: rgba(248, 246, 255, 0.8);
   font-size: 14px;
-  color: var(--lv-heading);
+  color: var(--color-heading);
   outline: none;
   font-family: inherit;
   text-align: right;
   transition: border-color 0.2s;
 }
 .fieldInput:focus {
-  border-color: var(--lv-primary);
+  border-color: var(--color-brand-primary);
 }
 .infoValue {
   flex: 1 1 auto;
   text-align: right;
   font-size: 13px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
 }
 
 .saveBtn {

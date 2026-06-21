@@ -1,24 +1,9 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Lavender Travel Journal — Profile
    Travel Identity Center
    ========================================================================== */
 
 .page {
-  /* ---- Lavender palette ---- */
-  --lv-primary: #b89cff;
-  --lv-primary-strong: #9b7fff;
-  --lv-primary-soft: rgba(184, 156, 255, 0.12);
-  --lv-primary-line: rgba(184, 156, 255, 0.25);
-  --lv-card: rgba(255, 255, 255, 0.78);
-  --lv-card-hover: rgba(255, 255, 255, 0.92);
-  --lv-border: rgba(220, 207, 255, 0.5);
-  --lv-heading: #4a3f6b;
-  --lv-text: #6b5e8a;
-  --lv-text-muted: #9b8ec4;
-
-  --lv-shadow: 0 8px 32px rgba(184, 156, 255, 0.1);
-  --lv-shadow-soft: 0 4px 18px rgba(184, 156, 255, 0.06);
-
   position: relative;
   width: 100%;
   max-width: 430px;
@@ -39,12 +24,12 @@
    Glass card container
    ========================================================================== */
 .glassCard {
-  background: var(--lv-card);
+  background: var(--color-surface-glass);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid var(--lv-border);
+  border: 1px solid var(--color-border);
   border-radius: 22px;
-  box-shadow: var(--lv-shadow);
+  box-shadow: var(--shadow-card);
   padding: 22px 18px;
   animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -104,12 +89,12 @@
 .emptyTitle {
   font-weight: 700;
   font-size: 20px;
-  color: var(--lv-heading);
+  color: var(--color-heading);
   margin: 0;
 }
 .emptyDesc {
   font-size: 14px;
-  color: var(--lv-text-muted);
+  color: var(--color-muted);
   line-height: 1.65;
   margin: 0;
   max-width: 260px;
