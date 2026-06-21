@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+dist
+**/dist
+build
+**/build
+dist-ssr
+
+# Environment variables
+.env
+.env.*
+*.env
+*.local
+**/.env
+**/.env.*
+**/*.env
+**/*.local
+
+# Python
+.venv
+**/.venv
+
+# Git
+.git
+
+# IDE
+.vscode
+.idea
+
+# Trae
+.trae
+.trae/specs
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Misc
+.DS_Store
+.local-docs
+.figma
