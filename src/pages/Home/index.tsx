@@ -192,22 +192,6 @@ function Home() {
   return (
     <main className={styles.page}>
       <div className={styles.homePage}>
-        <section className={styles.statusBar} aria-label="手机状态栏">
-          <span className={styles.statusTime}>9:41</span>
-          <span className={styles.statusIcons} aria-hidden="true">
-            <span className={styles.signal}>
-              <span />
-              <span />
-              <span />
-              <span />
-            </span>
-            <span className={styles.wifi} />
-            <span className={styles.battery}>
-              <span />
-            </span>
-          </span>
-        </section>
-
         <div className={styles.content}>
           <section className={styles.header}>
             <div>
