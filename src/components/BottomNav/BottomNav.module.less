@@ -5,7 +5,7 @@
   right: 0;
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4px;
   width: 100%;
   max-width: 430px;
@@ -44,25 +44,6 @@
 .itemActive {
   background: var(--color-brand-primary-soft);
   color: var(--color-brand-primary-strong);
-}
-
-.mbtiItem {
-  position: relative;
-  min-height: 54px;
-  margin-top: -18px;
-  border-radius: var(--radius-pill);
-  background: var(--gradient-primary);
-  color: #ffffff;
-  box-shadow: var(--shadow-primary);
-}
-
-.mbtiItem.itemActive {
-  background: var(--gradient-primary);
-  color: #ffffff;
-}
-
-.mbtiItem span {
-  font-size: 19px;
 }
 
 @media (min-width: 520px) {
