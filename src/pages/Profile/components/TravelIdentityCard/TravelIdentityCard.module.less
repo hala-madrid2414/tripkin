@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TravelIdentityCard — Lavender soft UI
+   TravelIdentityCard 闂?Lavender soft UI
    375px iPhone SE baseline
    ========================================================================== */
 
@@ -28,12 +28,12 @@
   border-radius: 18px;
   background: linear-gradient(
     135deg,
-    rgba(184, 156, 255, 0.22),
-    rgba(220, 207, 255, 0.38)
+    var(--color-brand-primary-line),
+    var(--color-brand-primary-line)
   );
-  border: 1px solid rgba(184, 156, 255, 0.28);
+  border: 1px solid var(--color-brand-primary-line);
   color: var(--color-brand-primary);
-  font-size: 12px;
+  font-size: var(--font-caption);
   font-weight: 700;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -74,9 +74,13 @@
   border-radius: 26px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #f0ebff, #e8e0ff);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary-mist)
+  );
   border: 2px solid var(--color-border);
-  box-shadow: 0 10px 28px rgba(184, 156, 255, 0.2);
+  box-shadow: 0 10px 28px var(--color-brand-primary-line);
   overflow: hidden;
 }
 .avatarWrap svg {
@@ -89,17 +93,17 @@
   border-radius: 26px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #cbb8ff, #b89cff);
-  color: #fff;
+  background: var(--gradient-primary);
+  color: var(--color-surface-solid);
   font-size: 32px;
   font-weight: 800;
-  box-shadow: 0 10px 28px rgba(184, 156, 255, 0.2);
+  box-shadow: 0 10px 28px var(--color-brand-primary-line);
 }
 
 /* ---- nickname ---- */
 .nickname {
   font-weight: 800;
-  font-size: 22px;
+  font-size: var(--font-heading);
   line-height: 1.25;
   color: var(--color-heading);
   margin: 0;
@@ -118,10 +122,10 @@
   border-radius: 18px;
   background: linear-gradient(
     135deg,
-    rgba(184, 156, 255, 0.16),
-    rgba(220, 207, 255, 0.28)
+    var(--color-brand-primary-faint),
+    var(--color-brand-primary-faint)
   );
-  border: 1px solid rgba(184, 156, 255, 0.25);
+  border: 1px solid var(--color-brand-primary-line);
   font-size: 11.5px;
   font-weight: 700;
   color: var(--color-brand-primary);
@@ -142,26 +146,31 @@
   align-items: baseline;
 }
 .expLabel {
-  font-size: 10px;
+  font-size: var(--font-micro);
   font-weight: 700;
   color: var(--color-brand-primary);
   letter-spacing: 0.04em;
 }
 .expValue {
-  font-size: 10px;
+  font-size: var(--font-micro);
   font-weight: 500;
   color: var(--color-muted);
 }
 .expTrack {
   height: 6px;
   border-radius: 3px;
-  background: rgba(184, 156, 255, 0.12);
+  background: var(--color-brand-primary-faint);
   overflow: hidden;
 }
 .expFill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, #dccfff, #b89cff, #9b7fff);
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary),
+    var(--color-brand-primary-strong)
+  );
   transition: width 0.5s ease;
 }
 
@@ -186,10 +195,10 @@
 }
 .tag {
   padding: 4px 13px;
-  border-radius: 13px;
-  background: rgba(220, 207, 255, 0.32);
-  border: 1px solid rgba(220, 207, 255, 0.5);
-  font-size: 11px;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-primary-faint);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-caption);
   color: var(--color-text);
   font-weight: 500;
   line-height: 1.4;

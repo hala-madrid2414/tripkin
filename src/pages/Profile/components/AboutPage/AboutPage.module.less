@@ -5,7 +5,7 @@
   display: flex;
   align-items: stretch;
   justify-content: flex-end;
-  background: rgba(36, 32, 52, 0.32);
+  background: rgba(24, 25, 42, 0.32);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   animation: overlayIn 0.24s ease both;
@@ -22,11 +22,11 @@
   width: 100%;
   max-width: 480px;
   height: 100svh;
-  background: linear-gradient(180deg, #faf8ff 0%, #f4f0ff 100%);
+  background: var(--gradient-page-profile);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: -8px 0 40px rgba(148, 126, 200, 0.18);
+  box-shadow: var(--shadow-floating);
   animation: panelIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @keyframes panelIn {
@@ -44,10 +44,10 @@
   align-items: center;
   justify-content: space-between;
   padding: calc(env(safe-area-inset-top) + 10px) 18px 12px;
-  border-bottom: 1px solid rgba(220, 207, 255, 0.45);
+  border-bottom: 1px solid var(--color-divider);
 }
 .topTitle {
-  font-size: 16px;
+  font-size: var(--font-title);
   font-weight: 700;
   color: var(--color-heading);
 }
@@ -93,30 +93,34 @@
 .logo {
   width: 72px;
   height: 72px;
-  border-radius: 22px;
+  border-radius: var(--radius-xl);
   display: grid;
   place-items: center;
   font-size: 36px;
-  background: linear-gradient(135deg, #f0ebff, #e0d6ff);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary-mist)
+  );
   border: 2px solid var(--color-border);
 }
 .brand {
   font-weight: 800;
-  font-size: 22px;
+  font-size: var(--font-heading);
   color: var(--color-heading);
   margin: 0;
 }
 .slogan {
-  font-size: 13px;
+  font-size: var(--font-caption);
   color: var(--color-muted);
   margin: 0;
   font-style: italic;
 }
 .version {
   padding: 3px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: var(--color-brand-primary-faint);
-  font-size: 11px;
+  font-size: var(--font-caption);
   font-weight: 600;
   color: var(--color-brand-primary);
 }
@@ -130,18 +134,18 @@
 .sectionBlock {
   width: 100%;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: var(--color-surface-glass);
   border: 1px solid var(--color-border);
 }
 .blockTitle {
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-body);
   color: var(--color-heading);
   margin: 0 0 8px;
 }
 .blockText {
-  font-size: 12px;
+  font-size: var(--font-caption);
   line-height: 1.7;
   color: var(--color-text);
   margin: 0;
@@ -153,10 +157,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: var(--color-surface-glass);
   border: 1px solid var(--color-border);
-  font-size: 14px;
+  font-size: var(--font-body);
   font-weight: 500;
   color: var(--color-heading);
   cursor: pointer;
@@ -167,12 +171,12 @@
   transform: scale(0.985);
 }
 .linkArrow {
-  font-size: 16px;
+  font-size: var(--font-title);
   color: var(--color-muted);
 }
 
 .footer {
-  font-size: 11px;
+  font-size: var(--font-caption);
   color: var(--color-muted);
   margin: 8px 0 0;
 }

@@ -20,15 +20,15 @@
   align-items: center;
   gap: 6px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-title);
   color: var(--color-heading);
   margin: 0;
 }
 .sectionIcon {
-  font-size: 18px;
+  font-size: var(--font-title);
 }
 .badgeCount {
-  font-size: 12px;
+  font-size: var(--font-caption);
   color: var(--color-muted);
   font-weight: 600;
 }
@@ -45,7 +45,7 @@
   align-items: center;
   gap: 4px;
   padding: 14px 6px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -60,7 +60,7 @@
 }
 .itemLocked {
   background: rgba(200, 200, 210, 0.15);
-  border: 1px dashed rgba(184, 156, 255, 0.2);
+  border: 1px dashed var(--color-brand-primary-line);
   opacity: 0.55;
 }
 .itemIcon {
@@ -69,17 +69,17 @@
 }
 .itemTitle {
   font-weight: 600;
-  font-size: 12px;
+  font-size: var(--font-caption);
   color: var(--color-heading);
 }
 .itemSubtitle {
-  font-size: 10px;
+  font-size: var(--font-micro);
   color: var(--color-muted);
 }
 .lockIcon {
   position: absolute;
   top: 8px;
   right: 8px;
-  font-size: 12px;
+  font-size: var(--font-caption);
   opacity: 0.6;
 }
