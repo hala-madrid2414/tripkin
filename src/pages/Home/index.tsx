@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import BottomNav from '@/components/BottomNav'
 import styles from './Home.module.less'
 
 type RoutePath = '/' | '/map' | '/mbti' | '/bottle' | '/match' | '/profile'
@@ -446,40 +447,7 @@ function Home() {
           </section>
         </div>
 
-        <nav className={styles.bottomNav} aria-label="首页底部导航">
-          <button
-            className={styles.navItemActive}
-            type="button"
-            onClick={() => navigate('/')}
-          >
-            <span className={styles.navHomeIcon} aria-hidden="true" />
-            首页
-          </button>
-          <button
-            className={styles.navItem}
-            type="button"
-            onClick={() => navigate('/map')}
-          >
-            <span className={styles.navMapIcon} aria-hidden="true" />
-            地图
-          </button>
-          <button
-            className={styles.navItem}
-            type="button"
-            onClick={openMbtiModal}
-          >
-            <span className={styles.navMbtiIcon} aria-hidden="true" />
-            MBTI
-          </button>
-          <button
-            className={styles.navItem}
-            type="button"
-            onClick={() => navigate('/profile')}
-          >
-            <span className={styles.navMineIcon} aria-hidden="true" />
-            我的
-          </button>
-        </nav>
+        <BottomNav />
       </div>
 
       {isMbtiModalOpen ? (

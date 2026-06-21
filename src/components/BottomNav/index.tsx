@@ -4,6 +4,7 @@ import styles from './BottomNav.module.less'
 const navItems = [
   { to: '/', label: '首页', icon: '⌂' },
   { to: '/map', label: '地图', icon: '⌖' },
+  { to: '/match', label: '匹配', icon: '◇' },
   { to: '/profile', label: '我的', icon: '●' },
 ]
 

@@ -48,6 +48,7 @@ function Profile() {
             {'开始探索'}
           </button>
         </section>
+        <BottomNav destinationId={destinationId} />
       </main>
     )
   }
