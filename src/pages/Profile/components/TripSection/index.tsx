@@ -1,6 +1,7 @@
-﻿import { useNavigate } from 'react-router-dom'
-import { Toast } from 'antd-mobile'
+﻿import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { MockTripStats } from '../../mock'
+import { TripListPage } from '../TripListPage'
 import styles from './TripSection.module.less'
 
 interface TripSectionProps {
@@ -9,22 +10,20 @@ interface TripSectionProps {
 
 export function TripSection({ tripStats }: TripSectionProps) {
   const navigate = useNavigate()
+  const [tripsOpen, setTripsOpen] = useState(false)
+
   return (
     <section className={styles.section}>
       <header className={styles.sectionHeader}>
         <h2 className={styles.sectionTitle}>{'\u6211\u7684\u884C\u7A0B'}</h2>
-        <span
+        {/* 查看全部：点击打开行程列表完整页面 */}
+        <button
+          type="button"
           className={styles.viewAll}
-          onClick={() =>
-            Toast.show({
-              content:
-                '\u67E5\u770B\u5168\u90E8\u884C\u7A0B\u529F\u80FD\u5C1A\u672A\u5F00\u653E',
-              duration: 1500,
-            })
-          }
+          onClick={() => setTripsOpen(true)}
         >
-          {'\u67E5\u770B\u5168\u90E8\u2002\u203A'}
-        </span>
+          {'\u67E5\u770B\u5168\u90E8 \u203A'}
+        </button>
       </header>
 
       <div className={styles.summaryGrid}>
@@ -67,6 +66,8 @@ export function TripSection({ tripStats }: TripSectionProps) {
           </article>
         ))}
       </div>
+
+      <TripListPage visible={tripsOpen} onClose={() => setTripsOpen(false)} />
     </section>
   )
 }

@@ -36,7 +36,7 @@ npm install
 
 ### 公共骨架完成后的页面协作
 
-当前首页、MBTI 三段路由、四栏 `BottomNav` 和 `MbtiEntryModal` 公共骨架已经就绪。后续页面负责人应优先在自己的页面目录内推进，不建议多人同时在各自页面里顺手修改公共文件。
+当前首页、MBTI 三段路由、四栏 `BottomNav` 和 `MbtiEntryModal` 公共骨架已经就绪。底部导航当前以 `首页 / 地图 / 匹配 / 我的` 为准；MBTI 作为页面内旅行人格入口，不再占用底部导航。后续页面负责人应优先在自己的页面目录内推进，不建议多人同时在各自页面里顺手修改公共文件。
 
 推荐流程：
 
@@ -48,8 +48,8 @@ npm install
 
 - 首页路由 `/`。
 - `/mbti`、`/mbti/test`、`/mbti/result`。
-- `首页 / 地图 / MBTI / 我的` 四栏 `BottomNav`。
-- `MbtiEntryModal`，用于非 MBTI 页面点击底部 MBTI 时先弹出引导弹窗。
+- `首页 / 地图 / 匹配 / 我的` 四栏 `BottomNav`。
+- `MbtiEntryModal`，用于明确的页面内 MBTI 入口需要先弹出引导时；它不属于 BottomNav 职责。
 
 页面负责人分工时，优先按目录拆开：
 
@@ -76,6 +76,7 @@ npm install
 - 页面内容变复杂时，优先在自己页面目录内拆组件，并为复杂组件配套 `index.tsx + ComponentName.module.less`。
 - 确认多个页面都会复用后，再讨论是否抽到 `src/components`。
 - 不要随意修改已经确定的公共组件或全局样式。
+- 不要在单页任务中私自调整 `BottomNav` 的一级入口；如需调整，必须同步决策记录和相关验收文档。
 - 不要未经确认引入组件库。
 - 不要把页面私有逻辑放进公共目录。
 - 涉及公共部分变更时，先说明原因和影响范围；影响多人协作的，同步写决策记录。
@@ -139,14 +140,16 @@ npm install
 
 ## 提交前
 
-提交前至少运行：
+如果本次改动包含源码、样式、路由、脚本、依赖、工程配置、服务端代码，或会影响页面运行行为，提交前至少运行：
 
 ```bash
 npm run lint
 npm run build
 ```
 
-如果改了 Markdown 或格式相关内容，可以额外运行：
+如果只修改纯文档内容，例如 Markdown 说明、协作记录、需求整理、决策记录，且不改变代码、配置、脚本或可执行命令，不要求运行 `npm run lint` 和 `npm run build`。
+
+如果改了 Markdown 或格式相关内容，可以按需要额外运行：
 
 ```bash
 npm run format:check

@@ -73,20 +73,12 @@ function Mbti({ view }: MbtiProps) {
     navigate('/map')
   }
 
-  const handleGoMap = () => {
-    navigate('/map')
-  }
-
-  const handleRestart = () => {
-    navigate('/mbti/test')
-  }
-
   return (
     <main className={styles.page}>
       {view === 'welcome' && (
         <Welcome
-          destination={destination}
           onStart={() => navigate('/mbti/test')}
+          onViewResult={() => navigate('/mbti/result')}
           onSkip={handleSkip}
         />
       )}
@@ -97,11 +89,7 @@ function Mbti({ view }: MbtiProps) {
         />
       )}
       {view === 'result' && resultId && (
-        <IdentityCard
-          personaId={resultId}
-          onGoMap={handleGoMap}
-          onRestart={handleRestart}
-        />
+        <IdentityCard personaId={resultId} onBack={() => navigate('/mbti')} />
       )}
       {view === 'result' && !resultId && (
         <section className={styles.emptyResult}>
@@ -112,24 +100,6 @@ function Mbti({ view }: MbtiProps) {
         </section>
       )}
 
-      <button
-        type="button"
-        className={styles.profileEntry}
-        onClick={() => navigate('/profile')}
-        aria-label="个人主页"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-      </button>
       <BottomNav destinationId={destinationId} />
     </main>
   )

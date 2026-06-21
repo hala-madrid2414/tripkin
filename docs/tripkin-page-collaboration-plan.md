@@ -10,9 +10,9 @@
 
 - `/` 首页轻量入口。
 - `/mbti`、`/mbti/test`、`/mbti/result` 三段式 MBTI 路由。
-- `首页 / 地图 / MBTI / 我的` 四栏 `BottomNav`。
-- `MbtiEntryModal` 全局 MBTI 引导弹窗。
-- 非 MBTI 页面点击 MBTI 先弹窗，MBTI 模块内点击 MBTI 不重复弹窗。
+- `首页 / 地图 / 匹配 / 我的` 四栏 `BottomNav`。
+- `MbtiEntryModal` 页面内 MBTI 引导弹窗，可被 Home、Profile 或必要的 MBTI CTA 使用。
+- MBTI 不再作为 BottomNav tab，Match 是底部主导航核心入口。
 
 后续页面负责人默认不改公共骨架。确实需要改 `src/router`、`src/components/BottomNav` 或 `src/components/MbtiEntryModal` 时，先说明影响范围。
 
@@ -22,15 +22,15 @@
 
 - 负责范围：`src/router`、`src/components/BottomNav`、`src/components/MbtiEntryModal`、`src/pages/Home` 的轻量入口壳。
 - 当前状态：公共骨架已搭好，后续只做必要维护。
-- 可继续做：修复公共入口 bug，处理路由冲突，维护全局入口一致性。
+- 可继续做：修复公共入口 bug，处理路由冲突，维护底部导航和页面内 MBTI 入口一致性。
 - 影响边界：会影响所有页面。非必要不要夹带单页视觉重写。
 
 ### 首页负责人
 
 - 负责范围：`src/pages/Home/`。
-- 目标：补齐首页内容，让它承担常规入口、旅行探索入口和 MBTI 引导入口。
+- 目标：补齐首页内容，让它承担常规入口、旅行探索入口和页面内 MBTI 引导入口。
 - 可做事项：完善首页首屏、推荐卡片、地图入口、已有 MBTI 结果摘要。
-- 影响边界：不修改 `BottomNav`、`MbtiEntryModal` 和路由总表。
+- 影响边界：不修改 `BottomNav` 和路由总表；如需要调整 MBTI 引导弹窗行为，先说明影响范围。
 
 ### MBTI 负责人
 
@@ -44,7 +44,7 @@
 - 负责范围：`src/pages/Map/`。
 - 目标：继续作为 Demo 主枢纽，承接目的地探索并分发到 Bottle 和 Match。
 - 可做事项：优化地图入口、搜索、图层、选区卡片、去 Bottle/Match 的目的地跳转。
-- 影响边界：不修改 `BottomNav` 和 `MbtiEntryModal`；如地图内 MBTI 快捷入口需要调整，保持与全局弹窗逻辑一致。
+- 影响边界：不修改 `BottomNav` 和 `MbtiEntryModal`；如地图内需要 MBTI 快捷入口，先确认是否属于页面内 CTA。
 
 ### Bottle 负责人
 

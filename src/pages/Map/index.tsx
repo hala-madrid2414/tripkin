@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { MutableRefObject, PointerEvent } from 'react'
+import BottomNav from '@/components/BottomNav'
 import MbtiEntryModal from '@/components/MbtiEntryModal'
 import AmapCanvas from './components/AmapCanvas'
 import BottomRegionCard from './components/BottomRegionCard'
@@ -512,6 +513,7 @@ function Map() {
         }}
         onClose={() => setMbtiModalOpen(false)}
       />
+      <BottomNav destinationId={activeBottleDestinationId} />
     </main>
   )
 }

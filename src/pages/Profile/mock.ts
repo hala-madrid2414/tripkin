@@ -1,6 +1,7 @@
-﻿export interface MockCompanion {
+export interface MockCompanion {
   name: string
   mbti: string
+  personaLabel: string
   avatarEmoji: string
   lastInteraction: string
 }
@@ -8,7 +9,13 @@
 export interface MockBottleStats {
   sent: number
   replies: number
-  saved: number
+  featured: number
+}
+
+export interface MockFeaturedStory {
+  title: string
+  destination: string
+  snippet: string
 }
 
 export interface MockTrip {
@@ -26,9 +33,10 @@ export interface MockTripStats {
 }
 
 export interface MockFootprintStats {
-  cities: string[]
   cityCount: number
   travelDays: number
+  totalDistance: number
+  cities: string[]
 }
 
 export interface MockCollectionStats {
@@ -42,45 +50,88 @@ export interface MockSettingsItem {
   title: string
 }
 
+export interface MockAchievement {
+  icon: string
+  title: string
+  subtitle: string
+  unlocked: boolean
+}
+
+export interface MockMatchingProfile {
+  totalMatches: number
+  activeCompanions: number
+  matchBreakdown: {
+    label: string
+    mbti: string
+    emoji: string
+    count: number
+  }[]
+}
+
+export interface MockTravelLevel {
+  level: number
+  title: string
+  exp: number
+  nextExp: number
+}
+
+export interface MockTravelIndices {
+  cityExplore: number
+  culture: number
+  social: number
+}
+
 export interface MockProfileData {
-  companions: MockCompanion[]
+  travelLevel: MockTravelLevel
+  matchingProfile: MockMatchingProfile
   bottleStats: MockBottleStats
+  featuredStories: MockFeaturedStory[]
   tripStats: MockTripStats
   footprintStats: MockFootprintStats
   collectionStats: MockCollectionStats
+  achievements: MockAchievement[]
   settingsItems: MockSettingsItem[]
+  travelIndices: MockTravelIndices
 }
 
 export const mockProfileData: MockProfileData = {
-  companions: [
+  travelLevel: {
+    level: 12,
+    title: '资深旅行者',
+    exp: 2840,
+    nextExp: 3200,
+  },
+  matchingProfile: {
+    totalMatches: 24,
+    activeCompanions: 3,
+    matchBreakdown: [
+      { label: '精神卡皮巴拉', mbti: 'INFP', emoji: '🦫', count: 8 },
+      { label: '人文浪漫主义', mbti: 'ENFP', emoji: '🌿', count: 6 },
+      { label: '赛博特种兵', mbti: 'INTP', emoji: '🎯', count: 5 },
+      { label: '精算系旅行家', mbti: 'INTJ', emoji: '📊', count: 5 },
+    ],
+  },
+  bottleStats: {
+    sent: 21,
+    replies: 16,
+    featured: 2,
+  },
+  featuredStories: [
     {
-      name: '山间小鹿',
-      mbti: 'ENFP',
-      avatarEmoji: '🦌',
-      lastInteraction: '3小时前',
+      title: '在稻城亚丁捡到的一封信',
+      destination: '稻城亚丁',
+      snippet: '那天下午，我在冲古寺的石阶上发现了一个泛黄的信封...',
     },
     {
-      name: '风的旅人',
-      mbti: 'INTJ',
-      avatarEmoji: '🍃',
-      lastInteraction: '昨天',
-    },
-    {
-      name: '云朵收集者',
-      mbti: 'INFP',
-      avatarEmoji: '☁️',
-      lastInteraction: '2天前',
+      title: '大理的云知道答案',
+      destination: '大理',
+      snippet: '洱海边的老奶奶说，这里的每一朵云都有自己的名字...',
     },
   ],
-  bottleStats: {
-    sent: 12,
-    replies: 8,
-    saved: 5,
-  },
   tripStats: {
-    inProgress: 2,
-    completed: 7,
-    nextDeparture: '6月28日',
+    inProgress: 4,
+    completed: 11,
+    nextDeparture: '7月3日',
     recentTrips: [
       {
         title: '川西环线自驾',
@@ -100,22 +151,64 @@ export const mockProfileData: MockProfileData = {
         dateRange: '4.10 - 4.15',
         status: 'done',
       },
+      {
+        title: '杭州周末 citywalk',
+        destination: '杭州',
+        dateRange: '3.22 - 3.23',
+        status: 'done',
+      },
+      {
+        title: '哈尔滨亮灯夜游',
+        destination: '哈尔滨',
+        dateRange: '1.12 - 1.16',
+        status: 'done',
+      },
     ],
   },
   footprintStats: {
-    cities: ['大理', '稻城', '四姑娘山', '新都桥', '理塘', '康定'],
-    cityCount: 14,
-    travelDays: 68,
+    cityCount: 21,
+    travelDays: 104,
+    totalDistance: 12400,
+    cities: [
+      '大理',
+      '稻城',
+      '四姑娘山',
+      '新都桥',
+      '理塘',
+      '康定',
+      '杭州',
+      '哈尔滨',
+      '三亚',
+    ],
   },
   collectionStats: {
-    destinations: 9,
-    bottles: 5,
-    companions: 3,
+    destinations: 16,
+    bottles: 14,
+    companions: 6,
   },
+  achievements: [
+    { icon: '🏔️', title: '高原征服者', subtitle: '到达4500m+', unlocked: true },
+    { icon: '🗺️', title: '10城旅人', subtitle: '探索10+城市', unlocked: true },
+    {
+      icon: '📜',
+      title: '故事收集家',
+      subtitle: '发布20+漂流瓶',
+      unlocked: true,
+    },
+    { icon: '🤝', title: '社交达人', subtitle: '匹配50+搭子', unlocked: false },
+    { icon: '🌍', title: '环球起航', subtitle: '跨越3大洲', unlocked: false },
+  ],
   settingsItems: [
     { icon: '👤', title: '账号设置' },
     { icon: '🔒', title: '隐私设置' },
     { icon: '🔔', title: '通知设置' },
+    { icon: '🧭', title: '旅行偏好管理' },
+    { icon: '🪪', title: '身份卡展示设置' },
     { icon: 'ℹ️', title: '关于我们' },
   ],
+  travelIndices: {
+    cityExplore: 82,
+    culture: 74,
+    social: 65,
+  },
 }

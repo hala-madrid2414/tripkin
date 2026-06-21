@@ -11,7 +11,7 @@
 把现有页面统一成一条清楚的 Demo 主链路。当前公共路由和入口骨架已经完成，后续重点转为各页面按目录并行补齐内容和统一视觉。
 
 ```txt
-Home -> MBTI 入口弹窗 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match -> Profile
+Home -> MBTI 页面入口 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match -> Profile
 ```
 
 本轮优先级：
@@ -46,9 +46,10 @@ Home -> MBTI 入口弹窗 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 当前公共骨架必须满足：
 
 - 首页 `/` 是常规入口。
-- 底部导航为四栏：`首页 / 地图 / MBTI / 我的`。
-- MBTI 是全局特殊入口，不是普通底部导航跳转。
-- 非 MBTI 页面点击底部 MBTI 时，先打开半透明 MBTI 引导弹窗。
+- 底部导航为四栏：`首页 / 地图 / 匹配 / 我的`。
+- Match 是底部主导航里的核心产品闭环入口。
+- MBTI 是旅行人格生成 / 更新入口，不再作为底部导航 tab。
+- Home、Profile 和必要页面内 CTA 可以承接 MBTI 引导或进入 `/mbti`。
 - MBTI 模块目标流程为 `/mbti -> /mbti/test -> /mbti/result`。
 - 不确定的远期能力不写入正式范围，先保留在飞书或 `.local-docs/`。
 
@@ -101,7 +102,7 @@ Home -> MBTI 入口弹窗 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 
 ### Home
 
-目标：作为 Demo 常规入口，承接旅行探索、全局 MBTI 引导和四栏底部导航。
+目标：作为 Demo 常规入口，承接旅行探索、页面内 MBTI 引导和四栏底部导航。
 
 必须完成：
 
@@ -114,8 +115,9 @@ Home -> MBTI 入口弹窗 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 验收标准：
 
 - `/` 能正常打开。
-- 首页底部导航包含首页、地图、MBTI、我的。
-- 点击首页的 MBTI 入口或底部 MBTI 时，先打开 MBTI 引导弹窗。
+- 首页底部导航包含首页、地图、匹配、我的。
+- 点击首页的 MBTI 入口时，可以进入 MBTI 引导或 `/mbti`。
+- 点击底部匹配入口时，可以进入 `/match`。
 - 375px 下首页首屏没有横向滚动或关键按钮遮挡。
 
 ### Map
@@ -200,8 +202,8 @@ Home -> MBTI 入口弹窗 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 
 必须完成：
 
-- 全局入口关系统一：非 MBTI 页面点击底部 MBTI 先弹窗，再进入 `/mbti`。
-- MBTI 模块内部点击底部 MBTI 不重复弹窗。
+- 全局入口关系统一：底部导航固定为 `首页 / 地图 / 匹配 / 我的`。
+- MBTI 入口由 Home、Profile 和必要页面内 CTA 承接；不再由 BottomNav 承接。
 - 公共路由骨架已完成，后续让各页面负责人并行开发。
 - 统一字体层级、主色、辅助色、背景逻辑。
 - 统一卡片圆角、阴影、内边距和信息密度。
@@ -221,8 +223,8 @@ Home -> MBTI 入口弹窗 -> MBTI -> 旅行身份卡 -> Map -> Bottle / Match ->
 
 1. 首页路由 `/`。
 2. `/mbti/test`、`/mbti/result` 路由入口。
-3. `首页 / 地图 / MBTI / 我的` 四栏 `BottomNav`。
-4. `MbtiEntryModal` 全局 MBTI 引导弹窗。
+3. `首页 / 地图 / 匹配 / 我的` 四栏 `BottomNav`。
+4. `MbtiEntryModal` 页面内 MBTI 引导弹窗，可被明确的 MBTI CTA 使用。
 
 后续不建议多人同时修改路由、底部导航和全局入口。各页面负责人应按 `src/pages/<PageName>/` 分目录推进；确实需要修改公共骨架时，先说明影响范围。
 

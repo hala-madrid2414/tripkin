@@ -1,7 +1,7 @@
 ﻿.section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 .sectionHeader {
   display: flex;
@@ -9,23 +9,26 @@
   align-items: baseline;
 }
 .sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 700;
   font-size: 16px;
-  color: var(--pf-heading, #4a3f6b);
+  color: var(--lv-heading);
   margin: 0;
 }
 
 .settingList {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 .settingItem {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid var(--pf-border, #e5dbff);
+  border-bottom: 1px solid var(--lv-border);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.2s;
@@ -34,7 +37,7 @@
   border-bottom: 0;
 }
 .settingItem:active {
-  color: var(--pf-primary, #b89cff);
+  color: var(--lv-primary);
 }
 .settingIcon {
   flex: 0 0 auto;
@@ -44,16 +47,16 @@
   display: grid;
   place-items: center;
   font-size: 16px;
-  background: rgba(184, 156, 255, 0.08);
+  background: var(--lv-primary-soft);
 }
 .settingLabel {
   flex: 1 1 auto;
   font-size: 14px;
-  color: var(--pf-text, #6b5e8a);
+  color: var(--lv-text);
   font-weight: 500;
 }
 .settingArrow {
   flex: 0 0 auto;
-  color: var(--pf-text-muted, #9b8ec4);
+  color: var(--lv-text-muted);
   font-size: 16px;
 }

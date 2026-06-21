@@ -41,6 +41,8 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '日行三万步的冲浪手',
       '卡点狂魔',
       '火力全开的探索者',
+      '永远在下一站前冲刺的人',
+      '把日程表过成热血番的旅人',
     ],
     details: {
       strengths: [
@@ -48,15 +50,24 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
         '时间利用率高',
         '善于发现隐藏打卡点',
         '社交活跃',
+        '能把临时起意变成高完成度体验',
       ],
       considerations: [
         '容易忽略休息',
         '可能错过慢节奏的美好',
         '需注意行程不要太赶',
+        '高能量同行前要先确认体力预期',
       ],
       travelStyle: { energy: 90, planning: 60, social: 75, adventure: 85 },
-      matchAdvice: '寻找同样高能量、能跟上节奏的搭子，或者互补型的摄影搭子',
-      destTypes: ['热门打卡地', '网红景点', '徒步线路', '极限运动目的地'],
+      matchAdvice:
+        '寻找同样高能量、能跟上节奏的搭子，或者能帮你把疯狂日程变成稳定出片的摄影搭子。',
+      destTypes: [
+        '热门打卡地',
+        '网红景点',
+        '徒步线路',
+        '极限运动目的地',
+        '高密度城市快闪线',
+      ],
     },
   },
   'Zen-Capybara': {
@@ -77,13 +88,27 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '泡在水里的佛系旅人',
       '发呆冠军',
       '情绪稳定的泡汤家',
+      '把日落当日程主角的人',
+      '可以在海边坐一下午的慢旅客',
     ],
     details: {
-      strengths: ['情绪稳定', '善于发现生活小确幸', '适应力强', '善于倾听'],
-      considerations: ['可能错过预订', '需注意时间安排', '偶尔需要推一把'],
+      strengths: [
+        '情绪稳定',
+        '善于发现生活小确幸',
+        '适应力强',
+        '善于倾听',
+        '很会把旅途过成度假状态',
+      ],
+      considerations: [
+        '可能错过预订',
+        '需注意时间安排',
+        '偶尔需要推一把',
+        '和高强度搭子同行前要先对齐节奏',
+      ],
       travelStyle: { energy: 30, planning: 20, social: 50, adventure: 40 },
-      matchAdvice: '寻找同样松弛、不赶时间的搭子，或互补型的规划搭子',
-      destTypes: ['温泉小镇', '咖啡之城', '海边民宿', '古镇村落'],
+      matchAdvice:
+        '寻找同样松弛、不赶时间的搭子，或互补型的规划搭子，但最好别和纯特种兵直接同住同线。',
+      destTypes: ['温泉小镇', '咖啡之城', '海边民宿', '古镇村落', '海岛度假地'],
     },
   },
   'Budget-Architect': {
@@ -104,6 +129,8 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '攻略倒背如流',
       '预算掌控者',
       '严丝合缝的规划师',
+      '把备选方案写得像作战图的人',
+      '订票比闹钟还准的路线控',
     ],
     details: {
       strengths: [
@@ -111,11 +138,24 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
         '行程安排合理',
         '善于发现优惠',
         '风险预判能力强',
+        '能给整趟旅行兜住底线',
       ],
-      considerations: ['可能过于紧张', '需留出弹性空间', '偶尔也要随性一次'],
+      considerations: [
+        '可能过于紧张',
+        '需留出弹性空间',
+        '偶尔也要随性一次',
+        '别把同行人都当成项目成员管理',
+      ],
       travelStyle: { energy: 60, planning: 95, social: 55, adventure: 50 },
-      matchAdvice: '寻找同样有规划意识的搭子，或互补型的体验派搭子',
-      destTypes: ['文化遗产', '美食之都', '博物馆之城', '历史古迹'],
+      matchAdvice:
+        '寻找同样有规划意识的搭子，或互补型的体验派搭子，但最好提前把预算、住宿和时间纪律说清楚。',
+      destTypes: [
+        '文化遗产',
+        '美食之都',
+        '博物馆之城',
+        '历史古迹',
+        '经典环线目的地',
+      ],
     },
   },
   'Romantic-Observer': {
@@ -136,17 +176,33 @@ export const PERSONALITIES: Record<PersonaId, Persona> = {
       '故事收集家',
       '审美在线的漫游者',
       '情绪价值型旅人',
+      '会为一束夕阳改路线的人',
+      '把旅行过成影像散文的人',
     ],
     details: {
-      strengths: ['审美敏锐', '善于发现细节之美', '情感丰富', '善于记录和分享'],
+      strengths: [
+        '审美敏锐',
+        '善于发现细节之美',
+        '情感丰富',
+        '善于记录和分享',
+        '能把普通场景过成有记忆点的一天',
+      ],
       considerations: [
         '可能忽略实用性',
         '需注意时间管理',
         '偶尔也要照顾同行者',
+        '沉浸式体验前要先确认体力和天气边界',
       ],
       travelStyle: { energy: 50, planning: 45, social: 65, adventure: 55 },
-      matchAdvice: '寻找同样注重体验、愿意慢慢逛的搭子，或互补型的行动派搭子',
-      destTypes: ['艺术之都', '小众秘境', '古镇村落', '自然光影圣地'],
+      matchAdvice:
+        '寻找同样注重体验、愿意慢慢逛的搭子，或互补型的行动派搭子，但要保留拍照和发呆的余量。',
+      destTypes: [
+        '艺术之都',
+        '小众秘境',
+        '古镇村落',
+        '自然光影圣地',
+        '城市漫游目的地',
+      ],
     },
   },
 }
