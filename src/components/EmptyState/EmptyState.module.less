@@ -1,0 +1,47 @@
+.emptyState {
+  display: grid;
+  gap: 10px;
+  border: 1px dashed var(--color-brand-primary-line);
+  border-radius: var(--radius-xl);
+  padding: 22px 16px;
+  background: var(--color-surface-solid);
+  color: var(--color-text);
+  text-align: center;
+  box-shadow: var(--shadow-card-soft);
+}
+
+.emptyState strong {
+  color: var(--color-heading);
+  font-size: var(--font-title);
+  line-height: 1.35;
+}
+
+.emptyState p {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--font-caption);
+  line-height: 1.5;
+}
+
+.emptyState button {
+  min-height: 52px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-primary);
+  color: var(--color-surface-solid);
+  font-size: var(--font-body);
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow-primary);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.emptyState button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.emptyState button:focus-visible {
+  outline: 2px solid var(--color-brand-primary-line);
+  outline-offset: 2px;
+}

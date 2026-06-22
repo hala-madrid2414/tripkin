@@ -111,6 +111,8 @@ These areas have some remaining page-local visual values, but they are not curre
 
 Do not continue with broad style migration as the next default task.
 
+2026-06-21 update: the first targeted follow-up has started with a Bottle base-component pilot. `PageTopBar`, `BaseBottomSheet`, and `EmptyState` now cover generic Bottle shell patterns while business-specific Bottle UI remains page-local.
+
 The next task should be a product-level visual QA pass:
 
 1. Run the app locally.

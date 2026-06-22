@@ -27,8 +27,14 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
   padding: 14px 0;
+  border: 0;
   border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.2s;
@@ -46,8 +52,12 @@
   border-radius: var(--radius-md);
   display: grid;
   place-items: center;
-  font-size: var(--font-title);
   background: var(--color-brand-primary-faint);
+  color: var(--color-brand-primary);
+}
+.settingIcon svg {
+  width: 18px;
+  height: 18px;
 }
 .settingLabel {
   flex: 1 1 auto;
@@ -58,5 +68,6 @@
 .settingArrow {
   flex: 0 0 auto;
   color: var(--color-muted);
-  font-size: var(--font-title);
+  width: 15px;
+  height: 15px;
 }

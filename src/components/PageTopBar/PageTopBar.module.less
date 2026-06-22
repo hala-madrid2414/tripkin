@@ -1,0 +1,53 @@
+.topBar {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) minmax(42px, auto);
+  align-items: center;
+  min-height: 48px;
+  gap: 8px;
+}
+
+.backButton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-heading);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.backButton:active {
+  background: var(--color-surface-soft);
+}
+
+.backButton:focus-visible {
+  outline: 2px solid var(--color-brand-primary-line);
+  outline-offset: 2px;
+}
+
+.backButton svg {
+  width: 22px;
+  height: 22px;
+}
+
+.title {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-heading);
+  font-size: var(--font-title);
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rightSlot {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}

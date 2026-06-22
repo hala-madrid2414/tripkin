@@ -1,4 +1,11 @@
-﻿import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
+import {
+  BellOutline,
+  InformationCircleOutline,
+  LockOutline,
+  RightOutline,
+  SetOutline,
+} from 'antd-mobile-icons'
 import type { MockSettingsItem } from '../../mock'
 import { AccountSettingsPage } from '../AccountSettingsPage'
 import { PrivacySettingsPage } from '../PrivacySettingsPage'
@@ -20,6 +27,13 @@ const PAGE_MAP: Record<string, string> = {
   关于我们: 'about',
 }
 
+const ICON_MAP: Record<string, ReactNode> = {
+  账号设置: <SetOutline aria-hidden="true" />,
+  隐私设置: <LockOutline aria-hidden="true" />,
+  通知设置: <BellOutline aria-hidden="true" />,
+  关于我们: <InformationCircleOutline aria-hidden="true" />,
+}
+
 export function SettingSection({
   settingsItems,
   nickname,
@@ -36,20 +50,23 @@ export function SettingSection({
   return (
     <section className={styles.section}>
       <header className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>{'\u8BBE\u7F6E\u4E2D\u5FC3'}</h2>
+        <h2 className={styles.sectionTitle}>设置中心</h2>
       </header>
 
       <div className={styles.settingList}>
         {settingsItems.map((item) => (
-          <div
+          <button
+            type="button"
             key={item.title}
             className={styles.settingItem}
             onClick={() => handleClick(item.title)}
           >
-            <span className={styles.settingIcon}>{item.icon}</span>
+            <span className={styles.settingIcon}>
+              {ICON_MAP[item.title] ?? item.icon}
+            </span>
             <span className={styles.settingLabel}>{item.title}</span>
-            <span className={styles.settingArrow}>{'\u203A'}</span>
-          </div>
+            <RightOutline className={styles.settingArrow} aria-hidden="true" />
+          </button>
         ))}
       </div>
 

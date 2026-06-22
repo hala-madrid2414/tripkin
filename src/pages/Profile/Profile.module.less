@@ -1,8 +1,3 @@
-/* ==========================================================================
-   Lavender Travel Journal 閳?Profile
-   Travel Identity Center
-   ========================================================================== */
-
 .page {
   position: relative;
   width: 100%;
@@ -11,35 +6,31 @@
   margin: 0 auto;
   padding: calc(env(safe-area-inset-top) + var(--space-5)) var(--space-page-x)
     calc(96px + env(safe-area-inset-bottom));
-  background:
-    radial-gradient(
-      160% 60% at 90% 2%,
-      var(--color-brand-primary-soft),
-      transparent 45%
-    ),
-    radial-gradient(
-      140% 70% at 8% 96%,
-      var(--color-surface-tint),
-      transparent 50%
-    ),
-    var(--gradient-page-profile);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
   overflow-x: hidden;
+  background:
+    linear-gradient(120deg, var(--color-surface-glass-strong), transparent 36%),
+    radial-gradient(
+      circle at 296px 106px,
+      var(--color-brand-primary-faint),
+      transparent 0 86px
+    ),
+    linear-gradient(
+      180deg,
+      var(--color-surface-glass-strong) 0%,
+      var(--color-page-match) 46%,
+      var(--color-page) 100%
+    );
 }
 
-/* ==========================================================================
-   Glass card container
-   ========================================================================== */
 .glassCard {
-  background: var(--color-surface-glass);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  padding: var(--space-5) var(--space-page-x);
+  padding: var(--space-4);
+  background: var(--color-surface-solid);
+  box-shadow: var(--shadow-card-soft);
   animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -78,9 +69,6 @@
   animation-delay: 0.34s;
 }
 
-/* ==========================================================================
-   Empty state before MBTI result
-   ========================================================================== */
 .emptyState {
   flex: 1 1 auto;
   display: flex;
@@ -92,8 +80,21 @@
   text-align: center;
 }
 .emptyEmoji {
-  font-size: 56px;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: var(--radius-xl);
+  background: var(--color-brand-primary-faint);
+  color: var(--color-brand-primary);
+  font-size: 34px;
   line-height: 1;
+  box-shadow: var(--shadow-card-soft);
+}
+
+.emptyEmoji svg {
+  width: 32px;
+  height: 32px;
 }
 .emptyTitle {
   font-weight: 700;

@@ -143,13 +143,16 @@ update
 
 ## 文档索引
 
+日常开发优先阅读：
+
 - AI / agent 修改规则：`AGENTS.md`
-- 产品 PRD：`docs/tripkin-product-prd.md`
+- 项目快速开始与已确认路由：`README.md`
 - 代码位置和样式规范：`docs/coding-guide.md`
-- antd-mobile 使用规范：`docs/antd-mobile-usage-guide.md`
-- 静态 Demo 统一整改范围：`docs/tripkin-demo-fix-scope.md`
-- 页面协作任务清单：`docs/tripkin-page-collaboration-plan.md`
 - 协作流程：`docs/collaboration-guide.md`
-- 底部导航 Layout 迁移说明：`docs/navigation-layout-migration.md`
+
+按需阅读：
+
+- 产品 PRD：`docs/tripkin-product-prd.md`
+- antd-mobile 使用规范：`docs/antd-mobile-usage-guide.md`
 - 本地页面验证说明：`docs/webapp-testing-guide.md`
 - 影响多人协作的决策记录：`docs/decision-notes/README.md`

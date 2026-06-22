@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { StarOutline } from 'antd-mobile-icons'
 import { useTripStore } from '@/store/useTripStore'
 import { TravelIdentityCard } from './components/TravelIdentityCard'
 import { TravelPersonaSection } from './components/TravelPersonaSection'
@@ -31,7 +32,7 @@ function Profile() {
       <main className={styles.page}>
         <section className={styles.emptyState}>
           <span className={styles.emptyEmoji} aria-hidden="true">
-            ✨
+            <StarOutline aria-hidden="true" />
           </span>
           <h1 className={styles.emptyTitle}>{'你的旅行人格'}</h1>
           <p className={styles.emptyDesc}>
