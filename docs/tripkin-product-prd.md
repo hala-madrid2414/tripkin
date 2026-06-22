@@ -141,6 +141,13 @@ Bottle 和 Match 需要承接 Map 里的当前目的地。
 
 TripKin 自定义旅行人格使用 `personaId` 作为稳定标识。
 
+稳定标识包括：
+
+- `Cyber-Raider`
+- `Zen-Capybara`
+- `Budget-Architect`
+- `Romantic-Observer`
+
 已确认展示名称：
 
 - 赛博特种兵。

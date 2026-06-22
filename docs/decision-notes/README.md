@@ -3,6 +3,17 @@
 杩欓噷璁板綍浼氬奖鍝嶅浜哄崗浣溿€佸叏灞€浠ｇ爜缁撴瀯鎴栧悗缁紑鍙戠悊瑙ｇ殑鍙樻洿銆?
 瀹冧笉鏄鎵规祦锛屼篃涓嶆槸姣忔寮€鍙戦兘瑕佸啓鐨勬棩鎶ャ€傛櫘閫氶〉闈㈠唴瀹逛慨鏀逛笉闇€瑕佽褰曘€?
 
+## 当前有效决策摘要
+
+- 文档入口：日常开发优先看 `README.md`、`AGENTS.md`、`docs/coding-guide.md` 和 `docs/collaboration-guide.md`；产品范围、组件库、自动化验证和历史决策按需看对应长期文档。
+- 产品范围：`docs/tripkin-product-prd.md` 是当前 TripKin Demo 的产品范围依据，阶段性整改文档已整合进 PRD 和协作规范。
+- 底部导航：`src/layouts/AppLayout/` 统一决定 `BottomNav` 是否显示；主 Tab 仅为 `/`、`/map`、`/match`、`/profile`；`/mbti`、`/mbti/test`、`/mbti/result`、`/bottle` 不显示底部导航。
+- 页面协作：页面负责人优先改 `src/pages/<PageName>/`，公共路由、layout、全局样式、共享 store、共享组件变更需要说明影响范围，并按需记录决策。
+- antd-mobile：标准移动端交互优先使用 `antd-mobile`，通用 UI 图标优先复用 `antd-mobile-icons`；核心卡片、业务视觉、地图渲染和品牌符号保持项目自定义。
+- 验证边界：纯 Markdown 文档整理不要求运行 `npm run lint` 和 `npm run build`；如格式检查相关，运行 `npm run format:check`。`webapp-testing` 仅在任务明确要求自动化验证、Playwright、截图验证或可重复浏览器检查时使用。
+
+以下历史条目保留作为决策账本。若历史条目提到已删除的阶段性文档，它们只表示当时来源；当前规则以本摘要、PRD、coding guide、collaboration guide 和 antd-mobile usage guide 为准。
+
 ## 浠€涔堟椂鍊欓渶瑕佽褰?
 
 闇€瑕佽褰曪細
@@ -34,7 +45,7 @@
 ### 2026-06-21 閲囩敤 AppLayout 缁熶竴鎺у埗搴曢儴瀵艰埅
 
 - 绫诲瀷锛氱洰褰曠粨鏋?/ 璺敱 / 鍏叡缁勪欢
-- 鑳屾櫙锛氬綋鍓?`BottomNav` 鐢遍〉闈㈠悇鑷寕杞斤紝瀵艰嚧 MBTI 鍜?Bottle 杩欑被瀹屾暣椤甸潰涔熷甫涓婂簳鏍忋€傚畠浠笉鍦?`棣栭〉 / 鍦板浘 / 鍖归厤 / 鎴戠殑` 鍥涙爮涓紝娌℃湁姝ｇ‘ active tab锛屼篃浼氬共鎵版祦绋嬮〉鍜岀洰鐨勫湴鍐呭鍒嗘敮椤点€?- 鍐冲畾锛氬悗缁柊澧?`src/layouts/AppLayout/` 缁熶竴鎺у埗搴曢儴瀵艰埅鏄剧ず銆傚簳閮ㄤ富 Tab 鐧藉悕鍗曞浐瀹氫负 `/`銆乣/map`銆乣/match`銆乣/profile`銆侻BTI 涓夋璺敱鍜?`/bottle`涓嶆樉绀哄簳閮ㄥ鑸€傞〉闈笉鐩存帴`import BottomNav`锛宍BottomNav` 缁х画浣滀负 `src/components` 涓嬬殑瀵艰埅 UI銆?- 褰卞搷鑼冨洿锛歚src/layouts/AppLayout`銆乣src/router`銆乣src/components/BottomNav`銆丠ome銆丮ap銆丮atch銆丳rofile銆丮BTI銆丅ottle锛屼互鍙婂簳閮ㄥ畨鍏ㄥ尯銆佺洰鐨勫湴瀵艰埅涓婁笅鏂囧拰鐩稿叧鍥㈤槦鏂囨。銆?- 鍚庣画娉ㄦ剰锛氳縼绉昏鏄庤 `docs/navigation-layout-migration.md`銆傝縼绉讳唬鐮佹椂瑕佸悓姝ョЩ闄?MBTI/Bottle 涓哄簳鏍忛鐣欑殑搴曢儴绌虹櫧锛屼繚鐣?Map fixed 娴眰鐨勫簳鏍忚浣嶉€昏緫锛屽苟璁?Profile 瀹藉害涓庡簳鏍忓搴﹀榻愩€傚鏈潵灏?Bottle 鏀逛负搴曟爮涓€绾у叆鍙ｏ紝蹇呴』鍏堟洿鏂版湰鍐崇瓥銆丳RD銆佹暣鏀硅寖鍥村拰涓?Tab 鐧藉悕鍗曘€?
+- 鑳屾櫙锛氬綋鍓?`BottomNav` 鐢遍〉闈㈠悇鑷寕杞斤紝瀵艰嚧 MBTI 鍜?Bottle 杩欑被瀹屾暣椤甸潰涔熷甫涓婂簳鏍忋€傚畠浠笉鍦?`棣栭〉 / 鍦板浘 / 鍖归厤 / 鎴戠殑` 鍥涙爮涓紝娌℃湁姝ｇ‘ active tab锛屼篃浼氬共鎵版祦绋嬮〉鍜岀洰鐨勫湴鍐呭鍒嗘敮椤点€?- 鍐冲畾锛氬悗缁柊澧?`src/layouts/AppLayout/` 缁熶竴鎺у埗搴曢儴瀵艰埅鏄剧ず銆傚簳閮ㄤ富 Tab 鐧藉悕鍗曞浐瀹氫负 `/`銆乣/map`銆乣/match`銆乣/profile`銆侻BTI 涓夋璺敱鍜?`/bottle`涓嶆樉绀哄簳閮ㄥ鑸€傞〉闈笉鐩存帴`import BottomNav`锛宍BottomNav` 缁х画浣滀负 `src/components` 涓嬬殑瀵艰埅 UI銆?- 褰卞搷鑼冨洿锛歚src/layouts/AppLayout`銆乣src/router`銆乣src/components/BottomNav`銆丠ome銆丮ap銆丮atch銆丳rofile銆丮BTI銆丅ottle锛屼互鍙婂簳閮ㄥ畨鍏ㄥ尯銆佺洰鐨勫湴瀵艰埅涓婁笅鏂囧拰鐩稿叧鍥㈤槦鏂囨。銆?- 鍚庣画娉ㄦ剰锛氳縼绉昏鏄庤 historical note: navigation layout rules have been merged into `docs/coding-guide.md`and`docs/collaboration-guide.md`銆傝縼绉讳唬鐮佹椂瑕佸悓姝ョЩ闄?MBTI/Bottle 涓哄簳鏍忛鐣欑殑搴曢儴绌虹櫧锛屼繚鐣?Map fixed 娴眰鐨勫簳鏍忚浣嶉€昏緫锛屽苟璁?Profile 瀹藉害涓庡簳鏍忓搴﹀榻愩€傚鏈潵灏?Bottle 鏀逛负搴曟爮涓€绾у叆鍙ｏ紝蹇呴』鍏堟洿鏂版湰鍐崇瓥銆丳RD銆佹暣鏀硅寖鍥村拰涓?Tab 鐧藉悕鍗曘€?
 
 ### 2026-06-21 鏄庣‘绾枃妗ｅ彉鏇寸殑楠岃瘉杈圭晫
 
@@ -67,7 +78,7 @@
 
 ### 2026-06-19 纭 TripKin 鎬讳綋 PRD 浣滀负褰撳墠浜у搧鑼冨洿渚濇嵁
 
-- 绫诲瀷锛氬叾浠?- 鑳屾櫙锛氬洟闃熷凡鏈夐潤鎬侀〉闈㈠拰鏁存敼璁″垝锛屼絾缂哄皯涓€浠戒笂娓镐骇鍝佹€昏鏄庛€傚彧鐪嬫暣鏀硅鍒掓椂锛屽洟闃熸垚鍛樺拰 AI 瀹规槗涓嶇煡閬?TripKin 鐨勪富閾捐矾銆侀〉闈㈣亴璐ｅ拰涓嶅仛鑼冨洿銆?- 鍐冲畾锛氭柊澧?`docs/tripkin-product-prd.md` 浣滀负褰撳墠 TripKin Demo 鐨勬寮忎骇鍝?PRD銆傝鏂囨。鍙啓宸茬‘璁よ寖鍥达紝璇存槑浜у搧瀹氫綅銆佷富閾捐矾銆侀〉闈㈣亴璐ｃ€佸叕鍏变骇鍝佺害瀹氥€侀獙鏀跺熀鍑嗗拰涓嶅仛鑼冨洿銆傚悗缁暣鏀硅鍒掍互璇?PRD 涓轰骇鍝佷緷鎹€?- 褰卞搷鑼冨洿锛歊EADME 鏂囨。绱㈠紩銆乣docs/tripkin-demo-fix-scope.md`銆佹墍鏈変富椤甸潰鍚庣画闇€姹傜悊瑙ｏ紝浠ュ強 AI 鍗忎綔鏃剁殑闇€姹傚叆鍙ｃ€?- 鍚庣画娉ㄦ剰锛氭湭纭鎯虫硶浠嶆斁鍦ㄩ涔︽垨鏈湴鑽夌涓紝涓嶇洿鎺ュ啓鍏ュ洟闃熸寮忔枃妗ｃ€侾RD 涓嶇淮鎶や汉鍛樺垎宸ワ紝涓嶆浛浠ｅ叿浣撴暣鏀硅鍒掋€?
+- 绫诲瀷锛氬叾浠?- 鑳屾櫙锛氬洟闃熷凡鏈夐潤鎬侀〉闈㈠拰鏁存敼璁″垝锛屼絾缂哄皯涓€浠戒笂娓镐骇鍝佹€昏鏄庛€傚彧鐪嬫暣鏀硅鍒掓椂锛屽洟闃熸垚鍛樺拰 AI 瀹规槗涓嶇煡閬?TripKin 鐨勪富閾捐矾銆侀〉闈㈣亴璐ｅ拰涓嶅仛鑼冨洿銆?- 鍐冲畾锛氭柊澧?`docs/tripkin-product-prd.md` 浣滀负褰撳墠 TripKin Demo 鐨勬寮忎骇鍝?PRD銆傝鏂囨。鍙啓宸茬‘璁よ寖鍥达紝璇存槑浜у搧瀹氫綅銆佷富閾捐矾銆侀〉闈㈣亴璐ｃ€佸叕鍏变骇鍝佺害瀹氥€侀獙鏀跺熀鍑嗗拰涓嶅仛鑼冨洿銆傚悗缁暣鏀硅鍒掍互璇?PRD 涓轰骇鍝佷緷鎹€?- 褰卞搷鑼冨洿锛歊EADME 鏂囨。绱㈠紩銆乣historical-demo-fix-scope`銆佹墍鏈変富椤甸潰鍚庣画闇€姹傜悊瑙ｏ紝浠ュ強 AI 鍗忎綔鏃剁殑闇€姹傚叆鍙ｃ€?- 鍚庣画娉ㄦ剰锛氭湭纭鎯虫硶浠嶆斁鍦ㄩ涔︽垨鏈湴鑽夌涓紝涓嶇洿鎺ュ啓鍏ュ洟闃熸寮忔枃妗ｃ€侾RD 涓嶇淮鎶や汉鍛樺垎宸ワ紝涓嶆浛浠ｅ叿浣撴暣鏀硅鍒掋€?
 
 ### 2026-06-17 纭畾绉诲姩绔紑鍙戝熀鍑?
 
@@ -108,7 +119,7 @@
 ### 2026-06-19 纭 TripKin 闈欐€?Demo 缁熶竴鏁存敼鑼冨洿
 
 - 绫诲瀷锛氳矾鐢?/ 鍏变韩鐘舵€?/ 鍏ㄥ眬鏍峰紡 / 鍏叡缁勪欢 / 鍏朵粬
-- 鑳屾櫙锛氬綋鍓?`/mbti`銆乣/map`銆乣/bottle`銆乣/match`銆乣/profile` 宸叉湁闈欐€侀〉闈紝浣嗛〉闈箣闂寸殑璺宠浆銆佺洰鐨勫湴涓婁笅鏂囥€佽韩浠戒綋绯诲拰瑙嗚瑙勫垯灏氭湭缁熶竴锛屽鏄撳嚭鐜扳€滃涓嫭绔嬮〉闈㈡嫾鍦ㄤ竴璧封€濈殑鍗忎綔闂銆傚洟闃熼渶瑕佷竴浠芥寮忔枃妗ｇ‘璁ゆ湰杞厛鍋氫粈涔堛€佸悗鍋氫粈涔堛€佸仛鍒颁粈涔堢畻杩囥€?- 鍐冲畾锛氭柊澧?`docs/tripkin-demo-fix-scope.md` 浣滀负鏈疆闈欐€?Demo 缁熶竴鏁存敼鑼冨洿銆備富閾捐矾纭涓?`MBTI -> 鏃呰韬唤鍗?-> Map -> Bottle / Match -> Profile`銆傛暣鏀归『搴忎负锛氬厛淇烦杞拰鐩殑鍦颁笂涓嬫枃锛屽啀琛ラ〉闈㈠唴閮ㄤ氦浜掞紝鏈€鍚庣粺涓€瑙嗚鍜岀姸鎬佽〃杈俱€俙/map` 鍜?`/match` 鏆備綔涓虹粨鏋勪笌淇℃伅瀵嗗害鍙傝€冿紝浣嗕笉瑕佹眰鍏朵粬椤甸潰纭鍏ㄩ儴瑙嗚缁嗚妭銆?- 褰卞搷鑼冨洿锛氭墍鏈変富椤甸潰鐩綍锛坄src/pages/Mbti`銆乣src/pages/Map`銆乣src/pages/Bottle`銆乣src/pages/Match`銆乣src/pages/Profile`锛夈€佽法椤甸潰鍏变韩鐘舵€侊紙`src/store/useTripStore.ts`锛夈€佸叡浜被鍨嬶紙`src/types/mbti.ts`锛夈€佸悗缁彲鑳界‘璁ゅ鐢ㄧ殑鍏叡缁勪欢锛堜緥濡傝韩浠藉崱銆佹爣绛俱€佸簳閮ㄥ脊灞傦級浠ュ強 375px 绉诲姩绔獙鏀舵祦绋嬨€?- 鍚庣画娉ㄦ剰锛? 1. 棣栬疆鐩殑鍦颁笂涓嬫枃浼樺厛浣跨敤 URL query 鎴栫幇鏈?Zustand store 鎵挎帴锛屾帹鑽愯矾鐢辨牸寮忎负 `/bottle?dest=<鐩殑鍦癐D>` 鍜?`/match?dest=<鐩殑鍦癐D>`銆? 2. 棣栬疆鍩庡競绮掑害鍙鐩?`src/pages/Map/data/mapData.ts` 閲屽凡鏈夌殑 region/spot锛屼笉棰濆鎵╁睍鍏ㄩ噺鍩庡競搴撱€? 3. TripKin 鏃呰浜烘牸灞曠ず浠?`personaId` 涓哄噯锛屼笉瑕佹妸 `mbtiTypeEn` 褰撲綔 Match 鍗＄墖閲岀殑 16 鍨?MBTI 瀛楁瘝浣跨敤銆? 4. 椤甸潰绉佹湁缁勪欢鍏堢暀鍦ㄥ悇鑷〉闈㈢洰褰曪紱鍙湁韬唤鍗°€佹爣绛俱€佸簳閮ㄥ脊灞傜瓑纭璺ㄩ〉澶嶇敤鍚庯紝鍐嶆娊鍒?`src/components`銆? 5. 鏈疆浠嶄互闈欐€佸墠绔?Demo 涓轰富锛屼粎鍏佽 `server/` 涓嬬殑鏈€灏?mock API 楠ㄦ灦鐢ㄤ簬鍚庣画鑱旇皟锛涗笉寮曞叆鏁版嵁搴撱€佺櫥褰曘€佺湡瀹?AI銆佺湡瀹炶亰澶┿€佺湡瀹炰笂浼犮€佺湡瀹炲尮閰嶇畻娉曟垨鏂?UI 缁勪欢搴撱€?
+- 鑳屾櫙锛氬綋鍓?`/mbti`銆乣/map`銆乣/bottle`銆乣/match`銆乣/profile` 宸叉湁闈欐€侀〉闈紝浣嗛〉闈箣闂寸殑璺宠浆銆佺洰鐨勫湴涓婁笅鏂囥€佽韩浠戒綋绯诲拰瑙嗚瑙勫垯灏氭湭缁熶竴锛屽鏄撳嚭鐜扳€滃涓嫭绔嬮〉闈㈡嫾鍦ㄤ竴璧封€濈殑鍗忎綔闂銆傚洟闃熼渶瑕佷竴浠芥寮忔枃妗ｇ‘璁ゆ湰杞厛鍋氫粈涔堛€佸悗鍋氫粈涔堛€佸仛鍒颁粈涔堢畻杩囥€?- 鍐冲畾锛氭柊澧?historical note: demo fix scope has been merged into `docs/tripkin-product-prd.md` 浣滀负鏈疆闈欐€?Demo 缁熶竴鏁存敼鑼冨洿銆備富閾捐矾纭涓?`MBTI -> 鏃呰韬唤鍗?-> Map -> Bottle / Match -> Profile`銆傛暣鏀归『搴忎负锛氬厛淇烦杞拰鐩殑鍦颁笂涓嬫枃锛屽啀琛ラ〉闈㈠唴閮ㄤ氦浜掞紝鏈€鍚庣粺涓€瑙嗚鍜岀姸鎬佽〃杈俱€俙/map` 鍜?`/match` 鏆備綔涓虹粨鏋勪笌淇℃伅瀵嗗害鍙傝€冿紝浣嗕笉瑕佹眰鍏朵粬椤甸潰纭鍏ㄩ儴瑙嗚缁嗚妭銆?- 褰卞搷鑼冨洿锛氭墍鏈変富椤甸潰鐩綍锛坄src/pages/Mbti`銆乣src/pages/Map`銆乣src/pages/Bottle`銆乣src/pages/Match`銆乣src/pages/Profile`锛夈€佽法椤甸潰鍏变韩鐘舵€侊紙`src/store/useTripStore.ts`锛夈€佸叡浜被鍨嬶紙`src/types/mbti.ts`锛夈€佸悗缁彲鑳界‘璁ゅ鐢ㄧ殑鍏叡缁勪欢锛堜緥濡傝韩浠藉崱銆佹爣绛俱€佸簳閮ㄥ脊灞傦級浠ュ強 375px 绉诲姩绔獙鏀舵祦绋嬨€?- 鍚庣画娉ㄦ剰锛? 1. 棣栬疆鐩殑鍦颁笂涓嬫枃浼樺厛浣跨敤 URL query 鎴栫幇鏈?Zustand store 鎵挎帴锛屾帹鑽愯矾鐢辨牸寮忎负 `/bottle?dest=<鐩殑鍦癐D>` 鍜?`/match?dest=<鐩殑鍦癐D>`銆? 2. 棣栬疆鍩庡競绮掑害鍙鐩?`src/pages/Map/data/mapData.ts` 閲屽凡鏈夌殑 region/spot锛屼笉棰濆鎵╁睍鍏ㄩ噺鍩庡競搴撱€? 3. TripKin 鏃呰浜烘牸灞曠ず浠?`personaId` 涓哄噯锛屼笉瑕佹妸 `mbtiTypeEn` 褰撲綔 Match 鍗＄墖閲岀殑 16 鍨?MBTI 瀛楁瘝浣跨敤銆? 4. 椤甸潰绉佹湁缁勪欢鍏堢暀鍦ㄥ悇鑷〉闈㈢洰褰曪紱鍙湁韬唤鍗°€佹爣绛俱€佸簳閮ㄥ脊灞傜瓑纭璺ㄩ〉澶嶇敤鍚庯紝鍐嶆娊鍒?`src/components`銆? 5. 鏈疆浠嶄互闈欐€佸墠绔?Demo 涓轰富锛屼粎鍏佽 `server/` 涓嬬殑鏈€灏?mock API 楠ㄦ灦鐢ㄤ簬鍚庣画鑱旇皟锛涗笉寮曞叆鏁版嵁搴撱€佺櫥褰曘€佺湡瀹?AI銆佺湡瀹炶亰澶┿€佺湡瀹炰笂浼犮€佺湡瀹炲尮閰嶇畻娉曟垨鏂?UI 缁勪欢搴撱€?
 
 ### 2026-06-21 Converge TripKin design tokens to DESIGN.md
 
@@ -117,4 +128,36 @@
 - Decision: `src/styles/variables.less` now keeps the approved `font-*`, `space-*`, and `radius-*` scales, semantic color and shadow roles, gradients, Map rendering tokens, and Ant Design Mobile adapter variables. Historical global aliases such as `--font-size-*`, old radius aliases, `--color-input-bg`, `--glass-card-*`, and `--handle-color` are removed.
 - Impact: global styles, Profile, Home, MBTI, Bottle, Map, Match, BottomNav, and MBTI entry modal styles.
 - Follow-up: `--match-*` remains a Match-only baseline protection adapter, and `--map-*` remains map rendering data. Do not add page-specific token systems such as `--lv-*` in future work.
+
+### 2026-06-21 Add shared base UI shells through Bottle pilot
+
+- Type: shared components / collaboration rule
+- Background: After the Home and Profile visual migration, `audit.md` recommends product-level QA and targeted polish instead of another broad token sweep. Bottle already had repeated page-shell patterns that are likely to recur across pages: a mobile top bar, modal bottom sheet shell, and empty/loading/error state.
+- Decision: add `src/components/PageTopBar`, `src/components/BaseBottomSheet`, and `src/components/EmptyState` as small shared UI shells. Bottle is the first adopter. These components own only structural UI, tokenized surfaces, safe-area handling, modal semantics, and basic action slots.
+- Impact: `src/components`, Bottle page shell code, and future pages that need the same base UI. Bottle business cards, bottle glyph, filters, tabs, form fields, and detail content remain page-local.
+- Follow-up: do not migrate every page to these components mechanically. Reuse them only when a page already needs the same shell behavior; keep business-specific blocks inside the owning page directory.
+
+### 2026-06-21 Prefer antd-mobile-backed base interactions
+
+- Type: shared components / component library / collaboration rule
+- Background: The Bottle pilot showed that fully hand-written shells and SVG icons can reduce consistency even when they avoid obvious component-library styling. The project already uses `antd-mobile` for `Popup`, `Tabs`, `TextArea`, and `Toast` in Match, Profile, and MBTI.
+- Decision: standard mobile interactions should prefer antd-mobile-backed behavior, while TripKin CSS Modules keep control of page-level visual tone. Common UI icons should come from one explicit icon source after the dependency is declared; business symbols and page illustrations can stay custom.
+- Impact: future work on `BaseBottomSheet`, `PageTopBar`, Bottle, Match, Profile, Map controls, and icon cleanup planning.
+- Follow-up: see historical note: UI preview and antd-mobile strategy have been merged into `docs/antd-mobile-usage-guide.md`. Do not mechanically replace all cards, lists, or business visuals with antd-mobile defaults.
+
+### 2026-06-21 Allow controlled visual improvement in UI migrations
+
+- Type: shared components / component library / verification rule
+- Background: The Bottle antd-mobile pilot clarified that “do not affect existing behavior” should not mean pixel-perfect visual freeze. The purpose of UI migration is to make standard mobile interactions feel more polished while preserving product flow.
+- Decision: base interaction migrations may improve sheet motion, mask behavior, input feel, toast behavior, icon consistency, spacing, and touch states. They must keep business logic, data, route behavior, information order, and key actions unchanged, and they need baseline / after verification when browser testing is requested.
+- Impact: Bottle pilot, future Profile sheet migration, Match/Profile reuse of `BaseBottomSheet`, and icon cleanup work.
+- Follow-up: record baseline issues separately from regressions. If an antd-mobile-backed change makes a page look like a generic component demo, adjust CSS before expanding the pattern.
+
+### 2026-06-21 Configure antd-mobile React 19 dynamic rendering
+
+- Type: runtime compatibility / component library
+- Background: Bottle's antd-mobile-backed `Popup` and `Toast` regression surfaced React 19 compatibility errors from dynamic containers that still expected the old ReactDOM unmount API.
+- Decision: configure antd-mobile `unstableSetRender` once in `src/main.tsx` so dynamic containers use React 19 `createRoot` and `root.unmount()`.
+- Impact: antd-mobile dynamic components such as `Popup`, `Toast`, `Dialog`, and future overlay-style components.
+- Follow-up: keep this as a single app-entry compatibility adapter. Do not duplicate it in pages or shared UI shells.
 ````

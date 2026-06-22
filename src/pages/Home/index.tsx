@@ -1,4 +1,15 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
+import {
+  AppstoreOutline,
+  CloseOutline,
+  EnvironmentOutline,
+  MailOpenOutline,
+  RightOutline,
+  SearchOutline,
+  SmileOutline,
+  StarOutline,
+  TeamOutline,
+} from 'antd-mobile-icons'
 import { useNavigate } from 'react-router-dom'
 import MbtiEntryModal from '@/components/MbtiEntryModal'
 import styles from './Home.module.less'
@@ -7,7 +18,7 @@ type RoutePath = '/' | '/map' | '/mbti' | '/bottle' | '/match' | '/profile'
 
 type QuickAction = {
   title: string
-  icon: string
+  icon: ReactNode
   action: () => void
 }
 
@@ -142,22 +153,22 @@ function Home() {
   const quickActions: QuickAction[] = [
     {
       title: '旅行地图',
-      icon: 'map',
+      icon: <EnvironmentOutline aria-hidden="true" />,
       action: () => navigate('/map'),
     },
     {
       title: '旅行 MBTI',
-      icon: 'star',
+      icon: <StarOutline aria-hidden="true" />,
       action: openMbtiModal,
     },
     {
       title: '漂流瓶',
-      icon: 'bottle',
+      icon: <MailOpenOutline aria-hidden="true" />,
       action: () => navigate('/bottle'),
     },
     {
       title: '搭子广场',
-      icon: 'people',
+      icon: <TeamOutline aria-hidden="true" />,
       action: () => navigate('/match'),
     },
   ]
@@ -195,7 +206,10 @@ function Home() {
         <div className={styles.content}>
           <section className={styles.header}>
             <div>
-              <h1>{greeting} 👋</h1>
+              <h1>
+                {greeting}
+                <SmileOutline aria-hidden="true" />
+              </h1>
               <p>发现灵感，找到同行的人</p>
             </div>
             <button
@@ -203,9 +217,9 @@ function Home() {
               type="button"
               aria-label="成都天气，多云"
             >
-              <span>🌥</span>
+              <EnvironmentOutline aria-hidden="true" />
               成都 · 24°C 多云
-              <span className={styles.chevron}>›</span>
+              <RightOutline className={styles.chevron} aria-hidden="true" />
             </button>
           </section>
 
@@ -231,7 +245,7 @@ function Home() {
                 submitSearch()
               }}
             >
-              <span className={styles.searchIcon} aria-hidden="true" />
+              <SearchOutline className={styles.searchIcon} aria-hidden="true" />
               <input
                 className={styles.searchInput}
                 type="search"
@@ -250,10 +264,13 @@ function Home() {
                     setIsSearchFocused(true)
                   }}
                 >
-                  ×
+                  <CloseOutline aria-hidden="true" />
                 </button>
               ) : (
-                <span className={styles.scanIcon} aria-hidden="true" />
+                <AppstoreOutline
+                  className={styles.scanIcon}
+                  aria-hidden="true"
+                />
               )}
             </form>
 
@@ -297,7 +314,7 @@ function Home() {
                 onClick={openMbtiModal}
               >
                 测测我的旅行 MBTI
-                <span>→</span>
+                <RightOutline aria-hidden="true" />
               </button>
             </div>
             <div className={styles.bannerArt} aria-hidden="true">
@@ -330,10 +347,7 @@ function Home() {
                   type="button"
                   onClick={item.action}
                 >
-                  <span
-                    className={`${styles.quickIcon} ${styles[item.icon]}`}
-                    aria-hidden="true"
-                  />
+                  <span className={styles.quickIcon}>{item.icon}</span>
                   <span>{item.title}</span>
                 </button>
               ))}
@@ -350,7 +364,7 @@ function Home() {
                 type="button"
                 onClick={() => navigate('/map')}
               >
-                查看更多 <span>›</span>
+                查看更多 <RightOutline aria-hidden="true" />
               </button>
             </div>
             <div className={styles.recommendGrid}>
@@ -386,7 +400,9 @@ function Home() {
             >
               <span className={styles.mixHeader}>
                 <strong>热门搭子</strong>
-                <span>更多 ›</span>
+                <span>
+                  更多 <RightOutline aria-hidden="true" />
+                </span>
               </span>
               <span className={styles.partnerRow}>
                 <span className={styles.avatarStack} aria-hidden="true">
@@ -412,11 +428,13 @@ function Home() {
             >
               <span className={styles.mixHeader}>
                 <strong>最近漂流瓶</strong>
-                <span>更多 ›</span>
+                <span>
+                  更多 <RightOutline aria-hidden="true" />
+                </span>
               </span>
               <span className={styles.bottleRow}>
                 <span className={styles.bottleIcon} aria-hidden="true">
-                  🧴
+                  <MailOpenOutline aria-hidden="true" />
                 </span>
                 <span>
                   <strong>6月的风</strong>

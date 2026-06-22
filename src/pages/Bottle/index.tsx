@@ -1,5 +1,21 @@
 import { useEffect, useMemo, useState } from 'react'
+import { TextArea, Toast } from 'antd-mobile'
+import {
+  CalendarOutline,
+  EditSOutline,
+  FilterOutline,
+  HeartFill,
+  HeartOutline,
+  LocationOutline,
+  MessageOutline,
+  StarFill,
+  StarOutline,
+  TagOutline,
+} from 'antd-mobile-icons'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import BaseBottomSheet from '@/components/BaseBottomSheet'
+import EmptyState from '@/components/EmptyState'
+import PageTopBar from '@/components/PageTopBar'
 import {
   getDestinationResolveHint,
   resolveDestination,
@@ -29,62 +45,19 @@ type BottlePatch = Pick<
   'isLiked' | 'isCollected' | 'isFollowing' | 'likes'
 >
 
-function MessageIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z" />
-    </svg>
-  )
-}
-
-function TagDotIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="8" />
-    </svg>
-  )
-}
-
-function PinIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 0 1 18 0Z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  )
-}
-
-function CalendarIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="18" rx="2" />
-      <path d="M16 2v4M8 2v4M3 10h18" />
-    </svg>
-  )
-}
-
-function NoteIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M11 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6" />
-      <path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4Z" />
-    </svg>
-  )
-}
-
 function HeartIcon({ filled = false }: { filled?: boolean }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" data-filled={filled}>
-      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8Z" />
-    </svg>
+  return filled ? (
+    <HeartFill aria-hidden="true" data-filled={filled} />
+  ) : (
+    <HeartOutline aria-hidden="true" data-filled={filled} />
   )
 }
 
 function BookmarkIcon({ filled = false }: { filled?: boolean }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" data-filled={filled}>
-      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z" />
-    </svg>
+  return filled ? (
+    <StarFill aria-hidden="true" data-filled={filled} />
+  ) : (
+    <StarOutline aria-hidden="true" data-filled={filled} />
   )
 }
 
@@ -211,7 +184,6 @@ function Bottle() {
   const [selectedBottleType, setSelectedBottleType] =
     useState<BottleVisibilityType>('normal')
   const [formError, setFormError] = useState('')
-  const [toastMessage, setToastMessage] = useState('')
   const [refreshSeed, setRefreshSeed] = useState(0)
   const [submitting, setSubmitting] = useState(false)
   const [imageUploadHint, setImageUploadHint] = useState('')
@@ -309,8 +281,10 @@ function Bottle() {
   const destinationShortName = getDestinationShortName(currentDestination)
 
   const showToast = (message: string) => {
-    setToastMessage(message)
-    window.setTimeout(() => setToastMessage(''), 1800)
+    Toast.show({
+      content: message,
+      duration: 1800,
+    })
   }
 
   const patchBottle = (
@@ -410,24 +384,21 @@ function Bottle() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.topBar}>
-        <button
-          type="button"
-          className={styles.backButton}
-          onClick={() => navigateBackOr(navigate, '/map')}
-          aria-label="返回"
-        >
-          ‹
-        </button>
-        <div className={styles.topTitle}>旅行漂流瓶</div>
-        <button
-          type="button"
-          className={styles.filterButton}
-          onClick={() => showToast('筛选功能稍后接入')}
-        >
-          筛选
-        </button>
-      </header>
+      <PageTopBar
+        title="旅行漂流瓶"
+        backLabel="返回"
+        onBack={() => navigateBackOr(navigate, '/map')}
+        rightAction={
+          <button
+            type="button"
+            className={styles.topActionButton}
+            onClick={() => showToast('筛选功能稍后接入')}
+          >
+            <FilterOutline aria-hidden="true" />
+            筛选
+          </button>
+        }
+      />
 
       <section
         className={styles.destinationHeader}
@@ -499,21 +470,18 @@ function Bottle() {
 
       <section className={styles.listSection} aria-label="漂流瓶列表">
         {loading ? (
-          <div className={styles.emptyState}>
-            <strong>正在同步漂流瓶</strong>
-            <p>正在读取 {currentDestination.name} 的旅行纸条。</p>
-          </div>
+          <EmptyState
+            title="正在同步漂流瓶"
+            description={`正在读取 ${currentDestination.name} 的旅行纸条。`}
+          />
         ) : loadError ? (
-          <div className={styles.emptyState} role="alert">
-            <strong>漂流瓶加载失败</strong>
-            <p>{loadError}</p>
-            <button
-              type="button"
-              onClick={() => setRefreshSeed((prev) => prev + 1)}
-            >
-              重新加载
-            </button>
-          </div>
+          <EmptyState
+            title="漂流瓶加载失败"
+            description={loadError}
+            actionLabel="重新加载"
+            onAction={() => setRefreshSeed((prev) => prev + 1)}
+            role="alert"
+          />
         ) : bottles.length > 0 ? (
           <div className={styles.bottleList}>
             {bottles.map((bottle) => (
@@ -541,24 +509,24 @@ function Bottle() {
                     <span className={styles.cardTags}>
                       {bottle.tags.slice(0, 4).map((tag) => (
                         <span key={tag}>
-                          <TagDotIcon />
+                          <TagOutline aria-hidden="true" />
                           {tag}
                         </span>
                       ))}
                     </span>
                     <span className={styles.cardMeta}>
                       <span>
-                        <PinIcon />
+                        <LocationOutline aria-hidden="true" />
                         <span>目的地：{destinationDisplayName}</span>
                       </span>
                       <span>
-                        <CalendarIcon />
+                        <CalendarOutline aria-hidden="true" />
                         <span>
                           {bottle.publishTimeText} · 来自 {bottle.authorCity}
                         </span>
                       </span>
                       <span>
-                        <NoteIcon />
+                        <EditSOutline aria-hidden="true" />
                         <span>{bottle.summary}</span>
                       </span>
                     </span>
@@ -578,195 +546,158 @@ function Bottle() {
             ))}
           </div>
         ) : (
-          <div className={styles.emptyState}>
-            <strong>这里还没有漂流瓶</strong>
-            <p>把第一段旅行心情投向 {currentDestination.name}。</p>
-            <button type="button" onClick={handleOpenAddSheet}>
-              扔一个漂流瓶
-            </button>
-          </div>
+          <EmptyState
+            title="这里还没有漂流瓶"
+            description={`把第一段旅行心情投向 ${currentDestination.name}。`}
+            actionLabel="扔一个漂流瓶"
+            onAction={handleOpenAddSheet}
+          />
         )}
       </section>
-      {toastMessage && (
-        <div className={styles.toast} role="status" aria-live="polite">
-          {toastMessage}
-        </div>
-      )}
-
       {selectedBottle && (
-        <div className={styles.overlay} role="presentation">
-          <section
-            className={styles.detailSheet}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="bottle-detail-title"
-          >
-            <div className={styles.dragHandle} aria-hidden="true" />
+        <BaseBottomSheet
+          labelledBy="bottle-detail-title"
+          closeLabel="关闭漂流瓶详情"
+          onClose={() => setSelectedBottleId(null)}
+        >
+          <div className={styles.authorRow}>
+            <img src={selectedBottle.authorAvatar} alt="" aria-hidden="true" />
+            <div>
+              <h2 id="bottle-detail-title">{selectedBottle.title}</h2>
+              <p>
+                来自 {selectedBottle.authorPersona} ·{' '}
+                {selectedBottle.publishTimeText}
+              </p>
+            </div>
             <button
               type="button"
-              className={styles.closeButton}
-              onClick={() => setSelectedBottleId(null)}
-              aria-label="关闭漂流瓶详情"
+              className={
+                selectedBottle.isFollowing
+                  ? styles.followButtonActive
+                  : styles.followButton
+              }
+              onClick={() => handleToggleFollow(selectedBottle.id)}
             >
-              ×
+              {selectedBottle.isFollowing ? '已关注' : '关注'}
             </button>
-            <div className={styles.authorRow}>
-              <img
-                src={selectedBottle.authorAvatar}
-                alt=""
-                aria-hidden="true"
-              />
-              <div>
-                <h2 id="bottle-detail-title">{selectedBottle.title}</h2>
-                <p>
-                  来自 {selectedBottle.authorPersona} ·{' '}
-                  {selectedBottle.publishTimeText}
-                </p>
-              </div>
-              <button
-                type="button"
-                className={
-                  selectedBottle.isFollowing
-                    ? styles.followButtonActive
-                    : styles.followButton
-                }
-                onClick={() => handleToggleFollow(selectedBottle.id)}
-              >
-                {selectedBottle.isFollowing ? '已关注' : '关注'}
-              </button>
-            </div>
-            <img
-              className={styles.detailImage}
-              src={selectedBottle.images[0] || defaultBottleImage}
-              alt={`${selectedBottle.title} 图片`}
-            />
-            <p className={styles.detailContent}>{selectedBottle.content}</p>
-            <div className={styles.tags}>
-              {selectedBottle.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
-            <div className={styles.detailActions}>
-              <button type="button" onClick={() => showToast('已发送招呼')}>
-                <MessageIcon />
-                打招呼
-              </button>
-              <button
-                type="button"
-                className={selectedBottle.isLiked ? styles.actionActive : ''}
-                onClick={() => handleToggleLike(selectedBottle.id)}
-              >
-                <HeartIcon filled={selectedBottle.isLiked} />
-                {selectedBottle.likes}
-              </button>
-              <button
-                type="button"
-                className={
-                  selectedBottle.isCollected ? styles.actionActive : ''
-                }
-                onClick={() => handleToggleCollect(selectedBottle.id)}
-              >
-                <BookmarkIcon filled={selectedBottle.isCollected} />
-                {selectedBottle.isCollected ? '已收藏' : '收藏'}
-              </button>
-            </div>
-          </section>
-        </div>
+          </div>
+          <img
+            className={styles.detailImage}
+            src={selectedBottle.images[0] || defaultBottleImage}
+            alt={`${selectedBottle.title} 图片`}
+          />
+          <p className={styles.detailContent}>{selectedBottle.content}</p>
+          <div className={styles.tags}>
+            {selectedBottle.tags.map((tag) => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </div>
+          <div className={styles.detailActions}>
+            <button type="button" onClick={() => showToast('已发送招呼')}>
+              <MessageOutline aria-hidden="true" />
+              打招呼
+            </button>
+            <button
+              type="button"
+              className={selectedBottle.isLiked ? styles.actionActive : ''}
+              onClick={() => handleToggleLike(selectedBottle.id)}
+            >
+              <HeartIcon filled={selectedBottle.isLiked} />
+              {selectedBottle.likes}
+            </button>
+            <button
+              type="button"
+              className={selectedBottle.isCollected ? styles.actionActive : ''}
+              onClick={() => handleToggleCollect(selectedBottle.id)}
+            >
+              <BookmarkIcon filled={selectedBottle.isCollected} />
+              {selectedBottle.isCollected ? '已收藏' : '收藏'}
+            </button>
+          </div>
+        </BaseBottomSheet>
       )}
 
       {addSheetOpen && (
-        <div className={styles.overlay} role="presentation">
-          <section
-            className={styles.createSheet}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="add-bottle-title"
-          >
-            <div className={styles.dragHandle} aria-hidden="true" />
+        <BaseBottomSheet
+          labelledBy="add-bottle-title"
+          closeLabel="关闭发布漂流瓶"
+          onClose={handleCloseAddSheet}
+          variant="tall"
+          className={styles.createSheetContent}
+        >
+          <h2 id="add-bottle-title">扔一个漂流瓶</h2>
+          <p className={styles.locationLine}>
+            内容将关联到：<strong>{destinationDisplayName}</strong>
+            <button type="button" onClick={() => showToast('更换地点稍后接入')}>
+              更换地点
+            </button>
+          </p>
+          <label className={styles.textareaWrap}>
+            <span className={styles.visuallyHidden}>漂流瓶内容</span>
+            <TextArea
+              value={messageText}
+              maxLength={maxContentLength + 20}
+              onChange={(value) => {
+                setMessageText(value)
+                setFormError('')
+              }}
+              placeholder="写下你的旅行故事、心情、攻略、求助..."
+              rows={7}
+              showCount={false}
+            />
+            <em>
+              {Math.min(formCount, maxContentLength)}/{maxContentLength}
+            </em>
+          </label>
+          <section className={styles.imageUploadBlock} aria-label="添加照片">
             <button
               type="button"
-              className={styles.closeButton}
-              onClick={handleCloseAddSheet}
-              aria-label="关闭发布漂流瓶"
+              className={styles.imageUploadPlaceholder}
+              onClick={handleImagePlaceholderClick}
             >
-              ×
+              <strong>＋</strong>
             </button>
-            <h2 id="add-bottle-title">扔一个漂流瓶</h2>
-            <p className={styles.locationLine}>
-              内容将关联到：<strong>{destinationDisplayName}</strong>
-              <button
-                type="button"
-                onClick={() => showToast('更换地点稍后接入')}
-              >
-                更换地点
-              </button>
-            </p>
-            <label className={styles.textareaWrap}>
-              <span className={styles.visuallyHidden}>漂流瓶内容</span>
-              <textarea
-                value={messageText}
-                maxLength={maxContentLength + 20}
-                onChange={(event) => {
-                  setMessageText(event.target.value)
-                  setFormError('')
-                }}
-                placeholder="写下你的旅行故事、心情、攻略、求助..."
-                rows={7}
-              />
-              <em>
-                {Math.min(formCount, maxContentLength)}/{maxContentLength}
-              </em>
-            </label>
-            <section className={styles.imageUploadBlock} aria-label="添加照片">
-              <button
-                type="button"
-                className={styles.imageUploadPlaceholder}
-                onClick={handleImagePlaceholderClick}
-              >
-                <strong>＋</strong>
-              </button>
-              <p>添加照片（最多9张）</p>
-              {imageUploadHint && (
-                <p className={styles.uploadHint}>{imageUploadHint}</p>
-              )}
-            </section>
-            <div className={styles.createTypeTitle}>瓶子类型</div>
-            <div className={styles.visibilityOptions}>
-              {bottleTypeOptions.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  className={
-                    selectedBottleType === option.value
-                      ? styles.visibilityOptionActive
-                      : styles.visibilityOption
-                  }
-                  onClick={() => setSelectedBottleType(option.value)}
-                >
-                  <span className={styles.visibilityGlyph}>
-                    <BottleGlyph />
-                  </span>
-                  <strong>{option.label}</strong>
-                  <small>{option.description}</small>
-                </button>
-              ))}
-            </div>
-            {formError && (
-              <p className={styles.formError} role="alert">
-                {formError}
-              </p>
+            <p>添加照片（最多9张）</p>
+            {imageUploadHint && (
+              <p className={styles.uploadHint}>{imageUploadHint}</p>
             )}
-            <button
-              className={styles.submitButton}
-              type="button"
-              onClick={handleSendBottle}
-              disabled={submitting}
-            >
-              <BottleGlyph />
-              {submitting ? '投递中...' : '扔出去'}
-            </button>
           </section>
-        </div>
+          <div className={styles.createTypeTitle}>瓶子类型</div>
+          <div className={styles.visibilityOptions}>
+            {bottleTypeOptions.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                className={
+                  selectedBottleType === option.value
+                    ? styles.visibilityOptionActive
+                    : styles.visibilityOption
+                }
+                onClick={() => setSelectedBottleType(option.value)}
+              >
+                <span className={styles.visibilityGlyph}>
+                  <BottleGlyph />
+                </span>
+                <strong>{option.label}</strong>
+                <small>{option.description}</small>
+              </button>
+            ))}
+          </div>
+          {formError && (
+            <p className={styles.formError} role="alert">
+              {formError}
+            </p>
+          )}
+          <button
+            className={styles.submitButton}
+            type="button"
+            onClick={handleSendBottle}
+            disabled={submitting}
+          >
+            <BottleGlyph />
+            {submitting ? '投递中...' : '扔出去'}
+          </button>
+        </BaseBottomSheet>
       )}
     </main>
   )

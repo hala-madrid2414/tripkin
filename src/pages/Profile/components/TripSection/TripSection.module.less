@@ -13,7 +13,7 @@
   align-items: center;
   gap: 6px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-title);
   color: var(--color-heading);
   margin: 0;
 }
@@ -23,7 +23,7 @@
   gap: 2px;
   border: 0;
   background: transparent;
-  font-size: 12px;
+  font-size: var(--font-caption);
   font-weight: 500;
   color: var(--color-brand-primary);
   font-family: inherit;
@@ -31,7 +31,7 @@
   -webkit-tap-highlight-color: transparent;
   padding: 4px 8px;
   margin: -4px -4px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   transition:
     color 0.15s,
     background 0.15s,
@@ -54,13 +54,13 @@
   align-items: center;
   gap: 4px;
   padding: 16px 6px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: var(--color-surface-glass);
   border: 1px solid var(--color-border);
 }
 .summaryValue {
   font-weight: 800;
-  font-size: 20px;
+  font-size: var(--font-heading);
   line-height: 1;
   color: var(--color-heading);
   overflow: hidden;
@@ -69,7 +69,7 @@
   max-width: 100%;
 }
 .summaryLabel {
-  font-size: 10.5px;
+  font-size: var(--font-micro);
   color: var(--color-muted);
   font-weight: 500;
 }
@@ -84,7 +84,7 @@
   align-items: center;
   gap: 12px;
   padding: 14px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: var(--color-surface-glass);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card-soft);
@@ -104,7 +104,7 @@
 }
 .tripStatusProgress {
   background: var(--color-brand-primary);
-  box-shadow: 0 0 8px rgba(184, 156, 255, 0.5);
+  box-shadow: 0 0 8px var(--color-brand-primary-line);
 }
 .tripStatusDone {
   background: var(--color-muted);
@@ -115,7 +115,7 @@
 }
 .tripTitle {
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-body);
   color: var(--color-heading);
   margin: 0;
   overflow: hidden;
@@ -123,7 +123,7 @@
   white-space: nowrap;
 }
 .tripMeta {
-  font-size: 11px;
+  font-size: var(--font-caption);
   color: var(--color-muted);
   margin: 2px 0 0;
   overflow: hidden;

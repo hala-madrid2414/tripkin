@@ -1,36 +1,36 @@
-/* ==========================================================================
-   Lavender Travel Journal — Profile
-   Travel Identity Center
-   ========================================================================== */
-
 .page {
   position: relative;
   width: 100%;
   max-width: 430px;
   min-height: 100svh;
   margin: 0 auto;
-  padding: calc(env(safe-area-inset-top) + 20px) 18px
+  padding: calc(env(safe-area-inset-top) + var(--space-5)) var(--space-page-x)
     calc(96px + env(safe-area-inset-bottom));
-  background:
-    radial-gradient(160% 60% at 90% 2%, #ede6ff, transparent 45%),
-    radial-gradient(140% 70% at 8% 96%, #f0ecff, transparent 50%), #f8f5ff;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-4);
   overflow-x: hidden;
+  background:
+    linear-gradient(120deg, var(--color-surface-glass-strong), transparent 36%),
+    radial-gradient(
+      circle at 296px 106px,
+      var(--color-brand-primary-faint),
+      transparent 0 86px
+    ),
+    linear-gradient(
+      180deg,
+      var(--color-surface-glass-strong) 0%,
+      var(--color-page-match) 46%,
+      var(--color-page) 100%
+    );
 }
 
-/* ==========================================================================
-   Glass card container
-   ========================================================================== */
 .glassCard {
-  background: var(--color-surface-glass);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid var(--color-border);
-  border-radius: 22px;
-  box-shadow: var(--shadow-card);
-  padding: 22px 18px;
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  background: var(--color-surface-solid);
+  box-shadow: var(--shadow-card-soft);
   animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -69,31 +69,41 @@
   animation-delay: 0.34s;
 }
 
-/* ==========================================================================
-   Empty state before MBTI result
-   ========================================================================== */
 .emptyState {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  padding: 48px 18px;
+  gap: var(--space-5);
+  padding: 48px var(--space-page-x);
   text-align: center;
 }
 .emptyEmoji {
-  font-size: 56px;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: var(--radius-xl);
+  background: var(--color-brand-primary-faint);
+  color: var(--color-brand-primary);
+  font-size: 34px;
   line-height: 1;
+  box-shadow: var(--shadow-card-soft);
+}
+
+.emptyEmoji svg {
+  width: 32px;
+  height: 32px;
 }
 .emptyTitle {
   font-weight: 700;
-  font-size: 20px;
+  font-size: var(--font-heading);
   color: var(--color-heading);
   margin: 0;
 }
 .emptyDesc {
-  font-size: 14px;
+  font-size: var(--font-body);
   color: var(--color-muted);
   line-height: 1.65;
   margin: 0;
@@ -106,16 +116,16 @@
   justify-content: center;
   width: 100%;
   max-width: 240px;
-  height: 48px;
-  padding: 0 22px;
-  border-radius: 24px;
+  min-height: var(--height-button);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
   border: 0;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-title);
   letter-spacing: 0.02em;
-  color: #fff;
-  background: linear-gradient(135deg, #cbb8ff, #b89cff);
-  box-shadow: 0 12px 28px -8px rgba(184, 156, 255, 0.5);
+  color: var(--color-surface-solid);
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
   cursor: pointer;
   transition:
     transform 0.18s,

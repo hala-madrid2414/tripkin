@@ -13,12 +13,12 @@
   align-items: center;
   gap: 6px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-title);
   color: var(--color-heading);
   margin: 0;
 }
 .sectionIcon {
-  font-size: 18px;
+  font-size: var(--font-title);
 }
 
 /* ---- stats (2-column) ---- */
@@ -33,7 +33,7 @@
   align-items: center;
   gap: 5px;
   padding: 16px 8px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: var(--color-surface-glass);
   border: 1px solid var(--color-border);
 }
@@ -49,21 +49,21 @@
 .statCardClickable:active {
   transform: scale(0.97);
   border-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 2px rgba(184, 156, 255, 0.12);
+  box-shadow: 0 0 0 2px var(--color-brand-primary-faint);
 }
 .statValue {
   font-weight: 800;
-  font-size: 22px;
+  font-size: var(--font-heading);
   line-height: 1;
   color: var(--color-heading);
 }
 .statLabel {
-  font-size: 11px;
+  font-size: var(--font-caption);
   color: var(--color-muted);
   font-weight: 500;
 }
 .statHint {
-  font-size: 10px;
+  font-size: var(--font-micro);
   color: var(--color-brand-primary);
   font-weight: 500;
   display: flex;
@@ -79,7 +79,7 @@
 
 .subtitle {
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--font-caption);
   color: var(--color-text);
   margin: 0;
 }
@@ -99,14 +99,14 @@
   flex: 0 0 auto;
   width: 32px;
   height: 32px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   display: grid;
   place-items: center;
-  font-size: 16px;
+  font-size: var(--font-title);
   background: linear-gradient(
     135deg,
-    rgba(184, 156, 255, 0.1),
-    rgba(220, 207, 255, 0.2)
+    var(--color-brand-primary-faint),
+    var(--color-brand-primary-faint)
   );
 }
 .barBody {
@@ -122,31 +122,31 @@
   gap: 6px;
 }
 .barName {
-  font-size: 12px;
+  font-size: var(--font-caption);
   font-weight: 600;
   color: var(--color-text);
 }
 .barMbti {
-  font-size: 10px;
+  font-size: var(--font-micro);
   color: var(--color-muted);
 }
 .barTrack {
   height: 6px;
   border-radius: 3px;
-  background: rgba(184, 156, 255, 0.1);
+  background: var(--color-brand-primary-faint);
   overflow: hidden;
 }
 .barFill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, #cbb8ff, #b89cff);
+  background: var(--gradient-primary);
   transition: width 0.5s ease;
 }
 .barCount {
   flex: 0 0 auto;
   width: 28px;
   text-align: right;
-  font-size: 11px;
+  font-size: var(--font-caption);
   font-weight: 600;
   color: var(--color-brand-primary);
 }
@@ -159,11 +159,11 @@
   width: 100%;
   height: 42px;
   margin-top: 2px;
-  border-radius: 14px;
-  border: 1px solid rgba(184, 156, 255, 0.28);
-  background: rgba(220, 207, 255, 0.22);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-brand-primary-line);
+  background: var(--color-brand-primary-faint);
   color: var(--color-brand-primary);
-  font-size: 13px;
+  font-size: var(--font-caption);
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -173,6 +173,6 @@
     transform 0.15s;
 }
 .cta:active {
-  background: rgba(220, 207, 255, 0.42);
+  background: var(--color-brand-primary-line);
   transform: scale(0.985);
 }

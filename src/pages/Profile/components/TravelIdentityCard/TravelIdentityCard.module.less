@@ -1,8 +1,3 @@
-/* ==========================================================================
-   TravelIdentityCard — Lavender soft UI
-   375px iPhone SE baseline
-   ========================================================================== */
-
 .card {
   display: flex;
   flex-direction: column;
@@ -12,7 +7,6 @@
   padding-top: 0;
 }
 
-/* ---- top strip: level badge left / edit btn right ---- */
 .topStrip {
   width: 100%;
   display: flex;
@@ -25,21 +19,19 @@
   align-items: center;
   gap: 5px;
   padding: 5px 14px;
-  border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    rgba(184, 156, 255, 0.22),
-    rgba(220, 207, 255, 0.38)
-  );
-  border: 1px solid rgba(184, 156, 255, 0.28);
-  color: var(--color-brand-primary);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-primary-faint);
+  border: 1px solid var(--color-brand-primary-line);
+  color: var(--color-brand-primary-strong);
+  font-size: var(--font-caption);
+  font-weight: 900;
+  letter-spacing: 0;
   white-space: nowrap;
 }
 .levelBadge svg {
   flex-shrink: 0;
+  width: 14px;
+  height: 14px;
 }
 
 .editBtn {
@@ -48,10 +40,10 @@
   height: 32px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--color-border);
-  background: var(--color-surface-glass);
-  color: var(--color-muted);
+  background: var(--color-surface-soft);
+  color: var(--color-brand-primary);
   cursor: pointer;
   transition:
     color 0.2s,
@@ -59,24 +51,27 @@
   -webkit-tap-highlight-color: transparent;
 }
 .editBtn svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 .editBtn:active {
   color: var(--color-brand-primary);
   border-color: var(--color-brand-primary);
 }
 
-/* ---- avatar ---- */
 .avatarWrap {
   width: 80px;
   height: 80px;
-  border-radius: 26px;
+  border-radius: var(--radius-xl);
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #f0ebff, #e8e0ff);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary-mist)
+  );
   border: 2px solid var(--color-border);
-  box-shadow: 0 10px 28px rgba(184, 156, 255, 0.2);
+  box-shadow: var(--shadow-card-soft);
   overflow: hidden;
 }
 .avatarWrap svg {
@@ -86,20 +81,21 @@
 .avatarPlaceholder {
   width: 80px;
   height: 80px;
-  border-radius: 26px;
+  border-radius: var(--radius-xl);
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #cbb8ff, #b89cff);
-  color: #fff;
-  font-size: 32px;
-  font-weight: 800;
-  box-shadow: 0 10px 28px rgba(184, 156, 255, 0.2);
+  background: var(--gradient-primary);
+  color: var(--color-surface-solid);
+  box-shadow: var(--shadow-card-soft);
+}
+.avatarPlaceholder svg {
+  width: 34px;
+  height: 34px;
 }
 
-/* ---- nickname ---- */
 .nickname {
   font-weight: 800;
-  font-size: 22px;
+  font-size: var(--font-heading);
   line-height: 1.25;
   color: var(--color-heading);
   margin: 0;
@@ -109,27 +105,26 @@
   white-space: nowrap;
 }
 
-/* ---- persona badge ---- */
 .personaBadge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   padding: 5px 14px;
-  border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    rgba(184, 156, 255, 0.16),
-    rgba(220, 207, 255, 0.28)
-  );
-  border: 1px solid rgba(184, 156, 255, 0.25);
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--color-brand-primary);
-  letter-spacing: 0.03em;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-primary-faint);
+  border: 1px solid var(--color-brand-primary-line);
+  font-size: var(--font-caption);
+  font-weight: 900;
+  color: var(--color-brand-primary-strong);
+  letter-spacing: 0;
   white-space: nowrap;
 }
 
-/* ---- exp bar ---- */
+.personaBadge svg {
+  width: 14px;
+  height: 14px;
+}
+
 .expWrap {
   width: 100%;
   display: flex;
@@ -142,30 +137,34 @@
   align-items: baseline;
 }
 .expLabel {
-  font-size: 10px;
+  font-size: var(--font-micro);
   font-weight: 700;
   color: var(--color-brand-primary);
   letter-spacing: 0.04em;
 }
 .expValue {
-  font-size: 10px;
+  font-size: var(--font-micro);
   font-weight: 500;
   color: var(--color-muted);
 }
 .expTrack {
   height: 6px;
   border-radius: 3px;
-  background: rgba(184, 156, 255, 0.12);
+  background: var(--color-brand-primary-faint);
   overflow: hidden;
 }
 .expFill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, #dccfff, #b89cff, #9b7fff);
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary),
+    var(--color-brand-primary-strong)
+  );
   transition: width 0.5s ease;
 }
 
-/* ---- slogan ---- */
 .slogan {
   width: 100%;
   font-size: 12.5px;
@@ -176,7 +175,6 @@
   opacity: 0.88;
 }
 
-/* ---- tags ---- */
 .tags {
   width: 100%;
   display: flex;
@@ -185,13 +183,13 @@
   gap: 6px;
 }
 .tag {
-  padding: 4px 13px;
-  border-radius: 13px;
-  background: rgba(220, 207, 255, 0.32);
-  border: 1px solid rgba(220, 207, 255, 0.5);
-  font-size: 11px;
-  color: var(--color-text);
-  font-weight: 500;
+  padding: 5px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-primary-faint);
+  border: 0;
+  font-size: var(--font-caption);
+  color: var(--color-brand-primary-strong);
+  font-weight: 800;
   line-height: 1.4;
   white-space: nowrap;
 }

@@ -13,30 +13,30 @@
   align-items: center;
   gap: 6px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-title);
   color: var(--color-heading);
   margin: 0;
 }
 .sectionIcon {
-  font-size: 18px;
+  font-size: var(--font-title);
 }
 .mbtiBadge {
   padding: 4px 12px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   background: linear-gradient(
     135deg,
-    rgba(184, 156, 255, 0.18),
-    rgba(220, 207, 255, 0.3)
+    var(--color-brand-primary-faint),
+    var(--color-brand-primary-line)
   );
-  border: 1px solid rgba(184, 156, 255, 0.28);
-  font-size: 12px;
+  border: 1px solid var(--color-brand-primary-line);
+  font-size: var(--font-caption);
   font-weight: 700;
   color: var(--color-brand-primary);
   letter-spacing: 0.06em;
 }
 
 .desc {
-  font-size: 13px;
+  font-size: var(--font-caption);
   line-height: 1.7;
   color: var(--color-text);
   margin: 0;
@@ -49,10 +49,10 @@
 }
 .traitChip {
   padding: 4px 12px;
-  border-radius: 14px;
-  background: rgba(220, 207, 255, 0.3);
-  border: 1px solid rgba(220, 207, 255, 0.5);
-  font-size: 11px;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-primary-line);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-caption);
   color: var(--color-text);
   font-weight: 500;
 }
@@ -64,7 +64,7 @@
 
 .indicesTitle {
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--font-caption);
   color: var(--color-text);
   margin: 0;
 }
@@ -82,7 +82,7 @@
 .indexLabel {
   flex: 0 0 auto;
   width: 56px;
-  font-size: 11px;
+  font-size: var(--font-caption);
   color: var(--color-muted);
   font-weight: 500;
   text-align: right;
@@ -91,19 +91,23 @@
   flex: 1 1 auto;
   height: 6px;
   border-radius: 3px;
-  background: rgba(184, 156, 255, 0.15);
+  background: var(--color-brand-primary-faint);
   overflow: hidden;
 }
 .indexFill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, #dccfff, #b89cff);
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary-soft),
+    var(--color-brand-primary)
+  );
   transition: width 0.5s ease;
 }
 .indexValue {
   flex: 0 0 auto;
   width: 28px;
-  font-size: 11px;
+  font-size: var(--font-caption);
   font-weight: 700;
   color: var(--color-brand-primary);
 }

@@ -36,7 +36,7 @@ npm install
 
 ### 公共骨架完成后的页面协作
 
-当前首页、MBTI 三段路由、四栏 `BottomNav` 和 `MbtiEntryModal` 公共骨架已经就绪。底部导航当前以 `首页 / 地图 / 匹配 / 我的` 为准；MBTI 作为页面内旅行人格入口，不再占用底部导航。后续底部导航将迁移到 `src/layouts/AppLayout/` 统一控制，页面负责人不应在页面内自行挂载全局底栏。后续页面负责人应优先在自己的页面目录内推进，不建议多人同时在各自页面里顺手修改公共文件。
+当前首页、MBTI 三段路由、四栏 `BottomNav` 和 `MbtiEntryModal` 公共骨架已经就绪。底部导航当前以 `首页 / 地图 / 匹配 / 我的` 为准；MBTI 作为页面内旅行人格入口，不再占用底部导航。底部导航由 `src/layouts/AppLayout/` 统一控制，页面负责人不应在页面内自行挂载全局底栏。后续页面负责人应优先在自己的页面目录内推进，不建议多人同时在各自页面里顺手修改公共文件。
 
 推荐流程：
 
@@ -50,7 +50,7 @@ npm install
 - `/mbti`、`/mbti/test`、`/mbti/result`。
 - `首页 / 地图 / 匹配 / 我的` 四栏 `BottomNav`。
 - `MbtiEntryModal`，用于明确的页面内 MBTI 入口需要先弹出引导时；它不属于 BottomNav 职责。
-- 底部导航 Layout 迁移规则见 `docs/navigation-layout-migration.md`；长期规则是只有 layout 决定 `BottomNav` 是否出现。
+- 底部导航长期规则是只有 `src/layouts/AppLayout/` 决定 `BottomNav` 是否出现。主 Tab 白名单为 `/`、`/map`、`/match`、`/profile`；`/mbti`、`/mbti/test`、`/mbti/result`、`/bottle` 不显示底部导航。
 
 页面负责人分工时，优先按目录拆开：
 

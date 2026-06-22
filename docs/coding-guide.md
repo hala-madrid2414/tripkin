@@ -51,7 +51,9 @@ PageName/
 
 Layout 负责跨路由的页面框架规则，例如是否显示底部导航、主 Tab 安全区、全局页面壳宽度和导航上下文传递。它不是普通可复用 UI，也不放页面业务内容。
 
-后续底部导航迁移后，只有 layout 能决定 `BottomNav` 是否出现；页面不直接 `import BottomNav`。`src/router` 只负责路由表，`src/components/BottomNav` 只负责导航 UI，`src/pages` 只负责具体页面内容。
+只有 layout 能决定 `BottomNav` 是否出现；页面不直接 `import BottomNav`。`src/router` 只负责路由表，`src/components/BottomNav` 只负责导航 UI，`src/pages` 只负责具体页面内容。
+
+底部主导航固定为 `首页 / 地图 / 匹配 / 我的`，主 Tab 白名单为 `/`、`/map`、`/match`、`/profile`。`/mbti`、`/mbti/test`、`/mbti/result`、`/bottle` 是流程页或内容分支，不显示底部导航。后续详情页、编辑页、结果页、发布页和沉浸式流程页默认也不显示底部导航，除非团队先更新 PRD 和决策记录。
 
 ### `src/components`
 
@@ -225,6 +227,8 @@ src/pages/Map/index.less
 使用时遵守 `docs/antd-mobile-usage-guide.md`：优先用它处理基础交互，不直接让默认组件视觉决定页面风格。
 
 除 `antd-mobile` 外，未经团队确认，不要自行安装或引入其他组件库。
+
+标准移动端交互可以优先使用 antd-mobile，例如 `Popup`、`Toast`、`Dialog`、`Tabs`、`Segmented`、`Picker`、`Selector`、`Input` 和 `TextArea`。页面的核心卡片、业务标签、主视觉、旅行人格头像、地图渲染和品牌符号仍由页面 CSS Modules 或业务组件自定义。
 
 ## 当前阶段立即执行项
 

@@ -1,0 +1,60 @@
+.popupBody {
+  width: min(100%, 430px);
+  margin: 0 auto;
+  background: transparent;
+}
+
+.popupBodyTall .sheet {
+  max-height: 92svh;
+  padding-bottom: calc(32px + env(safe-area-inset-bottom));
+}
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-height: 88svh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 10px 18px calc(24px + env(safe-area-inset-bottom));
+  background: var(--color-surface-solid);
+  box-shadow: var(--shadow-popup);
+}
+
+.dragHandle {
+  width: 42px;
+  height: 4px;
+  margin: 0 auto 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-border-strong);
+}
+
+.closeButton {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-heading);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.closeButton:active {
+  background: var(--color-surface-soft);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-brand-primary-line);
+  outline-offset: 2px;
+}
+
+.closeButton svg {
+  width: 19px;
+  height: 19px;
+}
