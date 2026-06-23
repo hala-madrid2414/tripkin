@@ -1,5 +1,6 @@
 .page {
   --bottom-nav-offset: calc(70px + env(safe-area-inset-bottom));
+  --map-panel-bottom-padding: calc(16px + var(--bottom-nav-offset));
 
   position: relative;
   width: 100%;
@@ -566,12 +567,12 @@
 .regionSummaryExpanded {
   position: fixed;
   z-index: 190;
-  left: 10px;
-  right: 10px;
-  bottom: var(--bottom-nav-offset);
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
-  border-radius: 20px 20px 0 0;
-  padding: 6px 18px 18px;
+  border-radius: 24px 24px 0 0;
+  padding: 6px 18px var(--map-panel-bottom-padding);
   pointer-events: auto;
   animation: slideUp 0.28s ease-out;
   transition:
@@ -580,12 +581,12 @@
 }
 
 .regionSummary {
-  min-height: 120px;
+  min-height: calc(120px + var(--bottom-nav-offset));
 }
 
 .regionSummaryExpanded {
-  height: min(72svh, 560px);
-  max-height: 72svh;
+  height: min(calc(72svh + var(--bottom-nav-offset)), 100svh);
+  max-height: min(calc(72svh + var(--bottom-nav-offset)), 100svh);
   overflow-y: auto;
 }
 
@@ -815,10 +816,10 @@
   z-index: 220;
   left: 0;
   right: 0;
-  bottom: var(--bottom-nav-offset);
+  bottom: 0;
   overflow: hidden;
-  border-radius: 24px;
-  padding: 6px 18px calc(16px + env(safe-area-inset-bottom));
+  border-radius: 24px 24px 0 0;
+  padding: 6px 18px var(--map-panel-bottom-padding);
   animation: slideUp 0.28s ease-out;
   transition:
     height 0.26s ease,
@@ -826,19 +827,16 @@
 }
 
 .bottomCard {
-  max-height: 52svh;
+  max-height: min(calc(52svh + var(--bottom-nav-offset)), 100svh);
 }
 
 .regionCardCompact {
-  left: 10px;
-  right: 10px;
-  height: 150px;
-  max-height: 150px;
-  border-radius: 18px 18px 0 0;
+  height: calc(150px + var(--bottom-nav-offset));
+  max-height: calc(150px + var(--bottom-nav-offset));
 }
 
 .regionCardDetail {
-  max-height: 52svh;
+  max-height: min(calc(52svh + var(--bottom-nav-offset)), 100svh);
 }
 
 .bottomCardExpanded {

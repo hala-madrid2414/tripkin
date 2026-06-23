@@ -38,7 +38,6 @@ interface BottomRegionCardProps {
   ) => void
   onHandlePointerCancel: (dragRef: SheetDragRef) => void
   onClose: () => void
-  onThrowBottle: (destinationId: string) => void
 }
 
 function BottomRegionCard({
@@ -53,7 +52,6 @@ function BottomRegionCard({
   onHandlePointerUp,
   onHandlePointerCancel,
   onClose,
-  onThrowBottle,
 }: BottomRegionCardProps) {
   const navigate = useNavigate()
   const setMode = useMatchStore((state) => state.setMode)
@@ -167,9 +165,6 @@ function BottomRegionCard({
       </dl>
 
       <div className={styles.cardActions}>
-        <button type="button" onClick={handleBottleLinkClick}>
-          查看漂流瓶
-        </button>
         <button type="button" onClick={() => handleMatchLinkClick('partner')}>
           查看旅行搭子
         </button>
@@ -181,10 +176,10 @@ function BottomRegionCard({
       <button
         type="button"
         className={styles.cardBottleAction}
-        onClick={() => onThrowBottle(region.id)}
+        onClick={handleBottleLinkClick}
       >
         <BottleIcon />
-        发布漂流瓶
+        去发布漂流瓶
       </button>
 
       {isFull && (

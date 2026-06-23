@@ -487,7 +487,6 @@ function Map() {
         onHandlePointerUp={finishSheetGesture}
         onHandlePointerCancel={cancelSheetGesture}
         onClose={() => dispatch({ type: 'reset' })}
-        onThrowBottle={handleThrowBottle}
       />
 
       <BottomSpotCard
