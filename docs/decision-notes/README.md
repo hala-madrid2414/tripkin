@@ -28,6 +28,20 @@
 
 ## 历史决策
 
+### 2026-07-02 Add persisted user asset store for frontend closure
+
+- Type: shared state / data access
+- Background: Product closure audit identified that Bottle and Match actions did
+  not accumulate in Profile, leaving user behavior without asset continuity.
+- Decision: Add `src/store/useUserAssetStore.ts` persisted under
+  `tripkin-user-assets-v1`, with `src/services/userAssetService.ts` as the
+  page-facing write boundary for created bottles, saves, likes, follows, trip
+  applications, companion invitations, and saved assets.
+- Impact: Bottle, Match, and Profile read/write the same Stage 1 frontend asset
+  source before Stage 2 server API migration.
+- Follow-up: Keep future user-asset writes behind `src/services`; migrate this
+  contract to `server/` API before adding database-backed persistence.
+
 ### 2026-07-02 Adopt staged MVP closure phase
 
 - Type: product scope / collaboration rule

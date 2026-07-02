@@ -92,10 +92,15 @@ function StatusBadge({ status }: { status: MockTrip['status'] }) {
 
 interface TripListPageProps {
   visible: boolean
+  trips?: (MockTrip & { distance?: string })[]
   onClose: () => void
 }
 
-export function TripListPage({ visible, onClose }: TripListPageProps) {
+export function TripListPage({
+  visible,
+  trips = MOCK_ALL_TRIPS,
+  onClose,
+}: TripListPageProps) {
   if (!visible) return null
 
   const content = (
@@ -114,25 +119,25 @@ export function TripListPage({ visible, onClose }: TripListPageProps) {
         <div className={styles.statsBar}>
           <div className={styles.statItem}>
             <strong className={styles.statNum}>
-              {MOCK_ALL_TRIPS.filter((t) => t.status === 'progress').length}
+              {trips.filter((t) => t.status === 'progress').length}
             </strong>
             <span className={styles.statText}>{'进行中'}</span>
           </div>
           <div className={styles.statItem}>
             <strong className={styles.statNum}>
-              {MOCK_ALL_TRIPS.filter((t) => t.status === 'done').length}
+              {trips.filter((t) => t.status === 'done').length}
             </strong>
             <span className={styles.statText}>{'已完成'}</span>
           </div>
           <div className={styles.statItem}>
-            <strong className={styles.statNum}>{MOCK_ALL_TRIPS.length}</strong>
+            <strong className={styles.statNum}>{trips.length}</strong>
             <span className={styles.statText}>{'全部行程'}</span>
           </div>
         </div>
 
         {/* ---- trip list ---- */}
         <div className={styles.body}>
-          {MOCK_ALL_TRIPS.map((trip, i) => (
+          {trips.map((trip, i) => (
             <article key={i} className={styles.card}>
               <span
                 className={`${styles.dot} ${trip.status === 'progress' ? styles.dotProgress : styles.dotDone}`}

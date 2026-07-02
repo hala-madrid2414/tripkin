@@ -20,7 +20,18 @@ function IconBack(): ReactElement {
 }
 
 /* ---- mock companion history ---- */
-const MOCK_COMPANION_HISTORY = [
+export interface CompanionHistoryItem {
+  id: number | string
+  name: string
+  avatarEmoji: string
+  mbti: string
+  persona: string
+  matchDate: string
+  tripTogether: string
+  status: string
+}
+
+const MOCK_COMPANION_HISTORY: CompanionHistoryItem[] = [
   {
     id: 1,
     name: '山间小鹿',
@@ -104,7 +115,7 @@ const MOCK_COMPANION_HISTORY = [
 ]
 
 function StatusBadge({ status }: { status: string }) {
-  const isActive = status === '同行中'
+  const isActive = status === '同行中' || status === '邀请中'
   return (
     <span
       className={`${styles.statusBadge} ${isActive ? styles.statusActive : styles.statusDone}`}
@@ -116,10 +127,15 @@ function StatusBadge({ status }: { status: string }) {
 
 interface CompanionHistoryProps {
   visible: boolean
+  items?: CompanionHistoryItem[]
   onClose: () => void
 }
 
-export function CompanionHistory({ visible, onClose }: CompanionHistoryProps) {
+export function CompanionHistory({
+  visible,
+  items = MOCK_COMPANION_HISTORY,
+  onClose,
+}: CompanionHistoryProps) {
   if (!visible) return null
 
   const content = (
@@ -137,26 +153,18 @@ export function CompanionHistory({ visible, onClose }: CompanionHistoryProps) {
         {/* ---- summary ---- */}
         <div className={styles.summary}>
           <div className={styles.summaryItem}>
-            <strong className={styles.summaryValue}>
-              {MOCK_COMPANION_HISTORY.length}
-            </strong>
+            <strong className={styles.summaryValue}>{items.length}</strong>
             <span className={styles.summaryLabel}>{'历史搭子'}</span>
           </div>
           <div className={styles.summaryItem}>
             <strong className={styles.summaryValue}>
-              {
-                MOCK_COMPANION_HISTORY.filter((c) => c.status === '同行中')
-                  .length
-              }
+              {items.filter((c) => c.status === '同行中').length}
             </strong>
             <span className={styles.summaryLabel}>{'同行中'}</span>
           </div>
           <div className={styles.summaryItem}>
             <strong className={styles.summaryValue}>
-              {
-                MOCK_COMPANION_HISTORY.filter((c) => c.status === '已完成')
-                  .length
-              }
+              {items.filter((c) => c.status === '已完成').length}
             </strong>
             <span className={styles.summaryLabel}>{'已完成'}</span>
           </div>
@@ -165,7 +173,7 @@ export function CompanionHistory({ visible, onClose }: CompanionHistoryProps) {
         {/* ---- list ---- */}
         <div className={styles.body}>
           <div className={styles.list}>
-            {MOCK_COMPANION_HISTORY.map((item) => (
+            {items.map((item) => (
               <article key={item.id} className={styles.card}>
                 <span className={styles.cardEmoji}>{item.avatarEmoji}</span>
                 <div className={styles.cardInfo}>

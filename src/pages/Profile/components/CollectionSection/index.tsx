@@ -7,11 +7,17 @@ import {
   favoriteDestinations,
   favoriteBottles,
   favoriteCompanions,
+  type MockFavoriteBottle,
+  type MockFavoriteCompanion,
+  type MockFavoriteDestination,
 } from '../../mockFavorites'
 import styles from './CollectionSection.module.less'
 
 interface CollectionSectionProps {
   collectionStats: MockCollectionStats
+  destinationItems?: MockFavoriteDestination[]
+  bottleItems?: MockFavoriteBottle[]
+  companionItems?: MockFavoriteCompanion[]
 }
 
 const PAGE_MAP: Record<string, string> = {
@@ -20,7 +26,12 @@ const PAGE_MAP: Record<string, string> = {
   搭子: 'companions',
 }
 
-export function CollectionSection({ collectionStats }: CollectionSectionProps) {
+export function CollectionSection({
+  collectionStats,
+  destinationItems = favoriteDestinations,
+  bottleItems = favoriteBottles,
+  companionItems = favoriteCompanions,
+}: CollectionSectionProps) {
   const [openPage, setOpenPage] = useState<string | null>(null)
 
   const handleClick = (label: string) => {
@@ -59,17 +70,17 @@ export function CollectionSection({ collectionStats }: CollectionSectionProps) {
 
       <FavoriteDestinationsPage
         visible={openPage === 'destinations'}
-        items={favoriteDestinations}
+        items={destinationItems}
         onClose={() => setOpenPage(null)}
       />
       <FavoriteBottlesPage
         visible={openPage === 'bottles'}
-        items={favoriteBottles}
+        items={bottleItems}
         onClose={() => setOpenPage(null)}
       />
       <FavoriteCompanionsPage
         visible={openPage === 'companions'}
-        items={favoriteCompanions}
+        items={companionItems}
         onClose={() => setOpenPage(null)}
       />
     </section>

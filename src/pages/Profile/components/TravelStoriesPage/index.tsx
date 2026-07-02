@@ -108,19 +108,21 @@ function EmptyState({ tabKey }: { tabKey: TabKey }) {
 
 interface TravelStoriesPageProps {
   visible: boolean
+  stories?: MockStory[]
   onClose: () => void
 }
 
 export function TravelStoriesPage({
   visible,
+  stories = MOCK_STORIES,
   onClose,
 }: TravelStoriesPageProps) {
   const [activeTab, setActiveTab] = useState<TabKey>('all')
 
   const filteredStories = useMemo(() => {
-    if (activeTab === 'all') return MOCK_STORIES
-    return MOCK_STORIES.filter((s) => s.category === activeTab)
-  }, [activeTab])
+    if (activeTab === 'all') return stories
+    return stories.filter((s) => s.category === activeTab)
+  }, [activeTab, stories])
 
   if (!visible) return null
 

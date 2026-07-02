@@ -67,7 +67,11 @@ export function TripSection({ tripStats }: TripSectionProps) {
         ))}
       </div>
 
-      <TripListPage visible={tripsOpen} onClose={() => setTripsOpen(false)} />
+      <TripListPage
+        visible={tripsOpen}
+        trips={tripStats.recentTrips}
+        onClose={() => setTripsOpen(false)}
+      />
     </section>
   )
 }

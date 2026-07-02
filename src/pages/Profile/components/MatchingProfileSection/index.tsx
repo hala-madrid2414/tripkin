@@ -2,10 +2,12 @@
 import { useNavigate } from 'react-router-dom'
 import type { MockMatchingProfile } from '../../mock'
 import { CompanionHistory } from '../CompanionHistory'
+import type { CompanionHistoryItem } from '../CompanionHistory'
 import styles from './MatchingProfileSection.module.less'
 
 interface MatchingProfileSectionProps {
   matchingProfile: MockMatchingProfile
+  companionHistoryItems: CompanionHistoryItem[]
 }
 
 function BarChart({
@@ -44,6 +46,7 @@ function BarChart({
 
 export function MatchingProfileSection({
   matchingProfile,
+  companionHistoryItems,
 }: MatchingProfileSectionProps) {
   const navigate = useNavigate()
   const [historyOpen, setHistoryOpen] = useState(false)
@@ -95,6 +98,7 @@ export function MatchingProfileSection({
 
       <CompanionHistory
         visible={historyOpen}
+        items={companionHistoryItems}
         onClose={() => setHistoryOpen(false)}
       />
     </section>
